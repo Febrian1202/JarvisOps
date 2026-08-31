@@ -4,7 +4,7 @@
 
 **Version:** 1.2
 **Database:** MySQL
-**Sumber:** `docs/product/PRD.md` (PRD v1.0 + Addendum v1.1), diselaraskan dengan `docs/schema.sql`
+**Sumber:** `docs/product/PRD.md` (PRD v1.0 + Addendum v1.1), `docs/schema.sql`, `DECISIONS.md` Bagian A
 **Dokumen terkait:** `docs/architecture/CONTEXT-DIAGRAM.md`, `docs/architecture/DFD.md`
 
 ---

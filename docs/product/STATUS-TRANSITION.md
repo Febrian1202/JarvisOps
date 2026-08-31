@@ -1,7 +1,7 @@
 # JARVIS OPS — TICKET STATUS TRANSITION
 
 **Version:** 1.0
-**Basis:** PRD §10, §11, §12, §31; Addendum §7
+**Basis:** PRD §10, §11, §12, §31; Addendum §7; `DECISIONS.md` Bagian A & B
 **Implementasi:** `App\Services\TicketStatusService`
 
 ---
@@ -69,7 +69,7 @@ Keterangan:
 
 Alasan: PRD §5 memberi Technician kemampuan "Update Assigned Ticket" tapi tidak memberinya "Assign Technician". Kalau self-assign dilarang sepenuhnya, seluruh ticket akan macet menunggu Manager, padahal dalam praktik tim IT kecil technician biasanya mengambil pekerjaan sendiri. Ini melonggarkan §5 PRD secara sadar, dan tidak melanggar BR-004 karena BR-004 mengatur *menugaskan orang lain*, bukan mengambil pekerjaan sendiri.
 
-Kalau Anda ingin lebih ketat pada §5 PRD, hapus `T*` dari sel ini — tidak ada bagian lain yang bergantung padanya.
+Keputusan ini telah dikunci (lihat `docs/adr/DECISIONS.md` D-19). `T*` tetap diizinkan pada status `OPEN`.
 
 ### 4.2 `OPEN → RESOLVED` dan `ASSIGNED → RESOLVED`
 
@@ -270,8 +270,8 @@ Satu test per baris. Dijalankan dengan Pest, memakai dataset provider untuk komb
 
 ### Otorisasi
 
-- [ ] Employee bukan reporter mengubah status → 403
-- [ ] Employee assign technician → 403 (BR-004)
+- [ ] Employee bukan reporter mengubah status → 404 (Sesuai D-17, policy didahulukan dan menyembunyikan resource)
+- [ ] Employee assign technician → 404 jika bukan tiketnya, 403 jika miliknya (BR-004)
 - [ ] Technician memproses ticket orang lain → 403 (BR-005)
 - [ ] Technician menutup ticket dari `RESOLVED` → 403 (§4.5)
 - [ ] Technician unassign dirinya sendiri → 403

@@ -4,8 +4,8 @@
 
 ### IT Service Management System
 
-**Version:** 1.0
-**Status:** Draft
+**Version:** 1.1
+**Status:** Approved — Basis Implementasi
 **Product Type:** Web Application
 **Frontend:** Next.js
 **Backend:** Laravel
@@ -878,7 +878,7 @@ Aktivitas penting dicatat dalam audit log.
 
 ## NFR-001 Performance
 
-API utama harus memberikan response secara cepat pada kondisi normal.
+API utama (list, detail, aksi) harus memberikan response < 200 ms pada kondisi normal. Endpoint agregasi dashboard harus selesai < 500 ms dengan volume data standar.
 
 ## NFR-002 Security
 
@@ -1156,25 +1156,41 @@ Untuk capstone, fitur berikut ditetapkan sebagai **MVP wajib**:
 - Notification
 - Audit Log
 
-### Should Have
+### Must Have (MVP)
 
-- File attachment
+- Role-based authorization
+- Employee management
+- Ticket management
+- Ticket assignment
+- Ticket workflow
+- Comments
+- Ticket history
+- Priority
+- Category
+- SLA calculation
+- Asset management
+- Knowledge Base
+- Dashboard
+- Search
+- Filtering
+- Pagination
+- Notification (In-App via database)
+- Audit Log
+- File attachment (Private storage, controller-gated)
 - Technician performance analytics
-- Export report
-- Email notification
+
+### Should Have (Fase 10 / Pasca MVP)
+
+- Export report (CSV/PDF)
 - Advanced filtering
-
-### Could Have
-
 - Dark mode
 - User avatar
 - Saved filters
-- Advanced reporting
-- Knowledge article recommendation
 
 ### Won't Have in MVP
 
-- Real-time chat
+- Email / SMTP notification
+- Real-time chat / WebSocket
 - Mobile native application
 - AI chatbot
 - Payroll
@@ -1277,34 +1293,9 @@ High-level architecture:
 
 # 36. Development Strategy
 
-Project development dibagi menjadi beberapa fase.
+> **Catatan Otoritas:** Rencana fase pada bagian ini telah disempurnakan dan digantikan secara definitif oleh `docs/product/ROADMAP.md` (10 Fase terstruktur). Jadwal, deliverable, dan exit criteria wajib mengacu pada dokumen Roadmap.
 
-## Phase 1 — Planning
-
-- Finalize PRD
-- User flow
-- ERD
-- API design
-- UI wireframe
-
-## Phase 2 — Backend Foundation
-
-- Laravel project
-- Database
-- Authentication
-- Role & permission
-- API structure
-
-## Phase 3 — Ticket Management
-
-- Ticket CRUD
-- Assignment
-- Status workflow
-- Comment
-- History
-- SLA
-
-## Phase 4 — Asset Management
+Project development dibagi menjadi 10 fase (lihat `docs/product/ROADMAP.md`).
 
 - Asset CRUD
 - Assignment
@@ -2004,21 +1995,13 @@ Approval oleh Manager/Admin dapat ditambahkan apabila sistem dikembangkan ke pro
 
 MVP menggunakan Laravel Storage bawaan.
 
-Development:
+Development & Production:
 
 ```text
-local / public storage
+private disk (storage/app/private atau storage/app)
 ```
 
-Production dapat menggunakan object storage seperti:
-
-```text
-Amazon S3
-Cloudflare R2
-MinIO
-```
-
-Object storage bukan requirement MVP.
+File **tidak pernah** diletakkan di `public storage` atau symlink web server. Akses file wajib melalui controller terautentikasi (`GET /api/attachments/{id}/download`) yang memeriksa hak akses ticket induknya.
 
 ---
 

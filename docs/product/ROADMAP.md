@@ -1,7 +1,7 @@
 # JARVIS OPS — DEVELOPMENT ROADMAP
 
 **Version:** 1.0
-**Basis:** PRD v1.0 + Addendum v1.1, ERD v1.2 (`docs/schema.sql`), `docs/architecture/ERD.md`, `docs/architecture/DFD.md`, `docs/architecture/CONTEXT-DIAGRAM.md`
+**Basis:** PRD v1.0 + Addendum v1.1, `docs/adr/DECISIONS.md`, ERD v1.2 (`docs/schema.sql`), `docs/architecture/ERD.md`, `docs/architecture/DFD.md`, `docs/architecture/CONTEXT-DIAGRAM.md`
 **Durasi:** 7 minggu kerja + 1 minggu buffer (full-time)
 **Status:** Approved — siap dieksekusi
 
@@ -107,7 +107,7 @@ Menyiapkan satu perintah yang menjalankan seluruh stack, sehingga tidak ada wakt
 - [ ] `tests/Pest.php`: bind `Tests\TestCase` dan `RefreshDatabase` ke `tests/Feature`
 - [ ] Hapus `tests/Feature/ExampleTest.php` dan `tests/Unit/ExampleTest.php`, ganti dengan satu smoke test Pest
 - [ ] Konfirmasi `php artisan test` hijau lewat runner Pest
-- [ ] `.env`: `DB_CONNECTION=mysql`, `DB_DATABASE=jarvisops`; hapus `database/database.sqlite` dari repo
+- [ ] `.env`: `DB_CONNECTION=mysql`, `DB_DATABASE=JarvisOps`; hapus `database/database.sqlite` dari repo
 - [ ] Pint: pastikan `composer exec pint -- --test` bersih
 
 ### Docker Compose (development)
@@ -136,7 +136,7 @@ FrankenPHP dipakai dalam **classic mode** (satu request satu proses, seperti PHP
 ## Exit criteria
 
 - [ ] `make up` menyalakan seluruh service tanpa error
-- [ ] `GET http://localhost:8000/api/health` → `200` dengan body JSON
+- [ ] `GET http://localhost:8000/up` → `200` dengan body JSON (atau HTML OK untuk Fase 0)
 - [ ] `http://localhost:3000` menampilkan halaman Next.js
 - [ ] `make migrate` berhasil terhadap MySQL di container
 - [ ] `make test` menjalankan Pest dan hijau

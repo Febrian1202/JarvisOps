@@ -1,7 +1,7 @@
 # JARVIS OPS — PERMISSION MATRIX
 
 **Version:** 1.0
-**Basis:** PRD §5, Addendum §5.2
+**Basis:** PRD §5, Addendum §5.2, `DECISIONS.md` Bagian B
 **Implementasi:** Laravel Gate + Policy berbasis kolom `users.role_id`
 
 ---
@@ -54,6 +54,8 @@ Diimplementasikan dengan `Gate::before` untuk Admin saja:
 ```php
 Gate::before(fn ($user) => $user->isAdmin() ? true : null);
 ```
+
+**Pengecualian:** (Sesuai `DECISIONS.md` D-16) Admin tetap terikat aturan bisnis protektif pada level controller/policy: tidak bisa lock-out diri sendiri, tidak bisa buka tiket CLOSED, notifikasi terisolasi.
 
 Manager tidak memakai `Gate::before` karena ada hal yang justru **tidak boleh** dilakukan Manager — mengakses audit log penuh, misalnya. Membuat Manager lolos semua gate akan menghapus batas itu.
 
@@ -128,9 +130,9 @@ Notasi:
 | `changeStatus` | ✅ own terbatas | ✅ assigned | ✅ | ✅ | Aturan penuh di `STATUS-TRANSITION.md` |
 | `selfAssign` | ❌ | ✅ | ❌ | ❌ | Hanya dari status `OPEN` |
 | `changePriority` | ❌ | ✅ | ✅ | ✅ | §5 PRD |
-| `comment` | ✅ own | ✅ | ✅ | ✅ | Partisipan saja |
+| `comment` | ✅ own | ✅ assigned | ✅ | ✅ | Partisipan saja (D-19) |
 | `viewHistory` | ✅ own | ✅ | ✅ | ✅ | Mengikuti `view` |
-| `attach` | ✅ own | ✅ | ✅ | ✅ | Partisipan saja |
+| `attach` | ✅ own | ✅ assigned | ✅ | ✅ | Partisipan saja (D-19) |
 
 Definisi **partisipan** ticket: reporter, technician yang di-assign, Manager mana pun, Admin mana pun.
 
@@ -316,7 +318,7 @@ Aturan seragam: kalau **keberadaan** resource itu sendiri merupakan informasi ya
 | --- | --- |
 | Employee membuka ticket milik orang lain | 404 |
 | Employee mencoba assign technician pada ticket miliknya | 403 |
-| Technician mengubah status ticket orang lain | 403 |
+| Technician mencoba mengubah status ticket orang lain | 403 (Sesuai D-17, policy mendahului) |
 | Employee membuka artikel draft | 404 |
 | User membuka notifikasi orang lain | 404 |
 | Employee mengunduh attachment dari ticket orang lain | 404 |

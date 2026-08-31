@@ -3,7 +3,7 @@
 **Version:** 1.0
 **Base URL:** `/api`
 **Auth:** Laravel Sanctum, header `Authorization: Bearer <token>`
-**Basis:** PRD §29, NFR-005, NFR-006
+**Basis:** PRD §29, NFR-005, NFR-006, `DECISIONS.md` Bagian C
 
 ---
 
@@ -208,9 +208,9 @@ Mencabut token yang sedang dipakai. Respons `200`, `data: null`.
 { "current_password": "old", "password": "new", "password_confirmation": "new" }
 ```
 
-### `GET /api/health`
+### `GET /up`
 
-Tanpa auth. Untuk healthcheck container.
+Tanpa auth. Endpoint bawaan Laravel 11/13 untuk healthcheck container.
 
 ---
 
@@ -226,7 +226,7 @@ Scoping otomatis: Employee hanya melihat ticket dengan `reporter_id` miliknya. T
 | `status_id` | Satu ID atau daftar dipisah koma |
 | `priority_id` | Idem |
 | `category_id` | Idem |
-| `technician_id` | ID, atau `unassigned` untuk yang belum di-assign |
+| `technician_id` | ID, atau `unassigned` untuk yang belum di-assign. Tidak boleh dikirim lewat body PUT (D-18). |
 | `reporter_id` | Diabaikan untuk Employee (selalu dirinya sendiri) |
 | `department_id` | |
 | `asset_id` | |
@@ -314,9 +314,9 @@ Ticket lengkap: seluruh atribut, relasi (status, priority, category, reporter, t
 
 ### `PUT /api/tickets/{id}`
 
-Field yang boleh diubah tergantung role. Employee hanya bisa mengubah `title` dan `description` selama ticket belum `CLOSED` (BR-009). Technician/Manager/Admin juga bisa mengubah `category_id` dan `priority_id`.
+Field yang boleh diubah tergantung role. Employee hanya bisa mengubah `title` dan `description` selama ticket belum `CLOSED` (BR-009). Technician/Manager/Admin tidak dapat mengedit isi tiket yang telah `CLOSED`. Mereka juga bisa mengubah `category_id`.
 
-Mengubah `priority_id` menghitung ulang `sla_deadline` dari `created_at` dengan durasi baru, dan perubahannya dicatat di history.
+(`priority_id` dan `status_id` harus diubah via endpoint khusus untuk menjaga log dan locking, lihat D-18).
 
 ### `DELETE /api/tickets/{id}`
 
@@ -733,18 +733,21 @@ Respons `429` menyertakan header `Retry-After`.
 
 ## 13. Yang Tidak Boleh Dipercaya Dari Client
 
-Daftar ini adalah inti NFR-002 dan Addendum §8. Nilai berikut **selalu** ditentukan server, dan diabaikan bila dikirim client:
+Daftar ini adalah inti NFR-002 dan Addendum §8. Nilai berikut **selalu** ditentukan server, dan diabaikan bila dikirim client (atau ditolak dengan 422 jika perlu proteksi ketat):
 
 - `reporter_id` — dari user terautentikasi (BR-001)
-- `status_id` saat create — selalu `OPEN` (BR-002)
+- `status_id` — pada create selalu `OPEN` (BR-002). Pada update tidak boleh dari payload `PUT /tickets/{id}`, harus via endpoint khusus.
+- `technician_id` — ditentukan via endpoint `/assign` atau transisi self-assign.
 - `ticket_number` — digenerate server
 - `sla_duration_minutes`, `sla_deadline`, `sla_breached`, `sla_breached_at`
 - `resolved_at`, `closed_at`
+- `slug` artikel — digenerate dari title, immutable.
 - `uploaded_by`, `stored_filename`, `storage_path`, `file_size`, `mime_type`
-- `user_id` pada notifikasi dan audit log
+- `user_id` pada notifikasi, audit log, komentar, history
 - `author_id` pada artikel
 - `view_count`
 - `role_id` milik diri sendiri — user tidak bisa menaikkan role-nya
+- `status` user — tidak boleh memotong flow aktivasi
 - Kelayakan `asset_id` — diverifikasi ulang terhadap assignment reporter (BR-014)
 
 Frontend bukan sumber kebenaran untuk permission, SLA, kepemilikan asset, kepemilikan ticket, maupun business rule apa pun.

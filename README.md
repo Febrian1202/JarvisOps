@@ -127,6 +127,7 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 | [`docs/product/STATUS-TRANSITION.md`](docs/product/STATUS-TRANSITION.md) | Transisi status yang legal beserta efek sampingnya | Sebelum menyentuh workflow ticket |
 | [`docs/product/PERMISSION-MATRIX.md`](docs/product/PERMISSION-MATRIX.md) | Ability per role, pemetaan endpoint | Sebelum menulis Policy |
 | [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md) | Rencana eksekusi 10 fase beserta exit criteria | Setiap hari selama pengerjaan |
+| [`docs/adr/DECISIONS.md`](docs/adr/DECISIONS.md) | Catatan keputusan teknis yang menutup gap pada dokumen desain | Saat menulis migration, policy, dan API controller |
 
 ---
 
@@ -178,7 +179,7 @@ make seed        # data referensi + akun demo
 | --- | --- |
 | Frontend | http://localhost:3000 |
 | API | http://localhost:8000/api |
-| Health check | http://localhost:8000/api/health |
+| Health check | http://localhost:8000/up |
 
 Container `scheduler` berjalan terpisah dari container web. Ini bukan pilihan gaya: FrankenPHP hanya melayani HTTP, jadi tanpa container tersebut pemeriksaan SLA tiap 5 menit tidak akan pernah jalan.
 
