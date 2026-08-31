@@ -1,0 +1,961 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net" version="24.7.17" type="device">
+  <diagram id="dfd-level-1" name="DFD Level 1">
+    <mxGraphModel dx="2400" dy="1800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2600" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title_l1" value="&lt;b&gt;DATA FLOW DIAGRAM (DFD) LEVEL 1&lt;/b&gt;&lt;br&gt;JARVIS OPS — IT Service Management System" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;spacingTop=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="950" y="30" width="700" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="E_EMP" value="Employee" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="E_TECH" value="Technician" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="720" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="E_MGR" value="Manager" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1200" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="E_ADM" value="Administrator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1640" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="E_SCH" value="Scheduler&lt;br&gt;&lt;span style=&quot;font-size:11px;font-weight:normal;&quot;&gt;(5 Min Interval)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;dashed=1;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="2340" y="680" width="180" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="P1" value="1.0&lt;br&gt;Authentication &amp;&lt;br&gt;Authorization" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="480" y="220" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="P2" value="2.0&lt;br&gt;User &amp; Master&lt;br&gt;Data Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="480" y="1620" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3" value="3.0&lt;br&gt;Ticket&lt;br&gt;Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="540" width="180" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4" value="4.0&lt;br&gt;SLA&lt;br&gt;Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1920" y="660" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5" value="5.0&lt;br&gt;Asset&lt;br&gt;Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="1060" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="P6" value="6.0&lt;br&gt;Knowledge Base&lt;br&gt;Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="480" y="940" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="P7" value="7.0&lt;br&gt;Notification&lt;br&gt;Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="420" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="P8" value="8.0&lt;br&gt;Dashboard &amp;&lt;br&gt;Analytics" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="1200" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="P9" value="9.0&lt;br&gt;Audit&lt;br&gt;Logging" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1920" y="1460" width="170" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="D1" value="D1 Users &amp; Profiles" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="220" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D2" value="D2 Roles &amp; Departments" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="310" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D3" value="D3 Ticket Master" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="400" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D4" value="D4 Tickets" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="700" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D5" value="D5 Ticket Detail" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="800" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D6" value="D6 Assets &amp; Assignments" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="1240" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D7" value="D7 Knowledge Base" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="480" y="1200" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D8" value="D8 Notifications" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1880" y="420" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D9" value="D9 Audit Logs" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="2260" y="1485" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="D10" value="D10 File Storage" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="920" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p1" edge="1" parent="1" source="E_EMP" target="P1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Credential">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p1" edge="1" parent="1" source="E_TECH" target="P1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Credential">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p1" edge="1" parent="1" source="E_MGR" target="P1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Credential">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p1" edge="1" parent="1" source="E_ADM" target="P1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Credential">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_d1_r" edge="1" parent="1" source="P1" target="D1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Verifikasi email &amp; hash">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d1_p1" edge="1" parent="1" source="D1" target="P1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data user, status aktif">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_d2" edge="1" parent="1" source="P1" target="D2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Role &amp; permission">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_d1_u" edge="1" parent="1" source="P1" target="D1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Update last_login_at">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_emp" edge="1" parent="1" source="P1" target="E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Auth token / sesi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_tech" edge="1" parent="1" source="P1" target="E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Auth token / sesi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_mgr" edge="1" parent="1" source="P1" target="E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Auth token / sesi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_adm" edge="1" parent="1" source="P1" target="E_ADM" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Auth token / sesi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p1_p9" edge="1" parent="1" source="P1" target="P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event login/logout">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p2" edge="1" parent="1" source="E_ADM" target="P2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data user, role, dept, master ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p2_d1" edge="1" parent="1" source="P2" target="D1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan user &amp; profil">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p2_d2" edge="1" parent="1" source="P2" target="D2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan role &amp; dept">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p2_d3" edge="1" parent="1" source="P2" target="D3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan category, priority, status">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d3_p2" edge="1" parent="1" source="D3" target="P2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Master data">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p2_adm" edge="1" parent="1" source="P2" target="E_ADM" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Konfirmasi &amp; daftar master data">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p2_p9" edge="1" parent="1" source="P2" target="P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event konfigurasi master data">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p3" edge="1" parent="1" source="E_EMP" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Create ticket, comment, attachment, resolve confirm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p3" edge="1" parent="1" source="E_TECH" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Update status, notes, attachment, priority change">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p3" edge="1" parent="1" source="E_MGR" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Assign technician, override priority">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_d4" edge="1" parent="1" source="P3" target="D4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan / update ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p3" edge="1" parent="1" source="D4" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_d5" edge="1" parent="1" source="P3" target="D5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Comment, attachment meta, history">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d5_p3" edge="1" parent="1" source="D5" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Detail ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_d10" edge="1" parent="1" source="P3" target="D10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan file">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d3_p3" edge="1" parent="1" source="D3" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Category, priority, status, SLA min">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_p5" edge="1" parent="1" source="P3" target="P5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Validasi asset milik reporter">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p5_p3" edge="1" parent="1" source="P5" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Asset valid / invalid">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_p4" edge="1" parent="1" source="P3" target="P4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Req calculate SLA deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_p3" edge="1" parent="1" source="P4" target="P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="SLA duration &amp; deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_p7" edge="1" parent="1" source="P3" target="P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event ticket status/assign/comment/resolve">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_p9" edge="1" parent="1" source="P3" target="P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event ticket activity">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_emp" edge="1" parent="1" source="P3" target="E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Nomor ticket, status, detail, history">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_tech" edge="1" parent="1" source="P3" target="E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Assigned tickets, detail, attachments">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_mgr" edge="1" parent="1" source="P3" target="E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="All tickets, monitoring status">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_sch_p4" edge="1" parent="1" source="E_SCH" target="P4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;dashed=1;endArrow=block;endFill=1;" value="Trigger 5 menit">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_d4_r" edge="1" parent="1" source="P4" target="D4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Baca ticket aktif &amp; deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_d4_u" edge="1" parent="1" source="P4" target="D4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Set sla_breached, breached_at">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_p7" edge="1" parent="1" source="P4" target="P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event SLA breached">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_p9" edge="1" parent="1" source="P4" target="P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Log SLA breach">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_sch" edge="1" parent="1" source="P4" target="E_SCH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;dashed=1;endArrow=block;endFill=1;" value="Ringkasan hasil job">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p5" edge="1" parent="1" source="E_TECH" target="P5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data asset &amp; assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p5" edge="1" parent="1" source="E_ADM" target="P5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data asset &amp; assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p5_d6" edge="1" parent="1" source="P5" target="D6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan asset, assignment, history">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d6_p5" edge="1" parent="1" source="D6" target="P5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data asset &amp; assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d1_p5" edge="1" parent="1" source="D1" target="P5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data user / pemilik">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p5_emp" edge="1" parent="1" source="P5" target="E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar asset milik sendiri">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p5_tech" edge="1" parent="1" source="P5" target="E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar asset &amp; riwayat">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p5_p9" edge="1" parent="1" source="P5" target="P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event perubahan asset">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p6" edge="1" parent="1" source="E_TECH" target="P6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Draft, edit, publish artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p6" edge="1" parent="1" source="E_MGR" target="P6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Edit, unpublish, delete artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p6" edge="1" parent="1" source="E_ADM" target="P6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Kelola artikel &amp; kategori">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p6" edge="1" parent="1" source="E_EMP" target="P6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Search keyword &amp; filter">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p6_d7" edge="1" parent="1" source="P6" target="D7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan artikel &amp; kategori">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d7_p6" edge="1" parent="1" source="D7" target="P6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Artikel &amp; kategori">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p6_emp" edge="1" parent="1" source="P6" target="E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Artikel published &amp; hasil search">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p6_tech" edge="1" parent="1" source="P6" target="E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar artikel &amp; view count">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p6_p9" edge="1" parent="1" source="P6" target="P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event perubahan artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p7_d8" edge="1" parent="1" source="P7" target="D8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan notifikasi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d8_p7" edge="1" parent="1" source="D8" target="P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Notifikasi unread">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p7" edge="1" parent="1" source="E_EMP" target="P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Polling 30s &amp; mark read">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p7" edge="1" parent="1" source="E_TECH" target="P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Polling 30s &amp; mark read">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p7" edge="1" parent="1" source="E_MGR" target="P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Polling 30s &amp; mark read">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p7" edge="1" parent="1" source="E_ADM" target="P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Polling 30s &amp; mark read">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p7_emp" edge="1" parent="1" source="P7" target="E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Notifikasi &amp; unread count">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p7_tech" edge="1" parent="1" source="P7" target="E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Notifikasi &amp; unread count">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p7_mgr" edge="1" parent="1" source="P7" target="E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Notifikasi &amp; unread count">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p7_adm" edge="1" parent="1" source="P7" target="E_ADM" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Notifikasi &amp; unread count">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p8" edge="1" parent="1" source="E_EMP" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Req dashboard employee">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p8" edge="1" parent="1" source="E_TECH" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Req dashboard technician">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p8" edge="1" parent="1" source="E_MGR" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Req dashboard manager &amp; filter">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p8" edge="1" parent="1" source="E_ADM" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Req dashboard admin">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p8" edge="1" parent="1" source="D4" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Agregasi ticket &amp; SLA">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d5_p8" edge="1" parent="1" source="D5" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data histori resolusi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d6_p8" edge="1" parent="1" source="D6" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Statistik asset">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d1_p8" edge="1" parent="1" source="D1" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Total user &amp; technician">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d7_p8" edge="1" parent="1" source="D7" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Artikel terbaru">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_p8" edge="1" parent="1" source="P4" target="P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Status SLA on-the-fly">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p8_emp" edge="1" parent="1" source="P8" target="E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Dashboard employee data">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p8_tech" edge="1" parent="1" source="P8" target="E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Dashboard technician data">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p8_mgr" edge="1" parent="1" source="P8" target="E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Dashboard &amp; report manager">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p8_adm" edge="1" parent="1" source="P8" target="E_ADM" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Dashboard admin &amp; system stats">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p9_d9" edge="1" parent="1" source="P9" target="D9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan log aktivitas">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d9_p9" edge="1" parent="1" source="D9" target="P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Riwayat aktivitas">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p9_adm" edge="1" parent="1" source="P9" target="E_ADM" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Audit log lengkap">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p9_mgr" edge="1" parent="1" source="P9" target="E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Audit log terbatas">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend_l1" value="&lt;b&gt;Keterangan Simbol DFD&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#999999;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1820" width="580" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg_ent" value="External Entity" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1855" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg_prc" value="Process" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="220" y="1850" width="90" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg_ds" value="Data Store" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1855" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg_flw" value="Data Flow" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="1855" width="80" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg_sch_desc" value="Scheduler: trigger periodik 5 menit | D1–D10 merepresentasikan tabel MySQL &amp; file storage" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1910" width="540" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dfd-level2-p3" name="DFD Level 2 - P3 Ticket Management">
+    <mxGraphModel dx="2400" dy="1800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title_p3" value="&lt;b&gt;DFD LEVEL 2 — PROSES 3: TICKET MANAGEMENT&lt;/b&gt;&lt;br&gt;JARVIS OPS — Core Incident &amp; Request Lifecycle" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;spacingTop=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="30" width="800" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_E_EMP" value="Employee" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_E_TECH" value="Technician" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="600" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_E_MGR" value="Manager" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1000" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P31" value="3.1&lt;br&gt;Create Ticket" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P32" value="3.2&lt;br&gt;Assign&lt;br&gt;Technician" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="980" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P33" value="3.3&lt;br&gt;Update Status&lt;br&gt;(Workflow)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="580" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P34" value="3.4&lt;br&gt;Manage Comment" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="380" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P35" value="3.5&lt;br&gt;Manage&lt;br&gt;Attachment" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="780" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P36" value="3.6&lt;br&gt;Record Ticket&lt;br&gt;History" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="800" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P37" value="3.7&lt;br&gt;Search, Filter&lt;br&gt;&amp; Paginate" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1260" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_D3" value="D3 Ticket Master" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="140" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_D4" value="D4 Tickets" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="340" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_D5" value="D5 Ticket Detail" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="540" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_D6" value="D6 Assets" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="240" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_D10" value="D10 File Storage" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="980" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_P4" value="4.0&lt;br&gt;SLA Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1720" y="200" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_P7" value="7.0&lt;br&gt;Notification" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1720" y="580" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P3_P9" value="9.0&lt;br&gt;Audit Logging" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1720" y="980" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_in" edge="1" parent="1" source="P3_E_EMP" target="P31" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Title, description, category, priority, asset opsional">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_d3" edge="1" parent="1" source="P3_D3" target="P31" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Validasi category &amp; priority, ambil sla_minutes">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_d6" edge="1" parent="1" source="P3_D6" target="P31" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Asset validasi assigned ke reporter">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_p4" edge="1" parent="1" source="P31" target="P3_P4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Req calculate SLA deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_p31" edge="1" parent="1" source="P3_P4" target="P31" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="sla_duration_minutes &amp; sla_deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_d4" edge="1" parent="1" source="P31" target="P3_D4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan ticket (status OPEN, snapshot SLA)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_emp" edge="1" parent="1" source="P31" target="P3_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Nomor ticket &amp; SLA deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_p36" edge="1" parent="1" source="P31" target="P36" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Histori awal ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p31_p9" edge="1" parent="1" source="P31" target="P3_P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event ticket created">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p32" edge="1" parent="1" source="P3_E_MGR" target="P32" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Pilih technician untuk ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p32" edge="1" parent="1" source="P3_D4" target="P32" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Ticket berstatus OPEN">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p32_d4" edge="1" parent="1" source="P32" target="P3_D4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Set technician_id, status ASSIGNED">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p32_p36" edge="1" parent="1" source="P32" target="P36" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Perubahan technician &amp; status">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p32_p7" edge="1" parent="1" source="P32" target="P3_P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event ticket assigned">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p32_p9" edge="1" parent="1" source="P32" target="P3_P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p32_mgr" edge="1" parent="1" source="P32" target="P3_E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Konfirmasi assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p33" edge="1" parent="1" source="P3_E_TECH" target="P33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="ASSIGNED -&gt; IN_PROGRESS -&gt; RESOLVED">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p33" edge="1" parent="1" source="P3_E_EMP" target="P33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Konfirmasi CLOSED / tolak ke IN_PROGRESS">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p33" edge="1" parent="1" source="P3_D4" target="P33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Status &amp; kepemilikan ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d3_p33" edge="1" parent="1" source="P3_D3" target="P33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Status valid, flag is_closed/is_final">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p33_d4" edge="1" parent="1" source="P33" target="P3_D4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Update status_id, resolved_at, closed_at">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p33_p36" edge="1" parent="1" source="P33" target="P36" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Perubahan status">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p33_p7" edge="1" parent="1" source="P33" target="P3_P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event status changed / resolved">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p33_p9" edge="1" parent="1" source="P33" target="P3_P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event perubahan status">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p33_tech" edge="1" parent="1" source="P33" target="P3_E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Status terbaru">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p33_emp" edge="1" parent="1" source="P33" target="P3_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Status terbaru">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p34" edge="1" parent="1" source="P3_E_EMP" target="P34" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Komentar">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p34" edge="1" parent="1" source="P3_E_TECH" target="P34" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Troubleshooting note">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p34_d5" edge="1" parent="1" source="P34" target="P3_D5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan ticket_comments">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d5_p34" edge="1" parent="1" source="P3_D5" target="P34" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar komentar">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p34_p7" edge="1" parent="1" source="P34" target="P3_P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event ticket commented">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p34_emp" edge="1" parent="1" source="P34" target="P3_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar komentar">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p34_tech" edge="1" parent="1" source="P34" target="P3_E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar komentar">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p35" edge="1" parent="1" source="P3_E_EMP" target="P35" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="File JPG/PNG/PDF (max 5MB)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p35" edge="1" parent="1" source="P3_E_TECH" target="P35" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="File bukti / screenshot">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p35_d10" edge="1" parent="1" source="P35" target="P3_D10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Validasi MIME/ekstensi, simpan file">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d10_p35" edge="1" parent="1" source="P3_D10" target="P35" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="stored_filename &amp; storage_path">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p35_d5" edge="1" parent="1" source="P35" target="P3_D5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan metadata attachment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d5_p35" edge="1" parent="1" source="P3_D5" target="P35" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar attachment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p35_emp" edge="1" parent="1" source="P35" target="P3_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Hasil upload / validasi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p35_tech" edge="1" parent="1" source="P35" target="P3_E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Hasil upload / validasi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p36_d5" edge="1" parent="1" source="P36" target="P3_D5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="field_changed, old_value, new_value, user">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p37" edge="1" parent="1" source="P3_E_EMP" target="P37" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Query, filter status/priority">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p37" edge="1" parent="1" source="P3_E_TECH" target="P37" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Filter status/priority/category">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p37" edge="1" parent="1" source="P3_E_MGR" target="P37" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Filter technician/category/periode">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p37" edge="1" parent="1" source="P3_D4" target="P37" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Hasil query ticket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d5_p37" edge="1" parent="1" source="P3_D5" target="P37" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Detail terkait">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p37_emp" edge="1" parent="1" source="P37" target="P3_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar ticket paginated">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p37_tech" edge="1" parent="1" source="P37" target="P3_E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar ticket paginated">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p37_mgr" edge="1" parent="1" source="P37" target="P3_E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar ticket paginated">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="br_box_p3" value="&lt;b&gt;Business Rules Enforced (Process 3):&lt;/b&gt;&lt;br&gt;&#10;• &lt;b&gt;BR-001:&lt;/b&gt; reporter_id dari auth user | &lt;b&gt;BR-002:&lt;/b&gt; Status awal OPEN | &lt;b&gt;BR-003:&lt;/b&gt; technician_id nullable awal&lt;br&gt;&#10;• &lt;b&gt;BR-004:&lt;/b&gt; Hanya Manager/Admin assign | &lt;b&gt;BR-005:&lt;/b&gt; Tech hanya proses assigned tickets&lt;br&gt;&#10;• &lt;b&gt;BR-008:&lt;/b&gt; Semua perubahan status ke ticket_histories | &lt;b&gt;BR-009:&lt;/b&gt; Ticket CLOSED immutable Employee&lt;br&gt;&#10;• &lt;b&gt;BR-011:&lt;/b&gt; Asset optional | &lt;b&gt;BR-012/014:&lt;/b&gt; Validasi kepemilikan asset di backend | &lt;b&gt;BR-015:&lt;/b&gt; ON DELETE SET NULL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#b1b1b1;dashed=1;fontSize=11;align=left;spacingLeft=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1500" width="1500" height="100" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dfd-level2-p4" name="DFD Level 2 - P4 SLA Management">
+    <mxGraphModel dx="2000" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title_p4" value="&lt;b&gt;DFD LEVEL 2 — PROSES 4: SLA MANAGEMENT&lt;/b&gt;&lt;br&gt;JARVIS OPS — Calculation, Monitoring &amp; Compliance Engine" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;spacingTop=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="30" width="800" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_E_SCH" value="Scheduler&lt;br&gt;&lt;span style=&quot;font-size:11px;font-weight:normal;&quot;&gt;(5 Min Trigger)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;dashed=1;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="480" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_E_TECH" value="Technician" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1740" y="840" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_E_MGR" value="Manager" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1740" y="1060" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="P41" value="4.1&lt;br&gt;Calculate SLA&lt;br&gt;Deadline" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="460" y="200" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="P42" value="4.2&lt;br&gt;Scheduled&lt;br&gt;SLA Check" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="460" y="470" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="P43" value="4.3&lt;br&gt;Mark SLA&lt;br&gt;Breach" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="470" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="P44" value="4.4&lt;br&gt;On-the-fly SLA&lt;br&gt;Evaluation" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="780" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="P45" value="4.5&lt;br&gt;Compute SLA&lt;br&gt;Metrics" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="1050" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_D3" value="D3 Ticket Master" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="820" y="220" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_D4" value="D4 Tickets" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="460" y="780" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_P3" value="3.0&lt;br&gt;Ticket Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="205" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_P7" value="7.0&lt;br&gt;Notification" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="475" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_P8" value="8.0&lt;br&gt;Dashboard &amp; Analytics" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="950" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P4_P9" value="9.0&lt;br&gt;Audit Logging" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="620" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_p41" edge="1" parent="1" source="P4_P3" target="P41" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="priority_id &amp; created_at ticket baru">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d3_p41" edge="1" parent="1" source="P4_D3" target="P41" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="sla_minutes dari priority">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p41_p3" edge="1" parent="1" source="P41" target="P4_P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="sla_duration_minutes &amp; sla_deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_sch_p42" edge="1" parent="1" source="P4_E_SCH" target="P42" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;dashed=1;endArrow=block;endFill=1;" value="Trigger periodik tiap 5 menit">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p42" edge="1" parent="1" source="P4_D4" target="P42" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Ticket status NOT IN (RESOLVED, CLOSED)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p42_p43" edge="1" parent="1" source="P42" target="P43" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Ticket dengan now &gt; sla_deadline">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p42_sch" edge="1" parent="1" source="P42" target="P4_E_SCH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;dashed=1;endArrow=block;endFill=1;" value="Ringkasan job: checked &amp; breach count">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p43_d4" edge="1" parent="1" source="P43" target="P4_D4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="sla_breached = true, sla_breached_at = now">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p43_p7" edge="1" parent="1" source="P43" target="P4_P7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event SLA breached ke technician &amp; manager">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p43_p9" edge="1" parent="1" source="P43" target="P4_P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Log penandaan SLA breach">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p44" edge="1" parent="1" source="P4_D4" target="P44" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="sla_deadline, status, resolved_at">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p44_p8" edge="1" parent="1" source="P44" target="P4_P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Status SLA aktual (defensive check)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d4_p45" edge="1" parent="1" source="P4_D4" target="P45" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Ticket resolved &amp; breached history">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p45_p8" edge="1" parent="1" source="P45" target="P4_P8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Total, resolved in SLA, compliance %, avg resolution time">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p8_mgr" edge="1" parent="1" source="P4_P8" target="P4_E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Metrik SLA &amp; performa technician">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p8_tech" edge="1" parent="1" source="P4_P8" target="P4_E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="SLA breached &amp; avg resolution time">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="formula_box" value="&lt;b&gt;SLA Calculation &amp; Compliance Formulas:&lt;/b&gt;&lt;br&gt;&#10;• &lt;b&gt;sla_deadline&lt;/b&gt; = &lt;code&gt;created_at + sla_duration_minutes&lt;/code&gt;&lt;br&gt;&#10;• &lt;b&gt;SLA Breached Flag&lt;/b&gt; = &lt;code&gt;current_time &amp;gt; sla_deadline AND status NOT IN (RESOLVED, CLOSED)&lt;/code&gt;&lt;br&gt;&#10;• &lt;b&gt;SLA Compliance (%)&lt;/b&gt; = &lt;code&gt;(Tickets Resolved Within SLA / Total Resolved Tickets) * 100&lt;/code&gt;&lt;br&gt;&#10;• &lt;b&gt;Defensive Evaluation:&lt;/b&gt; Proses 4.4 menghitung SLA secara on-the-fly untuk dashboard tanpa tergantung scheduler semata." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;dashed=1;fontSize=11;align=left;spacingLeft=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1240" width="1400" height="110" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dfd-level2-p5" name="DFD Level 2 - P5 Asset Management">
+    <mxGraphModel dx="2200" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title_p5" value="&lt;b&gt;DFD LEVEL 2 — PROSES 5: ASSET MANAGEMENT&lt;/b&gt;&lt;br&gt;JARVIS OPS — Inventory, Assignment Chain &amp; Ownership Validation" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;spacingTop=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="30" width="800" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5_E_EMP" value="Employee" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1120" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5_E_TECH" value="Technician" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5_E_ADM" value="Administrator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="480" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P51" value="5.1&lt;br&gt;Manage Asset&lt;br&gt;Inventory" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P52" value="5.2&lt;br&gt;Assign Asset&lt;br&gt;to Employee" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="440" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P53" value="5.3&lt;br&gt;Release / Change&lt;br&gt;Asset Status" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="680" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P54" value="5.4&lt;br&gt;Record Asset&lt;br&gt;History" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="440" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P55" value="5.5&lt;br&gt;Validate Asset&lt;br&gt;Ownership" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="900" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P56" value="5.6&lt;br&gt;Search &amp; Filter&lt;br&gt;Asset" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1110" width="160" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5_D1" value="D1 Users" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="200" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5_D6" value="D6 Assets" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="680" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5_P3" value="3.0&lt;br&gt;Ticket Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="905" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="P5_P9" value="9.0&lt;br&gt;Audit Logging" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1680" y="440" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p51" edge="1" parent="1" source="P5_E_TECH" target="P51" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="asset_tag, name, brand, model, SN, purchase_date">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p51" edge="1" parent="1" source="P5_E_ADM" target="P51" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data asset inventory">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p51_d6" edge="1" parent="1" source="P51" target="P5_D6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan / ubah assets">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p51_p54" edge="1" parent="1" source="P51" target="P54" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Aksi create/update/delete">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p51_p9" edge="1" parent="1" source="P51" target="P5_P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event perubahan asset">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p52" edge="1" parent="1" source="P5_E_TECH" target="P52" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Pilih asset &amp; employee">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p52" edge="1" parent="1" source="P5_E_ADM" target="P52" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Pilih asset &amp; employee">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d6_p52" edge="1" parent="1" source="P5_D6" target="P52" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Status asset (MAINTENANCE cannot assign)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d1_p52" edge="1" parent="1" source="P5_D1" target="P52" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data employee tujuan">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p52_d6" edge="1" parent="1" source="P52" target="P5_D6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan asset_assignments (assigned_at, status ASSIGNED)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p52_p54" edge="1" parent="1" source="P52" target="P54" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Aksi assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p52_p9" edge="1" parent="1" source="P52" target="P5_P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p53" edge="1" parent="1" source="P5_E_TECH" target="P53" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Release / set MAINTENANCE, RETIRED, LOST">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p53_d6" edge="1" parent="1" source="P53" target="P5_D6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="released_at &amp; update status asset">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p53_p54" edge="1" parent="1" source="P53" target="P54" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Aksi status change / release">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p54_d6" edge="1" parent="1" source="P54" target="P5_D6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan asset_histories (action, desc, action_at)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_p55" edge="1" parent="1" source="P5_P3" target="P55" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="asset_id &amp; reporter_id yang diklaim">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d6_p55" edge="1" parent="1" source="P5_D6" target="P55" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Assignment aktif (released_at IS NULL)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p55_p3" edge="1" parent="1" source="P55" target="P5_P3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Valid / Ditolak (BR-012, BR-014)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p56" edge="1" parent="1" source="P5_E_EMP" target="P56" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Req my assets">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p56" edge="1" parent="1" source="P5_E_TECH" target="P56" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Asset tag, SN, filter status/kategori/user">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d6_p56" edge="1" parent="1" source="P5_D6" target="P56" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Hasil query asset &amp; assignment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p56_emp" edge="1" parent="1" source="P56" target="P5_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar asset milik sendiri">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p56_tech" edge="1" parent="1" source="P56" target="P5_E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Daftar asset &amp; riwayat pemakaian">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="asset_note" value="&lt;b&gt;Asset Assignment Chain Pattern:&lt;/b&gt;&lt;br&gt;&#10;• Riwayat kepemilikan asset diperoleh dari tabel relasi &lt;code&gt;asset_assignments&lt;/code&gt;.&lt;br&gt;&#10;• Assignment aktif ditandai dengan &lt;code&gt;released_at IS NULL&lt;/code&gt;.&lt;br&gt;&#10;• Rantai kepemilikan terlacak penuh: &lt;i&gt;Laptop AST-001 → Andi (2025) → Budi (2026) → Citra (Current)&lt;/i&gt;." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;dashed=1;fontSize=11;align=left;spacingLeft=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1360" width="1400" height="90" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dfd-level2-p6-p7" name="DFD Level 2 - P6 &amp; P7 KB and Notification">
+    <mxGraphModel dx="2200" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title_p6_p7" value="&lt;b&gt;DFD LEVEL 2 — PROSES 6 &amp; 7: KNOWLEDGE BASE &amp; NOTIFICATIONS&lt;/b&gt;&lt;br&gt;JARVIS OPS — Article Management, Search, &amp; Polling Notification Engine" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;spacingTop=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="30" width="900" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_E_EMP" value="Employee" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="220" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_E_TECH" value="Technician" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="480" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_E_MGR" value="Manager" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="740" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_E_ADM" value="Administrator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1000" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="P61" value="6.1&lt;br&gt;Manage Article" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="150" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P62" value="6.2&lt;br&gt;Publish /&lt;br&gt;Unpublish" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="370" width="150" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P63" value="6.3&lt;br&gt;Search &amp;&lt;br&gt;Read Article" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="540" width="150" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P64" value="6.4&lt;br&gt;Manage KB&lt;br&gt;Category" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="710" width="150" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P71" value="7.1&lt;br&gt;Create&lt;br&gt;Notification" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="950" width="150" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P72" value="7.2&lt;br&gt;Fetch Unread&lt;br&gt;(Polling 30s)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1120" width="150" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P73" value="7.3&lt;br&gt;Mark as Read" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1290" width="150" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_D7" value="D7 Knowledge Base" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="450" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_D8" value="D8 Notifications" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="1120" width="200" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_P3" value="3.0&lt;br&gt;Ticket Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1680" y="880" width="160" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_P4" value="4.0&lt;br&gt;SLA Management" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1680" y="1020" width="160" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="P67_P9" value="9.0&lt;br&gt;Audit Logging" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1680" y="200" width="160" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p61" edge="1" parent="1" source="P67_E_TECH" target="P61" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Title, content, category (draft)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p61" edge="1" parent="1" source="P67_E_MGR" target="P61" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Edit artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p61" edge="1" parent="1" source="P67_E_ADM" target="P61" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Full control artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p61_d7" edge="1" parent="1" source="P61" target="P67_D7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan artikel (draft)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p61_p9" edge="1" parent="1" source="P61" target="P67_P9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event perubahan artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p62" edge="1" parent="1" source="P67_E_TECH" target="P62" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Publish/unpublish artikel sendiri">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p62" edge="1" parent="1" source="P67_E_MGR" target="P62" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Publish/unpublish semua artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p62_d7" edge="1" parent="1" source="P62" target="P67_D7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Ubah status draft to published">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p63" edge="1" parent="1" source="P67_E_EMP" target="P63" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Keyword &amp; filter kategori">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d7_p63" edge="1" parent="1" source="P67_D7" target="P63" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Artikel status published">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p63_emp" edge="1" parent="1" source="P63" target="P67_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Hasil search &amp; isi artikel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p63_d7" edge="1" parent="1" source="P63" target="P67_D7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Increment view_count">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_adm_p64" edge="1" parent="1" source="P67_E_ADM" target="P64" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Data kategori KB">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p64_d7" edge="1" parent="1" source="P64" target="P67_D7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Simpan knowledge_categories">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p3_p71" edge="1" parent="1" source="P67_P3" target="P71" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Ticket assigned, status changed, commented, resolved">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p4_p71" edge="1" parent="1" source="P67_P4" target="P71" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Event SLA breached">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p71_d8" edge="1" parent="1" source="P71" target="P67_D8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="user_id penerima, type, data JSON, is_read=false">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p72" edge="1" parent="1" source="P67_E_EMP" target="P72" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Polling 30s">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p72" edge="1" parent="1" source="P67_E_TECH" target="P72" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Polling 30s">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_mgr_p72" edge="1" parent="1" source="P67_E_MGR" target="P72" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Polling 30s">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_d8_p72" edge="1" parent="1" source="P67_D8" target="P72" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Notifikasi unread">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p72_emp" edge="1" parent="1" source="P72" target="P67_E_EMP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Badge count &amp; daftar unread">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p72_tech" edge="1" parent="1" source="P72" target="P67_E_TECH" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Badge count &amp; daftar unread">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p72_mgr" edge="1" parent="1" source="P72" target="P67_E_MGR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Badge count &amp; daftar unread">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_emp_p73" edge="1" parent="1" source="P67_E_EMP" target="P73" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Mark as read">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_tech_p73" edge="1" parent="1" source="P67_E_TECH" target="P73" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="Mark as read">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f_p73_d8" edge="1" parent="1" source="P73" target="P67_D8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;strokeColor=#555555;strokeWidth=1.5;endArrow=block;endFill=1;" value="is_read=true, read_at=now">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="notif_matrix_box" value="&lt;b&gt;Notification Routing Matrix:&lt;/b&gt;&lt;br&gt;&#10;• &lt;b&gt;Ticket Assigned:&lt;/b&gt; Technician penerima&lt;br&gt;&#10;• &lt;b&gt;Ticket Status Changed:&lt;/b&gt; Reporter &amp;amp; Assigned Technician&lt;br&gt;&#10;• &lt;b&gt;Ticket Commented:&lt;/b&gt; Peserta ticket terkait (Reporter / Technician)&lt;br&gt;&#10;• &lt;b&gt;Ticket Resolved:&lt;/b&gt; Reporter&lt;br&gt;&#10;• &lt;b&gt;SLA Breached:&lt;/b&gt; Assigned Technician + All Managers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;dashed=1;fontSize=11;align=left;spacingLeft=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1420" width="1400" height="100" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
