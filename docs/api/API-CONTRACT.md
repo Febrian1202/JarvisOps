@@ -180,6 +180,19 @@ Mencabut token yang sedang dipakai. Respons `200`, `data: null`.
 
 ### `GET /api/me`
 
+### `PUT /api/me`
+
+Update profil mandiri (telepon, nama). Tidak bisa mengubah `role_id` atau `email`.
+
+```json
+{
+  "full_name": "Budi Santoso Updated",
+  "phone": "08123456789"
+}
+```
+
+Respon `200 OK` mengembalikan object user yang telah diperbarui.
+
 ```json
 {
   "success": true,
@@ -324,6 +337,16 @@ Soft delete. Admin saja.
 
 ### `POST /api/tickets/{id}/assign`
 
+### `POST /api/tickets/{id}/unassign`
+
+Manager/Admin saja. Alias eksplisit untuk `ASSIGNED -> OPEN` (D-20).
+
+```json
+{
+  "note": "Teknisi sebelumnya cuti sakit."
+}
+```
+
 Manager/Admin saja (BR-004).
 
 ```json
@@ -349,6 +372,10 @@ Transisi ilegal → `422` dengan `errors.status_id`. Aturan lengkap ada di `docs
 Technician/Manager/Admin.
 
 ### `GET /api/tickets/{id}/comments` · `POST /api/tickets/{id}/comments`
+
+### `PUT /api/tickets/{id}/comments/{comment_id}` · `DELETE /api/tickets/{id}/comments/{comment_id}`
+
+Mengubah atau menghapus komentar (D-20). Hanya bisa dilakukan oleh pembuat komentar dalam batas 15 menit, atau oleh Admin kapan saja.
 
 Hanya partisipan ticket (reporter, technician yang di-assign, Manager, Admin).
 
@@ -416,6 +443,29 @@ Technician/Manager/Admin.
 | `sort_by` | `asset_tag`, `name`, `status`, `purchase_date`, `created_at` |
 
 ### `GET /api/assets/assignable`
+
+### `GET /api/assets/{id}`
+
+Detail aset tunggal (D-20).
+
+```json
+{
+  "success": true,
+  "message": "Asset retrieved.",
+  "data": {
+    "id": 1,
+    "asset_tag": "AST-0001",
+    "name": "ThinkPad X1",
+    "category": "Laptop",
+    "status": "assigned",
+    "current_assignment": {
+      "user_id": 2,
+      "full_name": "Employee Satu",
+      "assigned_at": "2026-08-30T10:00:00Z"
+    }
+  }
+}
+```
 
 Asset yang boleh dipilih user login saat membuat ticket (Addendum §1.3): sedang ter-assign kepadanya, status layak pakai, bukan `retired`/`lost`.
 
@@ -674,6 +724,23 @@ Email duplikat → `422` (BR-018). Tidak ada endpoint registrasi publik (BR-016)
 Daftar ringkas user berrole technician yang aktif, untuk dropdown assignment. Manager/Admin.
 
 ### Referensi lain
+
+### `GET /api/roles`
+
+Daftar role untuk dropdown (D-20).
+
+```json
+{
+  "success": true,
+  "message": "Roles retrieved.",
+  "data": [
+    { "id": 1, "name": "administrator" },
+    { "id": 2, "name": "manager" },
+    { "id": 3, "name": "technician" },
+    { "id": 4, "name": "employee" }
+  ]
+}
+```
 
 Seluruh resource di bawah memakai pola CRUD yang sama: `GET` daftar, `POST` buat, `PUT /{id}` ubah, `DELETE /{id}` hapus (soft delete).
 

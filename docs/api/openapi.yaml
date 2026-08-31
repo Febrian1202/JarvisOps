@@ -1,0 +1,298 @@
+openapi: 3.1.0
+info:
+  title: JARVIS OPS API
+  version: 1.0.0
+  description: API Contract for JARVIS OPS ITSM. Provides standard response envelopes
+    (`success`, `message`, `data`, `meta`).
+servers:
+- url: /api
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Sanctum
+  schemas:
+    EnvelopeSingle:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+        data:
+          type: object
+    EnvelopeList:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+        data:
+          type: array
+          items: {}
+        meta:
+          type: object
+          properties:
+            current_page:
+              type: integer
+            per_page:
+              type: integer
+            total:
+              type: integer
+            last_page:
+              type: integer
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+        ticket_number:
+          type: string
+        title:
+          type: string
+        status_id:
+          type: integer
+        priority_id:
+          type: integer
+        category_id:
+          type: integer
+        reporter_id:
+          type: integer
+        technician_id:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+    Asset:
+      type: object
+      properties:
+        id:
+          type: integer
+        asset_tag:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        full_name:
+          type: string
+        email:
+          type: string
+        role_id:
+          type: integer
+        status:
+          type: string
+        department_id:
+          type: integer
+          nullable: true
+        profile:
+          type: object
+          properties:
+            phone:
+              type: string
+              nullable: true
+            position:
+              type: string
+              nullable: true
+            employee_code:
+              type: string
+              nullable: true
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+        category_id:
+          type: integer
+        author_id:
+          type: integer
+        published_at:
+          type: string
+          format: date-time
+          nullable: true
+paths:
+  /tickets:
+    get:
+      tags:
+      - Tickets
+      summary: List Tickets
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeList'
+    post:
+      tags:
+      - Tickets
+      summary: Create Tickets
+      responses:
+        '201':
+          description: Created
+  /tickets/{id}:
+    get:
+      tags:
+      - Tickets
+      summary: Get Tickets
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+      - Tickets
+      summary: Update Tickets
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+      - Tickets
+      summary: Delete Tickets
+      responses:
+        '200':
+          description: Success
+  /assets:
+    get:
+      tags:
+      - Assets
+      summary: List Assets
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeList'
+    post:
+      tags:
+      - Assets
+      summary: Create Assets
+      responses:
+        '201':
+          description: Created
+  /assets/{id}:
+    get:
+      tags:
+      - Assets
+      summary: Get Assets
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+      - Assets
+      summary: Update Assets
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+      - Assets
+      summary: Delete Assets
+      responses:
+        '200':
+          description: Success
+  /users:
+    get:
+      tags:
+      - Users
+      summary: List Users
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeList'
+    post:
+      tags:
+      - Users
+      summary: Create Users
+      responses:
+        '201':
+          description: Created
+  /users/{id}:
+    get:
+      tags:
+      - Users
+      summary: Get Users
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+      - Users
+      summary: Update Users
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+      - Users
+      summary: Delete Users
+      responses:
+        '200':
+          description: Success
+  /articles:
+    get:
+      tags:
+      - Knowledge Base
+      summary: List Knowledge Base
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvelopeList'
+    post:
+      tags:
+      - Knowledge Base
+      summary: Create Knowledge Base
+      responses:
+        '201':
+          description: Created
+  /articles/{id}:
+    get:
+      tags:
+      - Knowledge Base
+      summary: Get Knowledge Base
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+      - Knowledge Base
+      summary: Update Knowledge Base
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+      - Knowledge Base
+      summary: Delete Knowledge Base
+      responses:
+        '200':
+          description: Success
