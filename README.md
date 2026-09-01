@@ -136,14 +136,15 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 ### Sudah ada
 
 - Seluruh dokumen desain di `docs/` — lengkap dan sudah saling diverifikasi konsisten
-- `apps/api` — skeleton Laravel 13.17 dengan Sanctum 4 terpasang, belum ada migration domain, model, maupun route selain default
-- `apps/web` — hasil `create-next-app` dengan Tailwind v4, belum ada halaman aplikasi
+- **Fase 0 (Repo, Docker, Toolchain) — SELESAI**: `compose.yaml`, `docker/`, `Makefile`, Pest 5 terpasang, smoke test hijau
+- `apps/api` — skeleton Laravel 13.17 dengan Sanctum 4 terpasang, Pest 5 terkonfigurasi
+- `apps/web` — hasil `create-next-app` dengan Tailwind v4
 
 ### Belum ada
 
-Setup Docker Compose, migration 18 tabel, seeder, autentikasi, otorisasi, seluruh modul fitur, seluruh halaman frontend, testing, dan deployment.
+Migration 18 tabel, seeder, autentikasi, otorisasi, seluruh modul fitur, seluruh halaman frontend, dan deployment.
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 0 — Repo, Docker, Toolchain**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 2 — Backend Fondasi & Walking Skeleton**.
 
 ---
 
@@ -161,14 +162,15 @@ Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/p
 
 ### Dengan Docker
 
-Docker Compose belum dibuat — ini bagian dari Fase 0. Setelah tersedia, alurnya:
-
 ```bash
 git clone <repo-url> JarvisOps
 cd JarvisOps
 
 cp apps/api/.env.example apps/api/.env
 cp apps/web/.env.example apps/web/.env
+
+# generate application key jika belum ada di apps/api/.env
+# cd apps/api && php artisan key:generate
 
 make up          # menyalakan api, scheduler, mysql, web
 make migrate     # menjalankan migration

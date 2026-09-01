@@ -91,37 +91,42 @@ Menyiapkan satu perintah yang menjalankan seluruh stack, sehingga tidak ada wakt
 
 ### Git & struktur monorepo
 
-- [ ] `git init` di root `/JarvisOps`
-- [ ] Absorb repo `apps/web` yang berdiri sendiri: hapus `apps/web/.git` (history-nya hanya 1 commit template `create-next-app`, tidak ada yang perlu diselamatkan)
-- [ ] `.gitignore` root: `node_modules/`, `vendor/`, `.env`, `.next/`, `storage/logs/*`, `storage/framework/cache/*`, `*.sqlite`
-- [ ] Commit awal seluruh isi repo
-- [ ] Branch strategy: `main` sebagai integrasi, kerja di `feat/<fase>-<topik>`, merge lewat PR (walau solo — bagus untuk jejak review di laporan)
-- [ ] `README.md` root: deskripsi singkat, struktur folder, cara menjalankan
+- [x] `git init` di root `/JarvisOps`
+- [x] Absorb repo `apps/web` yang berdiri sendiri: hapus `apps/web/.git` (history-nya hanya 1 commit template `create-next-app`, tidak ada yang perlu diselamatkan)
+- [x] `.gitignore` root: `node_modules/`, `vendor/`, `.env`, `.next/`, `storage/logs/*`, `storage/framework/cache/*`, `*.sqlite`
+- [x] Commit awal seluruh isi repo
+- [x] Branch strategy: `main` sebagai integrasi, kerja di `feat/<fase>-<topik>`, merge lewat PR (walau solo — bagus untuk jejak review di laporan)
+- [x] `README.md` root: deskripsi singkat, struktur folder, cara menjalankan
 
 ### Toolchain backend
 
-- [ ] Ganti PHPUnit dengan Pest 5:
+- [x] Ganti PHPUnit dengan Pest 5:
       `composer require --dev "pestphp/pest:^5.1" "pestphp/pest-plugin-laravel:^5.0" "phpunit/phpunit:^13.3" -W`
       Catatan: bump `phpunit/phpunit` dari `^12.5.12` ke `^13.3` **wajib** — Pest 5 mensyaratkan PHPUnit 13. Laravel 13 dan Collision 8.9 keduanya mengizinkan PHPUnit 13, jadi tidak ada konflik lain.
-- [ ] Hapus `phpunit.xml`, ganti dengan `phpunit.xml` versi Pest + `tests/Pest.php`
-- [ ] `tests/Pest.php`: bind `Tests\TestCase` dan `RefreshDatabase` ke `tests/Feature`
-- [ ] Hapus `tests/Feature/ExampleTest.php` dan `tests/Unit/ExampleTest.php`, ganti dengan satu smoke test Pest
-- [ ] Konfirmasi `php artisan test` hijau lewat runner Pest
-- [ ] `.env`: `DB_CONNECTION=mysql`, `DB_DATABASE=JarvisOps`; hapus `database/database.sqlite` dari repo
-- [ ] Pint: pastikan `composer exec pint -- --test` bersih
+- [x] Hapus `phpunit.xml`, ganti dengan `phpunit.xml` versi Pest + `tests/Pest.php`
+- [x] `tests/Pest.php`: bind `Tests\TestCase` dan `RefreshDatabase` ke `tests/Feature`
+- [x] Hapus `tests/Feature/ExampleTest.php` dan `tests/Unit/ExampleTest.php`, ganti dengan satu smoke test Pest (`HealthCheckTest.php`)
+- [x] Konfirmasi `php artisan test` hijau lewat runner Pest
+- [x] `.env`: `DB_CONNECTION=mysql`, `DB_DATABASE=JarvisOps`; hapus `database/database.sqlite` dari repo
+- [x] Pint: pastikan `composer exec pint -- --test` bersih
 
 ### Docker Compose (development)
 
-- [ ] `compose.yaml` di root dengan service:
-  - `api` — image `dunglas/frankenphp:1-php8.4`, mount `apps/api`, expose `:8000`
+- [x] `compose.yaml` di root dengan service:
+  - `api` — image `dunglas/frankenphp:1-php8.5` (disesuaikan dengan host 8.5 agar vendor bind-mount valid), mount `apps/api`, expose `:8000`
   - `scheduler` — image sama, command `php artisan schedule:work`
   - `mysql` — `mysql:8.4`, volume persisten, healthcheck
-  - `web` — `node:22`, mount `apps/web`, command `npm run dev`, expose `:3000`
-- [ ] `docker/api/Dockerfile.dev` — FrankenPHP + ekstensi (`pdo_mysql`, `gd`, `zip`, `intl`, `bcmath`) via `install-php-extensions`
-- [ ] `docker/api/Caddyfile` — root ke `public/`, `php_server`, header CORS diserahkan ke Laravel
-- [ ] Service `scheduler` **wajib terpisah**. FrankenPHP hanya melayani HTTP; tanpa container ini, SLA check tiap 5 menit tidak akan pernah jalan.
-- [ ] Database kedua `jarvisops_testing` disiapkan di init script MySQL (dipakai kalau suatu saat perlu test terhadap MySQL, bukan SQLite)
-- [ ] `Makefile`: `up`, `down`, `sh`, `migrate`, `fresh`, `seed`, `test`, `pint`, `logs`
+  - `web` — `node:22-alpine`, mount `apps/web`, command `npm install && npm run dev`, expose `:3000`
+- [x] `docker/api/Dockerfile.dev` — FrankenPHP + ekstensi (`pdo_mysql`, `gd`, `zip`, `intl`, `bcmath`, `opcache`) via `install-php-extensions`
+- [x] Caddyfile FrankenPHP default dipakai langsung via env `SERVER_NAME=:8000` (root ke `public/` + `php_server`)
+- [x] Service `scheduler` **wajib terpisah**. FrankenPHP hanya melayani HTTP; tanpa container ini, SLA check tiap 5 menit tidak akan pernah jalan.
+- [x] Database kedua `jarvisops_testing` disiapkan di init script MySQL (`docker/mysql/init/01-create-testing-database.sql`)
+- [x] `Makefile`: `up`, `down`, `sh`, `migrate`, `fresh`, `seed`, `test`, `pint`, `logs`
+
+### Catatan Penyesuaian Implementasi Fase 0
+
+1. **PHP 8.5 Runtime:** Container `api` dan `scheduler` menggunakan `dunglas/frankenphp:1-php8.5` menyesuaikan PHP host (8.5.8) agar `vendor/` hasil composer host dapat di-bind mount tanpa error `platform_check`.
+2. **Caddyfile Configuration:** Default Caddyfile bawaan FrankenPHP sudah menangani server web public Laravel dengan aman; konfigurasi diarahkan via environment variable `SERVER_NAME=:8000`.
 
 ### Catatan FrankenPHP
 
