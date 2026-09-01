@@ -1,7 +1,7 @@
 # Fase 3a — Foundation: Enum, Policy, Service, Factory (Rencana Implementasi)
 
 > **Untuk agentic worker:** SUB-SKILL WAJIB — pakai `superpowers:subagent-driven-development`
-> (disarankan) atau `superpowers:executing-plans`. Langkah memakai `- [ ]`.
+> (disarankan) atau `superpowers:executing-plans`. Langkah memakai `- [x]`.
 
 **Goal:** Membangun seluruh fondasi yang dibutuhkan sub-tahap 3b–3e: peta transisi sebagai data
 terstruktur, tiga Policy (ticket, komentar, asset), tiga service penulis-baris (SLA, audit,
@@ -23,7 +23,7 @@ handler tidak pernah membacanya. Akibatnya aturan 404 di PERMISSION-MATRIX §5 t
 bekerja — semua kegagalan Policy akan keluar sebagai 403, termasuk untuk kasus yang seharusnya
 menyembunyikan keberadaan resource.
 
-- [ ] **Step 1: Test — 404 dari Policy menghasilkan 404 di respons, dan bentuk 422 transisi**
+- [x] **Step 1: Test — 404 dari Policy menghasilkan 404 di respons, dan bentuk 422 transisi**
   Buat route dummy di `beforeEach`:
   ```php
   Route::get('/api/_test/policy-404', function () {
@@ -39,7 +39,7 @@ menyembunyikan keberadaan resource.
   Akses route kedua. Test: `assertStatus(422)`, `assertJsonPath('message', 'The given data was invalid.')`,
   dan `assertJsonPath('errors.status_id', ['Status tidak dapat diubah dari OPEN ke RESOLVED.'])`.
 
-- [ ] **Step 2: Perbaiki handler — baca `$e->status()` dan bentuk `IllegalStatusTransitionException`**
+- [x] **Step 2: Perbaiki handler — baca `$e->status()` dan bentuk `IllegalStatusTransitionException`**
   Ubah dua baris di blok `match`:
   ```php
   $e instanceof AuthorizationException, $e instanceof AccessDeniedHttpException => $e instanceof AuthorizationException && $e->hasStatus() && $e->status() === 404
@@ -57,11 +57,11 @@ menyembunyikan keberadaan resource.
   "Status tidak dapat diubah dari OPEN ke RESOLVED…" dan handler menempatkannya di `errors.status_id`.
   Urutan `match` tetap; pastikan `$e instanceof AccessDeniedHttpException` tetap 403.
 
-- [ ] **Step 3: Verifikasi**
+- [x] **Step 3: Verifikasi**
   Jalankan test dari Step 1. Pastikan hijau. Jalankan seluruh test suite — tidak ada auth test
   yang boleh berubah status-nya.
 
-- [ ] **Step 4: Commit.**
+- [x] **Step 4: Commit.**
   ```bash
   git add bootstrap/app.php tests/Feature/AppLayer/
   git commit -m "fix(handler): respect AuthorizationException->status() for 404 denials"
@@ -90,7 +90,7 @@ menyembunyikan keberadaan resource.
 - `TicketAction` enum: `Assign`, `Unassign`, `Start`, `Resolve`, `Close`, `Cancel`, `Reopen`,
   `ChangePriority`, `Comment`, `Attach`, `Edit`
 
-- [ ] **Step 1: Test — peta transisi lengkap (25 × 4 × 2)**
+- [x] **Step 1: Test — peta transisi lengkap (25 × 4 × 2)**
   ```php
   dataset('statusPairs', function () {
       $pairs = [];
@@ -107,7 +107,7 @@ menyembunyikan keberadaan resource.
   (ilegal, K-06). Test `allows()` untuk setiap role yang diizinkan dan yang tidak diizinkan.
   Test `allows()` role `AnyTechnician` hanya pada `OPEN → IN_PROGRESS`.
 
-- [ ] **Step 2: Test — helper method enum**
+- [x] **Step 2: Test — helper method enum**
   ```php
   test('TicketStatusName::fromId maps correctly', function () {
       expect(TicketStatusName::fromId(1))->toBe(TicketStatusName::Open);
@@ -122,7 +122,7 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 3: Implementasi `TicketActor` enum**
+- [x] **Step 3: Implementasi `TicketActor` enum**
   ```php
   enum TicketActor: string
   {
@@ -134,7 +134,7 @@ menyembunyikan keberadaan resource.
   }
   ```
 
-- [ ] **Step 4: Implementasi `TicketAction` enum**
+- [x] **Step 4: Implementasi `TicketAction` enum**
   ```php
   enum TicketAction: string
   {
@@ -152,7 +152,7 @@ menyembunyikan keberadaan resource.
   }
   ```
 
-- [ ] **Step 5: Implementasi `TicketStatusName` — tambah method**
+- [x] **Step 5: Implementasi `TicketStatusName` — tambah method**
   ```php
   case Open = 'OPEN';
   case Assigned = 'ASSIGNED';
@@ -202,7 +202,7 @@ menyembunyikan keberadaan resource.
   }
   ```
 
-- [ ] **Step 6: Implementasi `TicketTransitionMatrix` — reifikasi matriks §3**
+- [x] **Step 6: Implementasi `TicketTransitionMatrix` — reifikasi matriks §3**
   ```php
   class TicketTransitionMatrix
   {
@@ -244,10 +244,10 @@ menyembunyikan keberadaan resource.
   }
   ```
 
-- [ ] **Step 7: Verifikasi — test matriks persis sama dengan STATUS-TRANSITION.md**
+- [x] **Step 7: Verifikasi — test matriks persis sama dengan STATUS-TRANSITION.md**
   Jalankan test dari Step 1. Semua hijau.
 
-- [ ] **Step 8: Commit.**
+- [x] **Step 8: Commit.**
 
 ---
 
@@ -264,7 +264,7 @@ menyembunyikan keberadaan resource.
 - `AuditModule` — `Ticket`, `Asset`, `Article`, `User`, `Role`, `Department`, `TicketCategory`, `TicketPriority`, `Auth`
 - `NotificationType` — 10 SCREAMING_SNAKE case sesuai D-27
 
-- [ ] **Step 1: Test — setiap enum punya case yang tepat dan nilai `->value` sesuai kosakata.**
+- [x] **Step 1: Test — setiap enum punya case yang tepat dan nilai `->value` sesuai kosakata.**
   ```php
   test('AuditAction has all 16 cases', function () {
       $cases = array_map(fn ($c) => $c->value, AuditAction::cases());
@@ -274,9 +274,9 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 2: Implementasi AuditAction, AuditModule, NotificationType.**
+- [x] **Step 2: Implementasi AuditAction, AuditModule, NotificationType.**
 
-- [ ] **Step 3: Verifikasi & Commit.**
+- [x] **Step 3: Verifikasi & Commit.**
 
 ---
 
@@ -299,7 +299,7 @@ menyembunyikan keberadaan resource.
 - `SlaService::scopeBreached(Builder $query): Builder` — untuk filter `sla_status=breached`
 - `SlaService::scopeOnTrack(Builder $query): Builder`
 
-- [ ] **Step 1: Test — `calculateDeadline` 24/7 flat (D-01)**
+- [x] **Step 1: Test — `calculateDeadline` 24/7 flat (D-01)**
   ```php
   test('deadline is created_at + duration minutes', function () {
       $created = Carbon::parse('2026-08-31T10:00:00Z');
@@ -313,7 +313,7 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 2: Test — `remainingMinutes`**
+- [x] **Step 2: Test — `remainingMinutes`**
   ```php
   test('remainingMinutes returns null when resolved', function () {
       $ticket = Ticket::factory()->resolved()->make();
@@ -331,7 +331,7 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 3: Test — `isBreached` defensif**
+- [x] **Step 3: Test — `isBreached` defensif**
   ```php
   test('isBreached returns true when sla_breached is true regardless of deadline', function () {
       $ticket = Ticket::factory()->make(['sla_breached' => true, 'sla_deadline' => now()->addHour()]);
@@ -347,12 +347,12 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 4: Implementasi SlaService.**
+- [x] **Step 4: Implementasi SlaService.**
   Gunakan `Carbon::addMinutes()` untuk penambahan, `Carbon::diffInMinutes($deadline, false)` untuk
   sisa waktu (false = absolut, `signed` param tidak ada di Laravel — gunakan `Carbon::now()->diffInMinutes($ticket->sla_deadline)` lalu kalikan -1 bila perlu). Alternatif:
   `$ticket->sla_deadline->diffInMinutes(now(), false)` menghasilkan negatif bila deadline lewat.
 
-- [ ] **Step 5: Verifikasi & Commit.**
+- [x] **Step 5: Verifikasi & Commit.**
 
 ---
 
@@ -366,7 +366,7 @@ menyembunyikan keberadaan resource.
 - `AuditLogger::log(User $actor, AuditAction $action, AuditModule $module, ?int $moduleId = null, ?string $description = null, ?array $oldData = null, ?array $newData = null, ?Request $request = null): AuditLog`
 - Constructor menerima `Request $request` (dari container) — opsional, untuk `ip_address` dan `user_agent`
 
-- [ ] **Step 1: Test — menulis baris audit log**
+- [x] **Step 1: Test — menulis baris audit log**
   ```php
   test('log writes a row with all fields', function () {
       $user = User::factory()->admin()->create();
@@ -379,7 +379,7 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 2: Test — redaksi blacklist (D-07)**
+- [x] **Step 2: Test — redaksi blacklist (D-07)**
   ```php
   test('redaction strips sensitive keys from old_data and new_data', function () {
       $user = User::factory()->admin()->create();
@@ -392,11 +392,11 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 3: Implementasi AuditLogger.**
+- [x] **Step 3: Implementasi AuditLogger.**
   Blacklist: `password`, `remember_token`, `token`, `secret`, `api_token`. Filter `array_diff_key`
   atau loop manual atas `AuditLogger::REDACTED_KEYS`.
 
-- [ ] **Step 4: Verifikasi & Commit.**
+- [x] **Step 4: Verifikasi & Commit.**
 
 ---
 
@@ -413,7 +413,7 @@ menyembunyikan keberadaan resource.
 - `data` selalu memuat: `ticket_id`, `ticket_number`, `title`, `actor_name`, `message`, `url`
   (D-27). `message` dalam Bahasa Indonesia.
 
-- [ ] **Step 1: Test — notify menulis baris notifikasi**
+- [x] **Step 1: Test — notify menulis baris notifikasi**
   ```php
   test('notify creates a notification row', function () {
       $user = User::factory()->create();
@@ -427,7 +427,7 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 2: Test — notifyMany melewati actor**
+- [x] **Step 2: Test — notifyMany melewati actor**
   ```php
   test('notifyMany skips the actor', function () {
       $actor = User::factory()->create();
@@ -438,10 +438,10 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 3: Implementasi NotificationService.**
+- [x] **Step 3: Implementasi NotificationService.**
   Gunakan `Notification::create()` langsung. Tidak perlu Broadcasting, event, atau apa pun.
 
-- [ ] **Step 4: Verifikasi & Commit.**
+- [x] **Step 4: Verifikasi & Commit.**
 
 ---
 
@@ -462,17 +462,17 @@ menyembunyikan keberadaan resource.
 - `TicketPolicy` — 13 method: `viewAny`, `view`, `create`, `update`, `delete`, `assign`,
   `unassign`, `changeStatus`, `selfAssign`, `changePriority`, `comment`, `viewHistory`, `attach`
 
-- [ ] **Step 1: Test — `viewAny`**
+- [x] **Step 1: Test — `viewAny`**
   - Employee: hanya ticket miliknya → true (scoping di query, not policy)
   - Technician/Manager/Admin: semua → true
 
-- [ ] **Step 2: Test — `view`**
+- [x] **Step 2: Test — `view`**
   - Employee pada ticket miliknya → true
   - Employee pada ticket orang lain → `Response::denyAsNotFound()`
   - Technician pada ticket mana pun → true
   - Manager/Admin pada ticket mana pun → true
 
-- [ ] **Step 3: Test — `update`**
+- [x] **Step 3: Test — `update`**
   - Employee pada ticket miliknya, bukan CLOSED → true
   - Employee pada ticket miliknya, CLOSED → false
   - Employee pada ticket orang lain → `denyAsNotFound()`
@@ -482,7 +482,7 @@ menyembunyikan keberadaan resource.
   - Manager/Admin pada ticket CLOSED → false (D-16 exception #2 enforced di service, not policy —
     tapi policy tetap mengembalikan false agar `Gate::before` tidak bisa meloloskan Admin)
 
-- [ ] **Step 4: Test — `assign`, `unassign`**
+- [x] **Step 4: Test — `assign`, `unassign`**
   ```php
   test('assign returns true for manager and admin', function () {
       $ticket = Ticket::factory()->create(['status_id' => 1]);
@@ -496,36 +496,36 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 5: Test — `changeStatus`**
+- [x] **Step 5: Test — `changeStatus`**
   - Employee pada ticket miliknya → true (validasi legalitas di service)
   - Employee pada ticket orang lain → `denyAsNotFound()`
   - Technician pada ticket yang di-assign kepadanya → true
   - Technician pada ticket orang lain → false (403)
   - Manager/Admin → true
 
-- [ ] **Step 6: Test — `selfAssign`**
+- [x] **Step 6: Test — `selfAssign`**
   - Technician pada ticket `OPEN` → true
   - Employee/Manager/Admin → false
   - Technician pada ticket yang sudah punya teknisi → (tidak perlu di policy — akan ditolak matriks)
 
-- [ ] **Step 7: Test — `changePriority`**
+- [x] **Step 7: Test — `changePriority`**
   - Employee → false
   - Technician pada ticket yang di-assign kepadanya → true (D-19)
   - Technician pada ticket orang lain → false
   - Manager/Admin → true
 
-- [ ] **Step 8: Test — `comment`, `viewHistory`, `attach`**
+- [x] **Step 8: Test — `comment`, `viewHistory`, `attach`**
   - Employee pada ticket miliknya → true
   - Employee pada ticket orang lain → `denyAsNotFound()`
   - Technician pada ticket yang di-assign → true
   - Technician pada ticket orang lain → false
   - Manager/Admin → true
 
-- [ ] **Step 9: Test — `delete`**
+- [x] **Step 9: Test — `delete`**
   - Admin → true
   - Employee/Technician/Manager → false
 
-- [ ] **Step 10: Implementasi TicketPolicy (13 method).**
+- [x] **Step 10: Implementasi TicketPolicy (13 method).**
   Gunakan `Response::denyAsNotFound()` untuk kasus sesuai PERMISSION-MATRIX §5.
   Konstruktor: `protected SlaService $slaService` — tidak dipakai di policy, tapi disediakan
   untuk method `view` yang mungkin butuh `isClosed()` nanti. Sebenarnya cukup `$ticket->status`:
@@ -542,7 +542,7 @@ menyembunyikan keberadaan resource.
   }
   ```
 
-- [ ] **Step 11: Implementasi TicketCommentPolicy (2 method).**
+- [x] **Step 11: Implementasi TicketCommentPolicy (2 method).**
   ```php
   public function update(User $user, TicketComment $comment): bool|\Illuminate\Auth\Access\Response
   {
@@ -552,7 +552,7 @@ menyembunyikan keberadaan resource.
   // delete: sama
   ```
 
-- [ ] **Step 12: Implementasi AssetPolicy (method yang dipakai Fase 3 saja).**
+- [x] **Step 12: Implementasi AssetPolicy (method yang dipakai Fase 3 saja).**
   `viewAssignable`, `viewOwn`, `view`, `viewAny` — sisanya `false` (akan diimplementasi Fase 5).
   ```php
   public function viewAssignable(User $user): bool { return true; } // selalu scoped di query
@@ -561,17 +561,17 @@ menyembunyikan keberadaan resource.
   public function viewAny(User $user): bool { return $user->isAdmin() || $user->hasRole(RoleName::Manager, RoleName::Technician); }
   ```
 
-- [ ] **Step 13: Tambah `#[UsePolicy]` pada model.**
+- [x] **Step 13: Tambah `#[UsePolicy]` pada model.**
   ```php
   #[UsePolicy(TicketPolicy::class)]
   class Ticket extends Model
   ```
 
-- [ ] **Step 14: Tambah test di GateRegistrationTest — ability baru tidak boleh pending tanpa Policy.**
+- [x] **Step 14: Tambah test di GateRegistrationTest — ability baru tidak boleh pending tanpa Policy.**
   Loop `AbilityMatrix::getPolicyAbilities()`, pastikan Policy-nya sudah terdaftar dan bisa
   dipanggil tanpa error.
 
-- [ ] **Step 15: Verifikasi & Commit.**
+- [x] **Step 15: Verifikasi & Commit.**
 
 ---
 
@@ -582,7 +582,7 @@ menyembunyikan keberadaan resource.
 - Modify: `app/Support/HandlesPagination.php`
 - Modify: `tests/Feature/AppLayer/PaginationTraitTest.php`
 
-- [ ] **Step 1: Test — paginated dengan Resource class**
+- [x] **Step 1: Test — paginated dengan Resource class**
   ```php
   test('paginated applies resource collection', function () {
       Ticket::factory()->count(3)->create();
@@ -592,7 +592,7 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 2: Ubah `ApiResponse::paginated()` — terima parameter `?string $resource = null`.**
+- [x] **Step 2: Ubah `ApiResponse::paginated()` — terima parameter `?string $resource = null`.**
   ```php
   public static function paginated(LengthAwarePaginator $paginator, string $message = 'Success', ?string $resource = null): JsonResponse
   {
@@ -605,16 +605,16 @@ menyembunyikan keberadaan resource.
   `TicketResource` belum ada di task ini. Gunakan `UserResource` untuk test — yang penting
   signature-nya berubah tanpa merusak pemanggil yang tidak mengirim `$resource`.
 
-- [ ] **Step 3: Terjemahkan pesan di `HandlesPagination` ke Bahasa Indonesia (D-29).**
+- [x] **Step 3: Terjemahkan pesan di `HandlesPagination` ke Bahasa Indonesia (D-29).**
   ```php
   'sort_by' => ['Kolom sort_by tidak valid.'],
   'sort_dir' => ['Arah pengurutan tidak valid.'],
   ```
 
-- [ ] **Step 4: Update PaginationTraitTest — ubah assertion `->throws(ValidationException::class, 'selected sort_by is invalid')`**
+- [x] **Step 4: Update PaginationTraitTest — ubah assertion `->throws(ValidationException::class, 'selected sort_by is invalid')`**
   menjadi `->throws(ValidationException::class, 'Kolom sort_by tidak valid')`. Juga untuk `sort_dir`.
 
-- [ ] **Step 5: Verifikasi & Commit.**
+- [x] **Step 5: Verifikasi & Commit.**
 
 ---
 
@@ -627,7 +627,7 @@ menyembunyikan keberadaan resource.
 - Modify: `database/seeders/DemoDataSeeder.php`
 
 **Detail:**
-- [ ] **Step 1: Test — factory states memakai ID pinned**
+- [x] **Step 1: Test — factory states memakai ID pinned**
   ```php
   test('ticket factory open state creates ticket with status_id 1', function () {
       $ticket = Ticket::factory()->open()->create();
@@ -640,7 +640,7 @@ menyembunyikan keberadaan resource.
   });
   ```
 
-- [ ] **Step 2: Tambah state ke `TicketFactory`.**
+- [x] **Step 2: Tambah state ke `TicketFactory`.**
   ```php
   public function open(): static
   {
@@ -706,7 +706,7 @@ menyembunyikan keberadaan resource.
   lolos tanpa ketahuan. Pastikan `definition()` juga memakai `'status_id' => 1` daripada
   `TicketStatus::factory()`.
 
-- [ ] **Step 3: Migration index baru.**
+- [x] **Step 3: Migration index baru.**
   ```php
   Schema::table('tickets', function (Blueprint $table) {
       $table->index('title');                // D-10: search LIKE
@@ -730,7 +730,7 @@ menyembunyikan keberadaan resource.
   index yang tidak ada di SQLite tidak masalah — migration hanya dijalankan oleh `php artisan
   migrate` di lingkungan MySQL.
 
-- [ ] **Step 4: Tambah demo data ticket di `DemoDataSeeder`.**
+- [x] **Step 4: Tambah demo data ticket di `DemoDataSeeder`.**
   ```php
   // 10 ticket untuk employee@jarvisops.test
   $employee = User::where('email', 'employee@jarvisops.test')->first();
@@ -758,22 +758,22 @@ menyembunyikan keberadaan resource.
   ]);
   ```
 
-- [ ] **Step 5: Verifikasi — `php artisan migrate:fresh --seed` sukses terhadap MySQL,**
+- [x] **Step 5: Verifikasi — `php artisan migrate:fresh --seed` sukses terhadap MySQL,**
   `DemoDataSeeder` menghasilkan 10 ticket dengan status variasi.
 
-- [ ] **Step 6: Commit.**
+- [x] **Step 6: Commit.**
 
 ---
 
 ## Exit Criteria 3a
 
-- [ ] Seluruh test Task 1–9 hijau (`php artisan test`)
-- [ ] `vendor/bin/pint --test` bersih
-- [ ] `php artisan migrate:fresh --seed` sukses terhadap MySQL, ticket demo terlihat
-- [ ] `php artisan migrate:rollback` bersih (MySQL)
-- [ ] `Gate::forUser` mampu mengevaluasi 13 ability `TicketPolicy` + 2 `TicketCommentPolicy` +
+- [x] Seluruh test Task 1–9 hijau (`php artisan test`)
+- [x] `vendor/bin/pint --test` bersih
+- [x] `php artisan migrate:fresh --seed` sukses terhadap MySQL, ticket demo terlihat
+- [x] `php artisan migrate:rollback` bersih (MySQL)
+- [x] `Gate::forUser` mampu mengevaluasi 13 ability `TicketPolicy` + 2 `TicketCommentPolicy` +
       4 `AssetPolicy` — positif dan negatif
-- [ ] `TicketTransitionMatrix` menjawab persis matriks §3 STATUS-TRANSITION
-- [ ] `SlaService::isBreached()` mengembalikan true bila `sla_breached` true **atau** melewati
+- [x] `TicketTransitionMatrix` menjawab persis matriks §3 STATUS-TRANSITION
+- [x] `SlaService::isBreached()` mengembalikan true bila `sla_breached` true **atau** melewati
       deadline pada status belum `is_closed`
-- [ ] `ApiResponse::paginated()` menerima parameter `$resource` tanpa merusak pemanggil lama
+- [x] `ApiResponse::paginated()` menerima parameter `$resource` tanpa merusak pemanggil lama

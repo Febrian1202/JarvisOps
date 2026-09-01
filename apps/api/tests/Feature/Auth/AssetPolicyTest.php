@@ -9,7 +9,7 @@ uses(RefreshDatabase::class);
 
 test('viewAssignable and viewOwn are allowed for any authenticated user', function () {
     $employee = User::factory()->employee()->create();
-    
+
     expect(Gate::forUser($employee)->allows('viewAssignable', Asset::class))->toBeTrue();
     expect(Gate::forUser($employee)->allows('viewOwn', Asset::class))->toBeTrue();
 });
@@ -19,7 +19,7 @@ test('view and viewAny allow technician manager admin but deny employee', functi
     $technician = User::factory()->technician()->create();
     $manager = User::factory()->manager()->create();
     $admin = User::factory()->admin()->create();
-    
+
     $asset = Asset::factory()->create();
 
     expect(Gate::forUser($technician)->allows('view', $asset))->toBeTrue();

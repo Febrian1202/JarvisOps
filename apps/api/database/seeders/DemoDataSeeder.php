@@ -6,6 +6,7 @@ use App\Enums\AssetStatus;
 use App\Models\Asset;
 use App\Models\KnowledgeArticle;
 use App\Models\KnowledgeCategory;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -89,23 +90,23 @@ class DemoDataSeeder extends Seeder
         $employee = User::where('email', 'employee@jarvisops.test')->first();
 
         if ($employee) {
-            \App\Models\Ticket::factory()->open()->count(3)->create([
+            Ticket::factory()->open()->count(3)->create([
                 'reporter_id' => $employee->id,
                 'department_id' => $employee->department_id,
             ]);
-            \App\Models\Ticket::factory()->assigned()->count(2)->create([
+            Ticket::factory()->assigned()->count(2)->create([
                 'reporter_id' => $employee->id,
                 'department_id' => $employee->department_id,
             ]);
-            \App\Models\Ticket::factory()->resolved()->count(2)->create([
+            Ticket::factory()->resolved()->count(2)->create([
                 'reporter_id' => $employee->id,
                 'department_id' => $employee->department_id,
             ]);
-            \App\Models\Ticket::factory()->closed()->count(2)->create([
+            Ticket::factory()->closed()->count(2)->create([
                 'reporter_id' => $employee->id,
                 'department_id' => $employee->department_id,
             ]);
-            \App\Models\Ticket::factory()->breached()->count(1)->create([
+            Ticket::factory()->breached()->count(1)->create([
                 'reporter_id' => $employee->id,
                 'department_id' => $employee->department_id,
             ]);

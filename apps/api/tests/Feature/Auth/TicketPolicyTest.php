@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\RoleName;
 use App\Models\Ticket;
 use App\Models\TicketComment;
 use App\Models\TicketStatus;
