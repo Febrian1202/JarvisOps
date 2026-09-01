@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Ticket;
 
 use App\DTOs\Ticket\CreateTicketData;
+use App\DTOs\Ticket\UpdateTicketData;
+use App\Enums\RoleName;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\StoreTicketRequest;
 use App\Http\Requests\Ticket\UpdateTicketRequest;
@@ -35,11 +37,26 @@ class TicketController extends Controller
 
     public function update(UpdateTicketRequest $request, Ticket $ticket): JsonResponse
     {
-        return ApiResponse::error('Not implemented yet.', null, 501);
+        $this->authorize('update', $ticket);
+
+        $whitelist = match (true) {
+            $request->user()->isAdmin(),
+            $request->user()->hasRole(RoleName::Manager, RoleName::Technician) => ['title', 'description', 'category_id'],
+            default => ['title', 'description'],
+        };
+
+        $fields = array_values(array_intersect($whitelist, array_keys($request->validated())));
+
+        $ticket = $this->ticketService->update($ticket, UpdateTicketData::fromArray($request->validated(), $fields));
+
+        return ApiResponse::success(new TicketResource($ticket), 'Ticket updated successfully.');
     }
 
     public function destroy(Ticket $ticket): JsonResponse
     {
-        return ApiResponse::error('Not implemented yet.', null, 501);
+        $this->authorize('delete', $ticket);
+        $this->ticketService->delete($ticket);
+
+        return ApiResponse::success(null, 'Ticket deleted successfully.');
     }
 }

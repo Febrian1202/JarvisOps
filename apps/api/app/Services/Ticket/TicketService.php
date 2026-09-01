@@ -3,10 +3,12 @@
 namespace App\Services\Ticket;
 
 use App\DTOs\Ticket\CreateTicketData;
+use App\DTOs\Ticket\UpdateTicketData;
 use App\Enums\AuditAction;
 use App\Enums\AuditModule;
 use App\Enums\TicketStatusName;
 use App\Models\Ticket;
+use App\Models\TicketCategory;
 use App\Models\TicketHistory;
 use App\Models\TicketPriority;
 use App\Models\TicketStatus;
@@ -15,6 +17,7 @@ use App\Services\Audit\AuditLogger;
 use App\Services\Sla\SlaService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class TicketService
 {
@@ -85,5 +88,64 @@ class TicketService
         $ticket->setAttribute('editable_fields', []);
 
         return $ticket;
+    }
+
+    public function update(Ticket $ticket, UpdateTicketData $data): Ticket
+    {
+        // K-09/D-16 #2: no role can edit a CLOSED ticket (including admin bypassing Gate::before)
+        if ($ticket->status_id === 5 || ($ticket->status?->is_closed ?? false)) {
+            throw new AccessDeniedHttpException('Tiket yang sudah ditutup tidak dapat diubah.');
+        }
+
+        return DB::transaction(function () use ($ticket, $data): Ticket {
+            $old = $ticket->only($data->fields);
+
+            foreach ($data->fields as $field) {
+                if ($field === 'category_id') {
+                    $ticket->category_id = $data->categoryId;
+                } elseif ($field === 'title') {
+                    $ticket->title = $data->title;
+                } elseif ($field === 'description') {
+                    $ticket->description = $data->description;
+                }
+            }
+            $ticket->save();
+
+            foreach ($data->fields as $field) {
+                $newValue = $ticket->getAttribute($field);
+                if ((string) ($old[$field] ?? '') !== (string) ($newValue ?? '')) {
+                    TicketHistory::create([
+                        'ticket_id' => $ticket->id,
+                        'user_id' => auth()->id(),
+                        'field_changed' => $field,
+                        'old_value' => $this->displayValue($field, $old[$field] ?? null),
+                        'new_value' => $this->displayValue($field, $newValue),
+                    ]);
+                }
+            }
+
+            $this->auditLogger->log(auth()->user(), AuditAction::Update, AuditModule::Ticket,
+                $ticket->id, "Ticket #{$ticket->ticket_number} diperbarui.", $old, $ticket->only($data->fields));
+
+            return $ticket->fresh()->load(['status', 'priority', 'category', 'reporter', 'technician', 'department', 'asset']);
+        });
+    }
+
+    public function delete(Ticket $ticket): void
+    {
+        DB::transaction(function () use ($ticket): void {
+            $ticket->delete();
+
+            $this->auditLogger->log(auth()->user(), AuditAction::Delete, AuditModule::Ticket,
+                $ticket->id, "Ticket #{$ticket->ticket_number} dihapus.");
+        });
+    }
+
+    private function displayValue(string $field, mixed $value): ?string
+    {
+        return match ($field) {
+            'category_id' => TicketCategory::find($value)?->name,
+            default => $value,
+        };
     }
 }
