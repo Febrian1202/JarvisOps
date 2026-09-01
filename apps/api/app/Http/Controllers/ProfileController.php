@@ -6,6 +6,7 @@ use App\Authorization\AbilityMatrix;
 use App\Enums\RoleName;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\User;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,15 +23,10 @@ class ProfileController extends Controller
 
         $permissions = AbilityMatrix::permissionsFor(RoleName::from($user->role->name));
 
-        return ApiResponse::success([
-            'id' => $user->id,
-            'email' => $user->email,
-            'full_name' => $user->full_name,
-            'role' => $user->role,
-            'department' => $user->department,
-            'profile' => $user->employeeProfile,
-            'permissions' => $permissions,
-        ], 'Profile retrieved successfully.');
+        return ApiResponse::success(
+            $this->profilePayload($user, $permissions),
+            'Profile retrieved successfully.',
+        );
     }
 
     /**
@@ -48,14 +44,35 @@ class ProfileController extends Controller
 
         $user->load(['role', 'department', 'employeeProfile']);
 
-        return ApiResponse::success([
+        return ApiResponse::success(
+            $this->profilePayload($user),
+            'Profile updated successfully.',
+        );
+    }
+
+    /**
+     * Build the profile payload matching the API-CONTRACT §5 shape.
+     *
+     * @return array<string, mixed>
+     */
+    private function profilePayload(User $user, ?array $permissions = null): array
+    {
+        $payload = [
             'id' => $user->id,
             'email' => $user->email,
             'full_name' => $user->full_name,
             'role' => $user->role,
             'department' => $user->department,
-            'profile' => $user->employeeProfile,
-        ], 'Profile updated successfully.');
+            'profile' => $user->employeeProfile?->makeHidden([
+                'id', 'user_id', 'hire_date', 'created_at', 'updated_at', 'deleted_at',
+            ]),
+        ];
+
+        if ($permissions !== null) {
+            $payload['permissions'] = $permissions;
+        }
+
+        return $payload;
     }
 
     /**

@@ -32,7 +32,12 @@ class AuthController extends Controller
 
         return ApiResponse::success([
             'token' => $token,
-            'user' => $user,
+            'user' => $user->makeHidden([
+                'must_change_password',
+                'last_login_at',
+                'created_at',
+                'updated_at',
+            ]),
         ], 'Login successful.');
     }
 
