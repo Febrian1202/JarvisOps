@@ -9,7 +9,7 @@ services:
       MYSQL_USER: jarvisops
       MYSQL_PASSWORD: secret
     ports:
-      - "3306:3306"
+      - "${FORWARD_DB_PORT:-3307}:3306"
     volumes:
       - mysql-data:/var/lib/mysql
       - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
     user: "${UID:-1000}:${GID:-1000}"
     environment:
-      SERVER_NAME: ":8000"
+      SERVER_NAME: "http://:8000"
       DB_HOST: mysql
       DB_PORT: 3306
       DB_DATABASE: JarvisOps
@@ -38,6 +38,8 @@ services:
       - "8000:8000"
     volumes:
       - ./apps/api:/app
+      - caddy_data:/data
+      - caddy_config:/config
     depends_on:
       mysql:
         condition: service_healthy
@@ -67,6 +69,8 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    healthcheck:
+      disable: true
 
   web:
     image: node:22-alpine
@@ -88,3 +92,5 @@ services:
 volumes:
   mysql-data:
   web-node-modules:
+  caddy_data:
+  caddy_config:
