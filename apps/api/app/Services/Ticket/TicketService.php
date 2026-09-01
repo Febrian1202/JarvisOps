@@ -90,14 +90,14 @@ class TicketService
         return $ticket;
     }
 
-    public function update(Ticket $ticket, UpdateTicketData $data): Ticket
+    public function update(Ticket $ticket, UpdateTicketData $data, User $actor): Ticket
     {
         // K-09/D-16 #2: no role can edit a CLOSED ticket (including admin bypassing Gate::before)
-        if ($ticket->status_id === 5 || ($ticket->status?->is_closed ?? false)) {
-            throw new AccessDeniedHttpException('Tiket yang sudah ditutup tidak dapat diubah.');
+        if ((bool) ($ticket->status?->is_final ?? false)) {
+            throw new AccessDeniedHttpException('This ticket is closed and cannot be edited.');
         }
 
-        return DB::transaction(function () use ($ticket, $data): Ticket {
+        return DB::transaction(function () use ($ticket, $data, $actor): Ticket {
             $old = $ticket->only($data->fields);
 
             foreach ($data->fields as $field) {
@@ -116,7 +116,7 @@ class TicketService
                 if ((string) ($old[$field] ?? '') !== (string) ($newValue ?? '')) {
                     TicketHistory::create([
                         'ticket_id' => $ticket->id,
-                        'user_id' => auth()->id(),
+                        'user_id' => $actor->id,
                         'field_changed' => $field,
                         'old_value' => $this->displayValue($field, $old[$field] ?? null),
                         'new_value' => $this->displayValue($field, $newValue),
@@ -124,19 +124,19 @@ class TicketService
                 }
             }
 
-            $this->auditLogger->log(auth()->user(), AuditAction::Update, AuditModule::Ticket,
+            $this->auditLogger->log($actor, AuditAction::Update, AuditModule::Ticket,
                 $ticket->id, "Ticket #{$ticket->ticket_number} diperbarui.", $old, $ticket->only($data->fields));
 
             return $ticket->fresh()->load(['status', 'priority', 'category', 'reporter', 'technician', 'department', 'asset']);
         });
     }
 
-    public function delete(Ticket $ticket): void
+    public function delete(Ticket $ticket, User $actor): void
     {
-        DB::transaction(function () use ($ticket): void {
+        DB::transaction(function () use ($ticket, $actor): void {
             $ticket->delete();
 
-            $this->auditLogger->log(auth()->user(), AuditAction::Delete, AuditModule::Ticket,
+            $this->auditLogger->log($actor, AuditAction::Delete, AuditModule::Ticket,
                 $ticket->id, "Ticket #{$ticket->ticket_number} dihapus.");
         });
     }

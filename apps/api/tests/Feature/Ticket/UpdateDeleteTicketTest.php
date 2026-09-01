@@ -61,6 +61,14 @@ test('admin cannot edit a CLOSED ticket', function () {
     ])->assertStatus(403);
 });
 
+test('employee can edit RESOLVED ticket', function () {
+    $ticket = Ticket::factory()->resolved()->create(['reporter_id' => $this->employee->id]);
+
+    $this->putJson("/api/tickets/{$ticket->id}", ['title' => 'Fixed typo'])
+        ->assertStatus(200);
+    expect($ticket->fresh()->title)->toBe('Fixed typo');
+});
+
 test('update rejects status_id and technician_id in payload', function () {
     $ticket = Ticket::factory()->open()->create(['reporter_id' => $this->employee->id]);
 

@@ -13,6 +13,7 @@ use App\Models\Ticket;
 use App\Services\Ticket\TicketService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -47,15 +48,15 @@ class TicketController extends Controller
 
         $fields = array_values(array_intersect($whitelist, array_keys($request->validated())));
 
-        $ticket = $this->ticketService->update($ticket, UpdateTicketData::fromArray($request->validated(), $fields));
+        $ticket = $this->ticketService->update($ticket, UpdateTicketData::fromArray($request->validated(), $fields), $request->user());
 
         return ApiResponse::success(new TicketResource($ticket), 'Ticket updated successfully.');
     }
 
-    public function destroy(Ticket $ticket): JsonResponse
+    public function destroy(Request $request, Ticket $ticket): JsonResponse
     {
         $this->authorize('delete', $ticket);
-        $this->ticketService->delete($ticket);
+        $this->ticketService->delete($ticket, $request->user());
 
         return ApiResponse::success(null, 'Ticket deleted successfully.');
     }
