@@ -1267,12 +1267,8 @@ High-level architecture:
 ┌────────────▼─────────────┐
 │        Laravel           │
 │                          │
-│ Controllers              │
-│ Requests / Validation    │
-│ Services / Business Logic│
-│ Policies / Authorization │
-│ API Resources            │
-│ Notifications            │
+│  Business logic & API    │
+│  (lihat catatan di bawah)│
 └────────────┬─────────────┘
              │
              │ Eloquent ORM
@@ -1288,6 +1284,8 @@ High-level architecture:
 │ Audit Logs               │
 └──────────────────────────┘
 ```
+
+> **Lapisan aplikasi Laravel** (Controllers, Requests/Validation, Services/Business Logic, Policies/Authorization, API Resources, Notifications) dirinci di `docs/architecture/BACKEND-ARCHITECTURE.md` §2–§6. Diagram di atas hanya menampilkan arsitektur level produk.
 
 ---
 

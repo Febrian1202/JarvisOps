@@ -2,6 +2,8 @@
 
 use App\Exceptions\IllegalStatusTransitionException;
 use App\Exceptions\StateConflictException;
+use App\Http\Middleware\CheckRole;
+use App\Http\Middleware\EnsurePasswordChanged;
 use App\Support\ApiResponse;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -26,6 +28,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->api(append: [
             'throttle:api',
+        ]);
+
+        $middleware->alias([
+            'role' => CheckRole::class,
+            'password.changed' => EnsurePasswordChanged::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -106,6 +106,7 @@ JarvisOps/
 │   │   ├── ERD.md                    Penjelasan 18 tabel dan relasinya
 │   │   ├── DFD.md                    Data flow level 1 & 2
 │   │   ├── CONTEXT-DIAGRAM.md        Batas sistem dan aktor eksternal
+│   │   ├── BACKEND-ARCHITECTURE.md Pola service layer, DTO & request pipeline
 │   │   └── CONTEXT-DIAGRAM.drawio
 │   └── schema.sql                    ERD v1.2 dalam DDL MySQL
 └── README.md
@@ -123,6 +124,7 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 | [`docs/architecture/CONTEXT-DIAGRAM.md`](docs/architecture/CONTEXT-DIAGRAM.md) | Batas sistem dan aktornya | Gambaran paling luas |
 | [`docs/architecture/ERD.md`](docs/architecture/ERD.md) | 18 tabel, relasi, alasan desainnya | Sebelum menulis migration |
 | [`docs/architecture/DFD.md`](docs/architecture/DFD.md) | Aliran data antar proses | Memahami alur kerja sistem |
+| [`docs/architecture/BACKEND-ARCHITECTURE.md`](docs/architecture/BACKEND-ARCHITECTURE.md) | Pola service layer, DTO, controller tipis, request pipeline | Sebelum menulis business logic |
 | [`docs/api/API-CONTRACT.md`](docs/api/API-CONTRACT.md) | Bentuk request/response seluruh endpoint | Sebelum menulis controller atau memanggil API |
 | [`docs/product/STATUS-TRANSITION.md`](docs/product/STATUS-TRANSITION.md) | Transisi status yang legal beserta efek sampingnya | Sebelum menyentuh workflow ticket |
 | [`docs/product/PERMISSION-MATRIX.md`](docs/product/PERMISSION-MATRIX.md) | Ability per role, pemetaan endpoint | Sebelum menulis Policy |

@@ -40,6 +40,8 @@ Audit menemukan beberapa tempat di mana dua dokumen memberi jawaban berbeda untu
 5. `docs/product/ROADMAP.md` — untuk urutan dan exit criteria
 6. `docs/product/PRD.md` — untuk maksud dan ruang lingkup
 
+> **Catatan:** `docs/architecture/BACKEND-ARCHITECTURE.md` adalah dokumen turunan yang mengkonsolidasikan pola service layer & request pipeline dari PRD/PERMISSION-MATRIX/ROADMAP. Ia **tidak** menambah keputusan baru, sehingga tidak masuk urutan otoritas di atas — rujuk langsung ke dokumen sumbernya saat ada pertentangan.
+
 PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis paling awal dan dokumen di atasnya dibuat justru untuk mempertajamnya. Kalau PRD dan dokumen turunannya berbeda, dokumen turunan menang — dan penyimpangannya dicatat di sini.
 
 **Untuk kode:** migration adalah source of truth skema. Test adalah bukti bahwa keputusan di dokumen ini benar-benar berlaku. `docs/schema.sql` adalah lampiran laporan, disinkronkan di Fase 10.
@@ -120,8 +122,8 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Status:** DECIDED
 - **Keputusan:** Tambahkan kolom `must_change_password BOOLEAN NOT NULL DEFAULT FALSE` pada migration `users`.
   - Ketika Admin melakukan `POST /api/users/{id}/reset-password`, flag ini diset `TRUE`.
-  - Middleware `EnsurePasswordChanged` mencegat request jika `must_change_password === true`, hanya mengizinkan `PUT /api/me/password` dan `POST /api/logout`.
-- **Alasan:** Menyelesaikan kontrak `PRD Addendum §2.2` tanpa menambah kompleksitas token reset email eksternal.
+  - Middleware `EnsurePasswordChanged` mencegat request jika `must_change_password === true`, hanya mengizinkan `PUT /api/me/password`, `GET /api/me` (me.show), dan `POST /api/logout`.
+- **Alasan:** Menyelesaikan kontrak `PRD Addendum §2.2` tanpa menambah kompleksitas token reset email eksternal. User perlu melihat profil (`/me`) untuk mengetahui identitasnya saat dipaksa mengganti password.
 
 ### D-12 · Password Policy
 - **Status:** DECIDED
@@ -231,7 +233,8 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
   - Filter `date_from` dan `date_to` dikirim dalam `YYYY-MM-DD` dan diinterpretasikan sebagai batas awal (00:00:00) dan akhir (23:59:59) hari pada waktu lokal aplikasi sebelum dikonversi ke query UTC.
 
 ### D-24 · Bahasa Pesan Validasi & Notifikasi
-- **Status:** CONFIRM (default: Bahasa Indonesia untuk notifikasi, Inggris untuk API envelope)
+- **Status:** DECIDED
 - **Keputusan:**
-  - API envelope message & validation errors: Bahasa Inggris standar Laravel (`"The title field is required."`) agar konsisten dengan `API-CONTRACT.md §2`.
-  - Body notifikasi in-app & log deskripsi: Bahasa Indonesia (`"Ticket #TCK-0012 telah ditugaskan kepada Anda."`) sesuai kebutuhan user perusahaan.
+  - API envelope message: Bahasa Inggris (standar Laravel, `"Ticket created successfully."`) agar konsisten dengan `API-CONTRACT.md §2`.
+  - Validation errors (custom `messages()` di FormRequest): **Bahasa Indonesia** (`"Judul tiket harus diisi."`) agar lebih mudah dipahami user perusahaan.
+  - Body notifikasi in-app & log deskripsi: Bahasa Indonesia (`"Ticket #TCK-0012 telah ditugaskan kepada Anda."`).
