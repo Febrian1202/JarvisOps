@@ -1,8 +1,9 @@
 # JARVIS OPS — TICKET STATUS TRANSITION
 
-**Version:** 1.0
+**Version:** 1.1
 **Basis:** PRD §10, §11, §12, §31; Addendum §7; `DECISIONS.md` Bagian A & B
-**Implementasi:** `App\Services\TicketStatusService`
+**Implementasi:** `App\Services\Ticket\TicketStatusService`
+**Perubahan v1.1 (awal Fase 3):** sel diagonal `ASSIGNED → ASSIGNED` dikoreksi jadi `—` (reassign lewat `POST /assign`); `available_actions` untuk `assign`, `change_priority`, dan `edit` dipersempit; bentuk error `409` (D-26) dan aturan bahasa Indonesia (D-29) ditambahkan; `note` dinyatakan opsional kecuali jalur pembatalan.
 
 ---
 
@@ -42,7 +43,7 @@ Baris = status asal, kolom = status tujuan. Isi sel = role yang diizinkan.
 | Dari ↓ / Ke → | OPEN | ASSIGNED | IN_PROGRESS | RESOLVED | CLOSED |
 | --- | --- | --- | --- | --- | --- |
 | **OPEN** | — | M, A | T\*, M, A | ✗ | M, A |
-| **ASSIGNED** | M, A | M, A | T(own), M, A | ✗ | M, A |
+| **ASSIGNED** | M, A | — | T(own), M, A | ✗ | M, A |
 | **IN_PROGRESS** | ✗ | M, A | — | T(own), M, A | M, A |
 | **RESOLVED** | ✗ | ✗ | R, T(own), M, A | — | R, M, A |
 | **CLOSED** | ✗ | ✗ | ✗ | ✗ | — |
@@ -58,6 +59,8 @@ Keterangan:
 - **—** = status sama, tolak dengan `422` (bukan no-op sunyi)
 
 **Employee yang bukan reporter tidak muncul di mana pun.** Employee hanya bisa menutup atau membuka kembali ticket miliknya sendiri.
+
+> **Koreksi v1.1 — sel `ASSIGNED → ASSIGNED`.** Versi 1.0 mengisi sel diagonal ini dengan `M, A`, bertentangan dengan keterangannya sendiri bahwa `—` berarti status sama ditolak `422`. Maksudnya adalah **reassign** — mengganti `technician_id` tanpa mengubah status. Reassign tidak pernah lewat `POST /status`; ia lewat `POST /api/tickets/{id}/assign`, yang boleh dipanggil pada `OPEN`, `ASSIGNED`, maupun `IN_PROGRESS` dan menormalkan status ke `ASSIGNED`. Dengan begitu `POST /status` bisa menolak transisi status-sama tanpa pengecualian, dan alasan §4.9 (klik dua kali tidak boleh menghasilkan dua baris history) tetap utuh.
 
 ---
 
@@ -163,6 +166,12 @@ Aturan yang berlaku di semua baris:
 - `note` yang dikirim disimpan sebagai `ticket_comments` oleh pelaku, sehingga muncul di timeline tanpa perlu tabel baru
 - `ticket_histories.old_value` dan `new_value` menyimpan **nama** status atau nama technician, bukan ID (lihat API contract §6)
 
+Tambahan v1.1, menutup tiga hal yang tidak dinyatakan v1.0:
+
+- **`note` sebagai komentar tidak memicu notifikasi komentar.** Satu aksi menghasilkan tepat satu notifikasi per penerima, yaitu notifikasi transisinya. Kalau `note` ikut memicu `TICKET_COMMENTED`, satu klik "Resolve" akan mengirim dua notifikasi ke reporter untuk kejadian yang sama.
+- **`note` bersifat opsional di seluruh transisi, kecuali `→ CLOSED` dari status non-`RESOLVED`** (jalur pembatalan §4.3) di mana ia **wajib**. Panjang maksimum 2000 karakter, sama dengan komentar biasa.
+- **Baris `→ ASSIGNED` (assign/reassign) hanya dihasilkan `POST /api/tickets/{id}/assign`**, tidak pernah oleh `POST /status` — lihat koreksi di §3. Endpoint `assign` boleh dipanggil pada `OPEN`, `ASSIGNED`, dan `IN_PROGRESS`; ia menormalkan status ke `ASSIGNED` dan memilih audit action `assign` bila `technician_id` sebelumnya null, `reassign` bila sudah terisi.
+
 ---
 
 ## 7. Interaksi dengan SLA
@@ -218,6 +227,20 @@ Prasyarat tidak terpenuhi, `422`:
 
 Pesan error menyebutkan nama status, bukan ID, dan menjelaskan *mengapa* ditolak. Pesan seperti "Invalid transition" memaksa pengguna menebak.
 
+> **Koreksi v1.1 — bahasa dan satu bentuk error tambahan.** Ketiga contoh di atas menunjukkan **bentuk** JSON, bukan string literalnya. Isi `errors.<field>` ditulis **Bahasa Indonesia** sesuai D-29, sementara `message` envelope tetap Bahasa Inggris. Jadi contoh pertama diimplementasikan sebagai `"errors": { "status_id": ["Status tidak dapat diubah dari OPEN ke RESOLVED. Ticket harus dikerjakan lebih dulu sebelum bisa diselesaikan."] }`. Aturan "sebut nama status, bukan ID" tetap berlaku.
+>
+> Bentuk keempat, konflik state `409` (D-21, D-26) — dipakai bila `expected_status_id` yang dikirim tidak lagi cocok dengan status di database:
+>
+> ```json
+> {
+>   "success": false,
+>   "message": "Ticket status has changed since it was loaded. Please refresh and try again.",
+>   "errors": null
+> }
+> ```
+>
+> Urutan evaluasi keempat bentuk error ini dikunci di D-26: `401` → `403`/`404` → `422` validasi field → `409` state basi → `422` legalitas matriks → `422` prasyarat.
+
 ---
 
 ## 9. `available_actions` di API
@@ -226,21 +249,27 @@ Pesan error menyebutkan nama status, bukan ID, dan menjelaskan *mengapa* ditolak
 
 | Action | Muncul ketika |
 | --- | --- |
-| `assign` | Manager/Admin, status bukan `CLOSED` |
+| `assign` | Manager/Admin pada `OPEN`, `ASSIGNED`, `IN_PROGRESS` |
 | `unassign` | Manager/Admin, status `ASSIGNED` |
 | `start` | Technician pemegang pada `ASSIGNED`; Technician mana pun pada `OPEN` (self-assign) |
 | `resolve` | Technician pemegang / Manager / Admin pada `IN_PROGRESS` |
 | `close` | Reporter / Manager / Admin pada `RESOLVED` |
 | `cancel` | Manager/Admin pada `OPEN`, `ASSIGNED`, `IN_PROGRESS` |
 | `reopen` | Reporter / Technician pemegang / Manager / Admin pada `RESOLVED` |
-| `change_priority` | Technician / Manager / Admin, status bukan `CLOSED` |
+| `change_priority` | Technician / Manager / Admin, status belum `is_closed` (yakni `OPEN`, `ASSIGNED`, `IN_PROGRESS`) |
 | `comment` | Partisipan ticket, status bukan `CLOSED` |
 | `attach` | Partisipan ticket, status bukan `CLOSED` |
-| `edit` | Reporter pada status bukan `CLOSED`; Technician/Manager/Admin pada status bukan `CLOSED` |
+| `edit` | Partisipan ticket pada status bukan `CLOSED`. Field yang boleh diubah berbeda per role — lihat `editable_fields`. |
 
 Matriks ini dihitung di backend supaya frontend tidak perlu menduplikasi logikanya. Kalau aturan berubah, hanya ada satu tempat yang perlu diubah.
 
 Frontend memakai `available_actions` hanya untuk menentukan tombol yang tampil. Setiap aksi tetap divalidasi ulang saat endpointnya dipanggil.
+
+Tiga koreksi v1.1 pada tabel di atas:
+
+1. **`assign` dipersempit** dari "bukan `CLOSED`" ke tiga status eksplisit. Versi 1.0 memunculkannya juga pada `RESOLVED`, padahal `RESOLVED → ASSIGNED` ilegal (§3) — artinya API mengiklankan tombol yang pasti `422`.
+2. **`change_priority` dipersempit** dari "bukan `CLOSED`" ke "belum `is_closed`", jadi ia hilang pada `RESOLVED` juga. Alasannya: `POST /priority` menghitung ulang `sla_deadline` dari `created_at` (§7), sementara D-03 menilai kepatuhan SLA dari `resolved_at <= sla_deadline`. Mengubah priority ticket yang sudah `RESOLVED` akan membalik verdict compliance historisnya secara diam-diam — persis masalah yang snapshot SLA dibuat untuk mencegah.
+3. **`edit` disederhanakan** menjadi satu kondisi seragam. Rumusan v1.0 memberi kondisi yang identik untuk kedua belahannya, sehingga pemisahannya tidak berpengaruh. Yang sebenarnya berbeda adalah *field mana* yang boleh diubah, bukan apakah aksinya tersedia — dan itu tidak bisa dinyatakan dalam array string. Karena itu `GET /api/tickets/{id}` juga mengembalikan `editable_fields`: `["title", "description"]` untuk reporter berrole Employee, `["title", "description", "category_id"]` untuk Technician/Manager/Admin, dan `[]` bila ticket `CLOSED`.
 
 ---
 
@@ -292,3 +321,11 @@ Satu test per baris. Dijalankan dengan Pest, memakai dataset provider untuk komb
 - [ ] `note` tersimpan sebagai komentar dan muncul di timeline
 - [ ] Ubah priority menghitung ulang `sla_deadline` dari `created_at`
 - [ ] `available_actions` sesuai matriks untuk setiap kombinasi status × role
+
+### Konkurensi (v1.1, D-26)
+
+- [ ] `expected_status_id` cocok dengan status DB → transisi jalan normal
+- [ ] `expected_status_id` tidak cocok → 409, tidak ada perubahan tersimpan
+- [ ] `expected_status_id` tidak dikirim → tidak ada pemeriksaan konkurensi
+- [ ] `expected_status_id` basi **dan** transisinya juga ilegal → 409 (bukan 422), karena 409 dievaluasi lebih dulu
+- [ ] Pelaku tanpa hak dengan `expected_status_id` basi → 403/404 (bukan 409), karena otorisasi paling awal

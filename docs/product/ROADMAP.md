@@ -333,6 +333,14 @@ Membangun entitas inti produk beserta seluruh business rule-nya. Ini fase paling
 
 ## Task
 
+> **Rencana implementasi rinci:** `docs/tasks/phase-3/README.md` beserta lima berkas sub-tahap (3a–3e). Berkas itu memuat resolusi konflik antar-dokumen, global constraint, dan langkah per task. Task di bawah tetap jadi checklist tingkat fase.
+>
+> **Penyesuaian cakupan yang diputuskan saat menyiapkan rencana:**
+> - `NotificationService` dan `AuditLogger` dibuat **tipis** di Fase 3 (hanya penulis baris) karena `STATUS-TRANSITION.md §6` mewajibkan setiap transisi menulis keduanya. Scheduler SLA, endpoint `/api/notifications`, dan endpoint `/api/audit-logs` tetap Fase 4.
+> - **Attachment tetap Fase 5.** `attachments_count` di respons detail ticket bernilai 0 sampai fase itu.
+> - Empat endpoint referensi yang dibutuhkan form ticket ikut di Fase 3: `GET /api/ticket-categories`, `/ticket-priorities`, `/ticket-statuses`, `/technicians`.
+> - Fase 3 **tidak menyentuh `apps/web`**.
+
 ### Ticket CRUD
 
 - [ ] `TicketService::create()` di dalam transaksi database:
@@ -400,7 +408,7 @@ Membangun entitas inti produk beserta seluruh business rule-nya. Ini fase paling
 - [ ] Employee mencoba memilih asset milik orang lain → 422
 - [ ] Technician mencoba memproses ticket yang bukan miliknya → 403
 - [ ] Employee mencoba assign technician → 403
-- [ ] Transisi ilegal (mis. `OPEN → CLOSED`) → 422
+- [ ] Transisi ilegal (mis. `OPEN → RESOLVED`) → 422 — daftar lengkap di `STATUS-TRANSITION.md §10`. Catatan: `OPEN → CLOSED` justru **legal** untuk Manager/Admin (jalur pembatalan, §4.3); contoh di versi sebelumnya keliru.
 - [ ] Employee mencoba mengubah ticket `CLOSED` → 403
 - [ ] Employee melihat daftar ticket → hanya miliknya
 - [ ] `ticket_number` unik di bawah pembuatan bersamaan

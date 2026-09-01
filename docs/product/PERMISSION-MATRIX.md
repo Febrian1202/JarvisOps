@@ -1,8 +1,9 @@
 # JARVIS OPS — PERMISSION MATRIX
 
-**Version:** 1.0
+**Version:** 1.1
 **Basis:** PRD §5, Addendum §5.2, `DECISIONS.md` Bagian B
 **Implementasi:** Laravel Gate + Policy berbasis kolom `users.role_id`
+**Perubahan v1.1 (awal Fase 3):** enum `RoleName` diselaraskan dengan D-15 (`Admin = 'administrator'`); ditambahkan §3.2b `TicketCommentPolicy`; `TicketPolicy@update` dan `@changePriority` diperjelas; empat baris route yang diwajibkan D-20 dimasukkan ke §4.
 
 ---
 
@@ -25,11 +26,13 @@ enum RoleName: string {
     case Employee   = 'employee';
     case Technician = 'technician';
     case Manager    = 'manager';
-    case Admin      = 'admin';
+    case Admin      = 'administrator';
 }
 ```
 
 Nilai enum ini harus cocok persis dengan `roles.name` yang ditulis seeder. Nama role tidak pernah ditulis sebagai string literal di luar enum ini.
+
+**Koreksi v1.1.** Versi 1.0 menulis `case Admin = 'admin'`, bertentangan dengan D-15 yang mem-pin `roles` baris pertama sebagai `administrator` dan dengan contoh `GET /api/roles` di `API-CONTRACT.md §11`. D-15 menang, dan seeder Fase 2 memang sudah menulis `administrator`. Kalimat "harus cocok persis dengan `roles.name`" itulah yang membuat ketidaksesuaian ini fatal kalau dibiarkan — setiap pemeriksaan role akan gagal secara sunyi.
 
 ### Hierarki
 
@@ -109,13 +112,13 @@ Notasi:
 | `viewAny` | ✅ scoped | ✅ | ✅ | ✅ | Employee hanya `reporter_id = self` |
 | `view` | ✅ own | ✅ | ✅ | ✅ | Bukan reporter & bukan T/M/A → **404** |
 | `create` | ✅ | ✅ | ✅ | ✅ | §5 PRD: semua role boleh |
-| `update` | ✅ own, bukan CLOSED | ✅ | ✅ | ✅ | BR-009 |
+| `update` | ✅ own, bukan CLOSED | ✅ bukan CLOSED | ✅ bukan CLOSED | ✅ bukan CLOSED | BR-009; lihat koreksi v1.1 di bawah |
 | `delete` | ❌ | ❌ | ❌ | ✅ | Soft delete |
 | `assign` | ❌ | ❌ | ✅ | ✅ | BR-004 |
 | `unassign` | ❌ | ❌ | ✅ | ✅ | |
 | `changeStatus` | ✅ own terbatas | ✅ assigned | ✅ | ✅ | Aturan penuh di `STATUS-TRANSITION.md` |
 | `selfAssign` | ❌ | ✅ | ❌ | ❌ | Hanya dari status `OPEN` |
-| `changePriority` | ❌ | ✅ | ✅ | ✅ | §5 PRD |
+| `changePriority` | ❌ | ✅ assigned | ✅ | ✅ | §5 PRD; D-19 membatasi Technician ke ticket pegangannya |
 | `comment` | ✅ own | ✅ assigned | ✅ | ✅ | Partisipan saja (D-19) |
 | `viewHistory` | ✅ own | ✅ | ✅ | ✅ | Mengikuti `view` |
 | `attach` | ✅ own | ✅ assigned | ✅ | ✅ | Partisipan saja (D-19) |
@@ -124,13 +127,24 @@ Definisi **partisipan** ticket: reporter, technician yang di-assign, Manager man
 
 Employee pada `changeStatus` hanya boleh dua hal: `RESOLVED → CLOSED` dan `RESOLVED → IN_PROGRESS`, keduanya pada ticket miliknya.
 
+**Koreksi v1.1 — `update` pada ticket `CLOSED`.** Versi 1.0 mencantumkan caveat "bukan CLOSED" hanya pada kolom Employee, sehingga terbaca seolah Technician/Manager/Admin boleh mengedit ticket yang sudah ditutup. Dua dokumen lain menolak itu: `API-CONTRACT.md §6` ("Technician/Manager/Admin tidak dapat mengedit isi tiket yang telah `CLOSED`") dan `STATUS-TRANSITION.md §9` (`edit` hanya muncul pada status bukan `CLOSED`), dan D-16 pengecualian #2 bahkan melarang Admin membuka kembali ticket `CLOSED`. Yang berlaku: **tidak ada role yang bisa mengedit ticket `CLOSED`**. Karena `Gate::before` meloloskan Admin lebih dulu, larangan untuk Admin ditegakkan di service layer, bukan di Policy.
+
+### 3.2b Komentar ticket — `TicketCommentPolicy`
+
+| Ability | E | T | M | A | Catatan |
+| --- | :-: | :-: | :-: | :-: | --- |
+| `update` | ✅ own ≤15 menit | ✅ own ≤15 menit | ✅ own ≤15 menit | ✅ kapan saja | D-20 |
+| `delete` | ✅ own ≤15 menit | ✅ own ≤15 menit | ✅ own ≤15 menit | ✅ kapan saja | D-20, soft delete |
+
+Ditambahkan v1.1. D-20 mewajibkan endpoint ubah/hapus komentar tapi §3 v1.0 tidak pernah memberinya nama ability, sehingga dua route wajib tidak punya penjaga yang tercatat. Jendela 15 menit dihitung dari `ticket_comments.created_at`. Manager **tidak** mewarisi hak mengubah komentar orang lain — hanya Admin, lewat `Gate::before`. Membuat komentar tetap dijaga `TicketPolicy@comment`, bukan policy ini.
+
 ### 3.3 Attachment — `AttachmentPolicy`
 
 | Ability | E | T | M | A | Catatan |
 | --- | :-: | :-: | :-: | :-: | --- |
 | `view` | ✅ | ✅ | ✅ | ✅ | Didelegasikan ke `TicketPolicy@view` ticket induk |
 | `download` | ✅ | ✅ | ✅ | ✅ | Idem — Addendum §6.5 |
-| `create` | ✅ own | ✅ | ✅ | ✅ | Partisipan ticket |
+| `create` | ✅ own | ✅ assigned | ✅ | ✅ | Partisipan ticket (D-19) |
 | `delete` | ✅ own upload | ✅ own upload | ✅ | ✅ | |
 
 Otorisasi attachment **selalu** diturunkan dari otorisasi ticket induknya. Tidak ada jalur akses lain — tidak ada URL publik, tidak ada signed URL berumur panjang.
@@ -228,6 +242,7 @@ Tabel ini adalah checklist audit Fase 10. Setiap route di `routes/api.php` harus
 | GET | `/api/health` | — |
 | POST | `/api/logout` | `auth.logout` |
 | GET | `/api/me` | `profile.view-own` |
+| PUT | `/api/me` | `profile.view-own` |
 | PUT | `/api/me/password` | `profile.change-password` |
 | GET | `/api/tickets` | `TicketPolicy@viewAny` |
 | POST | `/api/tickets` | `TicketPolicy@create` |
@@ -235,10 +250,13 @@ Tabel ini adalah checklist audit Fase 10. Setiap route di `routes/api.php` harus
 | PUT | `/api/tickets/{id}` | `TicketPolicy@update` |
 | DELETE | `/api/tickets/{id}` | `TicketPolicy@delete` |
 | POST | `/api/tickets/{id}/assign` | `TicketPolicy@assign` |
+| POST | `/api/tickets/{id}/unassign` | `TicketPolicy@unassign` |
 | POST | `/api/tickets/{id}/status` | `TicketPolicy@changeStatus` |
 | POST | `/api/tickets/{id}/priority` | `TicketPolicy@changePriority` |
 | GET | `/api/tickets/{id}/comments` | `TicketPolicy@view` |
 | POST | `/api/tickets/{id}/comments` | `TicketPolicy@comment` |
+| PUT | `/api/tickets/{id}/comments/{comment_id}` | `TicketCommentPolicy@update` |
+| DELETE | `/api/tickets/{id}/comments/{comment_id}` | `TicketCommentPolicy@delete` |
 | GET | `/api/tickets/{id}/histories` | `TicketPolicy@viewHistory` |
 | GET | `/api/tickets/{id}/attachments` | `TicketPolicy@view` |
 | POST | `/api/tickets/{id}/attachments` | `TicketPolicy@attach` |
@@ -291,8 +309,11 @@ Tabel ini adalah checklist audit Fase 10. Setiap route di `routes/api.php` harus
 | GET | `/api/knowledge-categories` | `knowledge-category.viewAny` |
 | POST | `/api/knowledge-categories` | `knowledge-category.manage` |
 | PUT/DELETE | `/api/knowledge-categories/{id}` | `knowledge-category.manage` |
+| GET | `/api/roles` | `user.viewAny` |
 | GET | `/api/audit-logs` | `audit-log.viewAny` |
 | GET | `/api/audit-logs/{id}` | `audit-log.view` |
+
+Baris yang ditambahkan v1.1: `PUT /api/me`, `POST /api/tickets/{id}/unassign`, `PUT|DELETE /api/tickets/{id}/comments/{comment_id}`, dan `GET /api/roles`. Keempatnya diwajibkan D-20 tapi tidak punya baris di v1.0, padahal preambul tabel ini menuntut setiap route punya barisnya. `GET /api/roles` memakai `user.viewAny` karena satu-satunya konsumennya adalah form user Admin.
 
 ---
 

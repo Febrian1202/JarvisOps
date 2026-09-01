@@ -2,10 +2,11 @@
 
 ## JARVIS OPS — IT Service Management System
 
-**Version:** 1.3
+**Version:** 1.4
 **Status:** Derived — tidak memperkenalkan keputusan baru; mengkonsolidasikan pola yang tersebar
 **Sumber:** `docs/product/PRD.md` §35, `docs/product/PERMISSION-MATRIX.md` §1, `docs/product/ROADMAP.md`, `docs/adr/DECISIONS.md`
 **Dokumen terkait:** `docs/architecture/CONTEXT-DIAGRAM.md`, `docs/architecture/DFD.md`, `docs/architecture/ERD.md`, `docs/api/API-CONTRACT.md`, `docs/product/STATUS-TRANSITION.md`
+**Perubahan v1.4 (awal Fase 3):** contoh `title` dikoreksi dari `max:255` ke `max:200`; folder `app/Rules/<Domain>/` ditambahkan ke struktur; aturan bahasa pesan validasi dirujuk ke D-29.
 
 ---
 
@@ -67,7 +68,7 @@ class StoreTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:200'],
             'description' => ['required', 'string'],
             'priority_id' => ['required', 'integer', 'exists:ticket_priorities,id'],
         ];
@@ -77,7 +78,7 @@ class StoreTicketRequest extends FormRequest
     {
         return [
             'title.required' => 'Judul tiket wajib diisi.',
-            'title.max' => 'Judul tiket tidak boleh lebih dari 255 karakter.',
+            'title.max' => 'Judul tiket tidak boleh lebih dari 200 karakter.',
             'description.required' => 'Deskripsi wajib diisi.',
             'priority_id.required' => 'Prioritas wajib dipilih.',
             'priority_id.exists' => 'Prioritas yang dipilih tidak valid.',
@@ -87,9 +88,11 @@ class StoreTicketRequest extends FormRequest
 ```
 
 Aturan:
-- Bahasa pesan validasi **bahasa Indonesia** (sesuai `DECISIONS.md` D-24 — custom `messages()` ditulis untuk user perusahaan). API envelope message tetap bahasa Inggris (`"Ticket created successfully."`).
+- Bahasa pesan validasi **bahasa Indonesia** (sesuai `DECISIONS.md` D-24 dan D-29 — seluruh isi `errors.<field>` berbahasa Indonesia, termasuk yang dilempar service layer). API envelope message tetap bahasa Inggris (`"Ticket created successfully."`).
 - Pesan harus **spesifik per field + rule** (`title.required`), bukan generik.
 - Jangan mengandalkan `:attribute` bawaan untuk teks user-facing; tulis pesan utuh agar konsisten dan mudah diterjemahkan.
+- Batas `title` ticket adalah **200** karakter (`API-CONTRACT.md §6`), bukan 255. Contoh di atas dikoreksi pada v1.4; versi sebelumnya menulis 255 dan bertentangan dengan kontrak API serta lebar kolomnya.
+- Validasi yang butuh query ke database — mis. "asset ini benar-benar ter-assign ke reporter" (BR-014) — ditulis sebagai **Rule object** di `app/Rules/<Domain>/`, dipasang dari `rules()`, bukan sebagai closure inline. Alasannya sama dengan alasan service layer ada: aturan yang punya nama sendiri bisa diuji sendiri.
 
 ---
 
@@ -202,6 +205,7 @@ app/
 │   ├── Middleware/           ← auth:sanctum, role:
 │   └── Resources/            ← API Resource per domain (Ticket/TicketResource, ...)
 ├── Policies/                 ← otorisasi per resource (Ticket/TicketPolicy, ...)
+├── Rules/                    ← Rule object validasi yang butuh query (Ticket/AssetAssignedToReporter)
 ├── Enums/                    ← RoleName, TicketStatusName, dll
 ├── Exceptions/               ← exception yang dipetakan ke 401/403/404/409/422
 ├── Authorization/            ← AbilityMatrix (sumber tunggal role → ability)

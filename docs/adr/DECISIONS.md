@@ -1,8 +1,9 @@
 # JARVIS OPS — DECISION LOG
 
-**Version:** 1.0
+**Version:** 1.1
 **Status:** Approved — mengunci implementasi
 **Basis:** Audit kesiapan seluruh `docs/` sebelum Fase 0, 31 Agustus 2026
+**Perubahan v1.1 (awal Fase 3):** amandemen D-08 (lima action transisi ticket), tambahan D-26 (`expected_status_id`), D-27 (`notifications.type`), D-28 (field SLA turunan), D-29 (bahasa pesan business rule). Semuanya menutup lubang yang ditemukan saat menyiapkan rencana Fase 3 — lihat `docs/tasks/phase-3/README.md §Resolusi Konflik`.
 
 ---
 
@@ -100,11 +101,18 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Alasan:** Mencegah kebocoran hash password atau token otentikasi ke tabel log yang dapat dibaca Manager/Admin.
 
 ### D-08 · Kosakata Baku `audit_logs.module` dan `audit_logs.action`
-- **Status:** DECIDED
+- **Status:** DECIDED (diamandemen Fase 3 — lihat *Amandemen 1* di bawah)
 - **Keputusan:**
   - `module` (singular snake_case): `ticket`, `asset`, `article`, `user`, `role`, `department`, `ticket_category`, `ticket_priority`, `auth`.
   - `action` (singular/past verb konsisten): `create`, `update`, `delete`, `assign`, `reassign`, `unassign`, `status_change`, `priority_change`, `login`, `logout`, `password_reset`.
 - **Alasan:** Menghilangkan divergensi antara ERD (plural), status transition (mixed), dan permission matrix. `PERMISSION-MATRIX.md §2.2` mengandalkan nilai `module` untuk membatasi akses Manager.
+
+#### Amandemen 1 (Fase 3) — lima action transisi ticket
+
+- **Tambahan `action`:** `self_assign`, `reopen`, `resolve`, `close`, `cancel`.
+- **Alasan:** `STATUS-TRANSITION.md §6` memetakan sembilan side-effect transisi ke audit action yang berbeda-beda, dan lima di antaranya tidak ada di daftar asli. Kalau daftar asli dipaksakan, kelimanya runtuh menjadi `status_change` dan distingsi yang §6 bangun secara sengaja hilang dari audit trail — padahal justru `resolve` versus `cancel` yang membedakan ticket selesai dari ticket dibatalkan, dan D-03 bergantung pada perbedaan itu untuk menghitung SLA compliance.
+- **Kosakata `action` lengkap sesudah amandemen (16 nilai):** `create`, `update`, `delete`, `assign`, `reassign`, `unassign`, `self_assign`, `status_change`, `priority_change`, `reopen`, `resolve`, `close`, `cancel`, `login`, `logout`, `password_reset`.
+- **Konsekuensi:** Kosakata direifikasi jadi enum `App\Enums\AuditAction` dan `App\Enums\AuditModule`; `AuditLogger` hanya menerima enum, bukan string bebas, sehingga daftar ini tidak bisa melar diam-diam.
 
 ### D-09 · Constraint Integritas `asset_assignments`
 - **Status:** DECIDED
@@ -246,3 +254,45 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
   - HttpOnly cookie di Next.js diberi `maxAge` yang persis sama (12 jam).
   - Tabel `personal_access_tokens` dibersihkan dari token mati setiap hari oleh scheduler (`sanctum:prune-expired`).
 - **Alasan:** Menutup NFR-002 (Security). Default Sanctum dan cookie sesi tanpa *maxAge* berarti akses bisa terus hidup selamanya jika user tidak eksplisit menekan tombol Logout, yang berbahaya bila laptop hilang atau token bocor dari log DB. 12 jam cukup longgar untuk shift kerja ITSM sehingga tidak mengganggu pengalaman pengguna. Waktu absolut dipilih agar tidak perlu kustomisasi ekstensif pada *last used time*.
+
+### D-26 · Kontrak `expected_status_id` dan Urutan Evaluasi Error Transisi
+- **Status:** DECIDED
+- **Keputusan:**
+  - `expected_status_id` diterima sebagai parameter **opsional** oleh `POST /api/tickets/{id}/status` dan `POST /api/tickets/{id}/assign` saja. `POST /api/tickets/{id}/unassign` dan `POST /api/tickets/{id}/priority` **tidak** menerimanya.
+  - Bila dikirim dan `tickets.status_id` di DB berbeda, server mengembalikan `409` dengan envelope error standar: `message` = `"Ticket status has changed since it was loaded. Please refresh and try again."`, `errors` = `null`.
+  - Bila tidak dikirim, tidak ada pemeriksaan konkurensi — perilakunya identik dengan sebelum D-21.
+  - **Urutan evaluasi wajib** pada endpoint transisi, dari pertama:
+    1. `auth:sanctum` → `401`
+    2. Policy/Gate → `403` atau `404` (D-17)
+    3. FormRequest (validasi field, mis. `status_id` ada di `ticket_statuses`) → `422`
+    4. **Pemeriksaan `expected_status_id` → `409`**
+    5. Legalitas transisi terhadap matriks `STATUS-TRANSITION.md §3` → `422`
+    6. Prasyarat data `STATUS-TRANSITION.md §5` → `422`
+- **Alasan:** D-21 mewajibkan parameternya tapi tidak menetapkan bentuknya, sehingga tiap endpoint berisiko menjawab beda. Soal 409 mendahului 422 legalitas: kalau view klien sudah basi, premis "dari status X" yang dipakai untuk menilai legalitas juga sudah salah — memberi tahu "transisi ilegal" akan menyesatkan, sedangkan `409` mengarahkan klien ke tindakan yang benar, yaitu refetch. Otorisasi tetap paling awal karena membocorkan keberadaan atau state resource kepada yang tidak berhak lebih buruk daripada pesan yang kurang presisi (D-17).
+- **Konsekuensi:** Pemeriksaan konkurensi hidup di lapisan service (`TicketStatusService`), bukan di FormRequest — hanya service yang boleh melempar `409` (`BACKEND-ARCHITECTURE.md §2`). Pembacaan `tickets.status_id` untuk perbandingan dilakukan di dalam transaksi dengan `lockForUpdate()` agar pemeriksaannya tidak balapan dengan dirinya sendiri.
+
+### D-27 · Kosakata Baku `notifications.type`
+- **Status:** DECIDED
+- **Keputusan:**
+  - Casing: **SCREAMING_SNAKE_CASE**, mengikuti contoh `API-CONTRACT.md:573` (`TICKET_ASSIGNED`). Anotasi lowercase di `ERD.md:262` diperlakukan sebagai deskripsi, bukan nilai literal.
+  - Daftar tertutup untuk domain ticket, memetakan sembilan side-effect `STATUS-TRANSITION.md §6` satu-ke-satu: `TICKET_ASSIGNED`, `TICKET_REASSIGNED`, `TICKET_UNASSIGNED`, `TICKET_STATUS_CHANGED`, `TICKET_SELF_ASSIGNED`, `TICKET_REOPENED`, `TICKET_RESOLVED`, `TICKET_CLOSED`, `TICKET_CANCELLED`, `TICKET_COMMENTED`.
+  - `TICKET_SLA_BREACHED` ditambahkan di Fase 4 bersama scheduler-nya.
+  - `notifications.data` wajib memuat kunci: `ticket_id`, `ticket_number`, `title`, `actor_name`, `message`, `url`. `message` berbahasa Indonesia (D-24), `url` relatif (`/tickets/{id}`).
+- **Alasan:** Fase 3 sudah menulis baris `notifications` walau modul notifikasi nominalnya Fase 4, jadi kosakatanya harus dipin sekarang atau Fase 4 akan mewarisi data dengan tipe yang tidak konsisten. Nilai `type` ikut jadi filter di `GET /api/notifications`, sehingga ia bagian dari kontrak publik, bukan detail internal.
+- **Konsekuensi:** Direifikasi jadi enum `App\Enums\NotificationType`; `NotificationService` hanya menerima enum.
+
+### D-28 · Semantik Field SLA Turunan (`sla_status`, `sla_remaining_minutes`)
+- **Status:** DECIDED
+- **Keputusan:**
+  - `sla_status` (dua nilai, `on_track` | `breached`, sesuai `API-CONTRACT.md:246`) dihitung **defensif saat request**: bernilai `breached` bila `sla_breached = true` **atau** (`ticket_statuses.is_closed = false` **dan** `now() > sla_deadline`); selain itu `on_track`.
+  - Ticket yang berhenti tepat waktu (`RESOLVED`/`CLOSED` sebelum deadline) melaporkan `on_track` selamanya. Tidak ada nilai ketiga.
+  - `sla_remaining_minutes` bernilai `null` begitu `resolved_at` **atau** `closed_at` terisi — jam SLA sudah berhenti (`STATUS-TRANSITION.md §7`), jadi hitungan mundur yang terus berjalan akan berbohong.
+  - Selama jam masih berjalan, `sla_remaining_minutes` adalah **integer bertanda** hasil `now()->diffInMinutes(sla_deadline, false)` — boleh negatif untuk menyatakan seberapa jauh deadline terlewat. Frontend yang memformat tanda negatif jadi "terlambat N menit".
+  - Filter `?sla_status=` memakai definisi yang sama persis dengan yang dikembalikan payload, sebagai satu scope Eloquent supaya tampilan dan filter tidak bisa berbeda.
+- **Alasan:** `API-CONTRACT.md:313` menyertakan `sla_remaining_minutes` tanpa mendefinisikannya sama sekali. Clamp ke 0 akan membuang informasi "seberapa terlambat" yang justru dibutuhkan Manager, sedangkan meneruskan hitungan mundur setelah resolve akan menampilkan angka yang bertentangan dengan `resolved_at`. Perhitungan defensif diperlukan karena `sla_breached` ditulis scheduler yang bisa tertinggal (`Addendum §3.5`) — pembacaan harus benar meski scheduler mati.
+
+### D-29 · Bahasa Pesan Error Business Rule dari Service Layer
+- **Status:** DECIDED
+- **Keputusan:** Pesan error yang mendarat di `errors.<field>` — baik berasal dari `messages()` FormRequest maupun dari `ValidationException` yang dilempar service layer — seluruhnya **Bahasa Indonesia**, memperluas D-24. `message` pada envelope tetap Bahasa Inggris. Contoh berbahasa Inggris di `STATUS-TRANSITION.md §8` dan `API-CONTRACT.md §2.2` diperlakukan sebagai ilustrasi **bentuk** JSON, bukan string literal yang harus disalin.
+- **Alasan:** D-24 membagi bahasa berdasarkan *lapisan* (envelope vs validasi), tapi contoh di dua dokumen turunan membaginya berdasarkan *sumber* (FormRequest vs service), sehingga satu form bisa menampilkan dua bahasa untuk dua kegagalan yang bagi user tidak berbeda — validasi field dan pelanggaran business rule sama-sama muncul di bawah input yang sama. Pembagian per lapisan yang menang.
+- **Konsekuensi:** Pesan transisi ilegal, prasyarat tidak terpenuhi, dan kepemilikan asset ditulis dalam Bahasa Indonesia dan tetap menyebut **nama** status, bukan ID (`STATUS-TRANSITION.md §8`). Pesan `sort_by`/`sort_dir` di `HandlesPagination` yang terlanjur Inggris di Fase 2 ikut diterjemahkan di Fase 3.
