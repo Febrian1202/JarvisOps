@@ -31,13 +31,13 @@ trait HandlesPagination
 
         if (! in_array($sortBy, $allowedColumns, true)) {
             throw ValidationException::withMessages([
-                'sort_by' => ['The selected sort_by is invalid.'],
+                'sort_by' => ['Kolom sort_by tidak valid.'],
             ]);
         }
 
         if (! in_array($sortDir, ['asc', 'desc'], true)) {
             throw ValidationException::withMessages([
-                'sort_dir' => ['The selected sort_dir is invalid.'],
+                'sort_dir' => ['Arah pengurutan tidak valid.'],
             ]);
         }
 

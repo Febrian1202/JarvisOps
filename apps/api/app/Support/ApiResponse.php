@@ -55,12 +55,16 @@ class ApiResponse
     /**
      * Paginated collection envelope. `meta` has exactly six keys and no `links` (API-CONTRACT §2.2).
      */
-    public static function paginated(LengthAwarePaginator $paginator, string $message = 'Success'): JsonResponse
+    public static function paginated(LengthAwarePaginator $paginator, string $message = 'Success', ?string $resource = null): JsonResponse
     {
+        $data = $resource
+            ? $resource::collection($paginator->items())->resolve()
+            : $paginator->items();
+
         return response()->json([
             'success' => true,
             'message' => $message,
-            'data' => $paginator->items(),
+            'data' => $data,
             'meta' => [
                 'current_page' => $paginator->currentPage(),
                 'per_page' => $paginator->perPage(),

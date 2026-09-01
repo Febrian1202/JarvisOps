@@ -38,13 +38,13 @@ it('throws ValidationException for invalid sort_by column', function () {
     $this->request->merge(['sort_by' => 'malicious_column']);
 
     $this->wrapper->applySorting(User::query(), $this->request, ['created_at', 'title']);
-})->throws(ValidationException::class, 'selected sort_by is invalid');
+})->throws(ValidationException::class, 'Kolom sort_by tidak valid');
 
 it('throws ValidationException for invalid sort_dir', function () {
     $this->request->merge(['sort_dir' => 'invalid']);
 
     $this->wrapper->applySorting(User::query(), $this->request, ['created_at']);
-})->throws(ValidationException::class, 'selected sort_dir is invalid');
+})->throws(ValidationException::class, 'Arah pengurutan tidak valid');
 
 it('applies valid sorting to the query', function () {
     $this->request->merge(['sort_by' => 'title', 'sort_dir' => 'asc']);
