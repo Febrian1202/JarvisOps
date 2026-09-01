@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:1-php8.5
+FROM dunglas/frankenphp:1-php8.4
 
 RUN install-php-extensions \
     pdo_mysql \
@@ -10,7 +10,5 @@ RUN install-php-extensions \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-RUN mkdir -p /data/caddy /config/caddy && \
-    chown -R 1000:1000 /data/caddy /config/caddy
-
 WORKDIR /app
+

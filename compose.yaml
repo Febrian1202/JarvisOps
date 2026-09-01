@@ -29,6 +29,9 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     environment:
       SERVER_NAME: "http://:8000"
+      XDG_CONFIG_HOME: /tmp
+      XDG_DATA_HOME: /tmp
+      HOME: /tmp
       DB_HOST: mysql
       DB_PORT: 3306
       DB_DATABASE: JarvisOps
@@ -38,8 +41,6 @@ services:
       - "8000:8000"
     volumes:
       - ./apps/api:/app
-      - caddy_data:/data
-      - caddy_config:/config
     depends_on:
       mysql:
         condition: service_healthy
@@ -73,9 +74,12 @@ services:
       disable: true
 
   web:
-    image: node:22-alpine
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile.dev
     container_name: jarvisops-web
     restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"
     working_dir: /app
     environment:
       API_BASE_URL: http://api:8000/api
@@ -92,5 +96,3 @@ services:
 volumes:
   mysql-data:
   web-node-modules:
-  caddy_data:
-  caddy_config:

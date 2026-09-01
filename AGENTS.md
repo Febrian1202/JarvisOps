@@ -71,7 +71,7 @@ npm run build
 npm run lint    # eslint flat config; no typecheck or test script wired yet
 ```
 
-No `apps/web/.env.example` exists yet, though the README tells you to copy one.
+`apps/web/.env.example` exists and contains the internal BFF URL.
 
 ## Instruction files and tooling
 
@@ -84,6 +84,6 @@ No `apps/web/.env.example` exists yet, though the README tells you to copy one.
 
 ## Current state, concretely
 
-- `apps/api`: Laravel's default migrations plus `personal_access_tokens`. One model (`User`), `app/Http/Controllers` holds only the base `Controller`, `routes/api.php` is the stock `/user` closure. Tests are the two scaffold `ExampleTest`s. Pint is clean.
+- `apps/api`: Laravel's default migrations plus `personal_access_tokens`. One model (`User`), `app/Http/Controllers` holds only the base `Controller`, `routes/api.php` is the stock `/user` closure. Tests have been migrated to Pest with a single `HealthCheckTest`. Pint is clean.
 - `apps/web`: unmodified `create-next-app` output — `src/app/{page,layout,globals.css}`.
 - Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) is **complete**. Phase 2 (Backend Foundation & Walking Skeleton) is the next work.

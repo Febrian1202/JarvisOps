@@ -118,7 +118,7 @@ Menyiapkan satu perintah yang menjalankan seluruh stack, sehingga tidak ada wakt
   - `mysql` — `mysql:8.4`, volume persisten, healthcheck
   - `web` — `node:22-alpine`, mount `apps/web`, command `npm install && npm run dev`, expose `:3000`
 - [x] `docker/api/Dockerfile.dev` — FrankenPHP + ekstensi (`pdo_mysql`, `gd`, `zip`, `intl`, `bcmath`, `opcache`) via `install-php-extensions`
-- [x] Caddyfile FrankenPHP default dipakai langsung via env `SERVER_NAME=:8000` (root ke `public/` + `php_server`)
+- [x] Caddyfile FrankenPHP default dipakai langsung via env `SERVER_NAME=http://:8000` (root ke `public/` + `php_server`)
 - [x] Service `scheduler` **wajib terpisah**. FrankenPHP hanya melayani HTTP; tanpa container ini, SLA check tiap 5 menit tidak akan pernah jalan.
 - [x] Database kedua `jarvisops_testing` disiapkan di init script MySQL (`docker/mysql/init/01-create-testing-database.sql`)
 - [x] `Makefile`: `up`, `down`, `sh`, `migrate`, `fresh`, `seed`, `test`, `pint`, `logs`
@@ -126,7 +126,7 @@ Menyiapkan satu perintah yang menjalankan seluruh stack, sehingga tidak ada wakt
 ### Catatan Penyesuaian Implementasi Fase 0
 
 1. **PHP 8.5 Runtime:** Container `api` dan `scheduler` menggunakan `dunglas/frankenphp:1-php8.5` menyesuaikan PHP host (8.5.8) agar `vendor/` hasil composer host dapat di-bind mount tanpa error `platform_check`.
-2. **Caddyfile Configuration:** Default Caddyfile bawaan FrankenPHP sudah menangani server web public Laravel dengan aman; konfigurasi diarahkan via environment variable `SERVER_NAME=:8000`.
+2. **Caddyfile Configuration:** Default Caddyfile bawaan FrankenPHP sudah menangani server web public Laravel dengan aman; konfigurasi diarahkan via environment variable `SERVER_NAME=http://:8000`.
 
 ### Catatan FrankenPHP
 
@@ -140,11 +140,11 @@ FrankenPHP dipakai dalam **classic mode** (satu request satu proses, seperti PHP
 
 ## Exit criteria
 
-- [ ] `make up` menyalakan seluruh service tanpa error
-- [ ] `GET http://localhost:8000/up` → `200` dengan body JSON (atau HTML OK untuk Fase 0)
-- [ ] `http://localhost:3000` menampilkan halaman Next.js
-- [ ] `make migrate` berhasil terhadap MySQL di container
-- [ ] `make test` menjalankan Pest dan hijau
+- [x] `make up` menyalakan seluruh service tanpa error
+- [x] `GET http://localhost:8000/up` → `200` dengan body JSON (atau HTML OK untuk Fase 0)
+- [x] `http://localhost:3000` menampilkan halaman Next.js
+- [x] `make migrate` berhasil terhadap MySQL di container
+- [x] `make test` menjalankan Pest dan hijau
 - [ ] Repo bersih: `git status` tidak menampilkan file yang seharusnya di-ignore
 
 ---

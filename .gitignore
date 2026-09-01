@@ -134,3 +134,9 @@ Thumbs.db
 
 # Project specific
 .opencode/
+vendor/
+storage/logs/*
+storage/framework/cache/*
+*.sqlite
+*.sqlite-journal
+JarvisOps
