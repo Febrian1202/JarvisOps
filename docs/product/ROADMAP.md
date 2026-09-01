@@ -234,79 +234,79 @@ Walking skeleton di minggu 2 ini adalah mitigasi risiko utama roadmap ini. Strat
 
 Urutan wajib mengikuti dependency foreign key:
 
-- [ ] `roles`, `departments`
-- [ ] `users` (FK ke roles, departments), `employee_profiles`
-- [ ] `assets`, `asset_assignments`, `asset_histories`
-- [ ] `ticket_categories`, `ticket_priorities`, `ticket_statuses`
-- [ ] `tickets` (FK ke 7 tabel), `ticket_comments`, `ticket_attachments`, `ticket_histories`
-- [ ] `knowledge_categories`, `knowledge_articles`
-- [ ] `notifications`, `audit_logs`
-- [ ] `audit_logs` mendapat kolom tambahan `description VARCHAR(500) NULL` yang belum ada di `docs/schema.sql` — PRD §23 memintanya dan contoh log di sana berisi kalimat siap baca. Penyimpangan ini didokumentasikan di API contract §11 dan `docs/schema.sql` disinkronkan di Fase 10.
-- [ ] Seluruh index sesuai blok `INDEXES` di `docs/schema.sql`
-- [ ] Sesuaikan migration default `users` bawaan Laravel agar tidak bertabrakan dengan skema kustom
-- [ ] Verifikasi: `migrate:fresh` lalu `migrate:rollback` bersih tanpa error FK
+- [x] `roles`, `departments`
+- [x] `users` (FK ke roles, departments), `employee_profiles`
+- [x] `assets`, `asset_assignments`, `asset_histories`
+- [x] `ticket_categories`, `ticket_priorities`, `ticket_statuses`
+- [x] `tickets` (FK ke 7 tabel), `ticket_comments`, `ticket_attachments`, `ticket_histories`
+- [x] `knowledge_categories`, `knowledge_articles`
+- [x] `notifications`, `audit_logs`
+- [x] `audit_logs` mendapat kolom tambahan `description VARCHAR(500) NULL` yang belum ada di `docs/schema.sql` — PRD §23 memintanya dan contoh log di sana berisi kalimat siap baca. Penyimpangan ini didokumentasikan di API contract §11 dan `docs/schema.sql` disinkronkan di Fase 10.
+- [x] Seluruh index sesuai blok `INDEXES` di `docs/schema.sql`
+- [x] Sesuaikan migration default `users` bawaan Laravel agar tidak bertabrakan dengan skema kustom
+- [x] Verifikasi: `migrate:fresh` lalu `migrate:rollback` bersih tanpa error FK
 
 ### Model & relasi
 
-- [ ] 18 model dengan relasi Eloquent lengkap dua arah
-- [ ] `SoftDeletes` pada tabel yang punya `deleted_at`; tabel append-only (`asset_histories`, `ticket_attachments`, `ticket_histories`, `audit_logs`) hanya punya `created_at` — jangan dipaksa pakai `timestamps`
-- [ ] `$fillable` eksplisit di semua model (proteksi mass assignment)
-- [ ] Casting: `data` dan `old_data`/`new_data` sebagai `array`, timestamp sebagai `datetime`, `is_read`/`sla_breached`/`is_closed`/`is_final` sebagai `boolean`
-- [ ] Factory untuk seluruh entity (fondasi seluruh test)
+- [x] 18 model dengan relasi Eloquent lengkap dua arah
+- [x] `SoftDeletes` pada tabel yang punya `deleted_at`; tabel append-only (`asset_histories`, `ticket_attachments`, `ticket_histories`, `audit_logs`) hanya punya `created_at` — jangan dipaksa pakai `timestamps`
+- [x] `$fillable` eksplisit di semua model (proteksi mass assignment)
+- [x] Casting: `data` dan `old_data`/`new_data` sebagai `array`, timestamp sebagai `datetime`, `is_read`/`sla_breached`/`is_closed`/`is_final` sebagai `boolean`
+- [x] Factory untuk seluruh entity (fondasi seluruh test)
 
 ### Seeder
 
-- [ ] `RoleSeeder` — employee, technician, manager, admin
-- [ ] `DepartmentSeeder`
-- [ ] `TicketCategorySeeder` — sesuai §8 PRD (Hardware, Software, Network, Account, Other beserta turunannya)
-- [ ] `TicketPrioritySeeder` — Critical 120, High 240, Medium 480, Low 1440 (`sla_minutes`)
-- [ ] `TicketStatusSeeder` — OPEN, ASSIGNED, IN_PROGRESS, RESOLVED, CLOSED dengan flag `is_closed`/`is_final` yang benar
-- [ ] `KnowledgeCategorySeeder`
-- [ ] `DemoUserSeeder` — 4 akun `@jarvisops.test` sesuai Addendum §2.3
-- [ ] `DemoDataSeeder` (terpisah, tidak jalan di test) — asset, ticket, artikel contoh
+- [x] `RoleSeeder` — employee, technician, manager, admin
+- [x] `DepartmentSeeder`
+- [x] `TicketCategorySeeder` — sesuai §8 PRD (Hardware, Software, Network, Account, Other beserta turunannya)
+- [x] `TicketPrioritySeeder` — Critical 120, High 240, Medium 480, Low 1440 (`sla_minutes`)
+- [x] `TicketStatusSeeder` — OPEN, ASSIGNED, IN_PROGRESS, RESOLVED, CLOSED dengan flag `is_closed`/`is_final` yang benar
+- [x] `KnowledgeCategorySeeder`
+- [x] `DemoUserSeeder` — 4 akun `@jarvisops.test` sesuai Addendum §2.3
+- [x] `DemoDataSeeder` (terpisah, tidak jalan di test) — asset, ticket, artikel contoh
 
 ### Autentikasi
 
-- [ ] `POST /api/login` — validasi kredensial, **tolak user dengan `status != 'active'`** (BR-019), catat `last_login_at`, terbitkan token Sanctum
-- [ ] `POST /api/logout` — revoke token yang sedang dipakai
-- [ ] `GET /api/me` — profil + role + department + permission yang dimiliki
-- [ ] Rate limit pada endpoint login
-- [ ] Tidak ada route registrasi publik (BR-016) — pastikan tidak ada sisa route bawaan
-- [ ] Token ability diberikan sesuai role
+- [x] `POST /api/login` — validasi kredensial, **tolak user dengan `status != 'active'`** (BR-019), catat `last_login_at`, terbitkan token Sanctum
+- [x] `POST /api/logout` — revoke token yang sedang dipakai
+- [x] `GET /api/me` — profil + role + department + permission yang dimiliki
+- [x] Rate limit pada endpoint login
+- [x] Tidak ada route registrasi publik (BR-016) — pastikan tidak ada sisa route bawaan
+- [x] Token ability diberikan sesuai role
 
 ### Otorisasi
 
-- [ ] Enum `RoleName` (backed enum) sebagai sumber tunggal nama role
-- [ ] Helper di model `User`: `isAdmin()`, `isManager()`, `isTechnician()`, `isEmployee()`
-- [ ] Gate/ability sesuai `docs/product/PERMISSION-MATRIX.md`
-- [ ] Middleware `role:` untuk penjagaan kasar di level route (Policy tetap jadi penjaga utama)
+- [x] Enum `RoleName` (backed enum) sebagai sumber tunggal nama role
+- [x] Helper di model `User`: `isAdmin()`, `isManager()`, `isTechnician()`, `isEmployee()`
+- [x] Gate/ability sesuai `docs/product/PERMISSION-MATRIX.md`
+- [x] Middleware `role:` untuk penjagaan kasar di level route (Policy tetap jadi penjaga utama)
 
 ### Lapisan aplikasi
 
 > **Pola arsitektur:** Kontroler tipis + DTO layer + service layer + pipeline berlapis dijelaskan lengkap di `docs/architecture/BACKEND-ARCHITECTURE.md`. Task di bawah mengacu pada pola tersebut.
 
-- [ ] Struktur folder: `app/Services/<Domain>/`, `app/Http/Requests/<Domain>/`, `app/Http/Resources/<Domain>/`, `app/Policies/<Domain>/`, `app/Enums/`, `app/Exceptions/` — setiap layer dikelompokkan ke subfolder domain (Auth, Ticket, Asset, Article, Notification, Sla, Audit), lihat `docs/architecture/BACKEND-ARCHITECTURE.md` §5.3
-- [ ] `ApiResponse` helper — envelope konsisten sesuai API contract
-- [ ] Exception handler: 401/403/404/422/500 selalu JSON dengan bentuk yang sama
-- [ ] `HandlesPagination` trait — pagination seragam
-- [ ] `GET /api/health` untuk healthcheck container
+- [x] Struktur folder: `app/Services/<Domain>/`, `app/Http/Requests/<Domain>/`, `app/Http/Resources/<Domain>/`, `app/Policies/<Domain>/`, `app/Enums/`, `app/Exceptions/` — setiap layer dikelompokkan ke subfolder domain (Auth, Ticket, Asset, Article, Notification, Sla, Audit), lihat `docs/architecture/BACKEND-ARCHITECTURE.md` §5.3
+- [x] `ApiResponse` helper — envelope konsisten sesuai API contract
+- [x] Exception handler: 401/403/404/422/500 selalu JSON dengan bentuk yang sama
+- [x] `HandlesPagination` trait — pagination seragam
+- [x] `GET /api/health` untuk healthcheck container
 
 ### Walking skeleton frontend
 
-- [ ] Next.js route handler `POST /api/auth/login` — teruskan ke Laravel, simpan token di cookie `httpOnly` + `secure` + `sameSite=lax`
-- [ ] Route handler `POST /api/auth/logout` — revoke di Laravel, hapus cookie
-- [ ] BFF proxy `app/api/proxy/[...path]/route.ts` — baca cookie, tambahkan header `Authorization: Bearer`, teruskan request beserta body/query
-- [ ] Middleware Next.js — redirect ke `/login` jika cookie tidak ada
-- [ ] Halaman `/login` + satu halaman terproteksi yang menampilkan hasil `/me`
-- [ ] **Prinsip yang dikunci di sini:** token tidak boleh pernah dikirim ke browser dalam bentuk yang bisa dibaca JavaScript, dan komponen client tidak boleh memanggil Laravel langsung — selalu lewat proxy
+- [x] Next.js route handler `POST /api/auth/login` — teruskan ke Laravel, simpan token di cookie `httpOnly` + `secure` + `sameSite=lax`
+- [x] Route handler `POST /api/auth/logout` — revoke di Laravel, hapus cookie
+- [x] BFF proxy `app/api/proxy/[...path]/route.ts` — baca cookie, tambahkan header `Authorization: Bearer`, teruskan request beserta body/query
+- [x] Middleware Next.js — redirect ke `/login` jika cookie tidak ada
+- [x] Halaman `/login` + satu halaman terproteksi yang menampilkan hasil `/me`
+- [x] **Prinsip yang dikunci di sini:** token tidak boleh pernah dikirim ke browser dalam bentuk yang bisa dibaca JavaScript, dan komponen client tidak boleh memanggil Laravel langsung — selalu lewat proxy
 
 ### Test (Pest)
 
-- [ ] Login: kredensial valid, password salah, email tidak ada, user inactive
-- [ ] `/me` tanpa token → 401
-- [ ] Logout membuat token tidak bisa dipakai lagi
-- [ ] Matriks role: dataset provider Pest yang menabrakkan setiap role ke endpoint terlarang → 403
-- [ ] Seeder bisa dijalankan berulang tanpa error
+- [x] Login: kredensial valid, password salah, email tidak ada, user inactive
+- [x] `/me` tanpa token → 401
+- [x] Logout membuat token tidak bisa dipakai lagi
+- [x] Matriks role: dataset provider Pest yang menabrakkan setiap role ke endpoint terlarang → 403
+- [x] Seeder bisa dijalankan berulang tanpa error
 
 ## Deliverable
 
@@ -314,12 +314,12 @@ Migration + model + factory + seeder lengkap, auth API, RBAC, BFF proxy, halaman
 
 ## Exit criteria
 
-- [ ] `migrate:fresh --seed` sukses, 18 tabel terisi data referensi
-- [ ] Login dari browser berhasil, cookie httpOnly terpasang, halaman terproteksi menampilkan nama user
-- [ ] Token tidak terlihat di `document.cookie` maupun di response body yang diterima browser
-- [ ] Employee yang inactive tidak bisa login
-- [ ] Semua test Pest hijau
-- [ ] Setiap ability di permission matrix punya minimal satu test negatif
+- [x] `migrate:fresh --seed` sukses, 18 tabel terisi data referensi
+- [x] Login dari browser berhasil, cookie httpOnly terpasang, halaman terproteksi menampilkan nama user
+- [x] Token tidak terlihat di `document.cookie` maupun di response body yang diterima browser
+- [x] Employee yang inactive tidak bisa login
+- [x] Semua test Pest hijau
+- [x] Setiap ability di permission matrix punya minimal satu test negatif
 
 ---
 
