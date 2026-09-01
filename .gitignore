@@ -140,3 +140,4 @@ storage/framework/cache/*
 *.sqlite
 *.sqlite-journal
 JarvisOps
+.worktrees
