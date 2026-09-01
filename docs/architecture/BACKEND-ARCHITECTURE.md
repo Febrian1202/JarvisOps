@@ -19,7 +19,7 @@ Konten di sini dikonsolidasikan dari PRD §35, PERMISSION-MATRIX §1, dan ROADMA
 
 > **Catatan penamaan:** Nama `BACKEND-ARCHITECTURE` dipilih karena ke depan akan ada dokumen pola arsitektur frontend yang terpisah.
 
-> **Transisi Phase 2:** `AuthController`, `ProfileController`, dan `HealthController` yang sudah ditulis di Phase 2 **tidak** di-retrofit ke pola DTO maupun pengelompokan folder domain — mereka tetap memakai array langsung dari `$request->validated()`. Pola ini berlaku untuk **Phase 3 ke atas** (Ticket CRUD, Notifikasi, Audit, dan seterusnya). Saat menambahkan endpoint baru, ikuti pola di sini; saat mengubah endpoint lama, retrofit DTO opsional tapi tidak diwajibkan.
+> **Transisi Phase 2:** Endpoint auth & profil sudah di-retrofit ke pola lengkap — DTO, service layer, API Resource, dan pengelompokan folder domain (`Auth/`). `HealthController` tetap di root `app/Http/Controllers/` karena tidak punya domain business logic. Untuk **Phase 3 ke atas** (Ticket CRUD, Notifikasi, Audit, dan seterusnya), wajib mengikuti pola di dokumen ini: DTO + service + resource + subfolder domain. Saat menambahkan endpoint baru, ikuti pola di sini; saat mengubah endpoint lama, retrofit DTO opsional tapi tidak diwajibkan.
 
 ---
 
@@ -210,7 +210,7 @@ app/
 
 Aturan pengelompokan:
 - Subfolder domain diberi nama **singular PascalCase** (`Auth`, `Ticket`, `Asset`, `Article`, `Notification`, `Sla`, `Audit`, `User`, `Department`) sesuai modul di D-08.
-- File yang sudah ada di Phase 2 (`AuthController`, `ProfileController`, `HealthController` beserta `LoginRequest`, dll) **tidak di-retrofit** — aturan ini berlaku untuk Phase 3 ke atas.
+- Domain `Auth` sudah aktif untuk file auth & profil (controller, request, service, DTO, resource). `HealthController` tetap di root `app/Http/Controllers/` karena tanpa domain business logic. Untuk Phase 3 ke atas, semua file baru wajib masuk subfolder domain.
 - Namespace mengikuti folder: `App\Services\Ticket\TicketService`, `App\DTOs\Ticket\CreateTicketData`, `App\Http\Requests\Ticket\StoreTicketRequest`, dst.
 
 ---
