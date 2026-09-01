@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 use App\Authorization\AbilityMatrix;
-use App\DTOs\ChangePasswordData;
-use App\DTOs\UpdateProfileData;
+use App\DTOs\Auth\ChangePasswordData;
+use App\DTOs\Auth\UpdateProfileData;
 use App\Enums\RoleName;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Auth;
 
-class LoginData
+class ChangePasswordData
 {
     public function __construct(
-        public readonly string $email,
+        public readonly string $currentPassword,
         public readonly string $password,
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
-            email: $data['email'],
+            currentPassword: $data['current_password'],
             password: $data['password'],
         );
     }

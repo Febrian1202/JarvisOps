@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
-use App\DTOs\LoginData;
+use App\DTOs\Auth\LoginData;
 use App\Enums\UserStatus;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;

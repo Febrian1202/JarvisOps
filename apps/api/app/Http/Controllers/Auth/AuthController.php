@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\DTOs\LoginData;
-use App\Http\Requests\LoginRequest;
-use App\Http\Resources\UserResource;
-use App\Services\AuthService;
+use App\DTOs\Auth\LoginData;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\Auth\UserResource;
+use App\Services\Auth\AuthService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

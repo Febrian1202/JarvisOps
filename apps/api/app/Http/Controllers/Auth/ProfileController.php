@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\DTOs\ChangePasswordData;
-use App\DTOs\UpdateProfileData;
-use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use App\Http\Resources\UserResource;
-use App\Services\ProfileService;
+use App\DTOs\Auth\ChangePasswordData;
+use App\DTOs\Auth\UpdateProfileData;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ChangePasswordRequest;
+use App\Http\Requests\Auth\UpdateProfileRequest;
+use App\Http\Resources\Auth\UserResource;
+use App\Services\Auth\ProfileService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
