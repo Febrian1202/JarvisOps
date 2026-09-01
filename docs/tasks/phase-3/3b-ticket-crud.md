@@ -27,7 +27,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
 - `UpdateTicketData` — `title`, `description`, `?categoryId`, `array $fields` (whitelist per role)
 - `AssetAssignedToReporter::passes(string $attribute, mixed $value): bool` — BR-014
 
-- [ ] **Step 1: Test — StoreTicketRequest rules**
+- [x] **Step 1: Test — StoreTicketRequest rules**
   ```php
   test('store requires title, description, category_id, priority_id', function () {
       // Submit kosong, expect 422
@@ -40,7 +40,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 2: Implementasi `StoreTicketRequest`**
+- [x] **Step 2: Implementasi `StoreTicketRequest`**
   ```php
   public function rules(): array
   {
@@ -68,7 +68,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   }
   ```
 
-- [ ] **Step 3: Implementasi `AssetAssignedToReporter`**
+- [x] **Step 3: Implementasi `AssetAssignedToReporter`**
   ```php
   class AssetAssignedToReporter implements ValidationRule
   {
@@ -94,7 +94,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   }
   ```
 
-- [ ] **Step 4: Implementasi DTO**
+- [x] **Step 4: Implementasi DTO**
   ```php
   class CreateTicketData
   {
@@ -121,7 +121,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   `UpdateTicketData` menyimpan `fields` (array nama field yang boleh diubah) + nilai, dibangun
   di controller dari whitelist yang dihitung per role.
 
-- [ ] **Step 5: Verifikasi & Commit.**
+- [x] **Step 5: Verifikasi & Commit.**
 
 ---
 
@@ -134,7 +134,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
 **Interfaces:**
 - `TicketService::create(CreateTicketData $data, User $actor): Ticket`
 
-- [ ] **Step 1: Test — create happy path (BR-001..003, 006, 007)**
+- [x] **Step 1: Test — create happy path (BR-001..003, 006, 007)**
   ```php
   test('create sets OPEN status and snapshots SLA', function () {
       $employee = User::factory()->employee()->create();
@@ -161,7 +161,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 2: Test — server-set fields diabaikan (BR-001/002, D-18)**
+- [x] **Step 2: Test — server-set fields diabaikan (BR-001/002, D-18)**
   ```php
   test('create ignores client-supplied reporter_id, status_id, sla fields', function () {
       $employee = User::factory()->employee()->create();
@@ -188,7 +188,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 3: Test — ticket_number unik di bawah create paralel (D-05)**
+- [x] **Step 3: Test — ticket_number unik di bawah create paralel (D-05)**
   ```php
   test('concurrent create produces unique ticket numbers', function () {
       $employee = User::factory()->employee()->create();
@@ -205,7 +205,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   ```
   Verifikasi nyata: `ticket_number` unik di DB (unique index), format `TCK-%04d` dari ID.
 
-- [ ] **Step 4: Test — asset ownership (BR-011, 012, 014)**
+- [x] **Step 4: Test — asset ownership (BR-011, 012, 014)**
   ```php
   test('create with another users asset returns 422', function () {
       // asset assigned ke user B, create sebagai user A
@@ -218,7 +218,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 5: Test — create menulis history + audit log (BR-008, BR-010)**
+- [x] **Step 5: Test — create menulis history + audit log (BR-008, BR-010)**
   ```php
   test('create records status history and audit log', function () {
       // setelah create:
@@ -229,7 +229,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 6: Implementasi `TicketService::create`**
+- [x] **Step 6: Implementasi `TicketService::create`**
   ```php
   public function create(CreateTicketData $data, User $actor): Ticket
   {
@@ -273,7 +273,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   }
   ```
 
-- [ ] **Step 7: Verifikasi & Commit.**
+- [x] **Step 7: Verifikasi & Commit.**
 
 ---
 
@@ -290,7 +290,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
 - `TicketListResource::toArray()` — bentuk list ringkas
 - `TicketService::find(int $id): Ticket` — dengan eager load penuh
 
-- [ ] **Step 1: Test — GET /api/tickets/{id} shape**
+- [x] **Step 1: Test — GET /api/tickets/{id} shape**
   ```php
   test('show returns full ticket shape', function () {
       $employee = User::factory()->employee()->create();
@@ -312,7 +312,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 2: Test — Employee bukan reporter dapat 404 (PERMISSION-MATRIX §5)**
+- [x] **Step 2: Test — Employee bukan reporter dapat 404 (PERMISSION-MATRIX §5)**
   ```php
   test('employee viewing anothers ticket gets 404', function () {
       $owner = User::factory()->employee()->create();
@@ -323,7 +323,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 3: Test — asset soft-deleted tetap tampil dengan deleted:true (BR-015)**
+- [x] **Step 3: Test — asset soft-deleted tetap tampil dengan deleted:true (BR-015)**
   ```php
   test('show includes soft-deleted asset with deleted flag', function () {
       $asset = Asset::factory()->create();
@@ -336,7 +336,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 4: Implementasi `TicketResource`**
+- [x] **Step 4: Implementasi `TicketResource`**
   ```php
   public function toArray(Request $request): array
   {
@@ -394,7 +394,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   `$this->editable_fields` di Resource, bukan `whenLoaded` — keduanya selalu diisi service.
   Di 3d resolver sementara diganti implementasi penuh sesuai matriks §9.
 
-- [ ] **Step 5: Implementasi `TicketListResource`**
+- [x] **Step 5: Implementasi `TicketListResource`**
   ```php
   public function toArray(Request $request): array
   {
@@ -416,7 +416,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   }
   ```
 
-- [ ] **Step 6: Verifikasi & Commit.**
+- [x] **Step 6: Verifikasi & Commit.**
 
 ---
 
@@ -430,7 +430,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
 - `TicketService::update(Ticket $ticket, UpdateTicketData $data): Ticket`
 - `TicketService::delete(Ticket $ticket): void` — soft delete, Admin hanya
 
-- [ ] **Step 1: Test — update field whitelist per role**
+- [x] **Step 1: Test — update field whitelist per role**
   ```php
   test('employee updates title and description only', function () {
       // create ticket milik employee, PUT dengan category_id baru → category tidak berubah
@@ -440,7 +440,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 2: Test — CLOSED tidak bisa diubah oleh siapa pun (BR-009, K-09)**
+- [x] **Step 2: Test — CLOSED tidak bisa diubah oleh siapa pun (BR-009, K-09)**
   ```php
   test('nobody can edit a CLOSED ticket', function () {
       $ticket = Ticket::factory()->closed()->create(['reporter_id' => $employee->id]);
@@ -448,7 +448,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 3: Test — server-set field ditolak di PUT**
+- [x] **Step 3: Test — server-set field ditolak di PUT**
   ```php
   test('update rejects status_id and technician_id in payload', function () {
       $this->putJson("/api/tickets/{$ticket->id}", ['status_id' => 3, 'technician_id' => 999])
@@ -457,7 +457,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 4: Test — delete soft delete**
+- [x] **Step 4: Test — delete soft delete**
   ```php
   test('delete soft-deletes ticket', function () {
       $this->deleteJson("/api/tickets/{$ticket->id}")->assertStatus(200);
@@ -468,7 +468,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   });
   ```
 
-- [ ] **Step 5: Implementasi `update`**
+- [x] **Step 5: Implementasi `update`**
   ```php
   public function update(Ticket $ticket, UpdateTicketData $data): Ticket
   {
@@ -515,7 +515,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   }
   ```
 
-- [ ] **Step 6: Verifikasi & Commit.**
+- [x] **Step 6: Verifikasi & Commit.**
 
 ---
 
@@ -531,7 +531,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
 - `TicketController::store/show/update/destroy`
 - `AssetController::assignable`
 
-- [ ] **Step 1: Implementasi `TicketController`**
+- [x] **Step 1: Implementasi `TicketController`**
   ```php
   class TicketController extends Controller
   {
@@ -572,7 +572,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   Route model binding `Ticket` menggunakan id. Tambahkan binding jika perlu:
   `Route::model('ticket', Ticket::class)` default sudah ada.
 
-- [ ] **Step 2: Implementasi `assignable`**
+- [x] **Step 2: Implementasi `assignable`**
   ```php
   public function assignable(Request $request): JsonResponse
   {
@@ -591,7 +591,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   `available` dan `assigned` dianggap layak; `maintenance`/`retired`/`lost` tidak. Fase 5 yang
   menentukan aturan persis assignment; di sini cukup dua status itu.
 
-- [ ] **Step 3: Tambah routes**
+- [x] **Step 3: Tambah routes**
   ```php
   Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
       Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
@@ -602,7 +602,7 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   `GET /api/assets/{id}` (kalau route asset `{id}` sudah ada) — di Fase 3 route asset `{id}`
   belum dibuat, tapi jaga urutannya untuk Fase 5. Gunakan route di atas tanpa `{id}`.
 
-- [ ] **Step 4: Test — route index belum ada (hanya 5 route ticket)**
+- [x] **Step 4: Test — route index belum ada (hanya 5 route ticket)**
   ```php
   test('ticket index route not yet registered', function () {
       $this->getJson('/api/tickets')->assertStatus(404);
@@ -610,17 +610,17 @@ dan validasi kepemilikan asset. Menghasilkan `GET /api/assets/assignable`.
   ```
   (Akan diubah di 3c.)
 
-- [ ] **Step 5: Verifikasi — jalankan test CreateTicketTest, ShowTicketTest, UpdateDeleteTicketTest. Commit.**
+- [x] **Step 5: Verifikasi — jalankan test CreateTicketTest, ShowTicketTest, UpdateDeleteTicketTest. Commit.**
 
 ---
 
 ## Exit Criteria 3b
 
-- [ ] `POST /api/tickets` → 201 dengan `ticket_number`, SLA ter-snapshot, status OPEN, reporter dari token
-- [ ] `GET /api/tickets/{id}` → bentuk lengkap, Employee asing → 404, asset soft-deleted tampil `deleted:true`
-- [ ] `PUT /api/tickets/{id}` → whitelist per role, CLOSED tak bisa diubah siapa pun, server-set field → 422
-- [ ] `DELETE /api/tickets/{id}` → soft delete, Admin hanya
-- [ ] `GET /api/assets/assignable` → hanya asset milik user login yang layak pakai
-- [ ] BR-001..015 ter-cover (negatif + positif)
-- [ ] Tidak ada N+1 pada detail (satu eager load, `DB::listen` tidak meledak saat cacah komentar naik)
-- [ ] `php artisan test` hijau, `pint --test` bersih
+- [x] `POST /api/tickets` → 201 dengan `ticket_number`, SLA ter-snapshot, status OPEN, reporter dari token
+- [x] `GET /api/tickets/{id}` → bentuk lengkap, Employee asing → 404, asset soft-deleted tampil `deleted:true`
+- [x] `PUT /api/tickets/{id}` → whitelist per role, CLOSED tak bisa diubah siapa pun, server-set field → 422
+- [x] `DELETE /api/tickets/{id}` → soft delete, Admin hanya
+- [x] `GET /api/assets/assignable` → hanya asset milik user login yang layak pakai
+- [x] BR-001..015 ter-cover (negatif + positif)
+- [x] Tidak ada N+1 pada detail (satu eager load, `DB::listen` tidak meledak saat cacah komentar naik)
+- [x] `php artisan test` hijau, `pint --test` bersih
