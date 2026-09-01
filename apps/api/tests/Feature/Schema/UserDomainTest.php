@@ -10,15 +10,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('user creation triggers observer to create employee profile automatically with format EMP-000X', function () {
-    $role = Role::create([
-        'name' => RoleName::Employee->value,
-        'description' => 'Employee role',
-    ]);
-
-    $department = Department::create([
-        'name' => 'IT Department',
-        'description' => 'Information Technology',
-    ]);
+    $role = Role::where('name', RoleName::Employee->value)->first();
+    $department = Department::first();
 
     $user = User::create([
         'role_id' => $role->id,

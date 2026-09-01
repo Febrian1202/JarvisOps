@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('kb, notification, and audit log domain models work properly', function () {
-    $role = Role::create(['name' => RoleName::Employee->value]);
+    $role = Role::where('name', RoleName::Employee->value)->first();
     $user = User::create([
         'role_id' => $role->id,
         'email' => 'kb.author@jarvisops.test',
@@ -20,10 +20,7 @@ test('kb, notification, and audit log domain models work properly', function () 
         'full_name' => 'KB Author',
     ]);
 
-    $kbCat = KnowledgeCategory::create([
-        'name' => 'General',
-        'description' => 'General knowledge base',
-    ]);
+    $kbCat = KnowledgeCategory::where('name', 'Hardware Troubleshooting')->first();
 
     $article = KnowledgeArticle::create([
         'category_id' => $kbCat->id,

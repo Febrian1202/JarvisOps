@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('asset domain models and relations work properly', function () {
-    $role = Role::create(['name' => RoleName::Employee->value]);
+    $role = Role::where('name', RoleName::Employee->value)->first();
     $user = User::create([
         'role_id' => $role->id,
         'email' => 'asset.user@jarvisops.test',

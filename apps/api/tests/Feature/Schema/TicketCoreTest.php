@@ -16,8 +16,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('ticket core models and relations work properly', function () {
-    $role = Role::create(['name' => RoleName::Employee->value]);
-    $dept = Department::create(['name' => 'Finance']);
+    $role = Role::where('name', RoleName::Employee->value)->first();
+    $dept = Department::where('name', 'Finance & Accounting')->first();
     $user = User::create([
         'role_id' => $role->id,
         'department_id' => $dept->id,
@@ -26,9 +26,9 @@ test('ticket core models and relations work properly', function () {
         'full_name' => 'Ticket Reporter',
     ]);
 
-    $category = TicketCategory::create(['name' => 'Network']);
-    $priority = TicketPriority::create(['name' => 'High', 'sla_minutes' => 240]);
-    $status = TicketStatus::create(['name' => 'OPEN']);
+    $category = TicketCategory::where('name', 'Wi-Fi')->first();
+    $priority = TicketPriority::where('name', 'High')->first();
+    $status = TicketStatus::where('name', 'OPEN')->first();
 
     $ticket = Ticket::create([
         'ticket_number' => 'TCK-20260901-0001',

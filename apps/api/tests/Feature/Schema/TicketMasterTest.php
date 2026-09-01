@@ -8,33 +8,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('ticket master data models work correctly with hierarchical categories', function () {
-    $parent = TicketCategory::create([
-        'name' => 'Hardware',
-        'description' => 'Hardware issues',
-    ]);
-
-    $child = TicketCategory::create([
-        'name' => 'Laptop',
-        'description' => 'Laptop issues',
-        'parent_id' => $parent->id,
-    ]);
-
-    $priority = TicketPriority::create([
-        'name' => 'Critical',
-        'sla_minutes' => 120,
-        'description' => 'Critical priority',
-    ]);
-
-    $status = TicketStatus::create([
-        'name' => 'OPEN',
-        'description' => 'Open ticket',
-        'is_closed' => false,
-        'is_final' => false,
-    ]);
+    $parent = TicketCategory::where('name', 'Hardware')->first();
+    $child = TicketCategory::where('name', 'Laptop')->first();
+    $priority = TicketPriority::where('name', 'Critical')->first();
+    $status = TicketStatus::where('name', 'OPEN')->first();
 
     expect($child->parent->id)->toBe($parent->id)
-        ->and($parent->children)->toHaveCount(1)
-        ->and($parent->children->first()->id)->toBe($child->id)
+        ->and($parent->children->pluck('id'))->toContain($child->id)
         ->and($priority->sla_minutes)->toBe(120)
         ->and($status->is_closed)->toBeFalse()
         ->and($status->is_final)->toBeFalse();
