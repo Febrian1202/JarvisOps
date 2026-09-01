@@ -2,7 +2,7 @@
 
 ## JARVIS OPS — IT Service Management System
 
-**Version:** 1.1
+**Version:** 1.2
 **Status:** Derived — tidak memperkenalkan keputusan baru; mengkonsolidasikan pola yang tersebar
 **Sumber:** `docs/product/ROADMAP.md` (Fase 7–8), `docs/tasks/phase-2/2d-walking-skeleton.md`, `docs/api/API-CONTRACT.md`, `docs/product/PRD.md`, `AGENTS.md`
 **Dokumen terkait:** `docs/architecture/BACKEND-ARCHITECTURE.md`, `docs/architecture/CONTEXT-DIAGRAM.md`, `docs/architecture/DFD.md`, `docs/product/PERMISSION-MATRIX.md`, `docs/product/STATUS-TRANSITION.md`
@@ -30,6 +30,7 @@ Dokumen ini menjelaskan arsitektur frontend Next.js (BFF), bagaimana komponen di
 | react-hook-form | — | Form state, validasi client-side |
 | zod | — | Schema validasi, shared dengan react-hook-form via resolver |
 | Recharts | — | Chart & dashboard visualisasi |
+| lucide-react | 1.38 | Ikon (lihat §3.7) |
 | date-fns | — | Format tanggal & durasi |
 
 Stack ini sudah dikunci di ROADMAP §2 dan tidak boleh diganti. shadcn/ui diinstal di atas Tailwind v4 yang sudah ada.
@@ -153,6 +154,27 @@ Seluruh aturan §7 `DESIGN.md` wajib dipegang. Ringkasan larangan yang paling se
 - Jangan weight 700 — 600 maksimal.
 - Jangan `rounded-full` pada tombol persegi — pill hanya untuk ikon/toggle.
 - Jangan fokus outline tajam — pakai soft shadow / ring.
+
+### 3.7 Icon Strategy
+
+Ikon memakai **lucide-react** sebagai library ikon tunggal. Library ini sudah menjadi standar ekosistem shadcn/ui dan digunakan secara bawaan oleh komponen yang diinstal di ROADMAP Fase 7.
+
+Aturan:
+
+- **Satu sumber:** lucide-react. Jangan menambah library ikon lain (react-icons, heroicons, Font Awesome, SVG).
+- **Import langsung:** `import { Plus, Search } from 'lucide-react'` — tree-shakeable, hanya ikon yang dipakai masuk bundle.
+- **Ukuran:** default 16px (sizing `size-4` di Tailwind) untuk ikon UI, 20px (`size-5`) untuk ikon yang lebih menonjol. Hindari ikon di bawah 14px — aksesibilitas.
+- **Stroke width:** `strokeWidth={1.5}` sebagai default; `strokeWidth={2}` untuk ikon kecil (≤14px). Jangan mengubah global — lucide sudah dioptimalkan.
+- **Custom / brand icon:** untuk logo atau ikon spesifik domain (bukan dari set lucide), buat sebagai **React component** inline SVG di `src/components/shared/icons/` dengan ukuran yang konsisten dan stroke style yang menyerupai lucide. Jangan meng-customize lucide itu sendiri.
+- **Pill icon button** (DESIGN.md): `rounded-full bg-cream border-charcoal-40` + lucide icon di dalamnya. Contoh:
+
+```tsx
+import { Search } from 'lucide-react';
+
+<button className="rounded-full bg-cream border border-charcoal-40 p-2">
+    <Search size={16} strokeWidth={1.5} />
+</button>
+```
 
 ---
 
