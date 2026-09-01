@@ -283,7 +283,9 @@ Urutan wajib mengikuti dependency foreign key:
 
 ### Lapisan aplikasi
 
-- [ ] Struktur folder: `app/Services/`, `app/Http/Requests/`, `app/Http/Resources/`, `app/Policies/`, `app/Enums/`, `app/Exceptions/`
+> **Pola arsitektur:** Kontroler tipis + DTO layer + service layer + pipeline berlapis dijelaskan lengkap di `docs/architecture/BACKEND-ARCHITECTURE.md`. Task di bawah mengacu pada pola tersebut.
+
+- [ ] Struktur folder: `app/Services/<Domain>/`, `app/Http/Requests/<Domain>/`, `app/Http/Resources/<Domain>/`, `app/Policies/<Domain>/`, `app/Enums/`, `app/Exceptions/` — setiap layer dikelompokkan ke subfolder domain (Auth, Ticket, Asset, Article, Notification, Sla, Audit), lihat `docs/architecture/BACKEND-ARCHITECTURE.md` §5.3
 - [ ] `ApiResponse` helper — envelope konsisten sesuai API contract
 - [ ] Exception handler: 401/403/404/422/500 selalu JSON dengan bentuk yang sama
 - [ ] `HandlesPagination` trait — pagination seragam

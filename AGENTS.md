@@ -22,6 +22,7 @@ These docs contain locked decisions, not drafts. Do not re-litigate them.
 | anything | `docs/adr/DECISIONS.md` — D-01..D-24, closes ~50 decisions that would otherwise be made silently and inconsistently |
 | migrations / models | `docs/architecture/ERD.md`, `docs/schema.sql` (18 tables), DECISIONS §A (esp. D-14 column+index checklist, D-15 pinned seeder IDs) |
 | controllers / routes | `docs/api/API-CONTRACT.md` (envelope, §13 server-set fields), DECISIONS §C |
+| application / service-layer pattern | `docs/architecture/BACKEND-ARCHITECTURE.md` (thin controllers, DTO layer, service layer, request pipeline, folder structure) — derived doc, no new decisions |
 | ticket status logic | `docs/product/STATUS-TRANSITION.md` |
 | policies / gates | `docs/product/PERMISSION-MATRIX.md` (incl. when to return 404 instead of 403), DECISIONS §B |
 | what to build next | `docs/product/ROADMAP.md` (10 phases; §2 = locked technical decisions) |
@@ -40,7 +41,7 @@ For code: migrations are the schema source of truth. `docs/schema.sql` is a repo
 - **SLA is snapshotted onto each ticket** (`sla_duration_minutes`, `sla_deadline`) at creation — never joined live from the priority table. Flat 24/7 calendar (D-01), exactly 5 statuses with no pause (D-02). Breach state is also recomputed defensively at query time, not trusted from the scheduler.
 - Every create returns **201** (D-22). Status/assign transitions accept optional `expected_status_id` and return **409** on mismatch (D-21).
 - All durations are integer **minutes**; timestamps ISO 8601 UTC (server and DB are UTC, frontend converts to Asia/Jakarta); fields `snake_case`; routes `kebab-case` plural.
-- **Message language is split** (D-24): API envelope + validation messages in English (Laravel default), in-app notification bodies and audit descriptions in Indonesian.
+- **Message language is split** (D-24): API envelope in English, validation errors (custom `messages()`) in Indonesian, in-app notification bodies and audit descriptions in Indonesian.
 - Attachments go to a private disk, served only through a controller that runs the parent ticket's policy. 5 MB max; JPG/JPEG/PNG/PDF only; validate MIME **and** extension server-side.
 - Notifications are DB rows + 30s frontend polling. No WebSocket, no broadcasting, no email/SMTP.
 - The SLA scheduler is its own process (`php artisan schedule:work`, separate container in prod) — FrankenPHP classic mode only serves HTTP, so without it SLA checks never run.

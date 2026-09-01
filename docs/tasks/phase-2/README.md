@@ -61,8 +61,10 @@ Berlaku untuk **setiap** task di seluruh sub-tahap. Nilai di bawah dikutip verba
 - Penamaan field: `snake_case`. Penamaan route: `kebab-case`, resource plural.
 
 ### Bahasa (D-24)
+- Envelope `message`: **Bahasa Inggris**.
 
-- Envelope `message` + pesan validasi: **Bahasa Inggris** (default Laravel).
+- Pesan validasi (custom `messages()` di FormRequest): **Bahasa Indonesia** (D-24).
+
 - Body notifikasi in-app + `audit_logs.description`: **Bahasa Indonesia**.
 - Dokumen di `docs/` (termasuk berkas rencana ini): **Bahasa Indonesia**.
 - Komentar kode, nama variabel, nama method: **Bahasa Inggris**.

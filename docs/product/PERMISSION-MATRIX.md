@@ -14,21 +14,7 @@ Alasan menolak `spatie/laravel-permission`: skema sudah menetapkan satu role per
 
 ### Lapisan penjagaan
 
-```
-Request
-  ↓
-[1] Middleware auth:sanctum       → 401 jika tidak terautentikasi
-  ↓
-[2] Middleware role:              → 403, penjagaan kasar per grup route
-  ↓
-[3] Policy / Gate                 → 403, penjagaan sebenarnya per resource
-  ↓
-[4] FormRequest                   → 422, validasi field
-  ↓
-[5] Service                       → 422/409, business rule
-```
-
-Lapisan 3 adalah penjaga sebenarnya. Lapisan 2 hanya mempersingkat — dan tidak boleh menjadi satu-satunya penjaga, karena middleware tidak tahu apa-apa tentang kepemilikan resource.
+> **Pola pipeline lengkap** (auth → role → Policy/Gate → FormRequest → DTO → Service → API Resource) ada di `docs/architecture/BACKEND-ARCHITECTURE.md` §2. Ringkasannya: Lapisan 3 (Policy/Gate) adalah penjaga sebenarnya; Lapisan 2 (middleware role) hanya mempersingkat dan tidak boleh menjadi satu-satunya penjaga, karena middleware tidak tahu apa-apa tentang kepemilikan resource.
 
 Navigasi dan tombol yang disembunyikan di frontend **bukan lapisan keamanan**. Ia hanya mencegah pengguna melihat pilihan yang akan gagal.
 
