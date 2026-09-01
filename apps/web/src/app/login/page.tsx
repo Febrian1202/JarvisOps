@@ -32,7 +32,8 @@ export default function LoginPage() {
       const payload = (await response.json()) as ApiResponse<LoginData> | ApiError;
 
       if (!response.ok || !payload.success) {
-        setError(payload.message);
+        const firstError = Object.values((payload as ApiError).errors ?? {})[0]?.[0];
+        setError(firstError ?? payload.message);
         return;
       }
 

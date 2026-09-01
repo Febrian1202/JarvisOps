@@ -6,8 +6,14 @@ import { deleteToken } from '@/lib/server/session';
 export async function POST() {
   try {
     await laravelFetch('/logout', { method: 'POST' });
-  } finally {
+  } catch {
+    // Backend revoke failed; local session is still terminated below.
+  }
+
+  try {
     await deleteToken();
+  } catch {
+    // Cookie clearing failed; return the envelope anyway.
   }
 
   return NextResponse.json({

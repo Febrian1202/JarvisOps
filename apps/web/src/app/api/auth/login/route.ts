@@ -10,7 +10,16 @@ interface LoginData {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: unknown;
+
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      { success: false, message: 'Invalid request body.', data: null },
+      { status: 400 },
+    );
+  }
 
   const response = await fetch(`${API_BASE_URL}/login`, {
     method: 'POST',

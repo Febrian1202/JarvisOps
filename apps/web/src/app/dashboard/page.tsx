@@ -11,11 +11,11 @@ export default async function DashboardPage() {
   try {
     response = await laravelFetch('/me');
   } catch {
-    redirect('/login');
+    redirect('/api/auth/expired');
   }
 
   if (!response.ok) {
-    redirect('/login');
+    redirect('/api/auth/expired');
   }
 
   const payload = (await response.json()) as ApiResponse<User>;
