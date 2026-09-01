@@ -4,11 +4,14 @@ namespace App\Models;
 
 use App\Enums\AssetStatus;
 use App\Models\Concerns\SerializesDatesAsIso8601;
+use App\Policies\AssetPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[UsePolicy(AssetPolicy::class)]
 class Asset extends Model
 {
     use HasFactory, SerializesDatesAsIso8601, SoftDeletes;
