@@ -1,0 +1,90 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: jarvisops-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: JarvisOps
+      MYSQL_USER: jarvisops
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-psecret"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile.dev
+    container_name: jarvisops-api
+    restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      SERVER_NAME: ":8000"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: JarvisOps
+      DB_USERNAME: jarvisops
+      DB_PASSWORD: secret
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/api:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/up || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile.dev
+    container_name: jarvisops-scheduler
+    restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"
+    command: php artisan schedule:work
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: JarvisOps
+      DB_USERNAME: jarvisops
+      DB_PASSWORD: secret
+    volumes:
+      - ./apps/api:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  web:
+    image: node:22-alpine
+    container_name: jarvisops-web
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      API_BASE_URL: http://api:8000/api
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/app
+      - web-node-modules:/app/node_modules
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - api
+
+volumes:
+  mysql-data:
+  web-node-modules:
