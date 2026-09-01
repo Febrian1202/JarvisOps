@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
@@ -52,6 +53,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     ? ApiResponse::error('Resource not found.', status: 404)
                     : ApiResponse::error($e->getMessage() ?: 'Forbidden.', status: 403),
                 $e instanceof NotFoundHttpException, $e instanceof ModelNotFoundException => ApiResponse::error('Resource not found.', status: 404),
+                $e instanceof MethodNotAllowedHttpException => ApiResponse::error('Method not allowed.', status: 405),
                 $e instanceof HttpException && $e->getStatusCode() === 404 => ApiResponse::error('Resource not found.', status: 404),
                 $e instanceof ValidationException => ApiResponse::error('The given data was invalid.', errors: $e->errors(), status: 422),
                 $e instanceof TooManyRequestsHttpException => tap(ApiResponse::error('Too many requests.', status: 429), function (JsonResponse $response) use ($e): void {

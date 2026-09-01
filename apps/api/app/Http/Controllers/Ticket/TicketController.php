@@ -24,7 +24,7 @@ class TicketController extends Controller
     {
         $ticket = $this->ticketService->create(CreateTicketData::fromArray($request->validated()), $request->user());
 
-        return ApiResponse::created($ticket, 'Ticket created successfully.');
+        return ApiResponse::success(new TicketResource($ticket), 'Ticket created successfully.', 201);
     }
 
     public function show(Ticket $ticket): JsonResponse

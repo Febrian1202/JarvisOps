@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HealthController;
@@ -29,5 +30,6 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
     ->name('me.password.update');
 
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
+    Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::apiResource('tickets', TicketController::class)->except(['index']);
 });
