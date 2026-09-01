@@ -225,6 +225,7 @@ const cookieOptions: ResponseCookie = {
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     path: '/',
+    maxAge: 12 * 60 * 60, // 12 jam, sejajar dengan expiration Sanctum
 };
 ```
 

@@ -85,3 +85,15 @@ test('authenticated user can logout', function () {
 test('unauthenticated user cannot logout', function () {
     $this->postJson('/api/logout')->assertStatus(401);
 });
+
+test('expired token cannot be used', function () {
+    $user = User::factory()->employee()->create();
+    $token = $user->createToken('auth_token', ['*'])->plainTextToken;
+
+    $this->travelTo(now()->addHours(12)->addMinute());
+
+    $this->withHeaders(['Authorization' => 'Bearer '.$token])
+        ->getJson('/api/me')
+        ->assertStatus(401)
+        ->assertJsonPath('message', 'Unauthenticated.');
+});
