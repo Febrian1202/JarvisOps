@@ -6,7 +6,13 @@ import LogoutButton from './logout-button';
 import ProxyProbe from './proxy-probe';
 
 export default async function DashboardPage() {
-  const response = await laravelFetch('/me');
+  let response: Response;
+
+  try {
+    response = await laravelFetch('/me');
+  } catch {
+    redirect('/login');
+  }
 
   if (!response.ok) {
     redirect('/login');
