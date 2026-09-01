@@ -1,6 +1,6 @@
 import { getToken } from '@/lib/server/session';
 
-const API_BASE_URL = process.env.API_BASE_URL ?? 'http://api:8000/api';
+export const API_BASE_URL = process.env.API_BASE_URL ?? 'http://api:8000/api';
 
 export async function laravelFetch(endpoint: string, options?: RequestInit): Promise<Response> {
   const token = await getToken();
