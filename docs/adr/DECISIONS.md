@@ -120,8 +120,8 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Status:** DECIDED
 - **Keputusan:** Tambahkan kolom `must_change_password BOOLEAN NOT NULL DEFAULT FALSE` pada migration `users`.
   - Ketika Admin melakukan `POST /api/users/{id}/reset-password`, flag ini diset `TRUE`.
-  - Middleware `EnsurePasswordChanged` mencegat request jika `must_change_password === true`, hanya mengizinkan `PUT /api/me/password` dan `POST /api/logout`.
-- **Alasan:** Menyelesaikan kontrak `PRD Addendum §2.2` tanpa menambah kompleksitas token reset email eksternal.
+  - Middleware `EnsurePasswordChanged` mencegat request jika `must_change_password === true`, hanya mengizinkan `PUT /api/me/password`, `GET /api/me` (me.show), dan `POST /api/logout`.
+- **Alasan:** Menyelesaikan kontrak `PRD Addendum §2.2` tanpa menambah kompleksitas token reset email eksternal. User perlu melihat profil (`/me`) untuk mengetahui identitasnya saat dipaksa mengganti password.
 
 ### D-12 · Password Policy
 - **Status:** DECIDED

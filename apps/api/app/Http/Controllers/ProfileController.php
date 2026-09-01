@@ -21,7 +21,8 @@ class ProfileController extends Controller
     {
         $user = $request->user()->load(['role', 'department', 'employeeProfile']);
 
-        $permissions = AbilityMatrix::permissionsFor(RoleName::from($user->role->name));
+        $role = RoleName::tryFrom($user->role?->name ?? '');
+        $permissions = $role ? AbilityMatrix::permissionsFor($role) : [];
 
         return ApiResponse::success(
             $this->profilePayload($user, $permissions),
