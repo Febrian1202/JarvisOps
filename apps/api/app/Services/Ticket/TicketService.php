@@ -64,4 +64,26 @@ class TicketService
             return $ticket->load(['status', 'priority', 'category', 'reporter', 'technician', 'department', 'asset']);
         });
     }
+
+    public function find(int $id): Ticket
+    {
+        $ticket = Ticket::query()
+            ->with([
+                'status',
+                'priority',
+                'category',
+                'reporter.department',
+                'technician',
+                'department',
+                'asset' => fn ($q) => $q->withTrashed(),
+                'comments',
+                'attachments',
+            ])
+            ->findOrFail($id);
+
+        $ticket->setAttribute('available_actions', []);
+        $ticket->setAttribute('editable_fields', []);
+
+        return $ticket;
+    }
 }

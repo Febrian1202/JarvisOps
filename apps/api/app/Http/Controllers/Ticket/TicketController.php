@@ -6,6 +6,7 @@ use App\DTOs\Ticket\CreateTicketData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\StoreTicketRequest;
 use App\Http\Requests\Ticket\UpdateTicketRequest;
+use App\Http\Resources\Ticket\TicketResource;
 use App\Models\Ticket;
 use App\Services\Ticket\TicketService;
 use App\Support\ApiResponse;
@@ -26,7 +27,10 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket): JsonResponse
     {
-        return ApiResponse::error('Not implemented yet.', null, 501);
+        $this->authorize('view', $ticket);
+        $ticket = $this->ticketService->find($ticket->id);
+
+        return ApiResponse::success(new TicketResource($ticket), 'Ticket retrieved successfully.');
     }
 
     public function update(UpdateTicketRequest $request, Ticket $ticket): JsonResponse
