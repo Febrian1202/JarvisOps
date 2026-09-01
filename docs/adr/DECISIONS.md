@@ -238,3 +238,11 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
   - API envelope message: Bahasa Inggris (standar Laravel, `"Ticket created successfully."`) agar konsisten dengan `API-CONTRACT.md §2`.
   - Validation errors (custom `messages()` di FormRequest): **Bahasa Indonesia** (`"Judul tiket harus diisi."`) agar lebih mudah dipahami user perusahaan.
   - Body notifikasi in-app & log deskripsi: Bahasa Indonesia (`"Ticket #TCK-0012 telah ditugaskan kepada Anda."`).
+
+### D-25 · Masa Hidup Token Sanctum & Cookie
+- **Status:** DECIDED
+- **Keputusan:**
+  - Token Sanctum kedaluwarsa secara absolut dalam **12 jam** (`720` menit) sejak dibuat. Tidak ada *sliding window* (idle timeout).
+  - HttpOnly cookie di Next.js diberi `maxAge` yang persis sama (12 jam).
+  - Tabel `personal_access_tokens` dibersihkan dari token mati setiap hari oleh scheduler (`sanctum:prune-expired`).
+- **Alasan:** Menutup NFR-002 (Security). Default Sanctum dan cookie sesi tanpa *maxAge* berarti akses bisa terus hidup selamanya jika user tidak eksplisit menekan tombol Logout, yang berbahaya bila laptop hilang atau token bocor dari log DB. 12 jam cukup longgar untuk shift kerja ITSM sehingga tidak mengganggu pengalaman pengguna. Waktu absolut dipilih agar tidak perlu kustomisasi ekstensif pada *last used time*.

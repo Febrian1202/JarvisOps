@@ -172,7 +172,7 @@ Kegagalan:
 
 Pesan untuk email tidak ditemukan dan password salah **harus identik** agar tidak membocorkan email mana yang terdaftar.
 
-Token hanya melewati BFF Next.js; ia disimpan di cookie httpOnly dan tidak pernah dikirim ke browser dalam bentuk yang bisa dibaca JavaScript.
+Token hanya melewati BFF Next.js; ia disimpan di cookie httpOnly dan tidak pernah dikirim ke browser dalam bentuk yang bisa dibaca JavaScript. Token memiliki **masa hidup absolut 12 jam**, dan akan ditolak (`401`) bila melewati batas itu (lihat `DECISIONS.md` D-25).
 
 ### `POST /api/logout`
 
