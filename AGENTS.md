@@ -23,6 +23,7 @@ These docs contain locked decisions, not drafts. Do not re-litigate them.
 | migrations / models | `docs/architecture/ERD.md`, `docs/schema.sql` (18 tables), DECISIONS §A (esp. D-14 column+index checklist, D-15 pinned seeder IDs) |
 | controllers / routes | `docs/api/API-CONTRACT.md` (envelope, §13 server-set fields), DECISIONS §C |
 | application / service-layer pattern | `docs/architecture/BACKEND-ARCHITECTURE.md` (thin controllers, DTO layer, service layer, request pipeline, folder structure) — derived doc, no new decisions |
+| frontend / UI architecture | `docs/architecture/FRONTEND-ARCHITECTURE.md` (BFF proxy, httpOnly cookie, folder structure, components, state) — derived doc, no new decisions |
 | ticket status logic | `docs/product/STATUS-TRANSITION.md` |
 | policies / gates | `docs/product/PERMISSION-MATRIX.md` (incl. when to return 404 instead of 403), DECISIONS §B |
 | what to build next | `docs/product/ROADMAP.md` (10 phases; §2 = locked technical decisions) |
@@ -81,7 +82,7 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 - Boost's `.ai/rules` mechanism is referenced by `apps/api/AGENTS.md` but the directory does not exist. Skip that step until it does.
 - `apps/api/opencode.json` registers the `laravel-boost` MCP server, and config resolution walks up from cwd — so Boost tools (`database-schema`, `search-docs`, `record-rule`) are **unavailable in a root-level session**. Start opencode in `apps/api` for backend work.
 - Skills live in `.opencode/skills/`: `laravel-best-practices`, `testing-best-practices`, `tailwindcss-development`, `infer-conventions`, `impeccable`. `.opencode/` is gitignored, so these are local-only.
-- UI work goes through the `impeccable` skill. Its product truth is the tracked root `PRODUCT.md`; its settings are `.impeccable/config.json` (`buildPath: comp` — new surfaces start from a generated comp). There is no `DESIGN.md` yet.
+ - UI work goes through the `impeccable` skill. Its product truth is the tracked root `PRODUCT.md`; its settings are `.impeccable/config.json` (`buildPath: comp` — new surfaces start from a generated comp). The visual spec is root `DESIGN.md` (warm cream theme); it is implemented via the Tailwind v4 theme in `apps/web`, see `docs/architecture/FRONTEND-ARCHITECTURE.md` §3.
 
 ## Current state, concretely
 

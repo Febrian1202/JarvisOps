@@ -17,7 +17,7 @@ Dokumen ini menjelaskan pola arsitektur aplikasi backend (Laravel API): bagaiman
 
 Konten di sini dikonsolidasikan dari PRD §35, PERMISSION-MATRIX §1, dan ROADMAP agar agentic tooling maupun developer punya satu acuan pola yang sama. Saat dokumen sumber dan dokumen ini bertentangan, otoritas tetap mengikuti urutan di `docs/adr/DECISIONS.md` §2.
 
-> **Catatan penamaan:** Nama `BACKEND-ARCHITECTURE` dipilih karena ke depan akan ada dokumen pola arsitektur frontend yang terpisah.
+> **Catatan penamaan:** Nama `BACKEND-ARCHITECTURE` dipilih karena ada dokumen pola arsitektur frontend yang terpisah: `docs/architecture/FRONTEND-ARCHITECTURE.md`.
 
 > **Transisi Phase 2:** Endpoint auth & profil sudah di-retrofit ke pola lengkap — DTO, service layer, API Resource, dan pengelompokan folder domain (`Auth/`). `HealthController` tetap di root `app/Http/Controllers/` karena tidak punya domain business logic. Untuk **Phase 3 ke atas** (Ticket CRUD, Notifikasi, Audit, dan seterusnya), wajib mengikuti pola di dokumen ini: DTO + service + resource + subfolder domain. Saat menambahkan endpoint baru, ikuti pola di sini; saat mengubah endpoint lama, retrofit DTO opsional tapi tidak diwajibkan.
 

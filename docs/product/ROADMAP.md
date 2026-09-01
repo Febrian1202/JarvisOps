@@ -626,7 +626,7 @@ Membangun kerangka aplikasi dan komponen bersama yang dipakai seluruh fitur. Pek
 - [ ] Pasang komponen dasar: button, input, select, textarea, table, dialog, dropdown-menu, badge, card, tabs, toast, skeleton, pagination, form, avatar, popover, calendar
 - [ ] TanStack Query provider di root layout, atur `staleTime` dan retry default
 - [ ] Recharts, react-hook-form, zod, `date-fns`
-- [ ] Struktur folder: `src/lib/api/`, `src/components/ui/`, `src/components/shared/`, `src/features/<domain>/`, `src/hooks/`, `src/types/`
+- [ ] Struktur folder: `src/lib/api/`, `src/components/ui/`, `src/components/shared/`, `src/features/<domain>/`, `src/hooks/`, `src/types/` — detail pola arsitektur di `docs/architecture/FRONTEND-ARCHITECTURE.md`
 - [ ] Path alias `@/*`
 - [ ] Pastikan `tsc --noEmit` dan `next lint` bersih sejak awal
 
