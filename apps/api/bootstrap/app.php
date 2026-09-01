@@ -15,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
@@ -47,13 +48,20 @@ return Application::configure(basePath: dirname(__DIR__))
 
             return match (true) {
                 $e instanceof AuthenticationException => ApiResponse::error('Unauthenticated.', status: 401),
-                $e instanceof AuthorizationException, $e instanceof AccessDeniedHttpException => ApiResponse::error($e->getMessage() ?: 'Forbidden.', status: 403),
+                $e instanceof AuthorizationException, $e instanceof AccessDeniedHttpException => $e instanceof AuthorizationException && $e->hasStatus() && $e->status() === 404
+                    ? ApiResponse::error('Resource not found.', status: 404)
+                    : ApiResponse::error($e->getMessage() ?: 'Forbidden.', status: 403),
                 $e instanceof NotFoundHttpException, $e instanceof ModelNotFoundException => ApiResponse::error('Resource not found.', status: 404),
+                $e instanceof HttpException && $e->getStatusCode() === 404 => ApiResponse::error('Resource not found.', status: 404),
                 $e instanceof ValidationException => ApiResponse::error('The given data was invalid.', errors: $e->errors(), status: 422),
                 $e instanceof TooManyRequestsHttpException => tap(ApiResponse::error('Too many requests.', status: 429), function (JsonResponse $response) use ($e): void {
                     $response->header('Retry-After', $e->getHeaders()['Retry-After'] ?? 60);
                 }),
-                $e instanceof IllegalStatusTransitionException => ApiResponse::error($e->getMessage() ?: 'Illegal status transition.', status: 422),
+                $e instanceof IllegalStatusTransitionException => ApiResponse::error(
+                    'The given data was invalid.',
+                    errors: ['status_id' => [$e->getMessage()]],
+                    status: 422,
+                ),
                 $e instanceof StateConflictException => ApiResponse::error($e->getMessage() ?: 'State conflict.', status: 409),
                 default => ApiResponse::error(
                     app()->hasDebugModeEnabled() ? $e->getMessage() : 'Server error.',

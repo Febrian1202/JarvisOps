@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Notification;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 /**
  * Notification access is strictly scoped to the owning user (PERMISSION-MATRIX §3.6,
@@ -11,6 +12,15 @@ use App\Models\User;
  */
 class NotificationPolicy
 {
+    /**
+     * Viewing a single notification is not exposed via API; this method
+     * exists to exercise the 404-authorization path for tests.
+     */
+    public function view(User $user, Notification $notification): Response
+    {
+        return Response::denyAsNotFound();
+    }
+
     /**
      * Viewing the notification list is allowed for any authenticated user;
      * scoping is applied at query time.
