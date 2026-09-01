@@ -2,48 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\UserStatus;
+use App\DTOs\LoginData;
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
+use App\Http\Resources\UserResource;
+use App\Services\AuthService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function __construct(private readonly AuthService $authService) {}
+
     public function login(LoginRequest $request): JsonResponse
     {
-        $user = User::where('email', $request->string('email'))
-            ->with(['role', 'department'])
-            ->first();
-
-        if (! $user || ! Hash::check($request->string('password'), $user->password)) {
-            return ApiResponse::error('The given data was invalid.', errors: ['email' => ['These credentials do not match our records.']], status: 422);
-        }
-
-        if ($user->status !== UserStatus::Active->value) {
-            return ApiResponse::error('The given data was invalid.', errors: ['email' => ['This account is inactive.']], status: 422);
-        }
-
-        $user->forceFill(['last_login_at' => now()])->save();
-
-        $token = $user->createToken('auth_token', ['*'])->plainTextToken;
+        $result = $this->authService->login(LoginData::fromArray($request->validated()));
 
         return ApiResponse::success([
-            'token' => $token,
-            'user' => $user->makeHidden([
-                'must_change_password',
-                'last_login_at',
-                'created_at',
-                'updated_at',
-            ]),
+            'token' => $result['token'],
+            'user' => new UserResource($result['user']),
         ], 'Login successful.');
     }
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $this->authService->logout($request->user());
 
         return ApiResponse::success(null, 'Logout successful.');
     }

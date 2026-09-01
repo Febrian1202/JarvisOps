@@ -21,4 +21,16 @@ class UpdateProfileRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:20'],
         ];
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'full_name.required' => 'Nama lengkap wajib diisi.',
+            'full_name.max' => 'Nama lengkap tidak boleh lebih dari 255 karakter.',
+            'phone.max' => 'Nomor telepon tidak boleh lebih dari 20 karakter.',
+        ];
+    }
 }
