@@ -84,5 +84,31 @@ class DemoDataSeeder extends Seeder
                 );
             }
         }
+
+        // 3. Demo tickets for employee@jarvisops.test
+        $employee = User::where('email', 'employee@jarvisops.test')->first();
+
+        if ($employee) {
+            \App\Models\Ticket::factory()->open()->count(3)->create([
+                'reporter_id' => $employee->id,
+                'department_id' => $employee->department_id,
+            ]);
+            \App\Models\Ticket::factory()->assigned()->count(2)->create([
+                'reporter_id' => $employee->id,
+                'department_id' => $employee->department_id,
+            ]);
+            \App\Models\Ticket::factory()->resolved()->count(2)->create([
+                'reporter_id' => $employee->id,
+                'department_id' => $employee->department_id,
+            ]);
+            \App\Models\Ticket::factory()->closed()->count(2)->create([
+                'reporter_id' => $employee->id,
+                'department_id' => $employee->department_id,
+            ]);
+            \App\Models\Ticket::factory()->breached()->count(1)->create([
+                'reporter_id' => $employee->id,
+                'department_id' => $employee->department_id,
+            ]);
+        }
     }
 }
