@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HealthController;
+use App\Http\Controllers\Ticket\TicketController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', HealthController::class);
@@ -26,3 +28,8 @@ Route::put('/me', [ProfileController::class, 'update'])
 Route::put('/me/password', [ProfileController::class, 'updatePassword'])
     ->middleware('auth:sanctum')
     ->name('me.password.update');
+
+Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
+    Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
+    Route::apiResource('tickets', TicketController::class)->except(['index']);
+});

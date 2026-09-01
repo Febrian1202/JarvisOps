@@ -32,7 +32,7 @@ class TicketPolicy
 
     public function update(User $user, Ticket $ticket): Response|bool
     {
-        if ((bool) ($ticket->status?->is_closed ?? false) || (int) $ticket->status_id === 5) {
+        if ((bool) ($ticket->status?->is_final ?? false)) {
             return false;
         }
 
