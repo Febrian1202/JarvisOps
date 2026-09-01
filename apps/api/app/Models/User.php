@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\RoleName;
 use App\Models\Concerns\SerializesDatesAsIso8601;
 use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -78,5 +79,30 @@ class User extends Authenticatable
     public function employeeProfile(): HasOne
     {
         return $this->hasOne(EmployeeProfile::class);
+    }
+
+    /**
+     * Check whether the user has one of the given roles.
+     */
+    public function hasRole(RoleName|string ...$roles): bool
+    {
+        $roleName = $this->role?->name;
+
+        foreach ($roles as $role) {
+            $expected = $role instanceof RoleName ? $role->value : $role;
+            if ($roleName === $expected) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check whether the user is an administrator.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole(RoleName::Admin);
     }
 }
