@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers\Ticket;
 
+use App\DTOs\Ticket\CreateTicketData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\StoreTicketRequest;
 use App\Http\Requests\Ticket\UpdateTicketRequest;
 use App\Models\Ticket;
+use App\Services\Ticket\TicketService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 
 class TicketController extends Controller
 {
+    public function __construct(
+        protected TicketService $ticketService,
+    ) {}
+
     public function store(StoreTicketRequest $request): JsonResponse
     {
-        return ApiResponse::created(null, 'Ticket created successfully.');
+        $ticket = $this->ticketService->create(CreateTicketData::fromArray($request->validated()), $request->user());
+
+        return ApiResponse::created($ticket, 'Ticket created successfully.');
     }
 
     public function show(Ticket $ticket): JsonResponse
