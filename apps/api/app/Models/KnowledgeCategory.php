@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\Concerns\SerializesDatesAsIso8601;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class KnowledgeCategory extends Model
+{
+    use HasFactory, SerializesDatesAsIso8601, SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
+    /**
+     * Get articles in this knowledge category.
+     */
+    public function articles(): HasMany
+    {
+        return $this->hasMany(KnowledgeArticle::class, 'category_id');
+    }
+}
