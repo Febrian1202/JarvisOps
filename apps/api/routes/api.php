@@ -4,6 +4,7 @@ use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HealthController;
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\Ticket\TicketCommentController;
 use App\Http\Controllers\Ticket\TicketController;
@@ -55,4 +56,11 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/ticket-priorities', [ReferenceController::class, 'priorities'])->name('ticket-priorities.index');
     Route::get('/ticket-statuses', [ReferenceController::class, 'statuses'])->name('ticket-statuses.index');
     Route::get('/technicians', [ReferenceController::class, 'technicians'])->name('technicians.index');
+
+    Route::prefix('notifications')->name('notifications.')->group(function () {
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::get('/unread-count', [NotificationController::class, 'unreadCount'])->name('unread-count');
+        Route::post('/{notification}/read', [NotificationController::class, 'read'])->name('read');
+        Route::post('/read-all', [NotificationController::class, 'readAll'])->name('read-all');
+    });
 });
