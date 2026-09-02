@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Asset\AssetController;
+use App\Http\Controllers\Audit\AuditLogController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HealthController;
@@ -62,5 +63,10 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
         Route::get('/unread-count', [NotificationController::class, 'unreadCount'])->name('unread-count');
         Route::post('/{notification}/read', [NotificationController::class, 'read'])->name('read');
         Route::post('/read-all', [NotificationController::class, 'readAll'])->name('read-all');
+    });
+
+    Route::prefix('audit-logs')->name('audit-logs.')->group(function () {
+        Route::get('/', [AuditLogController::class, 'index'])->name('index');
+        Route::get('/{auditLog}', [AuditLogController::class, 'show'])->name('show');
     });
 });
