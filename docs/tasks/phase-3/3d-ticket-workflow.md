@@ -1,7 +1,7 @@
 # Fase 3d — Ticket Workflow: Status, Assign, Priority (Rencana Implementasi)
 
 > **Untuk agentic worker:** SUB-SKILL WAJIB — pakai `superpowers:subagent-driven-development`
-> (disarankan) atau `superpowers:executing-plans`. Langkah memakai `- [ ]`.
+> (disarankan) atau `superpowers:executing-plans`. Langkah memakai `- [x]`.
 
 **Goal:** Membangun `TicketStatusService` — satu mesin transisi yang melayani status, assign,
 unassign, self-assign, dan priority. Menghasilkan `available_actions` + `editable_fields` di respons
@@ -51,7 +51,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
 - Modify: `routes/api.php` (4 route baru)
 - Test: `tests/Feature/Ticket/StatusTransitionRequestTest.php`
 
-- [ ] **Step 1: Test — FormRequest validation (TDD, HTTP)**
+- [x] **Step 1: Test — FormRequest validation (TDD, HTTP)**
   ```php
   uses()->group('ticket');
 
@@ -88,9 +88,9 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 2: Jalankan, pastikan gagal (404 — route belum ada).**
+- [x] **Step 2: Jalankan, pastikan gagal (404 — route belum ada).**
 
-- [ ] **Step 3: Implementasi.** DTO mengikuti pola `CreateTicketData` (readonly + `fromArray`).
+- [x] **Step 3: Implementasi.** DTO mengikuti pola `CreateTicketData` (readonly + `fromArray`).
   ```php
   // StatusTransitionData
   public function __construct(
@@ -190,9 +190,9 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   ```
   (Jangan lupa `use` statement yang diperlukan; lakukan pint setelahnya.)
 
-- [ ] **Step 4: Jalankan test — 5/5 hijau (422).**
+- [x] **Step 4: Jalankan test — 5/5 hijau (422).**
 
-- [ ] **Step 5: `vendor/bin/pint --dirty --format agent`; Commit.**
+- [x] **Step 5: `vendor/bin/pint --dirty --format agent`; Commit.**
 
 ---
 
@@ -210,7 +210,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
 - `TicketStatusService::unassign(Ticket $ticket, User $actor): Ticket`
 - `TicketStatusService::changePriority(Ticket $ticket, ChangePriorityData $data, User $actor): Ticket`
 
-- [ ] **Step 1: Test — `TicketActorResolver` (unit)**
+- [x] **Step 1: Test — `TicketActorResolver` (unit)**
   ```php
   test('manager resolves to Manager role', function () {
       $user = User::factory()->manager()->create();
@@ -222,7 +222,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   // employee non-reporter → []
   ```
 
-- [ ] **Step 2: Test — golden path §31 (service-level)**
+- [x] **Step 2: Test — golden path §31 (service-level)**
   ```php
   test('golden path: create → assign → in_progress → resolve → close', function () {
       $service = app(TicketStatusService::class);
@@ -261,7 +261,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 3: Test — self-assign technician (service-level)**
+- [x] **Step 3: Test — self-assign technician (service-level)**
   ```php
   test('technician self-assigns from OPEN', function () {
       $service = app(TicketStatusService::class);
@@ -279,7 +279,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 4: Test — transisi ilegal (STATUS-TRANSITION §10, K-13)**
+- [x] **Step 4: Test — transisi ilegal (STATUS-TRANSITION §10, K-13)**
   ```php
   test('OPEN to RESOLVED throws IllegalStatusTransitionException', function () {
       $service = app(TicketStatusService::class);
@@ -293,7 +293,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   // mengikuti pola yang sama — pesan menyebut kedua nama status (D-29).
   ```
 
-- [ ] **Step 5: Test — 409 konkurensi (D-26, service-level)**
+- [x] **Step 5: Test — 409 konkurensi (D-26, service-level)**
   ```php
   test('stale expected_status_id throws StateConflictException', function () {
       $service = app(TicketStatusService::class);
@@ -317,7 +317,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 6: Test — side effects per transisi (service-level)**
+- [x] **Step 6: Test — side effects per transisi (service-level)**
   ```php
   test('every transition writes history rows', function () { /* BR-008 */ });
   test('every transition writes audit log', function () { /* BR-010, AuditModule::Ticket */ });
@@ -342,7 +342,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 7: Implementasi `TicketActorResolver`**
+- [x] **Step 7: Implementasi `TicketActorResolver`**
   ```php
   namespace App\Authorization;
 
@@ -379,7 +379,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   }
   ```
 
-- [ ] **Step 8: Implementasi `TicketStatusService`** — kerangka `transition`:
+- [x] **Step 8: Implementasi `TicketStatusService`** — kerangka `transition`:
   ```php
   public function transition(Ticket $ticket, StatusTransitionData $data, User $actor): Ticket
   {
@@ -422,7 +422,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   }
   ```
 
-- [ ] **Step 9: Side-effect map (bagian inti — isi sesuai tabel ini)**
+- [x] **Step 9: Side-effect map (bagian inti — isi sesuai tabel ini)**
 
   | from → to | field diubah | audit action | notifikasi (pelaku dikecualikan) |
   | --- | --- | --- | --- |
@@ -441,12 +441,12 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   - Audit description Bahasa Indonesia (D-24), contoh: `"Status ticket #TCK-0001 diubah dari ASSIGNED ke IN_PROGRESS."`
   - Manager collection: `User::where('status', 'active')->whereHas('role', fn ($q) => $q->where('name', RoleName::Manager->value))->get()`.
 
-- [ ] **Step 10: Implementasi `assign`, `unassign`, `changePriority`**
+- [x] **Step 10: Implementasi `assign`, `unassign`, `changePriority`**
   - `assign`: hanya dari `OPEN`/`ASSIGNED`/`IN_PROGRESS` (selain itu `IllegalStatusTransitionException`). Normalisasi `status_id = 2`. `$isReassign = $ticket->technician_id !== null`; audit `Reassign` bila ya (notif teknisi lama + baru), `Assign` bila tidak (notif teknisi baru). `expected_status_id` guard sama. History `status_id` (bila berubah) + `technician_id`.
   - `unassign`: alias `ASSIGNED→OPEN`; boleh dari `ASSIGNED` saja (status lain → `IllegalStatusTransitionException`). `technician_id = null`, `status_id = 1`, audit `Unassign`, notif teknisi lama.
   - `changePriority`: blok bila `$ticket->status->is_closed` (→ `IllegalStatusTransitionException`, "Prioritas tidak dapat diubah pada ticket yang sudah ditutup/diresolusi."). Set `priority_id`, panggil `SlaService::recalculateFromCreation($ticket, $priority)` (dari `created_at`, §7), save, history `priority_id` (nama), audit `PriorityChange`. Tanpa notifikasi (§6).
 
-- [ ] **Step 11: Jalankan test; `vendor/bin/pint --dirty --format agent`; Commit.**
+- [x] **Step 11: Jalankan test; `vendor/bin/pint --dirty --format agent`; Commit.**
 
 ---
 
@@ -462,7 +462,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
 - `TicketActionResolver::availableActions(Ticket $ticket, User $user): array` — `list<string>` (nilai `TicketAction`)
 - `TicketActionResolver::editableFields(Ticket $ticket, User $user): array`
 
-- [ ] **Step 1: Test — matriks status × role (25 kombinasi)**
+- [x] **Step 1: Test — matriks status × role (25 kombinasi)**
   ```php
   dataset('availableActionMatrix', function () {
       // [status_factory_state, role_setup, expected_actions]
@@ -493,7 +493,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 2: Matriks lengkap (STATUS-TRANSITION §9 + D-19)**
+- [x] **Step 2: Matriks lengkap (STATUS-TRANSITION §9 + D-19)**
 
   | Status | Admin/Manager | Technician (pemegang) | Technician (bukan pemegang) | Reporter (employee) |
   | --- | --- | --- | --- | --- |
@@ -505,7 +505,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
 
   Implementasi `availableActions`: resolve roles via `TicketActorResolver`, lalu bangun daftar action dari tabel di atas. `editableFields`: `[]` bila `status->is_closed`; employee reporter → `['title','description']`; T/M/A → `['title','description','category_id']`.
 
-- [ ] **Step 3: Integrasi ke `TicketResource::toArray`**
+- [x] **Step 3: Integrasi ke `TicketResource::toArray`**
   ```php
   $viewer = $request->user();
   $actions = app(TicketActionResolver::class);
@@ -515,7 +515,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   ```
   Hapus `setAttribute('available_actions', [])` / `setAttribute('editable_fields', [])` dari `TicketService::find`.
 
-- [ ] **Step 4: Jalankan test; `vendor/bin/pint --dirty --format agent`; Commit.**
+- [x] **Step 4: Jalankan test; `vendor/bin/pint --dirty --format agent`; Commit.**
 
 ---
 
@@ -525,7 +525,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
 - Modify: `app/Http/Controllers/Ticket/TicketController.php` (sudah di Task 1 — verifikasi wiring penuh)
 - Create: `tests/Feature/Ticket/StatusTransitionTest.php`
 
-- [ ] **Step 1: Test — golden path penuh lewat HTTP (§31 skenario 1-5)**
+- [x] **Step 1: Test — golden path penuh lewat HTTP (§31 skenario 1-5)**
   ```php
   test('full lifecycle over HTTP', function () {
       $employee = User::factory()->employee()->create();
@@ -555,7 +555,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 2: Test — transisi ilegal via HTTP (422 + pesan Indonesia menyebut nama status)**
+- [x] **Step 2: Test — transisi ilegal via HTTP (422 + pesan Indonesia menyebut nama status)**
   ```php
   test('OPEN to RESOLVED returns 422 with Indonesian message', function () {
       $ticket = Ticket::factory()->open()->create();
@@ -567,7 +567,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   // ASSIGNED→RESOLVED, same-status, CLOSED→IN_PROGRESS, RESOLVED→OPEN, IN_PROGRESS→OPEN — pola sama
   ```
 
-- [ ] **Step 3: Test — 409 vs 422 vs 403/404 (D-26)**
+- [x] **Step 3: Test — 409 vs 422 vs 403/404 (D-26)**
   ```php
   test('stale expected_status_id returns 409', function () {
       $ticket = Ticket::factory()->open()->create();
@@ -593,7 +593,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 4: Test — self-assign, reopen, priority, cancel via HTTP**
+- [x] **Step 4: Test — self-assign, reopen, priority, cancel via HTTP**
   ```php
   test('technician self-assigns via HTTP with two history rows', function () {
       $employee = User::factory()->employee()->create();
@@ -640,7 +640,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 5: Test — otorisasi & D-16**
+- [x] **Step 5: Test — otorisasi & D-16**
   ```php
   test('admin cannot reopen CLOSED ticket', function () {
       $ticket = Ticket::factory()->closed()->create();
@@ -670,7 +670,7 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 6: Test — detail mengembalikan available_actions yang benar**
+- [x] **Step 6: Test — detail mengembalikan available_actions yang benar**
   ```php
   test('show returns available_actions for manager on OPEN ticket', function () {
       $manager = User::factory()->manager()->create();
@@ -683,20 +683,20 @@ detail. Menangani konkurensi lewat `expected_status_id` → 409.
   });
   ```
 
-- [ ] **Step 7: Jalankan seluruh suite (`php artisan test`); `vendor/bin/pint --dirty --format agent`; Commit.**
+- [x] **Step 7: Jalankan seluruh suite (`php artisan test`); `vendor/bin/pint --dirty --format agent`; Commit.**
 
 ---
 
 ## Exit Criteria 3d
 
-- [ ] 6 skenario §31 PRD dapat diselesaikan penuh lewat HTTP
-- [ ] 12 transisi legal berfungsi, semua transisi ilegal → 422 dengan pesan Indonesia
-- [ ] `expected_status_id` basi → 409, urutan 409 vs 422 vs 403/404 sesuai D-26
-- [ ] Self-assign Technician: `OPEN → IN_PROGRESS` mengisi `technician_id` + 2 baris history
-- [ ] Reopen: `resolved_at` null, `sla_deadline` dan `sla_breached` tidak berubah
-- [ ] Priority change: `sla_deadline` dihitung ulang dari `created_at`, diblokir pada `is_closed`
-- [ ] Admin tidak bisa membuka/tutup ticket CLOSED (D-16 #2)
-- [ ] `available_actions` sesuai matriks §9 untuk 25 kombinasi status × role
-- [ ] `editable_fields` ada di respons detail, berbeda per role, kosong pada CLOSED
-- [ ] Setiap transisi menulis history + audit + notifikasi, pelaku tidak dinotifikasi
-- [ ] `php artisan test` hijau, `pint --test` bersih
+- [x] 6 skenario §31 PRD dapat diselesaikan penuh lewat HTTP
+- [x] 12 transisi legal berfungsi, semua transisi ilegal → 422 dengan pesan Indonesia
+- [x] `expected_status_id` basi → 409, urutan 409 vs 422 vs 403/404 sesuai D-26
+- [x] Self-assign Technician: `OPEN → IN_PROGRESS` mengisi `technician_id` + 2 baris history
+- [x] Reopen: `resolved_at` null, `sla_deadline` dan `sla_breached` tidak berubah
+- [x] Priority change: `sla_deadline` dihitung ulang dari `created_at`, diblokir pada `is_closed`
+- [x] Admin tidak bisa membuka/tutup ticket CLOSED (D-16 #2)
+- [x] `available_actions` sesuai matriks §9 untuk 25 kombinasi status × role
+- [x] `editable_fields` ada di respons detail, berbeda per role, kosong pada CLOSED
+- [x] Setiap transisi menulis history + audit + notifikasi, pelaku tidak dinotifikasi
+- [x] `php artisan test` hijau, `pint --test` bersih
