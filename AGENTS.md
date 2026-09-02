@@ -1,6 +1,6 @@
 # AGENTS.md — JARVIS OPS
 
-IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 5/10).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 22 migrations, 456 passing tests (1748 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), notification API (4b), and audit log API with scoping & timezone filters (Tag `v0.4.0`). Expect to write net-new code, not modify existing features.
+IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 6/10).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 23 migrations, 622 passing tests (2558 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), notification API (4b), audit log API with scoping & timezone filters (Tag `v0.4.0`), asset management, knowledge base, file attachments, and dashboard APIs for employee, technician, and manager. Expect to write net-new code, not modify existing features.
 
 ## Repo layout
 
@@ -86,7 +86,7 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 
 ## Current state, concretely
 
-- `apps/api`: 23 migrations, 18 models, 36 API routes (52 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), full audit log API (`/api/audit-logs`), full asset management API (`/api/assets`, `/api/my-assets`, `/api/assets/{id}/assign`, `/api/assets/{id}/release`, `/api/assets/{id}/history`), full knowledge base API (`/api/articles`, `/api/articles/{slug}`, `/api/articles/{id}/publish`, `/api/articles/{id}/unpublish`, `/api/knowledge-categories`), 535 total tests (2092 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, ArticlePolicy, AttachmentPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, AuditLogQueryService, AssetService, AssetAssignmentService, AssetQueryService, ArticleService, ArticleQueryService, enums, transition matrix, and available actions are all implemented and passing.
+- `apps/api`: 23 migrations, 18 models, 37 API routes (53 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), full audit log API (`/api/audit-logs`), full asset management API (`/api/assets`, `/api/my-assets`, `/api/assets/{id}/assign`, `/api/assets/{id}/release`, `/api/assets/{id}/history`), full knowledge base API (`/api/articles`, `/api/articles/{slug}`, `/api/articles/{id}/publish`, `/api/articles/{id}/unpublish`, `/api/knowledge-categories`), full dashboard APIs (`/api/dashboard/employee`, `/api/dashboard/technician`, `/api/dashboard/manager`), 622 total tests (2558 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, ArticlePolicy, AttachmentPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, AuditLogQueryService, AssetService, AssetAssignmentService, AssetQueryService, ArticleService, ArticleQueryService, EmployeeDashboardService, TechnicianDashboardService, ManagerDashboardService, enums, transition matrix, and available actions are all implemented and passing.
 - `apps/web`: login page + protected dashboard (`src/app/login/`, `src/app/dashboard/`), BFF proxy route handler, auth flow with httpOnly cookie.
 - Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) — **complete**
 - Phase 2 (Backend Foundation & Walking Skeleton: auth, login, middleware, health, web dashboard) — **complete**
@@ -97,4 +97,9 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 - Phase 5a (Foundation, Spec Amendment, Policy, Enum, Index, Disk) — **complete**
 - Phase 5b (Asset Management) — **complete**
 - Phase 5c (Knowledge Base) — **complete**
-- Phase 5d (File Attachment) — **next work**
+- Phase 5d (File Attachment) — **complete**
+- Phase 5e (User & Master Data Administration) — **complete**
+- Phase 6a (Dashboard Foundation & Query Kernel) — **complete**
+- Phase 6b (Employee & Technician Dashboards) — **complete**
+- Phase 6c (Manager Dashboard) — **complete**
+- Phase 6d (Admin Dashboard & Finalization) — **next work**

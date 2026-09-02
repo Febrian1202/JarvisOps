@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 5/10).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), fondasi otorisasi & policy Fase 5 (5a Selesai), serta modul Asset Management lengkap (5b Selesai). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: desain selesai, implementasi berjalan (Fase 6/10).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), serta Dashboard API untuk Employee, Technician, dan Manager (Fase 6c Selesai). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -153,18 +153,25 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
   - **4a (SLA Scheduler & Breach Detection)**: background command `tickets:check-sla`, persistensi breach status & timestamp, audit trail sistem `sla_breach` (`user_id = null`), notifikasi `TICKET_SLA_BREACHED` ke teknisi & manager
   - **4b (Notification API & Event Delivery)**: endpoint `GET /api/notifications` (filter, pagination, ISO 8601 UTC), `GET /api/notifications/unread-count` (1 query COUNT), `POST /api/notifications/{id}/read` & `POST /api/notifications/read-all`, isolasi kepemilikan ketat (404 untuk akses notifikasi user lain tanpa bypass admin), verifikasi pengiriman 11 tipe notifikasi
   - **4c (Audit Log API)**: endpoint `GET /api/audit-logs` (ringkas) dan `GET /api/audit-logs/{id}` (lengkap dengan old/new data & user_agent), pembatasan query server Manager (hanya modul ticket, asset, article), pencegahan kebocoran data (200 list kosong & 404 detail), konversi presisi filter tanggal Asia/Jakarta ke UTC, dan verifikasi cakupan seluruh event sistem
-- **Fase 5 (Modul Pendukung & Administrasi) — BERJALAN**:
+- **Fase 5 (Modul Pendukung & Administrasi) — SELESAI**:
   - **5a (Foundation, Spec, Policy, Enum, Index, Disk) — SELESAI**: amandemen D-08/D-11, `ArticlePolicy`, `AttachmentPolicy`, `AssetPolicy` lengkap, enum `ArticleStatus` & `AssetHistoryAction`, penambahan 3 index skema, disk `private` (`serve => false`), factory states.
   - **5b (Asset Management) — SELESAI**: CRUD asset (T/M/A, tanpa delete utk T), assign & release dengan row locking `lockForUpdate()` (D-09) & validasi status/konflik, search 3-field + filter + sort whitelist + meta pagination tanpa N+1, detail asset dengan relasi pemegang aktif, timeline riwayat gabungan `GET /api/assets/{id}/history`, dan endpoint kepemilikan `GET /api/my-assets`.
-- `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 28 routes (40 operations), 503 test passing (1972 assertions, 0 failures), Pint bersih
+  - **5c (Knowledge Base) — SELESAI**: CRUD artikel, category, publish/unpublish workflow, slug uniqueness, view counter.
+  - **5d (File Attachment) — SELESAI**: Private disk storage, upload validation (MIME & extension), secure download controller under TicketPolicy.
+  - **5e (User & Master Data Administration) — SELESAI**: CRUD user, role, department, ticket categories, ticket priorities & SLA configs.
+- **Fase 6 (Dashboard & Analytics API) — BERJALAN**:
+  - **6a (Foundation & Query Kernel) — SELESAI**: `DashboardDateRange`, `DashboardCountsQuery`, `SlaMetricsCalculator`, `TicketTrendQuery`, `TechnicianPerformanceQuery`.
+  - **6b (Employee & Technician Dashboards) — SELESAI**: `GET /api/dashboard/employee` & `GET /api/dashboard/technician` dengan scoping ketat.
+  - **6c (Manager Dashboard) — SELESAI**: `GET /api/dashboard/manager` dengan SLA metrics (D-03), daily trend WIB, distribusi priority & category, serta performa teknisi.
+- `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 37 routes (53 operations), 622 test passing (2558 assertions, 0 failures), Pint bersih
 - `apps/web` — login page + protected dashboard, BFF route handler
 
 ### Belum ada
 
-- Knowledge base (5c), file attachment (5d), administrasi user & master data (5e).
-- Dashboard & analytics (Fase 6), seluruh halaman frontend lanjutan (Fase 7/8), integrasi & deployment (Fase 9/10).
+- Dashboard Admin & finalisasi Fase 6 (6d).
+- Seluruh halaman frontend lanjutan (Fase 7/8/9), integrasi & deployment (Fase 10).
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 5c — Knowledge Base**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Sub-tahap berikutnya adalah **Fase 6d — Dashboard Admin & Finalisasi**.
 
 ---
 
