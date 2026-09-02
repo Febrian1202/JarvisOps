@@ -67,6 +67,17 @@ class SlaService
         return (int) now()->diffInMinutes(Carbon::parse($ticket->sla_deadline), false);
     }
 
+    public function breachCandidates(): Builder
+    {
+        return Ticket::query()
+            ->where('sla_breached', false)
+            ->whereNotNull('sla_deadline')
+            ->where('sla_deadline', '<', now())
+            ->whereHas('status', function (Builder $q) {
+                $q->where('is_closed', false);
+            });
+    }
+
     public function scopeBreached(Builder $query): Builder
     {
         return $query->where(function (Builder $q) {

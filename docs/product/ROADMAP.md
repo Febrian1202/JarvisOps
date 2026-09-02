@@ -472,7 +472,7 @@ Membuat sistem bereaksi terhadap waktu dan mencatat jejaknya — bagian yang mem
 ### Notification (Addendum §4)
 
 - [ ] `NotificationService` dengan tabel `notifications` kustom (bukan `Illuminate\Notifications\Notifiable` — skema sudah punya bentuk tabel sendiri, mencampur keduanya hanya menambah kebingungan)
-- [ ] Enum tipe notifikasi: `TICKET_ASSIGNED`, `TICKET_STATUS_CHANGED`, `TICKET_COMMENTED`, `TICKET_RESOLVED`, `SLA_BREACHED`
+- [ ] Enum tipe notifikasi: `TICKET_ASSIGNED`, `TICKET_STATUS_CHANGED`, `TICKET_COMMENTED`, `TICKET_RESOLVED`, `TICKET_SLA_BREACHED`
 - [ ] Payload `data` (JSON) berisi cukup informasi untuk render tanpa query tambahan: ticket number, judul, aktor, URL tujuan
 - [ ] `GET /api/notifications` — paginated, filter unread
 - [ ] `GET /api/notifications/unread-count`
@@ -497,7 +497,7 @@ Membuat sistem bereaksi terhadap waktu dan mencatat jejaknya — bagian yang mem
 - [ ] Unread count dan mark-as-read akurat
 - [ ] User tidak bisa menandai notifikasi milik user lain
 - [ ] Audit log tercatat pada setiap aksi yang diwajibkan
-- [ ] Manager mengakses audit log di luar batasnya → 403
+- [ ] Manager mengakses audit log di luar batasnya → 200 list kosong pada index, 404 pada detail
 
 ## Deliverable
 

@@ -14,4 +14,5 @@ enum NotificationType: string
     case TicketClosed = 'TICKET_CLOSED';
     case TicketCancelled = 'TICKET_CANCELLED';
     case TicketCommented = 'TICKET_COMMENTED';
+    case TicketSlaBreached = 'TICKET_SLA_BREACHED';
 }
