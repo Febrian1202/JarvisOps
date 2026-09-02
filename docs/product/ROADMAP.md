@@ -431,7 +431,7 @@ Ticket API lengkap dengan workflow, history, komentar, relasi asset, search/filt
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+- [x] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0, v0.3.0)
 
 
 
