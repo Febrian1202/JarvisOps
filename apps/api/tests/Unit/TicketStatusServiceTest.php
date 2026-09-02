@@ -5,6 +5,7 @@ use App\DTOs\Ticket\AssignTicketData;
 use App\DTOs\Ticket\ChangePriorityData;
 use App\DTOs\Ticket\StatusTransitionData;
 use App\Enums\AuditAction;
+use App\Enums\NotificationType;
 use App\Enums\TicketActor;
 use App\Exceptions\IllegalStatusTransitionException;
 use App\Exceptions\StateConflictException;
@@ -343,8 +344,11 @@ describe('side effects', function () {
     test('reopen clears resolved_at but not sla_breached', function () {
         $service = app(TicketStatusService::class);
         $employee = User::factory()->employee()->create();
+        $technician = User::factory()->technician()->create();
+        $manager = User::factory()->manager()->create();
         $ticket = Ticket::factory()->resolved()->create([
             'reporter_id' => $employee->id,
+            'technician_id' => $technician->id,
             'sla_breached' => true,
             'sla_breached_at' => now(),
         ]);
@@ -355,14 +359,23 @@ describe('side effects', function () {
 
         expect($ticket->fresh()->resolved_at)->toBeNull();
         expect($ticket->fresh()->sla_breached)->toBeTrue();
+
+        expect(Notification::where('user_id', $technician->id)
+            ->where('type', NotificationType::TicketReopened->value)->count())->toBe(1);
+        expect(Notification::where('user_id', $manager->id)
+            ->where('type', NotificationType::TicketReopened->value)->count())->toBe(1);
+        expect(Notification::where('user_id', $employee->id)->count())->toBe(0);
     });
 
     test('reopen does not change sla_deadline', function () {
         $service = app(TicketStatusService::class);
         $employee = User::factory()->employee()->create();
+        $technician = User::factory()->technician()->create();
+        $manager = User::factory()->manager()->create();
         $deadline = now()->addDay();
         $ticket = Ticket::factory()->resolved()->create([
             'reporter_id' => $employee->id,
+            'technician_id' => $technician->id,
             'sla_deadline' => $deadline,
         ]);
 
@@ -373,6 +386,34 @@ describe('side effects', function () {
         ]), $employee);
 
         expect($ticket->fresh()->sla_deadline->toIso8601String())->toBe($originalDeadline);
+
+        expect(Notification::where('user_id', $technician->id)
+            ->where('type', NotificationType::TicketReopened->value)->count())->toBe(1);
+        expect(Notification::where('user_id', $manager->id)
+            ->where('type', NotificationType::TicketReopened->value)->count())->toBe(1);
+        expect(Notification::where('user_id', $employee->id)->count())->toBe(0);
+    });
+
+    test('transition ASSIGNED to OPEN unassigns, audits Unassign, notifies old technician', function () {
+        $service = app(TicketStatusService::class);
+        $manager = User::factory()->manager()->create();
+        $technician = User::factory()->technician()->create();
+        $employee = User::factory()->employee()->create();
+        $ticket = Ticket::factory()->assigned()->create([
+            'technician_id' => $technician->id,
+            'reporter_id' => $employee->id,
+        ]);
+
+        $ticket = $service->transition($ticket, StatusTransitionData::fromArray([
+            'status_id' => 1,
+        ]), $manager);
+
+        expect($ticket->fresh()->status->name)->toBe('OPEN');
+        expect($ticket->fresh()->technician_id)->toBeNull();
+        expect(AuditLog::where('action', AuditAction::Unassign->value)->count())->toBe(1);
+        expect(Notification::where('user_id', $technician->id)
+            ->where('type', NotificationType::TicketUnassigned->value)->count())->toBe(1);
+        expect(Notification::where('user_id', $manager->id)->count())->toBe(0);
     });
 
     test('priority change recalculates sla_deadline from created_at', function () {

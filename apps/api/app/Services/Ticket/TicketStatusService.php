@@ -71,7 +71,7 @@ final class TicketStatusService
                 );
             }
 
-            if ($to === TicketStatusName::Assigned || $to === TicketStatusName::Open) {
+            if ($to === TicketStatusName::Assigned) {
                 throw new IllegalStatusTransitionException(
                     "Status tidak dapat diubah dari {$from->label()} ke {$to->label()} melalui endpoint ini."
                 );
@@ -281,6 +281,13 @@ final class TicketStatusService
             $ticket->closed_at = now();
         }
 
+        // OPEN target: ASSIGNED → OPEN (unassign) clears the technician.
+        if ($to === TicketStatusName::Open) {
+            $ticket->load('technician');
+            $this->writeHistory($ticket, $actor, 'technician_id', $ticket->technician?->full_name, null);
+            $ticket->technician_id = null;
+        }
+
         // Always write the status_id history row.
         $this->writeHistory($ticket, $actor, 'status_id', $from->label(), $to->label());
         $ticket->status_id = $to->id();
@@ -311,6 +318,7 @@ final class TicketStatusService
     private function auditActionFor(TicketStatusName $from, TicketStatusName $to): AuditAction
     {
         return match (true) {
+            $from === TicketStatusName::Assigned && $to === TicketStatusName::Open => AuditAction::Unassign,
             $from === TicketStatusName::Open && $to === TicketStatusName::InProgress => AuditAction::SelfAssign,
             $from === TicketStatusName::Resolved && $to === TicketStatusName::InProgress => AuditAction::Reopen,
             $to === TicketStatusName::InProgress => AuditAction::StatusChange,
@@ -323,6 +331,7 @@ final class TicketStatusService
     private function auditDescription(TicketStatusName $from, TicketStatusName $to, string $ticketNumber): string
     {
         return match (true) {
+            $from === TicketStatusName::Assigned && $to === TicketStatusName::Open => "Ticket #{$ticketNumber} dilepas dari teknisi (ASSIGNED → OPEN).",
             $from === TicketStatusName::Open && $to === TicketStatusName::InProgress => "Technician mengambil alih ticket #{$ticketNumber} dari OPEN ke IN_PROGRESS.",
             $from === TicketStatusName::Resolved && $to === TicketStatusName::InProgress => "Ticket #{$ticketNumber} dibuka kembali (RESOLVED → IN_PROGRESS).",
             $to === TicketStatusName::InProgress => "Status ticket #{$ticketNumber} diubah dari {$from->label()} ke IN_PROGRESS.",
@@ -335,6 +344,13 @@ final class TicketStatusService
     private function notifyTransition(Ticket $ticket, TicketStatusName $from, TicketStatusName $to, User $actor): void
     {
         match (true) {
+            $from === TicketStatusName::Assigned && $to === TicketStatusName::Open => $this->notifyRecipients(
+                collect([$ticket->technician]),
+                NotificationType::TicketUnassigned,
+                $ticket,
+                $actor,
+                "Anda dilepas dari ticket #{$ticket->ticket_number}.",
+            ),
             $from === TicketStatusName::Resolved && $to === TicketStatusName::InProgress => $this->notifyReopen($ticket, $actor),
             $from === TicketStatusName::Open && $to === TicketStatusName::InProgress => $this->notifyRecipients(
                 collect([$ticket->reporter]),
@@ -369,7 +385,7 @@ final class TicketStatusService
                 NotificationType::TicketStatusChanged,
                 $ticket,
                 $actor,
-                "Status ticket #{$ticket->ticket_number} menjadi IN PROGRESS.",
+                "Status ticket #{$ticket->ticket_number} menjadi {$to->label()}.",
             ),
         };
     }
