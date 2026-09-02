@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Article\KnowledgeCategoryController;
 use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Asset\AssetHistoryController;
 use App\Http\Controllers\Audit\AuditLogController;
@@ -50,6 +51,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
     Route::post('/articles/{article}/publish', [ArticleController::class, 'publish'])->name('articles.publish');
     Route::post('/articles/{article}/unpublish', [ArticleController::class, 'unpublish'])->name('articles.unpublish');
+    Route::apiResource('knowledge-categories', KnowledgeCategoryController::class);
     Route::apiResource('tickets', TicketController::class);
 
     Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
