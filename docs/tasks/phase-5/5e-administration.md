@@ -83,7 +83,7 @@ public function create(CreateUserData $data, User $actor): User
 > **Jebakan 2:** `Rule::unique('users','email')` — dengan soft delete, email milik user tertrash tetap diblokir (BR-018). Ini perilaku yang benar.
 > **Jebakan 3:** `array_filter` untuk profil — jangan mengirim `employee_code => null` yang akan menimpa nilai default `EMP-xxxx` dari observer.
 
-- [ ] **Step 1: Test — create user valid (201), email duplikat 422, non-admin 403.**
+- [x] **Step 1: Test — create user valid (201), email duplikat 422, non-admin 403.**
   ```php
   test('admin can create user', function () {
       Sanctum::actingAs(User::factory()->admin()->create());
@@ -108,7 +108,7 @@ public function create(CreateUserData $data, User $actor): User
   });
   ```
 
-- [ ] **Step 2: Test — profil disimpan, must_change_password true.**
+- [x] **Step 2: Test — profil disimpan, must_change_password true.**
   ```php
   test('created user has profile and must_change_password', function () {
       Sanctum::actingAs(User::factory()->admin()->create());
@@ -123,9 +123,9 @@ public function create(CreateUserData $data, User $actor): User
   });
   ```
 
-- [ ] **Step 3: Implementasi** — DTO, service, request, controller.
+- [x] **Step 3: Implementasi** — DTO, service, request, controller.
 
-- [ ] **Step 4: Verifikasi & commit.**
+- [x] **Step 4: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Admin/UserCreateTest.php
   vendor/bin/pint --dirty --format agent
@@ -205,7 +205,7 @@ public function delete(User $user, User $actor): void
 
 > **Jebakan:** Delete user di MVP hampir selalu kena guard (hampir semua user punya ticket). Ini disengaja — jalur operasionalnya adalah **deactivate** (Task 4). Jangan menurunkan guard ini.
 
-- [ ] **Step 1: Test — update, list filter, delete guard, self-role-change 403.**
+- [x] **Step 1: Test — update, list filter, delete guard, self-role-change 403.**
   ```php
   test('admin can list users with filter', function () {
       User::factory()->count(3)->create(['role_id' => 4]);
@@ -231,9 +231,9 @@ public function delete(User $user, User $actor): void
   });
   ```
 
-- [ ] **Step 2: Implementasi** — service, request, resource, controller.
+- [x] **Step 2: Implementasi** — service, request, resource, controller.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Admin/UserAdminTest.php
   vendor/bin/pint --dirty --format agent
@@ -304,7 +304,7 @@ public function roles(): JsonResponse
 }
 ```
 
-- [ ] **Step 1: Test — reset memicu must_change_password + token dicabut.**
+- [x] **Step 1: Test — reset memicu must_change_password + token dicabut.**
   ```php
   test('admin resets password and forces change on next login', function () {
       $target = User::factory()->employee()->create();
@@ -318,7 +318,7 @@ public function roles(): JsonResponse
   });
   ```
 
-- [ ] **Step 2: Test — roles list hanya untuk Admin.**
+- [x] **Step 2: Test — roles list hanya untuk Admin.**
   ```php
   test('roles list only for admin', function () {
       Sanctum::actingAs(User::factory()->admin()->create());
@@ -328,9 +328,9 @@ public function roles(): JsonResponse
   });
   ```
 
-- [ ] **Step 3: Implementasi** — service, controller, route.
+- [x] **Step 3: Implementasi** — service, controller, route.
 
-- [ ] **Step 4: Verifikasi & commit.**
+- [x] **Step 4: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Admin/UserResetPasswordTest.php
   vendor/bin/pint --dirty --format agent
@@ -377,7 +377,7 @@ public function activate(User $user, User $actor): User
 }
 ```
 
-- [ ] **Step 1: Test — deaktivasi mencabut token; token lama → 401; admin tidak bisa deaktivasi diri.**
+- [x] **Step 1: Test — deaktivasi mencabut token; token lama → 401; admin tidak bisa deaktivasi diri.**
   ```php
   test('deactivating user revokes all tokens', function () {
       $target = User::factory()->employee()->create();
@@ -401,9 +401,9 @@ public function activate(User $user, User $actor): User
   });
   ```
 
-- [ ] **Step 2: Implementasi** — service, controller.
+- [x] **Step 2: Implementasi** — service, controller.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Admin/UserActivateDeactivateTest.php
   vendor/bin/pint --dirty --format agent
@@ -463,7 +463,7 @@ $priority->update(['sla_minutes' => $data->slaMinutes]);
 // tidak ada perhitungan ulang terhadap tickets — snapshot sudah tersimpan
 ```
 
-- [ ] **Step 1: Test — CRUD master data + guard.**
+- [x] **Step 1: Test — CRUD master data + guard.**
   ```php
   test('admin can update priority sla_minutes', function () {
       $priority = TicketPriority::find(2);
@@ -495,9 +495,9 @@ $priority->update(['sla_minutes' => $data->slaMinutes]);
   });
   ```
 
-- [ ] **Step 2: Implementasi** — guard + 4 controller + request + route.
+- [x] **Step 2: Implementasi** — guard + 4 controller + request + route.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Admin/MasterDataTest.php
   vendor/bin/pint --dirty --format agent
@@ -534,23 +534,23 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 > **Jebakan:** `ticket-priorities` memakai `apiResource` — `GET /api/ticket-priorities` sudah ada dari Fase 3 (reference). `apiResource` menambahkan `POST/PUT/DELETE`. Pastikan tidak ada duplikasi `GET` route yang bentrok.
 
-- [ ] **Step 1: Uji seluruh route terdaftar & test suite penuh.**
+- [x] **Step 1: Uji seluruh route terdaftar & test suite penuh.**
   ```bash
   php artisan route:list --path=api
   vendor/bin/pest
   ```
 
-- [ ] **Step 2: Sinkronkan `docs/product/PERMISSION-MATRIX.md §4`** — tambahkan baris route baru (users.*, departments.*, ticket-categories.*, ticket-priorities.*, roles).
+- [x] **Step 2: Sinkronkan `docs/product/PERMISSION-MATRIX.md §4`** — tambahkan baris route baru (users.*, departments.*, ticket-categories.*, ticket-priorities.*, roles).
 
-- [ ] **Step 3: Sinkronkan `docs/product/ROADMAP.md`** — centang task Fase 5 yang selesai, perbarui catatan overrun.
+- [x] **Step 3: Sinkronkan `docs/product/ROADMAP.md`** — centang task Fase 5 yang selesai, perbarui catatan overrun.
 
-- [ ] **Step 4: Tag v0.5.0 (D-30).**
+- [x] **Step 4: Tag v0.5.0 (D-30).**
   ```bash
   git tag -a v0.5.0 -m "Phase 5: Asset, Knowledge Base, Attachment, Administration"
   git push origin main --tags
   ```
 
-- [ ] **Step 5: Commit sinkronisasi.**
+- [x] **Step 5: Commit sinkronisasi.**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add routes/api.php docs/product/PERMISSION-MATRIX.md docs/product/ROADMAP.md
@@ -561,17 +561,17 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 ## Exit Criteria 5e
 
-- [ ] User CRUD: create (201), update, list (filter role/dept/status + search nama/email), show, delete.
-- [ ] Email duplikat → 422 (BR-018); non-admin create → 403 (BR-017); role ditentukan Admin (BR-020).
-- [ ] Create user: `must_change_password = true`, profil tersimpan (observer + payload profile).
-- [ ] Deaktivasi: mencabut seluruh token; token lama → 401 (BR-019); reaktivasi mengembalikan status.
-- [ ] Admin tidak bisa deaktivasi/delete/reset-password diri sendiri → **403** (D-16 #1).
-- [ ] Reset password: server-generate (D-12), `must_change_password = true`, dikembalikan sekali, tidak masuk audit (D-07).
-- [ ] `GET /api/roles` — hanya Admin.
-- [ ] Master data CRUD (department, ticket-category, ticket-priority, knowledge-category) — Admin manage; GET semua role.
-- [ ] Delete master data yang dirujuk → **409**; delete yang tidak dirujuk → sukses.
-- [ ] Ubah `sla_minutes` tidak mengubah snapshot ticket lama (test).
-- [ ] `ticket-statuses` tetap read-only (tidak ada route POST/PUT/DELETE).
-- [ ] Route baru terdaftar di `PERMISSION-MATRIX.md §4`; ROADMAP tersinkronisasi.
-- [ ] `php artisan test` hijau, `pint --test` bersih, `migrate:fresh --seed` sukses.
-- [ ] Tag `v0.5.0` dibuat dan didorong.
+- [x] User CRUD: create (201), update, list (filter role/dept/status + search nama/email), show, delete.
+- [x] Email duplikat → 422 (BR-018); non-admin create → 403 (BR-017); role ditentukan Admin (BR-020).
+- [x] Create user: `must_change_password = true`, profil tersimpan (observer + payload profile).
+- [x] Deaktivasi: mencabut seluruh token; token lama → 401 (BR-019); reaktivasi mengembalikan status.
+- [x] Admin tidak bisa deaktivasi/delete/reset-password diri sendiri → **403** (D-16 #1).
+- [x] Reset password: server-generate (D-12), `must_change_password = true`, dikembalikan sekali, tidak masuk audit (D-07).
+- [x] `GET /api/roles` — hanya Admin.
+- [x] Master data CRUD (department, ticket-category, ticket-priority, knowledge-category) — Admin manage; GET semua role.
+- [x] Delete master data yang dirujuk → **409**; delete yang tidak dirujuk → sukses.
+- [x] Ubah `sla_minutes` tidak mengubah snapshot ticket lama (test).
+- [x] `ticket-statuses` tetap read-only (tidak ada route POST/PUT/DELETE).
+- [x] Route baru terdaftar di `PERMISSION-MATRIX.md §4`; ROADMAP tersinkronisasi.
+- [x] `php artisan test` hijau, `pint --test` bersih, `migrate:fresh --seed` sukses.
+- [x] Tag `v0.5.0` dibuat dan didorong.
