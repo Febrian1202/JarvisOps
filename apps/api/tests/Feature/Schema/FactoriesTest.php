@@ -41,6 +41,16 @@ test('all 18 models have working factories and user factory states work', functi
         ->and($admin->activeAssignments)->toHaveCount(1)
         ->and($admin->assetAssignments)->toHaveCount(1);
 
+    expect(Asset::factory()->available()->create()->status->value)->toBe('available')
+        ->and(Asset::factory()->assigned()->create()->status->value)->toBe('assigned')
+        ->and(Asset::factory()->maintenance()->create()->status->value)->toBe('maintenance')
+        ->and(Asset::factory()->retired()->create()->status->value)->toBe('retired')
+        ->and(Asset::factory()->lost()->create()->status->value)->toBe('lost');
+
+    $draftArticle = KnowledgeArticle::factory()->draft()->create();
+    expect($draftArticle->status->value)->toBe('draft')
+        ->and($draftArticle->published_at)->toBeNull();
+
     expect(Role::factory()->create())->toBeInstanceOf(Role::class)
         ->and(Department::factory()->create())->toBeInstanceOf(Department::class)
         ->and(EmployeeProfile::factory()->create())->toBeInstanceOf(EmployeeProfile::class)
