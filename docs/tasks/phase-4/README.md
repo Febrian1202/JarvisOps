@@ -273,26 +273,26 @@ Setiap task di sub-berkas 4a, 4b, dan 4c dirancang untuk dieksekusi dengan disip
 
 Fase 4 dinyatakan selesai jika seluruh kondisi berikut terpenuhi:
 
-- [ ] Command `tickets:check-sla` berjalan otomatis di container `scheduler` setiap 5 menit dengan `withoutOverlapping()`.
-- [ ] Tiket aktif yang melewati deadline otomatis ditandai `sla_breached = true` dan `sla_breached_at` terisi dalam waktu ≤ 5 menit.
-- [ ] Notifikasi `TICKET_SLA_BREACHED` berhasil terkirim ke teknisi yang ditugaskan dan seluruh Manager aktif, dengan `actor_name` bernilai `"Sistem"`.
-- [ ] Audit log `sla_breach` pada modul `ticket` berhasil tercatat dengan `user_id = null`.
-- [ ] Eksekusi berulang command `tickets:check-sla` bersifat idempoten (tidak menghasilkan notifikasi atau penandaan duplikat).
-- [ ] Perhitungan defensif `sla_status` pada list & detail tiket tetap melaporkan `breached` meskipun background scheduler dimatikan.
-- [ ] 4 endpoint notifikasi berfungsi penuh (`GET /api/notifications`, `GET /api/notifications/unread-count`, `POST /api/notifications/{id}/read`, `POST /api/notifications/read-all`).
-- [ ] Notifikasi user lain terlindungi dengan respon `404 Not Found`.
-- [ ] Admin terisolasi pada inbox notifikasinya sendiri (tidak ada bypass via `Gate::before`).
-- [ ] `GET /api/notifications/unread-count` tereksekusi dengan efisien (tepat 1 query `COUNT`).
-- [ ] 2 endpoint audit log berfungsi penuh (`GET /api/audit-logs`, `GET /api/audit-logs/{id}`).
-- [ ] Scoping modul audit log Manager (`ticket`, `asset`, `article`) ditegakkan di server; filter ke modul terlarang mengembalikan `200 OK` dengan list kosong; akses detail ke modul terlarang mengembalikan `404 Not Found`.
-- [ ] Filter tanggal `date_from` dan `date_to` pada audit log dikonversi dengan benar dari zona waktu Asia/Jakarta ke UTC.
-- [ ] Employee dan Technician ditolak dengan `403 Forbidden` saat mengakses endpoint audit log.
-- [ ] Seluruh 11 tipe notifikasi (Fase 3 + Fase 4) terbukti sampai ke recipient yang tepat dan mengecualikan aktor.
-- [ ] Seluruh aksi penting sistem (Fase 3 + Fase 4) terbukti menuliskan baris audit log.
-- [ ] Seluruh test suite Pest (`php artisan test`) hijau.
-- [ ] Linter Pint (`vendor/bin/pint --test`) bersih tanpa peringatan.
-- [ ] Checkbox Fase 4 di `docs/product/ROADMAP.md` tersinkronisasi.
-- [ ] Git tag `v0.4.0` (Semantic Versioning) ditambahkan dan didorong ke repository saat fase selesai.
+- [x] Command `tickets:check-sla` berjalan otomatis di container `scheduler` setiap 5 menit dengan `withoutOverlapping()`.
+- [x] Tiket aktif yang melewati deadline otomatis ditandai `sla_breached = true` dan `sla_breached_at` terisi dalam waktu ≤ 5 menit.
+- [x] Notifikasi `TICKET_SLA_BREACHED` berhasil terkirim ke teknisi yang ditugaskan dan seluruh Manager aktif, dengan `actor_name` bernilai `"Sistem"`.
+- [x] Audit log `sla_breach` pada modul `ticket` berhasil tercatat dengan `user_id = null`.
+- [x] Eksekusi berulang command `tickets:check-sla` bersifat idempoten (tidak menghasilkan notifikasi atau penandaan duplikat).
+- [x] Perhitungan defensif `sla_status` pada list & detail tiket tetap melaporkan `breached` meskipun background scheduler dimatikan.
+- [x] 4 endpoint notifikasi berfungsi penuh (`GET /api/notifications`, `GET /api/notifications/unread-count`, `POST /api/notifications/{id}/read`, `POST /api/notifications/read-all`).
+- [x] Notifikasi user lain terlindungi dengan respon `404 Not Found`.
+- [x] Admin terisolasi pada inbox notifikasinya sendiri (tidak ada bypass via `Gate::before`).
+- [x] `GET /api/notifications/unread-count` tereksekusi dengan efisien (tepat 1 query `COUNT`).
+- [x] 2 endpoint audit log berfungsi penuh (`GET /api/audit-logs`, `GET /api/audit-logs/{id}`).
+- [x] Scoping modul audit log Manager (`ticket`, `asset`, `article`) ditegakkan di server; filter ke modul terlarang mengembalikan `200 OK` dengan list kosong; akses detail ke modul terlarang mengembalikan `404 Not Found`.
+- [x] Filter tanggal `date_from` dan `date_to` pada audit log dikonversi dengan benar dari zona waktu Asia/Jakarta ke UTC.
+- [x] Employee dan Technician ditolak dengan `403 Forbidden` saat mengakses endpoint audit log.
+- [x] Seluruh 11 tipe notifikasi (Fase 3 + Fase 4) terbukti sampai ke recipient yang tepat dan mengecualikan aktor.
+- [x] Seluruh aksi penting sistem (Fase 3 + Fase 4) terbukti menuliskan baris audit log.
+- [x] Seluruh test suite Pest (`php artisan test`) hijau.
+- [x] Linter Pint (`vendor/bin/pint --test`) bersih tanpa peringatan.
+- [x] Checkbox Fase 4 di `docs/product/ROADMAP.md` tersinkronisasi.
+- [x] Git tag `v0.4.0` (Semantic Versioning) ditambahkan dan didorong ke repository saat fase selesai.
 
 ---
 

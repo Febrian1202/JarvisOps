@@ -86,11 +86,12 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 
 ## Current state, concretely
 
-- `apps/api`: 22 migrations, 18 models, 21 API routes (29 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), 440 total tests (1682 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, enums, transition matrix, and available actions are all implemented and passing.
+- `apps/api`: 22 migrations, 18 models, 23 API routes (31 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), full audit log API (`/api/audit-logs`), 456 total tests (1748 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, AuditLogQueryService, enums, transition matrix, and available actions are all implemented and passing.
 - `apps/web`: login page + protected dashboard (`src/app/login/`, `src/app/dashboard/`), BFF proxy route handler, auth flow with httpOnly cookie.
 - Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) — **complete**
 - Phase 2 (Backend Foundation & Walking Skeleton: auth, login, middleware, health, web dashboard) — **complete**
 - Phase 3 (Ticket Core & Workflow: foundation, CRUD, query & references, workflow & transitions, comments & history, golden path — Tag `v0.3.0`) — **complete**
 - Phase 4a (SLA Scheduler & Breach Detection) — **complete**
 - Phase 4b (Notification API & Event Delivery) — **complete**
-- Phase 4c (Audit Log API) — **next work**
+- Phase 4c (Audit Log API — Tag `v0.4.0`) — **complete**
+- Phase 5 (Asset Management, Knowledge Base, Attachment) — **next work**
