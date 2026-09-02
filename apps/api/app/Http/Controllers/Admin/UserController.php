@@ -60,8 +60,8 @@ class UserController extends Controller
 
         return ApiResponse::paginated(
             $paginator,
-            UserListResource::collection($paginator->items()),
-            'Users retrieved successfully.'
+            'Users retrieved successfully.',
+            UserListResource::class
         );
     }
 
