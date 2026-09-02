@@ -33,6 +33,7 @@ class ArticleResource extends JsonResource
             'status' => $this->status?->value ?? (string) $this->status,
             'view_count' => $this->view_count,
             'published_at' => $this->published_at?->toISOString(),
+            'related_articles' => $this->when(isset($this->additional['related_articles']), fn () => $this->additional['related_articles']),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
         ];

@@ -69,4 +69,22 @@ class ArticleController extends Controller
 
         return ApiResponse::success(null, 'Article deleted successfully.');
     }
+
+    public function publish(Request $request, KnowledgeArticle $article, ArticleService $articleService): JsonResponse
+    {
+        $this->authorize('publish', $article);
+
+        $published = $articleService->publish($article, $request->user());
+
+        return ApiResponse::success(new ArticleResource($published), 'Article published successfully.');
+    }
+
+    public function unpublish(Request $request, KnowledgeArticle $article, ArticleService $articleService): JsonResponse
+    {
+        $this->authorize('unpublish', $article);
+
+        $unpublished = $articleService->unpublish($article, $request->user());
+
+        return ApiResponse::success(new ArticleResource($unpublished), 'Article unpublished successfully.');
+    }
 }
