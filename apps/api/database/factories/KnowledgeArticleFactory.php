@@ -27,4 +27,12 @@ class KnowledgeArticleFactory extends Factory
             'published_at' => now(),
         ];
     }
+
+    public function draft(): static
+    {
+        return $this->state(fn (array $attrs) => [
+            'status' => 'draft',
+            'published_at' => null,
+        ]);
+    }
 }

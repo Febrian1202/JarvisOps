@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\SerializesDatesAsIso8601;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +37,14 @@ class AssetAssignment extends Model
             'assigned_at' => 'datetime',
             'released_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Scope a query to only include active assignments.
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereNull('released_at');
     }
 
     /**

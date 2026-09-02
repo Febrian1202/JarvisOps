@@ -21,4 +21,9 @@ enum AuditAction: string
     case Logout = 'logout';
     case PasswordReset = 'password_reset';
     case SlaBreach = 'sla_breach';
+    case Release = 'release';
+    case Publish = 'publish';
+    case Unpublish = 'unpublish';
+    case Activate = 'activate';
+    case Deactivate = 'deactivate';
 }

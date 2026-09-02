@@ -122,6 +122,15 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Kosakata `action` lengkap sesudah amandemen 2 (17 nilai):** `create`, `update`, `delete`, `assign`, `reassign`, `unassign`, `self_assign`, `status_change`, `priority_change`, `reopen`, `resolve`, `close`, `cancel`, `login`, `logout`, `password_reset`, `sla_breach`.
 - **Konsekuensi:** Tambahkan case `SlaBreach = 'sla_breach'` pada enum `App\Enums\AuditAction`.
 
+#### Amandemen 3 (Fase 5) — action asset/article/user lifecycle & module knowledge_category
+
+- **Tambahan `action`:** `release`, `publish`, `unpublish`, `activate`, `deactivate`.
+- **Tambahan `module`:** `knowledge_category`.
+- **Alasan:** Fase 5 menambahkan operasi siklus hidup asset (`release`), artikel KB (`publish`, `unpublish`), serta manajemen user (`activate`, `deactivate`). Modul `knowledge_category` berdiri sebagai entitas tersendiri di KB. Operasi file attachment dicatat sebagai module `ticket` + action `create`/`delete` (child entity ticket).
+- **Kosakata `action` lengkap sesudah amandemen 3 (22 nilai):** `create`, `update`, `delete`, `assign`, `reassign`, `unassign`, `self_assign`, `status_change`, `priority_change`, `reopen`, `resolve`, `close`, `cancel`, `login`, `logout`, `password_reset`, `sla_breach`, `release`, `publish`, `unpublish`, `activate`, `deactivate`.
+- **Kosakata `module` lengkap sesudah amandemen 3 (10 nilai / 11 terdaftar):** `ticket`, `asset`, `article`, `user`, `role`, `department`, `ticket_category`, `ticket_priority`, `auth`, `knowledge_category`.
+- **Konsekuensi:** Tambahkan case pada `App\Enums\AuditAction` dan `App\Enums\AuditModule`.
+
 ### D-09 · Constraint Integritas `asset_assignments`
 - **Status:** DECIDED
 - **Keputusan:**
@@ -135,11 +144,12 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Konsekuensi:** Tambahkan index b-tree pada `tickets(title)`, `knowledge_articles(title)`, dan `assets(name)`.
 
 ### D-11 · First-Login & Password Reset Flow
-- **Status:** DECIDED
+- **Status:** DECIDED (diamandemen Fase 5)
 - **Keputusan:** Tambahkan kolom `must_change_password BOOLEAN NOT NULL DEFAULT FALSE` pada migration `users`.
-  - Ketika Admin melakukan `POST /api/users/{id}/reset-password`, flag ini diset `TRUE`.
+  - Ketika Admin melakukan `POST /api/users/{id}/reset-password`, server men-generate password sementara secara acak sesuai kebijakan D-12, meng-update password hash user, dan menyetel `must_change_password = TRUE`.
+  - Password sementara dikembalikan **sekali** di payload response API (`data.temporary_password`), dan tidak pernah dicatat di audit logs (redaksi D-07).
   - Middleware `EnsurePasswordChanged` mencegat request jika `must_change_password === true`, hanya mengizinkan `PUT /api/me/password`, `GET /api/me` (me.show), dan `POST /api/logout`.
-- **Alasan:** Menyelesaikan kontrak `PRD Addendum §2.2` tanpa menambah kompleksitas token reset email eksternal. User perlu melihat profil (`/me`) untuk mengetahui identitasnya saat dipaksa mengganti password.
+- **Alasan:** Menyelesaikan kontrak `PRD Addendum §2.2` dan `API-CONTRACT §11` secara deterministik dan aman tanpa bergantung pada mekanisme email eksternal. User perlu melihat profil (`/me`) untuk mengetahui identitasnya saat dipaksa mengganti password.
 
 ### D-12 · Password Policy
 - **Status:** DECIDED

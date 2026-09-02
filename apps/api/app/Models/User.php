@@ -8,6 +8,7 @@ use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -81,6 +82,22 @@ class User extends Authenticatable
     public function employeeProfile(): HasOne
     {
         return $this->hasOne(EmployeeProfile::class);
+    }
+
+    /**
+     * Get the asset assignments for the user.
+     */
+    public function assetAssignments(): HasMany
+    {
+        return $this->hasMany(AssetAssignment::class);
+    }
+
+    /**
+     * Get the active asset assignments for the user.
+     */
+    public function activeAssignments(): HasMany
+    {
+        return $this->hasMany(AssetAssignment::class)->whereNull('released_at');
     }
 
     /**

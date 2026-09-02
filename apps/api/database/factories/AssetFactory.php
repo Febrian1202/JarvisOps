@@ -24,4 +24,29 @@ class AssetFactory extends Factory
             'notes' => fake()->optional()->sentence(),
         ];
     }
+
+    public function available(): static
+    {
+        return $this->state(fn (array $attrs) => ['status' => AssetStatus::Available]);
+    }
+
+    public function assigned(): static
+    {
+        return $this->state(fn (array $attrs) => ['status' => AssetStatus::Assigned]);
+    }
+
+    public function maintenance(): static
+    {
+        return $this->state(fn (array $attrs) => ['status' => AssetStatus::Maintenance]);
+    }
+
+    public function retired(): static
+    {
+        return $this->state(fn (array $attrs) => ['status' => AssetStatus::Retired]);
+    }
+
+    public function lost(): static
+    {
+        return $this->state(fn (array $attrs) => ['status' => AssetStatus::Lost]);
+    }
 }

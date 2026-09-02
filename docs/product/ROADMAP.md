@@ -454,50 +454,50 @@ Membuat sistem bereaksi terhadap waktu dan mencatat jejaknya — bagian yang mem
 
 ### Scheduled SLA check (Addendum §3.3)
 
-- [ ] Command `tickets:check-sla`
-- [ ] Query ticket aktif yang `sla_deadline` terlewati dan status bukan RESOLVED/CLOSED (Addendum §3.4)
-- [ ] Set `sla_breached = true` dan `sla_breached_at`
-- [ ] Kirim notifikasi ke technician yang di-assign dan seluruh Manager
-- [ ] Jadwalkan tiap 5 menit di `routes/console.php`, dengan `withoutOverlapping()`
-- [ ] Proses per-chunk supaya tidak memuat seluruh tabel ke memori
-- [ ] Idempoten: ticket yang sudah ditandai breached tidak dinotifikasi ulang
-- [ ] Verifikasi container `scheduler` benar-benar menjalankannya
+- [x] Command `tickets:check-sla`
+- [x] Query ticket aktif yang `sla_deadline` terlewati dan status bukan RESOLVED/CLOSED (Addendum §3.4)
+- [x] Set `sla_breached = true` dan `sla_breached_at`
+- [x] Kirim notifikasi ke technician yang di-assign dan seluruh Manager
+- [x] Jadwalkan tiap 5 menit di `routes/console.php`, dengan `withoutOverlapping()`
+- [x] Proses per-chunk supaya tidak memuat seluruh tabel ke memori
+- [x] Idempoten: ticket yang sudah ditandai breached tidak dinotifikasi ulang
+- [x] Verifikasi container `scheduler` benar-benar menjalankannya
 
 ### Perhitungan SLA defensif (Addendum §3.5)
 
-- [ ] Query scope yang menghitung kondisi SLA saat ini dari `sla_deadline` + status + waktu sekarang
-- [ ] Dashboard dan list ticket memakai perhitungan ini, bukan hanya membaca kolom `sla_breached`
-- [ ] Pembagian tanggung jawab: **scheduler** mengurus persistensi + notifikasi, **API** menjamin angka yang tampil akurat walau scheduler terlambat
+- [x] Query scope yang menghitung kondisi SLA saat ini dari `sla_deadline` + status + waktu sekarang
+- [x] Dashboard dan list ticket memakai perhitungan ini, bukan hanya membaca kolom `sla_breached`
+- [x] Pembagian tanggung jawab: **scheduler** mengurus persistensi + notifikasi, **API** menjamin angka yang tampil akurat walau scheduler terlambat
 
 ### Notification (Addendum §4)
 
-- [ ] `NotificationService` dengan tabel `notifications` kustom (bukan `Illuminate\Notifications\Notifiable` — skema sudah punya bentuk tabel sendiri, mencampur keduanya hanya menambah kebingungan)
-- [ ] Enum tipe notifikasi: `TICKET_ASSIGNED`, `TICKET_STATUS_CHANGED`, `TICKET_COMMENTED`, `TICKET_RESOLVED`, `TICKET_SLA_BREACHED`
-- [ ] Payload `data` (JSON) berisi cukup informasi untuk render tanpa query tambahan: ticket number, judul, aktor, URL tujuan
-- [ ] `GET /api/notifications` — paginated, filter unread
-- [ ] `GET /api/notifications/unread-count`
-- [ ] `POST /api/notifications/{id}/read`, `POST /api/notifications/read-all`
-- [ ] Recipient sesuai Addendum §4.4; aktor tidak menerima notifikasi atas aksinya sendiri
-- [ ] Sambungkan ke seluruh event Fase 3
+- [x] `NotificationService` dengan tabel `notifications` kustom (bukan `Illuminate\Notifications\Notifiable` — skema sudah punya bentuk tabel sendiri, mencampur keduanya hanya menambah kebingungan)
+- [x] Enum tipe notifikasi: `TICKET_ASSIGNED`, `TICKET_STATUS_CHANGED`, `TICKET_COMMENTED`, `TICKET_RESOLVED`, `TICKET_SLA_BREACHED`
+- [x] Payload `data` (JSON) berisi cukup informasi untuk render tanpa query tambahan: ticket number, judul, aktor, URL tujuan
+- [x] `GET /api/notifications` — paginated, filter unread
+- [x] `GET /api/notifications/unread-count`
+- [x] `POST /api/notifications/{id}/read`, `POST /api/notifications/read-all`
+- [x] Recipient sesuai Addendum §4.4; aktor tidak menerima notifikasi atas aksinya sendiri
+- [x] Sambungkan ke seluruh event Fase 3
 
 ### Audit log
 
-- [ ] `AuditLogger` service yang **dipanggil eksplisit dari service layer**, bukan lewat model observer. Pemanggilan eksplisit lebih mudah ditest, jelas terbaca reviewer, dan tidak ikut tercatat saat seeding atau factory berjalan.
-- [ ] Rekam `user_id`, `action`, `module`, `module_id`, `old_data`, `new_data`, `ip_address`, `user_agent`
-- [ ] Terapkan pada: login, ticket create/update/assign/status change, asset create/update/assign, user create/update, perubahan konfigurasi
-- [ ] `GET /api/audit-logs` — Admin penuh, Manager terbatas sesuai permission matrix
-- [ ] Filter: user, module, action, rentang tanggal
+- [x] `AuditLogger` service yang **dipanggil eksplisit dari service layer**, bukan lewat model observer. Pemanggilan eksplisit lebih mudah ditest, jelas terbaca reviewer, dan tidak ikut tercatat saat seeding atau factory berjalan.
+- [x] Rekam `user_id`, `action`, `module`, `module_id`, `old_data`, `new_data`, `ip_address`, `user_agent`
+- [x] Terapkan pada: login, ticket create/update/assign/status change, asset create/update/assign, user create/update, perubahan konfigurasi
+- [x] `GET /api/audit-logs` — Admin penuh, Manager terbatas sesuai permission matrix
+- [x] Filter: user, module, action, rentang tanggal
 
 ### Test (Pest)
 
-- [ ] SLA breach dengan `travel()` melewati deadline → ticket ditandai + notifikasi terkirim
-- [ ] Ticket RESOLVED yang melewati deadline → **tidak** ditandai breached
-- [ ] Command dijalankan dua kali → tidak ada notifikasi duplikat
-- [ ] Setiap tipe notifikasi sampai ke recipient yang benar dan tidak ke aktor
-- [ ] Unread count dan mark-as-read akurat
-- [ ] User tidak bisa menandai notifikasi milik user lain
-- [ ] Audit log tercatat pada setiap aksi yang diwajibkan
-- [ ] Manager mengakses audit log di luar batasnya → 200 list kosong pada index, 404 pada detail
+- [x] SLA breach dengan `travel()` melewati deadline → ticket ditandai + notifikasi terkirim
+- [x] Ticket RESOLVED yang melewati deadline → **tidak** ditandai breached
+- [x] Command dijalankan dua kali → tidak ada notifikasi duplikat
+- [x] Setiap tipe notifikasi sampai ke recipient yang benar dan tidak ke aktor
+- [x] Unread count dan mark-as-read akurat
+- [x] User tidak bisa menandai notifikasi milik user lain
+- [x] Audit log tercatat pada setiap aksi yang diwajibkan
+- [x] Manager mengakses audit log di luar batasnya → 200 list kosong pada index, 404 pada detail
 
 ## Deliverable
 
@@ -505,14 +505,14 @@ Command SLA + scheduler, notification API, audit log API, seluruh event tersambu
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+- [x] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0, v0.4.0)
 
 
 
-- [ ] Ticket yang melewati deadline otomatis ditandai breached oleh container scheduler dalam ≤ 5 menit
-- [ ] Notifikasi SLA breach muncul di `GET /api/notifications` recipient yang benar
-- [ ] Dashboard tetap melaporkan breach yang benar meski scheduler dimatikan
-- [ ] Semua test Fase 4 hijau
+- [x] Ticket yang melewati deadline otomatis ditandai breached oleh container scheduler dalam ≤ 5 menit
+- [x] Notifikasi SLA breach muncul di `GET /api/notifications` recipient yang benar
+- [x] Dashboard tetap melaporkan breach yang benar meski scheduler dimatikan
+- [x] Semua test Fase 4 hijau
 
 ---
 
@@ -528,23 +528,23 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### Asset management
 
-- [ ] CRUD asset — Technician/Manager/Admin
-- [ ] Enum status: `AVAILABLE`, `ASSIGNED`, `MAINTENANCE`, `RETIRED`, `LOST`
-- [ ] `POST /api/assets/{id}/assign` — buat baris `asset_assignments`, ubah status asset jadi `ASSIGNED`
-- [ ] `POST /api/assets/{id}/release` — isi `released_at`, status balik ke `AVAILABLE`
-- [ ] **Asset `MAINTENANCE` tidak boleh di-assign** (§16 PRD) — validasi di service
-- [ ] Satu asset hanya boleh punya satu assignment aktif (`released_at` null) pada satu waktu
+- [ ] CRUD asset — Technician/Manager/Admin (Technician tidak memiliki izin `delete`)
+- [ ] Enum status: `available`, `assigned`, `maintenance`, `retired`, `lost`
+- [ ] `POST /api/assets/{id}/assign` — buat baris `asset_assignments`, ubah status asset jadi `assigned`
+- [ ] `POST /api/assets/{id}/release` — isi `released_at`, status balik ke `available`
+- [ ] **Asset `maintenance`/`retired`/`lost` tidak boleh di-assign** (§16 PRD) — validasi di service (422)
+- [ ] Satu asset hanya boleh punya satu assignment aktif (`released_at` null) pada satu waktu (conflict → 409)
 - [ ] `asset_histories` dicatat pada setiap create, update status, assign, release
 - [ ] `GET /api/assets/{id}/history` — riwayat kepemilikan seperti contoh §17 PRD
 - [ ] `GET /api/my-assets` — asset milik user login
-- [ ] Search (asset tag, serial number) + filter (status, kategori, pemegang) + pagination
+- [ ] Search (asset tag, serial number, name) + filter (status, kategori, pemegang) + pagination
 
 ### Knowledge base
 
 - [ ] CRUD artikel, slug otomatis dan unik
 - [ ] Status `draft`/`published`; **Technician boleh publish langsung** (Addendum §5.1)
 - [ ] `POST /api/articles/{id}/publish`, `POST /api/articles/{id}/unpublish`
-- [ ] Employee hanya bisa melihat artikel `published` (§19 PRD)
+- [ ] Employee hanya bisa melihat artikel `published` (§19 PRD, draft → 404)
 - [ ] Increment `view_count` saat artikel dibaca
 - [ ] Search judul + isi, filter kategori
 - [ ] Related articles — kategori sama, kecuali dirinya sendiri
@@ -571,13 +571,13 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### Test (Pest)
 
-- [ ] Asset `MAINTENANCE` di-assign → 422
-- [ ] Asset yang sudah ter-assign di-assign lagi → 422
+- [ ] Asset `maintenance` di-assign → 422
+- [ ] Asset yang sudah ter-assign di-assign lagi → 409
 - [ ] Soft delete asset → ticket lama tetap utuh
-- [ ] Employee membaca artikel `draft` → 403/404
+- [ ] Employee membaca artikel `draft` → 404
 - [ ] Technician membuat lalu publish artikel → sukses
 - [ ] Upload 6 MB → 422; upload `.exe` → 422; upload PDF valid → sukses
-- [ ] User non-partisipan mengunduh attachment → 403
+- [ ] User non-partisipan mengunduh attachment → 404 (denyAsNotFound)
 - [ ] Admin membuat user dengan email duplikat → 422
 - [ ] Non-admin membuat user → 403
 

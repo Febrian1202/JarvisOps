@@ -34,7 +34,7 @@ Sesuai `API-CONTRACT.md §11`, payload list sengaja dibuat ringkas untuk efisien
    - Menyertakan seluruh field dari `AuditLogListResource`
    - **Ditambah:** `old_data` (array / null), `new_data` (array / null), dan `user_agent` (string / null)
 
-- [ ] **Step 1: Test — `AuditLogListResource` tidak menyertakan old_data, sedangkan `AuditLogDetailResource` menyertakannya**
+- [x] **Step 1: Test — `AuditLogListResource` tidak menyertakan old_data, sedangkan `AuditLogDetailResource` menyertakannya**
   Buat `tests/Unit/AuditLogResourceTest.php`:
   ```php
   <?php
@@ -81,7 +81,7 @@ Sesuai `API-CONTRACT.md §11`, payload list sengaja dibuat ringkas untuk efisien
   });
   ```
 
-- [ ] **Step 2: Implementasi `AuditLogListResource`**
+- [x] **Step 2: Implementasi `AuditLogListResource`**
   Buat `app/Http/Resources/Audit/AuditLogListResource.php`:
   ```php
   <?php
@@ -116,7 +116,7 @@ Sesuai `API-CONTRACT.md §11`, payload list sengaja dibuat ringkas untuk efisien
   }
   ```
 
-- [ ] **Step 3: Implementasi `AuditLogDetailResource`**
+- [x] **Step 3: Implementasi `AuditLogDetailResource`**
   Buat `app/Http/Resources/Audit/AuditLogDetailResource.php`:
   ```php
   <?php
@@ -154,7 +154,7 @@ Sesuai `API-CONTRACT.md §11`, payload list sengaja dibuat ringkas untuk efisien
   }
   ```
 
-- [ ] **Step 4: Jalankan test & commit**
+- [x] **Step 4: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Unit/AuditLogResourceTest.php
   vendor/bin/pint --dirty --format agent
@@ -186,7 +186,7 @@ Menyediakan helper method `getDateFromUtc()` dan `getDateToUtc()` yang mengonver
 - `date_from`: `Carbon::createFromFormat('Y-m-d H:i:s', "$dateFrom 00:00:00", 'Asia/Jakarta')->setTimezone('UTC')`
 - `date_to`: `Carbon::createFromFormat('Y-m-d H:i:s', "$dateTo 23:59:59", 'Asia/Jakarta')->setTimezone('UTC')`
 
-- [ ] **Step 1: Implementasi `IndexAuditLogRequest`**
+- [x] **Step 1: Implementasi `IndexAuditLogRequest`**
   Buat `app/Http/Requests/Audit/IndexAuditLogRequest.php`:
   ```php
   <?php
@@ -256,7 +256,7 @@ Menyediakan helper method `getDateFromUtc()` dan `getDateToUtc()` yang mengonver
   }
   ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add app/Http/Requests/Audit/IndexAuditLogRequest.php
@@ -279,7 +279,7 @@ Menyediakan helper method `getDateFromUtc()` dan `getDateToUtc()` yang mengonver
 2. Detail check (`checkVisibility`):
    - Jika user adalah `Manager` dan `AuditLog->module` tidak termasuk dalam `['ticket', 'asset', 'article']`, method mengembalikan `false` (yang akan direspon `404 Not Found` oleh controller).
 
-- [ ] **Step 1: Test unit untuk `AuditLogQueryService`**
+- [x] **Step 1: Test unit untuk `AuditLogQueryService`**
   Buat `tests/Unit/AuditLogQueryServiceTest.php`:
   ```php
   <?php
@@ -327,7 +327,7 @@ Menyediakan helper method `getDateFromUtc()` dan `getDateToUtc()` yang mengonver
   });
   ```
 
-- [ ] **Step 2: Implementasi `AuditLogQueryService`**
+- [x] **Step 2: Implementasi `AuditLogQueryService`**
   Buat `app/Services/Audit/AuditLogQueryService.php`:
   ```php
   <?php
@@ -423,7 +423,7 @@ Menyediakan helper method `getDateFromUtc()` dan `getDateToUtc()` yang mengonver
   }
   ```
 
-- [ ] **Step 3: Jalankan test & commit**
+- [x] **Step 3: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Unit/AuditLogQueryServiceTest.php
   vendor/bin/pint --dirty --format agent
@@ -452,7 +452,7 @@ Buat controller yang dilindungi authorization Gate `audit-log.viewAny` dan `audi
 
 > **Jebakan:** Jangan gunakan `abort(403)` jika Manager membuka detail log modul `user` atau `auth`. Gunakan `abort(404)` agar tidak mengonfirmasi keberadaan ID log rahasia tersebut kepada Manager.
 
-- [ ] **Step 1: Implementasi `AuditLogController`**
+- [x] **Step 1: Implementasi `AuditLogController`**
   Buat `app/Http/Controllers/Audit/AuditLogController.php`:
   ```php
   <?php
@@ -519,7 +519,7 @@ Buat controller yang dilindungi authorization Gate `audit-log.viewAny` dan `audi
   }
   ```
 
-- [ ] **Step 2: Daftarkan route di `routes/api.php`**
+- [x] **Step 2: Daftarkan route di `routes/api.php`**
   Tambahkan di dalam grup `['auth:sanctum', 'password.changed']`:
   ```php
   Route::prefix('audit-logs')->name('audit-logs.')->group(function () {
@@ -528,7 +528,7 @@ Buat controller yang dilindungi authorization Gate `audit-log.viewAny` dan `audi
   });
   ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add app/Http/Controllers/Audit/ routes/api.php
@@ -551,7 +551,7 @@ Uji seluruh skenario matriks otorisasi:
 5. `Admin` memiliki akses penuh ke seluruh log modul tanpa batasan.
 6. Filter rentang tanggal `date_from` dan `date_to` memfilter data sesuai konversi timezone Asia/Jakarta ke UTC.
 
-- [ ] **Step 1: Buat feature test di `tests/Feature/Audit/AuditLogApiTest.php`**
+- [x] **Step 1: Buat feature test di `tests/Feature/Audit/AuditLogApiTest.php`**
   ```php
   <?php
 
@@ -645,7 +645,7 @@ Uji seluruh skenario matriks otorisasi:
   });
   ```
 
-- [ ] **Step 2: Jalankan test & commit**
+- [x] **Step 2: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Feature/Audit/AuditLogApiTest.php
   git add tests/Feature/Audit/AuditLogApiTest.php
@@ -667,7 +667,7 @@ Verifikasi bahwa seluruh aksi yang diwajibkan oleh ROADMAP §4 (`ROADMAP.md:471`
 4. `status_change`, `priority_change`, `reopen`, `resolve`, `close`, `cancel` (Ticket lifecycle)
 5. `sla_breach` (SLA scheduler)
 
-- [ ] **Step 1: Buat test verifikasi cakupan audit trail di `tests/Feature/Audit/AuditTrailCoverageTest.php`**
+- [x] **Step 1: Buat test verifikasi cakupan audit trail di `tests/Feature/Audit/AuditTrailCoverageTest.php`**
   ```php
   <?php
 
@@ -703,7 +703,7 @@ Verifikasi bahwa seluruh aksi yang diwajibkan oleh ROADMAP §4 (`ROADMAP.md:471`
   });
   ```
 
-- [ ] **Step 2: Jalankan test & commit**
+- [x] **Step 2: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Feature/Audit/
   vendor/bin/pint --dirty --format agent
@@ -715,13 +715,13 @@ Verifikasi bahwa seluruh aksi yang diwajibkan oleh ROADMAP §4 (`ROADMAP.md:471`
 
 ## Exit Criteria 4c
 
-- [ ] 2 endpoint audit log berfungsi penuh (`GET /api/audit-logs` dan `GET /api/audit-logs/{id}`).
-- [ ] List payload tidak memuat `old_data`, `new_data`, dan `user_agent`, sedangkan detail memuat ketiganya.
-- [ ] Employee dan Technician ditolak dengan status `403 Forbidden`.
-- [ ] Manager dibatasi hanya pada modul `ticket`, `asset`, dan `article`.
-- [ ] Manager memfilter modul terlarang menghasilkan status `200 OK` dengan list kosong.
-- [ ] Manager membuka detail log modul terlarang menghasilkan status `404 Not Found`.
-- [ ] Filter rentang tanggal `date_from` dan `date_to` mengonversi waktu lokal Asia/Jakarta ke rentang UTC secara akurat.
-- [ ] Seluruh aksi penting sistem terverifikasi menuliskan log audit.
-- [ ] Linter Pint bersih (`vendor/bin/pint --test`).
-- [ ] Seluruh test di `tests/Feature/Audit/` dan `tests/Unit/` hijau.
+- [x] 2 endpoint audit log berfungsi penuh (`GET /api/audit-logs` dan `GET /api/audit-logs/{id}`).
+- [x] List payload tidak memuat `old_data`, `new_data`, dan `user_agent`, sedangkan detail memuat ketiganya.
+- [x] Employee dan Technician ditolak dengan status `403 Forbidden`.
+- [x] Manager dibatasi hanya pada modul `ticket`, `asset`, dan `article`.
+- [x] Manager memfilter modul terlarang menghasilkan status `200 OK` dengan list kosong.
+- [x] Manager membuka detail log modul terlarang menghasilkan status `404 Not Found`.
+- [x] Filter rentang tanggal `date_from` dan `date_to` mengonversi waktu lokal Asia/Jakarta ke rentang UTC secara akurat.
+- [x] Seluruh aksi penting sistem terverifikasi menuliskan log audit.
+- [x] Linter Pint bersih (`vendor/bin/pint --test`).
+- [x] Seluruh test di `tests/Feature/Audit/` dan `tests/Unit/` hijau.
