@@ -553,21 +553,21 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### File attachment (Addendum §6)
 
-- [ ] `POST /api/tickets/{id}/attachments` — hanya partisipan ticket
-- [ ] Validasi backend: MIME type, ekstensi, maksimum 5 MB, hanya `jpg/jpeg/png/pdf` (Addendum §6.2–6.3)
-- [ ] Tolak eksplisit `exe/sh/bat` dan file yang MIME-nya tidak cocok dengan ekstensinya
-- [ ] Simpan di disk **private**, nama file di-generate (jangan pakai nama asli), simpan metadata lengkap (Addendum §6.4)
-- [ ] `GET /api/attachments/{id}/download` — **stream lewat controller setelah cek Policy** (Addendum §6.5). File tidak boleh bisa diakses hanya karena seseorang tahu URL-nya. Ini poin security yang layak ditonjolkan saat presentasi.
-- [ ] `DELETE /api/attachments/{id}` — uploader atau Manager/Admin
-- [ ] Hapus record juga menghapus file fisik
+- [x] `POST /api/tickets/{id}/attachments` — hanya partisipan ticket
+- [x] Validasi backend: MIME type, ekstensi, maksimum 5 MB, hanya `jpg/jpeg/png/pdf` (Addendum §6.2–6.3)
+- [x] Tolak eksplisit `exe/sh/bat` dan file yang MIME-nya tidak cocok dengan ekstensinya
+- [x] Simpan di disk **private**, nama file di-generate (jangan pakai nama asli), simpan metadata lengkap (Addendum §6.4)
+- [x] `GET /api/attachments/{id}/download` — **stream lewat controller setelah cek Policy** (Addendum §6.5). File tidak boleh bisa diakses hanya karena seseorang tahu URL-nya. Ini poin security yang layak ditonjolkan saat presentasi.
+- [x] `DELETE /api/attachments/{id}` — uploader atau Manager/Admin
+- [x] Hapus record juga menghapus file fisik
 
 ### Administrasi
 
-- [ ] CRUD user — Admin saja (BR-017), email unik (BR-018), role ditentukan Admin (BR-020)
-- [ ] Toggle active/inactive; user inactive langsung tidak bisa login dan token-nya dicabut
-- [ ] CRUD department, ticket category, knowledge category
-- [ ] CRUD ticket priority termasuk `sla_minutes` (§9 PRD) — perubahan tidak memengaruhi ticket lama karena snapshot
-- [ ] `employee_profiles` dikelola bersama user
+- [x] CRUD user — Admin saja (BR-017), email unik (BR-018), role ditentukan Admin (BR-020)
+- [x] Toggle active/inactive; user inactive langsung tidak bisa login dan token-nya dicabut
+- [x] CRUD department, ticket category, knowledge category
+- [x] CRUD ticket priority termasuk `sla_minutes` (§9 PRD) — perubahan tidak memengaruhi ticket lama karena snapshot
+- [x] `employee_profiles` dikelola bersama user
 
 ### Test (Pest)
 
@@ -576,10 +576,10 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 - [x] Soft delete asset → ticket lama tetap utuh
 - [x] Employee membaca artikel `draft` → 404
 - [x] Technician membuat lalu publish artikel → sukses
-- [ ] Upload 6 MB → 422; upload `.exe` → 422; upload PDF valid → sukses
-- [ ] User non-partisipan mengunduh attachment → 404 (denyAsNotFound)
-- [ ] Admin membuat user dengan email duplikat → 422
-- [ ] Non-admin membuat user → 403
+- [x] Upload 6 MB → 422; upload `.exe` → 422; upload PDF valid → sukses
+- [x] User non-partisipan mengunduh attachment → 404 (denyAsNotFound)
+- [x] Admin membuat user dengan email duplikat → 422
+- [x] Non-admin membuat user → 403
 
 ## Deliverable
 
@@ -587,14 +587,14 @@ Asset API, KB API, attachment API, admin API, beserta test.
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+- [x] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
 
 
 
 - [x] Riwayat kepemilikan asset bisa ditampilkan seperti contoh §17 PRD
-- [ ] Artikel bisa dibuat, dipublikasikan, dicari
-- [ ] Attachment tidak bisa diunduh tanpa otorisasi ticket
-- [ ] Seluruh poin 1–11 "Definition of Technical Success" (Addendum §12) sudah punya test yang lulus, kecuali yang bergantung pada UI
+- [x] Artikel bisa dibuat, dipublikasikan, dicari
+- [x] Attachment tidak bisa diunduh tanpa otorisasi ticket
+- [x] Seluruh poin 1–11 "Definition of Technical Success" (Addendum §12) sudah punya test yang lulus, kecuali yang bergantung pada UI
 
 ---
 

@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\TicketCategoryController;
+use App\Http\Controllers\Admin\TicketPriorityController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\KnowledgeCategoryController;
 use App\Http\Controllers\Asset\AssetController;
@@ -39,6 +43,12 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
     ->name('me.password.update');
 
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
+    Route::get('/roles', [UserController::class, 'roles'])->name('roles.index');
+    Route::post('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');
+    Route::post('/users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
+    Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+    Route::apiResource('users', UserController::class);
+
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::get('/my-assets', [AssetController::class, 'myAssets'])->name('assets.my-assets');
     Route::post('/assets/{asset}/assign', [AssetController::class, 'assign'])->name('assets.assign');
@@ -77,8 +87,9 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::post('/tickets/{ticket}/unassign', [TicketController::class, 'unassign'])->name('tickets.unassign');
     Route::post('/tickets/{ticket}/priority', [TicketController::class, 'changePriority'])->name('tickets.priority');
 
-    Route::get('/ticket-categories', [ReferenceController::class, 'categories'])->name('ticket-categories.index');
-    Route::get('/ticket-priorities', [ReferenceController::class, 'priorities'])->name('ticket-priorities.index');
+    Route::apiResource('departments', DepartmentController::class);
+    Route::apiResource('ticket-categories', TicketCategoryController::class);
+    Route::apiResource('ticket-priorities', TicketPriorityController::class);
     Route::get('/ticket-statuses', [ReferenceController::class, 'statuses'])->name('ticket-statuses.index');
     Route::get('/technicians', [ReferenceController::class, 'technicians'])->name('technicians.index');
 
