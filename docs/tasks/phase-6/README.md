@@ -324,23 +324,23 @@ Setiap task di sub-berkas 6a–6d dirancang untuk dieksekusi dengan disiplin **T
 
 Fase 6 dinyatakan selesai jika seluruh kondisi berikut terpenuhi:
 
-- [ ] **Empat endpoint** terdaftar & dijaga gate: `GET /api/dashboard/employee|technician|manager|admin` — tanpa token → 401; role salah → 403 (matriks PERMISSION §3.7).
-- [ ] **Employee:** `my_open_tickets`, `my_in_progress_tickets`, `my_resolved_tickets`, `recent_tickets[]` (≤5), `my_assets[]` (≤5, assignment aktif), `recent_articles[]` (≤5, published). Hanya data milik pemanggil.
-- [ ] **Technician:** `assigned_tickets`, `open_tickets`, `in_progress_tickets`, `sla_breached` (defensif), `avg_resolution_minutes`, `recent_activity[]` (≤5). `?technician_id=X` diabaikan.
-- [ ] **Manager:** `total_tickets`, `open_tickets`, `resolved_tickets`, `closed_tickets`, `sla{}` (within_sla, breached, compliance, avg), `ticket_trend[]`, `by_priority[]`, `by_category[]`, `technician_performance[]`.
-- [ ] **Admin:** seluruh isi manager + `total_users`, `total_technicians`, `total_departments`, `total_assets`, `assets_by_status[]`, `recent_system_activity[]` (≤8).
-- [ ] **SLA metrics §14:** `within_sla + breached = total resolved` (untuk set resolved); compliance `null` bila total resolved 0; `avg_resolution_minutes` dari `created_at`→`resolved_at`.
-- [ ] **Formula compliance persis §14 / D-03:** ticket cancel (`resolved_at NULL`) tidak masuk pembilang & penyebut.
-- [ ] **Tren harian:** bucket WIB, semua hari terisi (termasuk nol), untuk rentang yang bisa dipilih (`date_from`/`date_to`).
-- [ ] **Technician performance §21:** `handled`, `resolved`, `open`, `breached`, `avg_resolution_minutes`, `sla_compliance_percentage` per teknisi, urut `resolved DESC`.
-- [ ] **Semua agregasi di SQL** (`selectRaw`/`groupBy`); tidak ada N+1 — jumlah query konstan saat volume data naik.
-- [ ] **Setiap endpoint < 500 ms** dengan data seed (diukur di 6d).
-- [ ] **Tanpa cache** — ditambah hanya jika pengukuran melanggar 500 ms (keputusan #11).
-- [ ] `php artisan test` seluruhnya hijau (suite gabungan Fase 1–6).
-- [ ] `vendor/bin/pint --test` bersih.
-- [ ] Checkbox Fase 6 di `docs/product/ROADMAP.md` (baris 609–645) tersinkronisasi.
-- [ ] `docs/api/API-CONTRACT.md §10` diverifikasi tidak berubah (payload final); jika ada penyimpangan, dokumentasikan.
-- [ ] Git tag `v0.6.0` (Semantic Versioning, D-30) ditambahkan dan didorong saat fase selesai.
+- [x] **Empat endpoint** terdaftar & dijaga gate: `GET /api/dashboard/employee|technician|manager|admin` — tanpa token → 401; role salah → 403 (matriks PERMISSION §3.7).
+- [x] **Employee:** `my_open_tickets`, `my_in_progress_tickets`, `my_resolved_tickets`, `recent_tickets[]` (≤5), `my_assets[]` (≤5, assignment aktif), `recent_articles[]` (≤5, published). Hanya data milik pemanggil.
+- [x] **Technician:** `assigned_tickets`, `open_tickets`, `in_progress_tickets`, `sla_breached` (defensif), `avg_resolution_minutes`, `recent_activity[]` (≤5). `?technician_id=X` diabaikan.
+- [x] **Manager:** `total_tickets`, `open_tickets`, `resolved_tickets`, `closed_tickets`, `sla{}` (within_sla, breached, compliance, avg), `ticket_trend[]`, `by_priority[]`, `by_category[]`, `technician_performance[]`.
+- [x] **Admin:** seluruh isi manager + `total_users`, `total_technicians`, `total_departments`, `total_assets`, `assets_by_status[]`, `recent_system_activity[]` (≤8).
+- [x] **SLA metrics §14:** `within_sla + breached = total resolved` (untuk set resolved); compliance `null` bila total resolved 0; `avg_resolution_minutes` dari `created_at`→`resolved_at`.
+- [x] **Formula compliance persis §14 / D-03:** ticket cancel (`resolved_at NULL`) tidak masuk pembilang & penyebut.
+- [x] **Tren harian:** bucket WIB, semua hari terisi (termasuk nol), untuk rentang yang bisa dipilih (`date_from`/`date_to`).
+- [x] **Technician performance §21:** `handled`, `resolved`, `open`, `breached`, `avg_resolution_minutes`, `sla_compliance_percentage` per teknisi, urut `resolved DESC`.
+- [x] **Semua agregasi di SQL** (`selectRaw`/`groupBy`); tidak ada N+1 — jumlah query konstan saat volume data naik.
+- [x] **Setiap endpoint < 500 ms** dengan data seed (diukur di 6d).
+- [x] **Tanpa cache** — ditambah hanya jika pengukuran melanggar 500 ms (keputusan #11).
+- [x] `php artisan test` seluruhnya hijau (suite gabungan Fase 1–6).
+- [x] `vendor/bin/pint --test` bersih.
+- [x] Checkbox Fase 6 di `docs/product/ROADMAP.md` (baris 609–645) tersinkronisasi.
+- [x] `docs/api/API-CONTRACT.md §10` diverifikasi tidak berubah (payload final); jika ada penyimpangan, dokumentasikan.
+- [x] Git tag `v0.6.0` (Semantic Versioning, D-30) ditambahkan dan didorong saat fase selesai.
 
 ---
 

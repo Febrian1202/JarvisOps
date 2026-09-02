@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 6/10).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), serta Dashboard API untuk Employee, Technician, dan Manager (Fase 6c Selesai). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: desain selesai, implementasi berjalan (Fase 6/10 Selesai — Backend MVP Tag `v0.6.0`).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), serta Dashboard API untuk Employee, Technician, Manager, dan Admin (Fase 6 Selesai — Tag `v0.6.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -159,19 +159,19 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
   - **5c (Knowledge Base) — SELESAI**: CRUD artikel, category, publish/unpublish workflow, slug uniqueness, view counter.
   - **5d (File Attachment) — SELESAI**: Private disk storage, upload validation (MIME & extension), secure download controller under TicketPolicy.
   - **5e (User & Master Data Administration) — SELESAI**: CRUD user, role, department, ticket categories, ticket priorities & SLA configs.
-- **Fase 6 (Dashboard & Analytics API) — BERJALAN**:
+- **Fase 6 (Dashboard & Analytics API) — SELESAI (Tag: `v0.6.0`)**:
   - **6a (Foundation & Query Kernel) — SELESAI**: `DashboardDateRange`, `DashboardCountsQuery`, `SlaMetricsCalculator`, `TicketTrendQuery`, `TechnicianPerformanceQuery`.
   - **6b (Employee & Technician Dashboards) — SELESAI**: `GET /api/dashboard/employee` & `GET /api/dashboard/technician` dengan scoping ketat.
   - **6c (Manager Dashboard) — SELESAI**: `GET /api/dashboard/manager` dengan SLA metrics (D-03), daily trend WIB, distribusi priority & category, serta performa teknisi.
-- `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 37 routes (53 operations), 622 test passing (2558 assertions, 0 failures), Pint bersih
+  - **6d (Admin Dashboard & Finalisasi) — SELESAI**: `GET /api/dashboard/admin` memperluas metrik manager dengan sistem totals (user, technician, department, asset), status asset breakdown, recent system audit logs, serta verifikasi N+1/performa (<500ms).
+- `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 37 routes (53 operations), 629 test passing (2605 assertions, 0 failures), Pint bersih
 - `apps/web` — login page + protected dashboard, BFF route handler
 
 ### Belum ada
 
-- Dashboard Admin & finalisasi Fase 6 (6d).
 - Seluruh halaman frontend lanjutan (Fase 7/8/9), integrasi & deployment (Fase 10).
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Sub-tahap berikutnya adalah **Fase 6d — Dashboard Admin & Finalisasi**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Sub-tahap berikutnya adalah **Fase 7 — Fondasi Frontend**.
 
 ---
 
