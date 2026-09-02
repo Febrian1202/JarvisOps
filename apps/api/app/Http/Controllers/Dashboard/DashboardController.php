@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Exceptions\PendingDashboardException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\IndexDashboardRequest;
+use App\Services\Dashboard\AdminDashboardService;
 use App\Services\Dashboard\DashboardDateRange;
 use App\Services\Dashboard\EmployeeDashboardService;
 use App\Services\Dashboard\ManagerDashboardService;
@@ -18,6 +18,7 @@ class DashboardController extends Controller
         protected EmployeeDashboardService $employeeService,
         protected TechnicianDashboardService $technicianService,
         protected ManagerDashboardService $managerService,
+        protected AdminDashboardService $adminService,
     ) {}
 
     public function employee(IndexDashboardRequest $request): JsonResponse
@@ -50,6 +51,9 @@ class DashboardController extends Controller
     {
         $this->authorize('dashboard.admin');
 
-        throw new PendingDashboardException;
+        $range = DashboardDateRange::fromDates($request->query('date_from'), $request->query('date_to'));
+        $data = $this->adminService->get($request->user(), $range);
+
+        return ApiResponse::success($data, 'Admin dashboard retrieved successfully.');
     }
 }

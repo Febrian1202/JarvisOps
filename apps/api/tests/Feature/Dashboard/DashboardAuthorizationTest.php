@@ -72,3 +72,28 @@ test('manager dashboard: manager and admin ok, employee and technician 403', fun
     Sanctum::actingAs($technician);
     $this->getJson('/api/dashboard/manager')->assertStatus(403);
 });
+
+test('admin dashboard: admin only, others 403', function () {
+    $admin = User::factory()->admin()->create();
+    $manager = User::factory()->manager()->create();
+    $technician = User::factory()->technician()->create();
+    $employee = User::factory()->employee()->create();
+
+    Sanctum::actingAs($admin);
+    $this->getJson('/api/dashboard/admin')->assertStatus(200);
+
+    foreach ([$manager, $technician, $employee] as $user) {
+        Sanctum::actingAs($user);
+        $this->getJson('/api/dashboard/admin')->assertStatus(403);
+    }
+});
+
+test('admin can access all four dashboard endpoints', function () {
+    $admin = User::factory()->admin()->create();
+    Sanctum::actingAs($admin);
+
+    $this->getJson('/api/dashboard/employee')->assertStatus(200);
+    $this->getJson('/api/dashboard/technician')->assertStatus(200);
+    $this->getJson('/api/dashboard/manager')->assertStatus(200);
+    $this->getJson('/api/dashboard/admin')->assertStatus(200);
+});

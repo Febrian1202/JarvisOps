@@ -102,4 +102,5 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 - Phase 6a (Dashboard Foundation & Query Kernel) — **complete**
 - Phase 6b (Employee & Technician Dashboards) — **complete**
 - Phase 6c (Manager Dashboard) — **complete**
-- Phase 6d (Admin Dashboard & Finalization) — **next work**
+- Phase 6d (Admin Dashboard & Finalization — Tag `v0.6.0`) — **complete**
+- Phase 7 (Frontend Foundation) — **next work**

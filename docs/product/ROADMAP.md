@@ -611,7 +611,7 @@ Menyediakan data agregat untuk empat dashboard sesuai §20 PRD.
 - [x] `GET /api/dashboard/employee` — my open, my in progress, recently resolved, my assets, artikel terbaru
 - [x] `GET /api/dashboard/technician` — assigned, open, in progress, SLA breached, rata-rata waktu penyelesaian, aktivitas terbaru
 - [x] `GET /api/dashboard/manager` — total, open, resolved, SLA compliance, tren ticket, distribusi priority & category, performa technician
-- [ ] `GET /api/dashboard/admin` — seluruh metrik Manager + total user, asset, technician, department, aktivitas sistem
+- [x] `GET /api/dashboard/admin` — seluruh metrik Manager + total user, asset, technician, department, aktivitas sistem
 - [x] SLA metrics §14: total, within SLA, breached, persentase compliance, rata-rata waktu penyelesaian
 - [x] Formula compliance persis §14: `resolved within SLA / total resolved × 100`
 - [x] Tren ticket harian untuk rentang yang bisa dipilih
@@ -634,15 +634,15 @@ Empat endpoint dashboard beserta test.
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+- [x] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
 
 
 
-- [ ] Setiap angka di §20 PRD punya sumber data di API
-- [ ] Angka SLA di dashboard konsisten dengan hasil query manual
-- [ ] Setiap endpoint dashboard di bawah 500 ms dengan data seed
+- [x] Setiap angka di §20 PRD punya sumber data di API
+- [x] Angka SLA di dashboard konsisten dengan hasil query manual
+- [x] Setiap endpoint dashboard di bawah 500 ms dengan data seed
 <!--MARKER-P7-->
-- [ ] **Backend MVP selesai** — mulai sini fokus berpindah ke frontend
+- [x] **Backend MVP selesai** — mulai sini fokus berpindah ke frontend
 
 ---
 

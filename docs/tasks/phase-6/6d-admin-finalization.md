@@ -85,7 +85,7 @@ class AdminDashboardService
 > - `assets_by_status` — `groupBy('status')` pada kolom enum `AssetStatus`. Di SQLite, `groupBy` langsung pada kolom string; di MySQL juga. Urut `orderBy('status')` untuk determinisme. **Semua status** (termasuk `available`, `assigned`, `maintenance`, `retired`, `lost`) muncul; status yang tidak memiliki asset akan tidak muncul — frontend Fase 9 yang mengisi nol. Atau beri nol eksplisit: kumpulkan semua case `AssetStatus` dan isi 0 untuk yang tidak ada. **Keputusan:** tidak perlu zero-fill frontend bisa menangani; sederhanakan.
 > - `recent_system_activity` dari `audit_logs` — eager-load `user` (hanya `id` + `full_name`). Admin melihat semua modul (PERMISSION §3.8). Limit 8, urut `created_at DESC`.
 
-- [ ] **Step 1: Test — payload admin, counts sistem, aktivitas audit.**
+- [x] **Step 1: Test — payload admin, counts sistem, aktivitas audit.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -144,9 +144,9 @@ class AdminDashboardService
   });
   ```
 
-- [ ] **Step 2: Implementasi `AdminDashboardService`** — hapus `PendingDashboardException` untuk method admin di controller, injeksi service.
+- [x] **Step 2: Implementasi `AdminDashboardService`** — hapus `PendingDashboardException` untuk method admin di controller, injeksi service.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/AdminDashboardTest.php
   vendor/bin/pint --dirty --format agent
@@ -165,7 +165,7 @@ class AdminDashboardService
 **Detail:**
 Verifikasi gate `dashboard.admin` (Admin only). Employee/Technician/Manager → 403. Pastikan Admin bisa melihat semua dashboard (gate `dashboard.admin` = Admin ✅; gate `dashboard.manager`/`technician`/`employee` juga ✅ untuk Admin).
 
-- [ ] **Step 1: Test — gate admin, admin bisa akses semua dashboard.**
+- [x] **Step 1: Test — gate admin, admin bisa akses semua dashboard.**
   ```php
   test('admin dashboard: admin only, others 403', function () {
       $admin = User::factory()->admin()->create();
@@ -193,7 +193,7 @@ Verifikasi gate `dashboard.admin` (Admin only). Employee/Technician/Manager → 
   });
   ```
 
-- [ ] **Step 2: Verifikasi & commit.**
+- [x] **Step 2: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/DashboardAuthorizationTest.php
   vendor/bin/pint --dirty --format agent
@@ -213,7 +213,7 @@ Uji seluruh 4 endpoint dengan `DB::enableQueryLog()` untuk memastikan jumlah que
 
 > **Jebakan:** SQLite in-memory pada test sangat cepat. Pengukuran waktu di test bersifat indikatif — angka absolut di SQLite tidak mencerminkan performa MySQL. Prioritaskan guard query count (N+1) di atas deteksi waktu. Waktu absolut diverifikasi di development MySQL.
 
-- [ ] **Step 1: Buat test helper data generator + verifikasi N+1 untuk keempat endpoint.**
+- [x] **Step 1: Buat test helper data generator + verifikasi N+1 untuk keempat endpoint.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -264,7 +264,7 @@ Uji seluruh 4 endpoint dengan `DB::enableQueryLog()` untuk memastikan jumlah que
   });
   ```
 
-- [ ] **Step 2: Verifikasi & commit.**
+- [x] **Step 2: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/DashboardPerformanceTest.php
   vendor/bin/pint --dirty --format agent
@@ -313,27 +313,27 @@ Sinkronisasi dokumentasi setelah implementasi selesai.
    git push origin v0.6.0
    ```
 
-- [ ] **Step 1: Centang ROADMAP Fase 6.**
+- [x] **Step 1: Centang ROADMAP Fase 6.**
   ```bash
   # Edit docs/product/ROADMAP.md, ubah setiap - [ ] menjadi - [x] di blok Fase 6 (baris 609–645)
   # Verifikasi hasil
   git diff docs/product/ROADMAP.md
   ```
 
-- [ ] **Step 2: Verifikasi PERMISSION-MATRIX §4 route dashboard.**
+- [x] **Step 2: Verifikasi PERMISSION-MATRIX §4 route dashboard.**
   ```bash
   # Buka docs/product/PERMISSION-MATRIX.md, periksa baris 286–289
   # Jika belum ada, tambahkan.
   ```
 
-- [ ] **Step 3: Verifikasi payload API-CONTRACT §10 match implementasi.**
+- [x] **Step 3: Verifikasi payload API-CONTRACT §10 match implementasi.**
   ```bash
   # Jalankan tes integrasi manual untuk memverifikasi setiap field
   vendor/bin/pest tests/Feature/Dashboard/
   # Buka docs/api/API-CONTRACT.md, bandingkan dengan payload nyata
   ```
 
-- [ ] **Step 4: Commit sinkronisasi dokumentasi + tag.**
+- [x] **Step 4: Commit sinkronisasi dokumentasi + tag.**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add docs/product/ROADMAP.md docs/product/PERMISSION-MATRIX.md docs/api/API-CONTRACT.md
@@ -346,15 +346,15 @@ Sinkronisasi dokumentasi setelah implementasi selesai.
 
 ## Exit Criteria 6d
 
-- [ ] `GET /api/dashboard/admin` — 401 tanpa token; 200 Admin only; payload extends manager + `total_users/technicians/departments/assets`, `assets_by_status[]`, `recent_system_activity[]` (≤8, semua modul audit).
-- [ ] Admin bisa mengakses keempat dashboard (employee/technician/manager/admin) — 200.
-- [ ] Tidak ada N+1: query count konstan saat volume data naik pada keempat endpoint.
-- [ ] Setiap endpoint <500 ms pada data seed representatif (100+ ticket, 5 teknisi, 10+ asset).
-- [ ] `docs/product/ROADMAP.md` Fase 6 seluruh checkbox tercentang; exit criteria `Backend MVP selesai` tercentang.
-- [ ] `docs/product/PERMISSION-MATRIX.md` §4 memuat keempat route dashboard; §6 butir test `?technician_id` tercentang.
-- [ ] `docs/api/API-CONTRACT.md §10` cocok dengan implementasi (tidak ada penyimpangan).
-- [ ] `PendingDashboardException` untuk method admin sudah dihapus.
-- [ ] Git tag `v0.6.0` ditambahkan dan didorong.
-- [ ] `php artisan test` seluruhnya hijau (suite gabungan Fase 1–6).
-- [ ] `vendor/bin/pint --test` bersih.
-- [ ] **Backend MVP selesai** — mulai sini fokus berpindah ke frontend (Fase 7+).
+- [x] `GET /api/dashboard/admin` — 401 tanpa token; 200 Admin only; payload extends manager + `total_users/technicians/departments/assets`, `assets_by_status[]`, `recent_system_activity[]` (≤8, semua modul audit).
+- [x] Admin bisa mengakses keempat dashboard (employee/technician/manager/admin) — 200.
+- [x] Tidak ada N+1: query count konstan saat volume data naik pada keempat endpoint.
+- [x] Setiap endpoint <500 ms pada data seed representatif (100+ ticket, 5 teknisi, 10+ asset).
+- [x] `docs/product/ROADMAP.md` Fase 6 seluruh checkbox tercentang; exit criteria `Backend MVP selesai` tercentang.
+- [x] `docs/product/PERMISSION-MATRIX.md` §4 memuat keempat route dashboard; §6 butir test `?technician_id` tercentang.
+- [x] `docs/api/API-CONTRACT.md §10` cocok dengan implementasi (tidak ada penyimpangan).
+- [x] `PendingDashboardException` untuk method admin sudah dihapus.
+- [x] Git tag `v0.6.0` ditambahkan dan didorong.
+- [x] `php artisan test` seluruhnya hijau (suite gabungan Fase 1–6).
+- [x] `vendor/bin/pint --test` bersih.
+- [x] **Backend MVP selesai** — mulai sini fokus berpindah ke frontend (Fase 7+).

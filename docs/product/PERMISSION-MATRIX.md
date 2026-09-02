@@ -367,7 +367,7 @@ dataset('roles', [
 - [ ] Employee A memilih asset milik B saat create ticket → 422 (Addendum §12 poin 1)
 - [ ] Employee A mengunduh attachment dari ticket B → 404
 - [ ] User A menandai notifikasi B sebagai read → 404
-- [ ] Technician memakai `?technician_id=X` pada dashboard technician → tetap datanya sendiri
+- [x] Technician memakai `?technician_id=X` pada dashboard technician → tetap datanya sendiri
 - [ ] Manager memfilter audit log ke modul `user` → hasil kosong
 - [ ] Employee mengirim `role_id` saat ubah profil → diabaikan
 
