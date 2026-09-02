@@ -26,11 +26,11 @@ Sinkronkan dokumen spec sebelum menulis kode agar seluruh keputusan baru (D-08 A
 4. `D-30` (Baru): Tetapkan bahwa audit log untuk peristiwa sistem otomatis (tanpa interaksi user HTTP) menyimpan `user_id = null`, `ip_address = null`, dan `user_agent = null`.
 5. `ROADMAP.md`: Koreksi baris 459 (`SLA_BREACHED` → `TICKET_SLA_BREACHED`) dan baris 484 (Manager akses audit log di luar batasnya menghasilkan 200 list kosong atau 404 pada detail, bukan 403).
 
-- [ ] **Step 1: Edit `docs/adr/DECISIONS.md`**
+- [x] **Step 1: Edit `docs/adr/DECISIONS.md`**
   Perbarui D-01, tambahkan Amandemen 2 pada D-08, catat D-30.
-- [ ] **Step 2: Edit `docs/product/ROADMAP.md`**
+- [x] **Step 2: Edit `docs/product/ROADMAP.md`**
   Koreksi baris 459 dan 484 sesuai urutan otoritas DECISIONS.
-- [ ] **Step 3: Commit amandemen spec**
+- [x] **Step 3: Commit amandemen spec**
   ```bash
   git add docs/adr/DECISIONS.md docs/product/ROADMAP.md
   git commit -m "docs(spec): amend D-01, D-08, D-27, D-30 and sync phase 4 roadmap"
@@ -50,7 +50,7 @@ Tambahkan case baru pada enum:
 - `NotificationType::TicketSlaBreached = 'TICKET_SLA_BREACHED'`
 - `AuditAction::SlaBreach = 'sla_breach'`
 
-- [ ] **Step 1: Test — Unit test keberadaan case enum baru**
+- [x] **Step 1: Test — Unit test keberadaan case enum baru**
   Buat `tests/Unit/EnumsPhase4Test.php`:
   ```php
   <?php
@@ -67,7 +67,7 @@ Tambahkan case baru pada enum:
   });
   ```
 
-- [ ] **Step 2: Implementasi penambahan case pada Enum**
+- [x] **Step 2: Implementasi penambahan case pada Enum**
   Ubah `app/Enums/NotificationType.php`:
   ```php
   case TicketCommented = 'TICKET_COMMENTED';
@@ -79,7 +79,7 @@ Tambahkan case baru pada enum:
   case SlaBreach = 'sla_breach';
   ```
 
-- [ ] **Step 3: Jalankan test & commit**
+- [x] **Step 3: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Unit/EnumsPhase4Test.php
   git add app/Enums/ tests/Unit/EnumsPhase4Test.php
@@ -99,7 +99,7 @@ Scheduler berjalan di latar belakang tanpa sesi user HTTP aktif. `AuditLogger::l
 
 > **Jebakan:** Jangan panggil `$actor->id` secara langsung tanpa null-safe operator (`$actor?->id`), karena akan memicu *fatal error: Call to a member function on null* saat dipanggil dari scheduler.
 
-- [ ] **Step 1: Test — AuditLogger mencatat log dengan actor null (D-30)**
+- [x] **Step 1: Test — AuditLogger mencatat log dengan actor null (D-30)**
   Tambahkan test pada `tests/Unit/AuditLoggerTest.php`:
   ```php
   test('AuditLogger accepts null actor for system background events', function () {
@@ -120,7 +120,7 @@ Scheduler berjalan di latar belakang tanpa sesi user HTTP aktif. `AuditLogger::l
   });
   ```
 
-- [ ] **Step 2: Implementasi perubahan signature pada `AuditLogger`**
+- [x] **Step 2: Implementasi perubahan signature pada `AuditLogger`**
   Ubah `app/Services/Audit/AuditLogger.php`:
   ```php
   public function log(
@@ -149,7 +149,7 @@ Scheduler berjalan di latar belakang tanpa sesi user HTTP aktif. `AuditLogger::l
   }
   ```
 
-- [ ] **Step 3: Jalankan test & commit**
+- [x] **Step 3: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Unit/AuditLoggerTest.php
   vendor/bin/pint --dirty --format agent
@@ -168,7 +168,7 @@ Scheduler berjalan di latar belakang tanpa sesi user HTTP aktif. `AuditLogger::l
 **Detail:**
 ERD §6 mewajibkan composite index `(sla_breached, sla_deadline)` pada tabel `tickets` untuk mengoptimalkan scanning scheduler tiap 5 menit.
 
-- [ ] **Step 1: Buat migration composite index**
+- [x] **Step 1: Buat migration composite index**
   ```bash
   php artisan make:migration add_composite_sla_index_to_tickets_table --table=tickets
   ```
@@ -189,14 +189,14 @@ ERD §6 mewajibkan composite index `(sla_breached, sla_deadline)` pada tabel `ti
   }
   ```
 
-- [ ] **Step 2: Uji migrasi dan rollback terhadap MySQL**
+- [x] **Step 2: Uji migrasi dan rollback terhadap MySQL**
   ```bash
   php artisan migrate
   php artisan migrate:rollback --step=1
   php artisan migrate
   ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
   ```bash
   git add database/migrations/
   git commit -m "feat(database): add idx_tickets_sla composite index on tickets table"
@@ -219,7 +219,7 @@ Tambahkan method `breachCandidates()` pada `SlaService` yang mengembalikan Eloqu
 
 > **Jebakan:** Jangan gunakan hardcoded array status ID (misal `whereNotIn('status_id', [4, 5])`). Gunakan selalu relasi `is_closed` dari `ticket_statuses` sesuai `STATUS-TRANSITION.md §2`.
 
-- [ ] **Step 1: Test — `SlaService::breachCandidates()` hanya menyaring tiket yang memenuhi kriteria**
+- [x] **Step 1: Test — `SlaService::breachCandidates()` hanya menyaring tiket yang memenuhi kriteria**
   Tambahkan pada `tests/Unit/SlaServiceTest.php`:
   ```php
   test('breachCandidates query returns only active unbreached tickets past deadline', function () {
@@ -258,7 +258,7 @@ Tambahkan method `breachCandidates()` pada `SlaService` yang mengembalikan Eloqu
   });
   ```
 
-- [ ] **Step 2: Implementasi method `breachCandidates` pada `SlaService`**
+- [x] **Step 2: Implementasi method `breachCandidates` pada `SlaService`**
   Tambahkan pada `app/Services/Sla/SlaService.php`:
   ```php
   public function breachCandidates(): Builder
@@ -273,7 +273,7 @@ Tambahkan method `breachCandidates()` pada `SlaService` yang mengembalikan Eloqu
   }
   ```
 
-- [ ] **Step 3: Jalankan test & commit**
+- [x] **Step 3: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Unit/SlaServiceTest.php
   vendor/bin/pint --dirty --format agent
@@ -317,7 +317,7 @@ Alur per tiket di dalam `DB::transaction()`:
 
 > **Jebakan:** Jika tiket belum memiliki teknisi (`technician_id === null`), jangan biarkan collection penerima crash. Filter penerima agar hanya menyertakan objek `User` yang valid.
 
-- [ ] **Step 1: Test — `SlaBreachDetector` mengeksekusi breach, notifikasi, dan audit secara atomik**
+- [x] **Step 1: Test — `SlaBreachDetector` mengeksekusi breach, notifikasi, dan audit secara atomik**
   Buat `tests/Feature/Sla/SlaBreachDetectorTest.php`:
   ```php
   <?php
@@ -387,7 +387,7 @@ Alur per tiket di dalam `DB::transaction()`:
   });
   ```
 
-- [ ] **Step 2: Implementasi `SlaScanResult` DTO**
+- [x] **Step 2: Implementasi `SlaScanResult` DTO**
   Buat `app/DTOs/Sla/SlaScanResult.php`:
   ```php
   <?php
@@ -404,7 +404,7 @@ Alur per tiket di dalam `DB::transaction()`:
   }
   ```
 
-- [ ] **Step 3: Implementasi `SlaBreachDetector` Service**
+- [x] **Step 3: Implementasi `SlaBreachDetector` Service**
   Buat `app/Services/Sla/SlaBreachDetector.php`:
   ```php
   <?php
@@ -508,7 +508,7 @@ Alur per tiket di dalam `DB::transaction()`:
   }
   ```
 
-- [ ] **Step 4: Jalankan test & commit**
+- [x] **Step 4: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Feature/Sla/SlaBreachDetectorTest.php
   vendor/bin/pint --dirty --format agent
@@ -528,7 +528,7 @@ Alur per tiket di dalam `DB::transaction()`:
 Buat Artisan Command `tickets:check-sla` yang bertindak sebagai adaptor tipis pemanggil `SlaBreachDetector::scan()`.
 Daftarkan command di `routes/console.php` agar berjalan tiap 5 menit (`everyFiveMinutes()`) dengan `withoutOverlapping()`.
 
-- [ ] **Step 1: Buat Artisan command**
+- [x] **Step 1: Buat Artisan command**
   ```bash
   php artisan make:command CheckTicketSlaCommand --command=tickets:check-sla
   ```
@@ -565,7 +565,7 @@ Daftarkan command di `routes/console.php` agar berjalan tiap 5 menit (`everyFive
   }
   ```
 
-- [ ] **Step 2: Daftarkan jadwal di `routes/console.php`**
+- [x] **Step 2: Daftarkan jadwal di `routes/console.php`**
   Modifikasi `routes/console.php`:
   ```php
   use Illuminate\Support\Facades\Schedule;
@@ -574,13 +574,13 @@ Daftarkan command di `routes/console.php` agar berjalan tiap 5 menit (`everyFive
   Schedule::command('tickets:check-sla')->everyFiveMinutes()->withoutOverlapping();
   ```
 
-- [ ] **Step 3: Uji eksekusi command via Artisan**
+- [x] **Step 3: Uji eksekusi command via Artisan**
   ```bash
   php artisan tickets:check-sla
   php artisan schedule:list
   ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add app/Console/Commands/CheckTicketSlaCommand.php routes/console.php
@@ -601,7 +601,7 @@ Buat suite pengujian end-to-end yang mencakup seluruh skenario acceptance criter
 3. **Idempotency:** Command dijalankan dua kali berturut-turut → tidak ada duplikasi notifikasi atau log audit.
 4. **Defensive API Reliability:** Perhitungan `sla_status` di query/model tetap menghasilkan `breached` saat scheduler dimatikan.
 
-- [ ] **Step 1: Tulis feature test lengkap di `tests/Feature/Sla/SlaSchedulerTest.php`**
+- [x] **Step 1: Tulis feature test lengkap di `tests/Feature/Sla/SlaSchedulerTest.php`**
   ```php
   <?php
 
@@ -665,17 +665,17 @@ Buat suite pengujian end-to-end yang mencakup seluruh skenario acceptance criter
   });
   ```
 
-- [ ] **Step 2: Jalankan seluruh test suite SLA**
+- [x] **Step 2: Jalankan seluruh test suite SLA**
   ```bash
   vendor/bin/pest tests/Feature/Sla/ tests/Unit/SlaServiceTest.php
   ```
 
-- [ ] **Step 3: Verifikasi container scheduler (jika Docker aktif)**
+- [x] **Step 3: Verifikasi container scheduler (jika Docker aktif)**
   ```bash
   docker compose exec scheduler php artisan schedule:list
   ```
 
-- [ ] **Step 4: Formatting & Commit**
+- [x] **Step 4: Formatting & Commit**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add tests/Feature/Sla/SlaSchedulerTest.php
@@ -686,12 +686,12 @@ Buat suite pengujian end-to-end yang mencakup seluruh skenario acceptance criter
 
 ## Exit Criteria 4a
 
-- [ ] `php artisan tickets:check-sla` berhasil dieksekusi tanpa error.
-- [ ] Jadwal `everyFiveMinutes()->withoutOverlapping()` terdaftar di `php artisan schedule:list`.
-- [ ] Tiket aktif yang melewati deadline ditandai `sla_breached = true` dan `sla_breached_at` terisi.
-- [ ] Notifikasi `TICKET_SLA_BREACHED` terkirim ke teknisi pemegang dan seluruh Manager aktif dengan `actor_name = "Sistem"`.
-- [ ] Audit log `sla_breach` tercatat dengan `user_id = null`.
-- [ ] Pengujian time travel dengan `travel()` lulus.
-- [ ] Eksekusi kedua kali terbukti idempoten tanpa duplikasi notifikasi.
-- [ ] Seluruh test di `tests/Feature/Sla/` dan `tests/Unit/` hijau.
-- [ ] Linter Pint bersih (`vendor/bin/pint --test`).
+- [x] `php artisan tickets:check-sla` berhasil dieksekusi tanpa error.
+- [x] Jadwal `everyFiveMinutes()->withoutOverlapping()` terdaftar di `php artisan schedule:list`.
+- [x] Tiket aktif yang melewati deadline ditandai `sla_breached = true` dan `sla_breached_at` terisi.
+- [x] Notifikasi `TICKET_SLA_BREACHED` terkirim ke teknisi pemegang dan seluruh Manager aktif dengan `actor_name = "Sistem"`.
+- [x] Audit log `sla_breach` tercatat dengan `user_id = null`.
+- [x] Pengujian time travel dengan `travel()` lulus.
+- [x] Eksekusi kedua kali terbukti idempoten tanpa duplikasi notifikasi.
+- [x] Seluruh test di `tests/Feature/Sla/` dan `tests/Unit/` hijau.
+- [x] Linter Pint bersih (`vendor/bin/pint --test`).
