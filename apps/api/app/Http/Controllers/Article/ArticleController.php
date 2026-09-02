@@ -6,10 +6,13 @@ use App\DTOs\Article\CreateArticleData;
 use App\DTOs\Article\UpdateArticleData;
 use App\Enums\ArticleStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Article\IndexArticleRequest;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
+use App\Http\Resources\Article\ArticleListResource;
 use App\Http\Resources\Article\ArticleResource;
 use App\Models\KnowledgeArticle;
+use App\Services\Article\ArticleQueryService;
 use App\Services\Article\ArticleService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
@@ -17,6 +20,15 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function index(IndexArticleRequest $request, ArticleQueryService $queryService): JsonResponse
+    {
+        $this->authorize('viewAny', KnowledgeArticle::class);
+
+        $paginator = $queryService->paginate($request, $request->user());
+
+        return ApiResponse::paginated($paginator, 'Articles retrieved successfully.', ArticleListResource::class);
+    }
+
     public function show(KnowledgeArticle $article): JsonResponse
     {
         $this->authorize('view', $article);
