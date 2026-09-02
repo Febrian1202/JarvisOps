@@ -3,18 +3,6 @@
   "children": [
     {
       "type": "frame",
-      "id": "bi8Au",
-      "x": 0,
-      "y": 0,
-      "name": "Frame",
-      "clip": true,
-      "width": 1480,
-      "height": 960,
-      "fill": "#FFFFFF",
-      "layout": "none"
-    },
-    {
-      "type": "frame",
       "id": "qu5YY",
       "x": 0,
       "y": 0,
@@ -1647,7 +1635,8 @@
                                           "width": "fill_container",
                                           "content": "Wi-Fi tidak terhubung di lantai 3",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -1703,7 +1692,8 @@
                                           "content": "2j 14m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -1776,7 +1766,8 @@
                                           "width": "fill_container",
                                           "content": "Permintaan instalasi Adobe Reader",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -1832,7 +1823,8 @@
                                           "content": "6j 02m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -1905,7 +1897,8 @@
                                           "width": "fill_container",
                                           "content": "Printer ruang rapat tidak terdeteksi",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -1961,7 +1954,8 @@
                                           "content": "Selesai",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -2034,7 +2028,8 @@
                                           "width": "fill_container",
                                           "content": "Reset kata sandi akun email",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -2090,7 +2085,8 @@
                                           "content": "Selesai",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -2163,7 +2159,8 @@
                                           "width": "fill_container",
                                           "content": "Laptop mati saat dicabut charger",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -2219,7 +2216,8 @@
                                           "content": "Selesai",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12.5
+                                          "fontSize": 12.5,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -3262,7 +3260,8 @@
                                           "width": "fill_container",
                                           "content": "Server DNS kantor cabang tidak resolve",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3289,7 +3288,8 @@
                                           "width": "fill_container",
                                           "content": "Kritis",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3345,7 +3345,8 @@
                                           "content": "Lewat 18m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3460,7 +3461,8 @@
                                           "width": "fill_container",
                                           "content": "Wi-Fi lantai 3 sering putus",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3487,7 +3489,8 @@
                                           "width": "fill_container",
                                           "content": "Tinggi",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3543,7 +3546,8 @@
                                           "content": "1j 42m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3658,7 +3662,8 @@
                                           "width": "fill_container",
                                           "content": "Karyawan baru: setup laptop + akses",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3685,7 +3690,8 @@
                                           "width": "fill_container",
                                           "content": "Tinggi",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3741,7 +3747,8 @@
                                           "content": "3j 10m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3856,7 +3863,8 @@
                                           "width": "fill_container",
                                           "content": "Permintaan instalasi Adobe Illustrator",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3883,7 +3891,8 @@
                                           "width": "fill_container",
                                           "content": "Sedang",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -3939,7 +3948,8 @@
                                           "content": "7j 30m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4054,7 +4064,8 @@
                                           "width": "fill_container",
                                           "content": "Ganti mouse & keyboard rusak",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4081,7 +4092,8 @@
                                           "width": "fill_container",
                                           "content": "Rendah",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4137,7 +4149,8 @@
                                           "content": "22j 05m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4483,7 +4496,8 @@
                                           "width": "fill_container",
                                           "content": "Aplikasi HR error 500 saat submit cuti",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4510,7 +4524,8 @@
                                           "width": "fill_container",
                                           "content": "Citra (HR)",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4537,7 +4552,8 @@
                                           "width": "fill_container",
                                           "content": "Tinggi",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4652,7 +4668,8 @@
                                           "width": "fill_container",
                                           "content": "Monitor kasir berkedip",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4679,7 +4696,8 @@
                                           "width": "fill_container",
                                           "content": "Budi (Ops)",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4706,7 +4724,8 @@
                                           "width": "fill_container",
                                           "content": "Sedang",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4821,7 +4840,8 @@
                                           "width": "fill_container",
                                           "content": "Akses VPN WFH ditolak",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4848,7 +4868,8 @@
                                           "width": "fill_container",
                                           "content": "Dewi (Mkt)",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -4875,7 +4896,8 @@
                                           "width": "fill_container",
                                           "content": "Sedang",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -5909,7 +5931,8 @@
                                           "content": "42",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -5938,7 +5961,8 @@
                                           "content": "93%",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -5967,7 +5991,8 @@
                                           "content": "3j 15m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -5996,7 +6021,8 @@
                                           "content": "5",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6025,7 +6051,8 @@
                                           "content": "1",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -6100,7 +6127,8 @@
                                           "content": "37",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6129,7 +6157,8 @@
                                           "content": "89%",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6158,7 +6187,8 @@
                                           "content": "4j 02m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6187,7 +6217,8 @@
                                           "content": "4",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6216,7 +6247,8 @@
                                           "content": "2",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -6291,7 +6323,8 @@
                                           "content": "28",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6320,7 +6353,8 @@
                                           "content": "82%",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6349,7 +6383,8 @@
                                           "content": "5j 10m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6378,7 +6413,8 @@
                                           "content": "6",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6407,7 +6443,8 @@
                                           "content": "4",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -6482,7 +6519,8 @@
                                           "content": "17",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6511,7 +6549,8 @@
                                           "content": "94%",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6540,7 +6579,8 @@
                                           "content": "2j 48m",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6569,7 +6609,8 @@
                                           "content": "3",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -6598,7 +6639,8 @@
                                           "content": "0",
                                           "textAlign": "right",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -8312,7 +8354,8 @@
                                           "width": "fill_container",
                                           "content": "11:04",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8367,7 +8410,8 @@
                                           "width": "fill_container",
                                           "content": "CREATE_USER",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8394,7 +8438,8 @@
                                           "width": "fill_container",
                                           "content": "Menambahkan Budi Santoso (Technician) di Dept IT",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -8439,7 +8484,8 @@
                                           "width": "fill_container",
                                           "content": "10:48",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8494,7 +8540,8 @@
                                           "width": "fill_container",
                                           "content": "CHANGE_STATUS",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8521,7 +8568,8 @@
                                           "width": "fill_container",
                                           "content": "TCK-0042: ASSIGNED → IN_PROGRESS",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -8566,7 +8614,8 @@
                                           "width": "fill_container",
                                           "content": "10:20",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8621,7 +8670,8 @@
                                           "width": "fill_container",
                                           "content": "ASSIGN_TICKET",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8648,7 +8698,8 @@
                                           "width": "fill_container",
                                           "content": "TCK-0042 ditugaskan ke Budi Santoso",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -8693,7 +8744,8 @@
                                           "width": "fill_container",
                                           "content": "09:55",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8748,7 +8800,8 @@
                                           "width": "fill_container",
                                           "content": "CREATE_TICKET",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8775,7 +8828,8 @@
                                           "width": "fill_container",
                                           "content": "Membuat TCK-0042 (High, Wi-Fi Lantai 3)",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -8820,7 +8874,8 @@
                                           "width": "fill_container",
                                           "content": "09:30",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8875,7 +8930,8 @@
                                           "width": "fill_container",
                                           "content": "UPDATE_SLA",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     },
@@ -8902,7 +8958,8 @@
                                           "width": "fill_container",
                                           "content": "Mengubah SLA Priority Medium: 8j → 8j",
                                           "fontFamily": "$font",
-                                          "fontSize": 12
+                                          "fontSize": 12,
+                                          "fontWeight": "normal"
                                         }
                                       ]
                                     }
@@ -10311,7 +10368,8 @@
                                   "width": "fill_container",
                                   "content": "Server DNS kantor cabang tidak resolve",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10338,7 +10396,8 @@
                                   "width": "fill_container",
                                   "content": "Andi (Sales)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10365,7 +10424,8 @@
                                   "width": "fill_container",
                                   "content": "Kritis",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10392,7 +10452,8 @@
                                   "width": "fill_container",
                                   "content": "Network",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10419,7 +10480,8 @@
                                   "width": "fill_container",
                                   "content": "Budi Santoso",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10475,7 +10537,8 @@
                                   "content": "Lewat 18m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -10548,7 +10611,8 @@
                                   "width": "fill_container",
                                   "content": "Wi-Fi lantai 3 sering putus",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10575,7 +10639,8 @@
                                   "width": "fill_container",
                                   "content": "Citra (HR)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10602,7 +10667,8 @@
                                   "width": "fill_container",
                                   "content": "Tinggi",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10629,7 +10695,8 @@
                                   "width": "fill_container",
                                   "content": "Network",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10656,7 +10723,8 @@
                                   "width": "fill_container",
                                   "content": "Budi Santoso",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10712,7 +10780,8 @@
                                   "content": "1j 42m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -10785,7 +10854,8 @@
                                   "width": "fill_container",
                                   "content": "Karyawan baru: setup laptop + akses",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10812,7 +10882,8 @@
                                   "width": "fill_container",
                                   "content": "Rina (Finance)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10839,7 +10910,8 @@
                                   "width": "fill_container",
                                   "content": "Tinggi",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10866,7 +10938,8 @@
                                   "width": "fill_container",
                                   "content": "Hardware",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10893,7 +10966,8 @@
                                   "width": "fill_container",
                                   "content": "Dedi Kurniawan",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -10949,7 +11023,8 @@
                                   "content": "3j 10m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -11022,7 +11097,8 @@
                                   "width": "fill_container",
                                   "content": "Aplikasi HR error 500 saat submit cuti",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11049,7 +11125,8 @@
                                   "width": "fill_container",
                                   "content": "Citra (HR)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11076,7 +11153,8 @@
                                   "width": "fill_container",
                                   "content": "Tinggi",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11103,7 +11181,8 @@
                                   "width": "fill_container",
                                   "content": "Software",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11130,7 +11209,8 @@
                                   "width": "fill_container",
                                   "content": "Belum di-assign",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11186,7 +11266,8 @@
                                   "content": "3j 45m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -11259,7 +11340,8 @@
                                   "width": "fill_container",
                                   "content": "Permintaan instalasi Adobe Illustrator",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11286,7 +11368,8 @@
                                   "width": "fill_container",
                                   "content": "Doni (Mkt)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11313,7 +11396,8 @@
                                   "width": "fill_container",
                                   "content": "Sedang",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11340,7 +11424,8 @@
                                   "width": "fill_container",
                                   "content": "Software",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11367,7 +11452,8 @@
                                   "width": "fill_container",
                                   "content": "Eka Pratama",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11423,7 +11509,8 @@
                                   "content": "7j 30m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -11496,7 +11583,8 @@
                                   "width": "fill_container",
                                   "content": "Monitor kasir cabang BSD berkedip",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11523,7 +11611,8 @@
                                   "width": "fill_container",
                                   "content": "Bambang (Ops)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11550,7 +11639,8 @@
                                   "width": "fill_container",
                                   "content": "Sedang",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11577,7 +11667,8 @@
                                   "width": "fill_container",
                                   "content": "Hardware",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11604,7 +11695,8 @@
                                   "width": "fill_container",
                                   "content": "Belum di-assign",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11660,7 +11752,8 @@
                                   "content": "7j 50m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -11733,7 +11826,8 @@
                                   "width": "fill_container",
                                   "content": "Akses VPN WFH ditolak kredensial",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11760,7 +11854,8 @@
                                   "width": "fill_container",
                                   "content": "Dewi (Mkt)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11787,7 +11882,8 @@
                                   "width": "fill_container",
                                   "content": "Sedang",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11814,7 +11910,8 @@
                                   "width": "fill_container",
                                   "content": "Account",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11841,7 +11938,8 @@
                                   "width": "fill_container",
                                   "content": "Belum di-assign",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11897,7 +11995,8 @@
                                   "content": "8j 00m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -11970,7 +12069,8 @@
                                   "width": "fill_container",
                                   "content": "Ganti mouse & keyboard rusak",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -11997,7 +12097,8 @@
                                   "width": "fill_container",
                                   "content": "Siti (Legal)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12024,7 +12125,8 @@
                                   "width": "fill_container",
                                   "content": "Rendah",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12051,7 +12153,8 @@
                                   "width": "fill_container",
                                   "content": "Hardware",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12078,7 +12181,8 @@
                                   "width": "fill_container",
                                   "content": "Citra Lestari",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12134,7 +12238,8 @@
                                   "content": "22j 05m",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -12207,7 +12312,8 @@
                                   "width": "fill_container",
                                   "content": "Printer ruang rapat tidak terdeteksi",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12234,7 +12340,8 @@
                                   "width": "fill_container",
                                   "content": "Andi (Sales)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12261,7 +12368,8 @@
                                   "width": "fill_container",
                                   "content": "Sedang",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12288,7 +12396,8 @@
                                   "width": "fill_container",
                                   "content": "Hardware",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12315,7 +12424,8 @@
                                   "width": "fill_container",
                                   "content": "Budi Santoso",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12371,7 +12481,8 @@
                                   "content": "Tepat waktu",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -12444,7 +12555,8 @@
                                   "width": "fill_container",
                                   "content": "Reset kata sandi akun email Microsoft 365",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12471,7 +12583,8 @@
                                   "width": "fill_container",
                                   "content": "Joko (Audit)",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12498,7 +12611,8 @@
                                   "width": "fill_container",
                                   "content": "Rendah",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12525,7 +12639,8 @@
                                   "width": "fill_container",
                                   "content": "Account",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12552,7 +12667,8 @@
                                   "width": "fill_container",
                                   "content": "Eka Pratama",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12608,7 +12724,8 @@
                                   "content": "Tepat waktu",
                                   "textAlign": "right",
                                   "fontFamily": "$font",
-                                  "fontSize": 12.5
+                                  "fontSize": 12.5,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -12671,7 +12788,8 @@
                                   "fill": "$ink",
                                   "content": "<",
                                   "fontFamily": "$font",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12720,7 +12838,8 @@
                                   "fill": "$ink",
                                   "content": "2",
                                   "fontFamily": "$font",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12744,7 +12863,8 @@
                                   "fill": "$ink",
                                   "content": "3",
                                   "fontFamily": "$font",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12768,7 +12888,8 @@
                                   "fill": "$ink",
                                   "content": "4",
                                   "fontFamily": "$font",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12792,7 +12913,8 @@
                                   "fill": "$ink",
                                   "content": "5",
                                   "fontFamily": "$font",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             },
@@ -12816,7 +12938,8 @@
                                   "fill": "$ink",
                                   "content": ">",
                                   "fontFamily": "$font",
-                                  "fontSize": 12
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
                                 }
                               ]
                             }
@@ -14484,6 +14607,3440 @@
                       ]
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "PeIdl",
+      "x": 940,
+      "y": 100,
+      "name": "C / Notification Dropdown",
+      "reusable": true,
+      "clip": true,
+      "width": 360,
+      "fill": "$surface",
+      "cornerRadius": 8,
+      "stroke": "$line",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "a4dpPe",
+          "name": "Head",
+          "width": "fill_container",
+          "stroke": "$line-soft",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "padding": [
+            12,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "b3eRe",
+              "name": "Title",
+              "fill": "$ink",
+              "content": "Notifikasi",
+              "fontFamily": "$font",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "cSWXS",
+              "name": "Action Mark All",
+              "fill": "$ink-mid",
+              "content": "Tandai semua dibaca",
+              "fontFamily": "$font",
+              "fontSize": 11,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "cXHs9",
+          "name": "List",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "q8KH3x",
+              "name": "Item",
+              "width": "fill_container",
+              "fill": "$ground",
+              "stroke": "$line-soft",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "gap": 10,
+              "padding": [
+                10,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "I2ht1",
+                  "name": "Icon",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "ticket",
+                  "library": "lucide",
+                  "fill": "$ink"
+                },
+                {
+                  "type": "frame",
+                  "id": "p2slXC",
+                  "name": "Text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "El8Vc",
+                      "name": "Item Title",
+                      "fill": "$ink",
+                      "content": "Tiket Baru Ditugaskan",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d6IWRW",
+                      "name": "Item Sub",
+                      "fill": "$ink-mid",
+                      "content": "TCK-0042 ditugaskan kepada Anda",
+                      "fontFamily": "$font",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "J8cWwa",
+                  "name": "Time",
+                  "fill": "$ink-soft",
+                  "content": "5 mnt lalu",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "EIvQZ",
+              "name": "Item",
+              "width": "fill_container",
+              "fill": "$ground",
+              "stroke": "$line-soft",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "gap": 10,
+              "padding": [
+                10,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "y14QJ",
+                  "name": "Icon",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "clock-alert",
+                  "library": "lucide",
+                  "fill": "$ink"
+                },
+                {
+                  "type": "frame",
+                  "id": "ZUdQn",
+                  "name": "Text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wZI5S",
+                      "name": "Item Title",
+                      "fill": "$ink",
+                      "content": "SLA Mendekati Batas",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pJL3D",
+                      "name": "Item Sub",
+                      "fill": "$ink-mid",
+                      "content": "TCK-0038 tersisa 30 menit",
+                      "fontFamily": "$font",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "tuY3C",
+                  "name": "Time",
+                  "fill": "$ink-soft",
+                  "content": "15 mnt lalu",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "d3vyLt",
+              "name": "Item",
+              "width": "fill_container",
+              "fill": "$surface",
+              "stroke": "$line-soft",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "gap": 10,
+              "padding": [
+                10,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "ZN5Z4",
+                  "name": "Icon",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "message-square",
+                  "library": "lucide",
+                  "fill": "$ink-soft"
+                },
+                {
+                  "type": "frame",
+                  "id": "PmWyu",
+                  "name": "Text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "U9iBa",
+                      "name": "Item Title",
+                      "fill": "$ink",
+                      "content": "Komentar Baru",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "VORaw",
+                      "name": "Item Sub",
+                      "fill": "$ink-mid",
+                      "content": "Budi menambahkan tanggapan di TCK-0039",
+                      "fontFamily": "$font",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Q9HTX",
+                  "name": "Time",
+                  "fill": "$ink-soft",
+                  "content": "1 jam lalu",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "w5Vm7l",
+              "name": "Item",
+              "width": "fill_container",
+              "fill": "$surface",
+              "stroke": "$line-soft",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "gap": 10,
+              "padding": [
+                10,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "Xg15T",
+                  "name": "Icon",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "circle-check",
+                  "library": "lucide",
+                  "fill": "$ink-soft"
+                },
+                {
+                  "type": "frame",
+                  "id": "pIK7J",
+                  "name": "Text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fZTA2",
+                      "name": "Item Title",
+                      "fill": "$ink",
+                      "content": "Tiket Selesai",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PB5xW",
+                      "name": "Item Sub",
+                      "fill": "$ink-mid",
+                      "content": "TCK-0035 telah diselesaikan oleh Teknisi",
+                      "fontFamily": "$font",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "tJ0vF",
+                  "name": "Time",
+                  "fill": "$ink-soft",
+                  "content": "3 jam lalu",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "pJ8Xv",
+          "name": "Foot",
+          "width": "fill_container",
+          "padding": 10,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "oWEZK",
+              "name": "Link View All",
+              "fill": "$ink",
+              "content": "Lihat semua notifikasi →",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ZlYKd",
+      "x": 1320,
+      "y": 100,
+      "name": "C / NavUser Dropdown",
+      "reusable": true,
+      "clip": true,
+      "width": 220,
+      "fill": "$surface",
+      "cornerRadius": 8,
+      "stroke": "$line",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "gap": 2,
+      "padding": 6,
+      "children": [
+        {
+          "type": "frame",
+          "id": "eg8O5",
+          "name": "User Header",
+          "width": "fill_container",
+          "stroke": "$line-soft",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            8,
+            10
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "DGchQ",
+              "name": "User Name",
+              "fill": "$ink",
+              "content": "Andi Pratama",
+              "fontFamily": "$font",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "dY2d6",
+              "name": "User Email",
+              "fill": "$ink-soft",
+              "content": "andi@perusahaan.co.id",
+              "fontFamily": "$font",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "O4p5n",
+              "name": "Role Badge",
+              "fill": "$box",
+              "cornerRadius": 4,
+              "padding": [
+                2,
+                6
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "dqr5w",
+                  "name": "Role Text",
+                  "fill": "$ink-mid",
+                  "content": "Karyawan",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "FL33K",
+          "name": "Menu / Profil Saya",
+          "width": "fill_container",
+          "cornerRadius": 4,
+          "gap": 8,
+          "padding": [
+            8,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "xGcBi",
+              "name": "Icon",
+              "width": 14,
+              "height": 14,
+              "icon": "user",
+              "library": "lucide",
+              "fill": "$ink-mid"
+            },
+            {
+              "type": "text",
+              "id": "m8VH92",
+              "name": "Label",
+              "fill": "$ink",
+              "content": "Profil Saya",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "p4Rlh0",
+          "name": "Menu / Ganti Kata Sandi",
+          "width": "fill_container",
+          "cornerRadius": 4,
+          "gap": 8,
+          "padding": [
+            8,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "w9jBaO",
+              "name": "Icon",
+              "width": 14,
+              "height": 14,
+              "icon": "key-round",
+              "library": "lucide",
+              "fill": "$ink-mid"
+            },
+            {
+              "type": "text",
+              "id": "CDdPT",
+              "name": "Label",
+              "fill": "$ink",
+              "content": "Ganti Kata Sandi",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "IedRb",
+          "name": "Menu / Keluar Sistem",
+          "width": "fill_container",
+          "cornerRadius": 4,
+          "gap": 8,
+          "padding": [
+            8,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "tc1pD",
+              "name": "Icon",
+              "width": 14,
+              "height": 14,
+              "icon": "log-out",
+              "library": "lucide",
+              "fill": "$ink"
+            },
+            {
+              "type": "text",
+              "id": "wX51c",
+              "name": "Label",
+              "fill": "$ink",
+              "content": "Keluar Sistem",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "x0jE9",
+      "x": 1560,
+      "y": 100,
+      "name": "C / Badges & Indicators",
+      "reusable": true,
+      "width": 480,
+      "fill": "$surface",
+      "cornerRadius": 8,
+      "stroke": "$line",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "gap": 14,
+      "padding": 16,
+      "children": [
+        {
+          "type": "text",
+          "id": "K3Z0bP",
+          "name": "Section Title 1",
+          "fill": "$ink",
+          "content": "Status Badge (5 Status)",
+          "fontFamily": "$font",
+          "fontSize": 11,
+          "fontWeight": "600",
+          "letterSpacing": 0.5
+        },
+        {
+          "type": "frame",
+          "id": "fEzhm",
+          "name": "Status Badges Row",
+          "gap": 8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "vokU5",
+              "name": "Badge / Menunggu",
+              "fill": "$box",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "gap": 5,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "xAkZV",
+                  "name": "Dot",
+                  "fill": "$ink-soft",
+                  "width": 5,
+                  "height": 5
+                },
+                {
+                  "type": "text",
+                  "id": "iasGm",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Menunggu",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "vtmFP",
+              "name": "Badge / Ditugaskan",
+              "fill": "$box",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "gap": 5,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "V9BXUk",
+                  "name": "Dot",
+                  "fill": "$ink-mid",
+                  "width": 5,
+                  "height": 5
+                },
+                {
+                  "type": "text",
+                  "id": "Z9Wwj",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Ditugaskan",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "PNmCS",
+              "name": "Badge / Sedang Dikerjakan",
+              "fill": "$box-deep",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "gap": 5,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "GD5iN",
+                  "name": "Dot",
+                  "fill": "$ink",
+                  "width": 5,
+                  "height": 5
+                },
+                {
+                  "type": "text",
+                  "id": "W4nN3W",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Sedang Dikerjakan",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "plGy5",
+              "name": "Badge / Selesai",
+              "fill": "$box",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "gap": 5,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "BMxtf",
+                  "name": "Dot",
+                  "fill": "$ink-mid",
+                  "width": 5,
+                  "height": 5
+                },
+                {
+                  "type": "text",
+                  "id": "Swv5G",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Selesai",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "N9KWtd",
+              "name": "Badge / Ditutup",
+              "fill": "$box",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "gap": 5,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "l3r9v",
+                  "name": "Dot",
+                  "fill": "$ink-soft",
+                  "width": 5,
+                  "height": 5
+                },
+                {
+                  "type": "text",
+                  "id": "ZJ2mz",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Ditutup",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "oscY2",
+          "name": "Section Title 2",
+          "fill": "$ink",
+          "content": "Priority Badge (4 Level)",
+          "fontFamily": "$font",
+          "fontSize": 11,
+          "fontWeight": "600",
+          "letterSpacing": 0.5
+        },
+        {
+          "type": "frame",
+          "id": "q15XO",
+          "name": "Priority Badges Row",
+          "gap": 8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "kEv5U",
+              "name": "Priority / Kritis",
+              "fill": "$box-deep",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "padding": [
+                3,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Q7fNOv",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Kritis",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Dynqi",
+              "name": "Priority / Tinggi",
+              "fill": "$box",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "padding": [
+                3,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "S4stnv",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Tinggi",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "du2TO",
+              "name": "Priority / Sedang",
+              "fill": "$box",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "padding": [
+                3,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ORBVU",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Sedang",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "OKaOW",
+              "name": "Priority / Rendah",
+              "fill": "$surface",
+              "cornerRadius": 4,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "padding": [
+                3,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Q9AGPH",
+                  "name": "Label",
+                  "fill": "$ink",
+                  "content": "Rendah",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "rCbiG",
+          "name": "Section Title 3",
+          "fill": "$ink",
+          "content": "SLA Indicator (3 Kondisi)",
+          "fontFamily": "$font",
+          "fontSize": 11,
+          "fontWeight": "600",
+          "letterSpacing": 0.5
+        },
+        {
+          "type": "frame",
+          "id": "jiXfS",
+          "name": "SLA Indicators Row",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "emEgk",
+              "name": "SLA / Aman",
+              "gap": 5,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "xo0K1",
+                  "name": "Icon",
+                  "width": 14,
+                  "height": 14,
+                  "icon": "timer",
+                  "library": "lucide",
+                  "fill": "$ink"
+                },
+                {
+                  "type": "text",
+                  "id": "sXFXP",
+                  "name": "Time Text",
+                  "fill": "$ink",
+                  "content": "Sisa 3j 45m",
+                  "fontFamily": "$font",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "U5tsc",
+              "name": "SLA / Mendekati Deadline",
+              "gap": 5,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "S8aNT",
+                  "name": "Icon",
+                  "width": 14,
+                  "height": 14,
+                  "icon": "clock-alert",
+                  "library": "lucide",
+                  "fill": "$ink"
+                },
+                {
+                  "type": "text",
+                  "id": "d9DFIy",
+                  "name": "Time Text",
+                  "fill": "$ink",
+                  "content": "Sisa 18m",
+                  "fontFamily": "$font",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "a0Z24t",
+              "name": "SLA / Breached",
+              "gap": 5,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "XUMLS",
+                  "name": "Icon",
+                  "width": 14,
+                  "height": 14,
+                  "icon": "circle-alert",
+                  "library": "lucide",
+                  "fill": "$ink"
+                },
+                {
+                  "type": "text",
+                  "id": "SsjWo",
+                  "name": "Time Text",
+                  "fill": "$ink",
+                  "content": "Terlambat 45m",
+                  "fontFamily": "$font",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "R9WMyz",
+      "x": 2080,
+      "y": 100,
+      "name": "C / File Upload & Dialogs",
+      "reusable": true,
+      "width": 440,
+      "fill": "$surface",
+      "cornerRadius": 8,
+      "stroke": "$line",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "gap": 16,
+      "padding": 16,
+      "children": [
+        {
+          "type": "text",
+          "id": "K1zLEp",
+          "name": "Section Title 1",
+          "fill": "$ink",
+          "content": "FileUpload Area (Max 5MB: JPG, PNG, PDF)",
+          "fontFamily": "$font",
+          "fontSize": 11,
+          "fontWeight": "600",
+          "letterSpacing": 0.5
+        },
+        {
+          "type": "frame",
+          "id": "Z3AF18",
+          "name": "Dropzone",
+          "width": "fill_container",
+          "fill": "$ground",
+          "cornerRadius": 6,
+          "stroke": "$line",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            16,
+            20
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "BRGf7",
+              "name": "Icon",
+              "width": 20,
+              "height": 20,
+              "icon": "cloud-upload",
+              "library": "lucide",
+              "fill": "$ink-mid"
+            },
+            {
+              "type": "text",
+              "id": "X503zO",
+              "name": "Upload Prompt",
+              "fill": "$ink",
+              "content": "Klik atau seret berkas lampiran ke sini",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "j3pcqG",
+              "name": "Upload Sub",
+              "fill": "$ink-soft",
+              "content": "Maksimal 5 MB (JPG, PNG, PDF)",
+              "fontFamily": "$font",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZT8O6",
+          "name": "Uploaded File Item",
+          "width": "fill_container",
+          "fill": "$surface",
+          "cornerRadius": 6,
+          "stroke": "$line-soft",
+          "strokeWidth": 1,
+          "gap": 10,
+          "padding": [
+            8,
+            12
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "pz9x9",
+              "name": "File Icon",
+              "width": 16,
+              "height": 16,
+              "icon": "file-text",
+              "library": "lucide",
+              "fill": "$ink-mid"
+            },
+            {
+              "type": "frame",
+              "id": "J7y3l",
+              "name": "File Info",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "g7NXh",
+                  "name": "File Name",
+                  "fill": "$ink",
+                  "content": "tangkapan-layar-error.png",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "EmUul",
+                  "name": "File Size",
+                  "fill": "$ink-soft",
+                  "content": "1.4 MB • Selesai diunggah",
+                  "fontFamily": "$font",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "icon",
+              "id": "uhOzl",
+              "name": "Remove Icon",
+              "width": 14,
+              "height": 14,
+              "icon": "x",
+              "library": "lucide",
+              "fill": "$ink-soft"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "HDBlF",
+          "name": "Section Title 2",
+          "fill": "$ink",
+          "content": "ConfirmDialog (Destructive Modal)",
+          "fontFamily": "$font",
+          "fontSize": 11,
+          "fontWeight": "600",
+          "letterSpacing": 0.5
+        },
+        {
+          "type": "frame",
+          "id": "x0v49D",
+          "name": "Dialog Box Preview",
+          "width": "fill_container",
+          "fill": "$surface",
+          "cornerRadius": 8,
+          "stroke": "$line",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "caDpb",
+              "name": "Head",
+              "width": "fill_container",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "seI5Q",
+                  "name": "Alert Icon",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "circle-alert",
+                  "library": "lucide",
+                  "fill": "$ink"
+                },
+                {
+                  "type": "text",
+                  "id": "u28PD",
+                  "name": "Title",
+                  "fill": "$ink",
+                  "content": "Konfirmasi Tindakan",
+                  "fontFamily": "$font",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "Tqgpe",
+              "name": "Body Text",
+              "fill": "$ink-mid",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Apakah Anda yakin ingin membatalkan ticket ini? Tindakan ini tidak dapat diurungkan.",
+              "lineHeight": 1.4,
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "hO1ft",
+              "name": "Buttons",
+              "width": "fill_container",
+              "gap": 8,
+              "justifyContent": "end",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "nfvt9",
+                  "name": "Btn Batal",
+                  "fill": "$ground",
+                  "cornerRadius": 6,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "xr72i",
+                      "name": "Label",
+                      "fill": "$ink",
+                      "content": "Batal",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Xrxyk",
+                  "name": "Btn Hapus",
+                  "fill": "$box-deep",
+                  "cornerRadius": 6,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "G1tNS",
+                      "name": "Label",
+                      "fill": "$ink",
+                      "content": "Ya, Batalkan",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "fOaTH",
+      "x": 12480,
+      "y": 1080,
+      "name": "09 Ganti Password Wajib",
+      "clip": true,
+      "width": 1440,
+      "height": 1024,
+      "fill": "$ground",
+      "children": [
+        {
+          "type": "frame",
+          "id": "goVff",
+          "name": "Brand Panel",
+          "width": 560,
+          "height": "fill_container",
+          "fill": "$box",
+          "stroke": "$line",
+          "strokeWidth": {
+            "right": 1
+          },
+          "layout": "vertical",
+          "padding": 56,
+          "justifyContent": "space_between",
+          "children": [
+            {
+              "type": "frame",
+              "id": "H0HpyS",
+              "name": "Lockup",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 7,
+                  "id": "St4C1",
+                  "name": "Mark",
+                  "fill": "$box-deep",
+                  "width": 32,
+                  "height": 32
+                },
+                {
+                  "type": "text",
+                  "id": "E6oKd",
+                  "name": "Wordmark",
+                  "fill": "$ink",
+                  "content": "JARVIS OPS",
+                  "fontFamily": "$font",
+                  "fontSize": 15,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.8
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ADsB3",
+              "name": "Statement",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "QZBa3",
+                  "name": "Headline",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Pembaruan Kata Sandi Wajib",
+                  "lineHeight": 1.25,
+                  "fontFamily": "$font",
+                  "fontSize": 30,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "EEsCN",
+                  "name": "Sub",
+                  "fill": "$ink-mid",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Akun Anda baru saja diatur ulang oleh Administrator. Demi keamanan, Anda wajib membuat kata sandi baru sebelum dapat mengakses sistem.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "NbUEl",
+              "name": "Notice",
+              "width": "fill_container",
+              "fill": "$surface",
+              "cornerRadius": 6,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                16
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "JdkXq",
+                  "name": "Notice Title",
+                  "fill": "$ink",
+                  "content": "Ketentuan Kata Sandi",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "IDNzT",
+                  "name": "Notice Body",
+                  "fill": "$ink-mid",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Minimal 8 karakter, kombinasi huruf dan angka. Jangan gunakan kata sandi lama.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "aTItl",
+          "name": "Form Column",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "padding": 56,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "LviME",
+              "name": "Password Card",
+              "width": 420,
+              "fill": "$surface",
+              "cornerRadius": 10,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 20,
+              "padding": 32,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "geYE4",
+                  "name": "Form Title",
+                  "fill": "$ink",
+                  "content": "Buat Kata Sandi Baru",
+                  "fontFamily": "$font",
+                  "fontSize": 20,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "HPhqY",
+                  "name": "Field / Kata Sandi Saat Ini / Sementara",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "U2p20",
+                      "name": "Label",
+                      "fill": "$ink",
+                      "content": "Kata Sandi Saat Ini / Sementara",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "F4W3VW",
+                      "name": "Input",
+                      "width": "fill_container",
+                      "height": 42,
+                      "fill": "$ground",
+                      "cornerRadius": 6,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "gap": 9,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "Gkj2b",
+                          "name": "Icon",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "lock",
+                          "library": "lucide",
+                          "fill": "$ink-soft"
+                        },
+                        {
+                          "type": "text",
+                          "id": "NkNHg",
+                          "name": "Placeholder",
+                          "fill": "$ink-soft",
+                          "content": "••••••••",
+                          "fontFamily": "$font",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "p51npQ",
+                  "name": "Field / Kata Sandi Baru",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bEiax",
+                      "name": "Label",
+                      "fill": "$ink",
+                      "content": "Kata Sandi Baru",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LEOet",
+                      "name": "Input",
+                      "width": "fill_container",
+                      "height": 42,
+                      "fill": "$ground",
+                      "cornerRadius": 6,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "gap": 9,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "GcNN9",
+                          "name": "Icon",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "lock",
+                          "library": "lucide",
+                          "fill": "$ink-soft"
+                        },
+                        {
+                          "type": "text",
+                          "id": "S4r96L",
+                          "name": "Placeholder",
+                          "fill": "$ink-soft",
+                          "content": "Minimal 8 karakter",
+                          "fontFamily": "$font",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "p94Ff",
+                  "name": "Field / Konfirmasi Kata Sandi Baru",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "n8srvi",
+                      "name": "Label",
+                      "fill": "$ink",
+                      "content": "Konfirmasi Kata Sandi Baru",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QwQqs",
+                      "name": "Input",
+                      "width": "fill_container",
+                      "height": 42,
+                      "fill": "$ground",
+                      "cornerRadius": 6,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "gap": 9,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "Rrh4T",
+                          "name": "Icon",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "lock",
+                          "library": "lucide",
+                          "fill": "$ink-soft"
+                        },
+                        {
+                          "type": "text",
+                          "id": "R55NUA",
+                          "name": "Placeholder",
+                          "fill": "$ink-soft",
+                          "content": "Ulangi kata sandi baru",
+                          "fontFamily": "$font",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "rqdHI",
+                  "name": "Submit",
+                  "width": "fill_container",
+                  "height": 44,
+                  "fill": "$box-deep",
+                  "cornerRadius": 6,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "y1ltfJ",
+                      "name": "Label",
+                      "fill": "$ink",
+                      "content": "Simpan & Lanjutkan ke Sistem",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "wm3jT",
+      "x": 14040,
+      "y": 1080,
+      "name": "10 Halaman Notifikasi",
+      "clip": true,
+      "width": 1440,
+      "height": 1024,
+      "fill": "$ground",
+      "children": [
+        {
+          "id": "V8sZ2",
+          "type": "ref",
+          "ref": "qu5YY",
+          "name": "Sidebar",
+          "height": "fill_container",
+          "descendants": {
+            "YHU7H": {
+              "fill": "$box",
+              "strokeWidth": {
+                "left": 2
+              },
+              "stroke": "$ink"
+            },
+            "em3tO": {
+              "fill": "$ink",
+              "fontWeight": "600"
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "x071s",
+          "name": "Main",
+          "clip": true,
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "id": "i9gY5",
+              "type": "ref",
+              "ref": "qjoPW",
+              "name": "Topbar",
+              "width": "fill_container",
+              "descendants": {
+                "Q6y4fi": {
+                  "content": "Notifikasi"
+                },
+                "Sgn8M": {
+                  "content": "Beranda / Notifikasi"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "D4aBWh",
+              "name": "Body",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": 28,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "SOMC7",
+                  "name": "Page Header",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "M2nG5S",
+                      "name": "Titles",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZEr4k",
+                          "name": "H1",
+                          "fill": "$ink",
+                          "content": "Daftar Notifikasi",
+                          "fontFamily": "$font",
+                          "fontSize": 20,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "mIe5R",
+                          "name": "Subtitle",
+                          "fill": "$ink-mid",
+                          "content": "Pantau seluruh aktivitas tiket, perubahan status, dan peringatan SLA.",
+                          "fontFamily": "$font",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pjagZ",
+                      "name": "CTA Mark All",
+                      "fill": "$box",
+                      "cornerRadius": 6,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "gap": 8,
+                      "padding": [
+                        8,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "nCXbA",
+                          "name": "Icon",
+                          "width": 14,
+                          "height": 14,
+                          "icon": "check-check",
+                          "library": "lucide",
+                          "fill": "$ink"
+                        },
+                        {
+                          "type": "text",
+                          "id": "f4ABVn",
+                          "name": "Label",
+                          "fill": "$ink",
+                          "content": "Tandai Semua Dibaca",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "o8Busz",
+                  "name": "Notification Card",
+                  "clip": true,
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 8,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "sWTsv",
+                      "name": "Filter Toolbar",
+                      "width": "fill_container",
+                      "stroke": "$line-soft",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        12,
+                        16
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "r8XgW3",
+                          "name": "Tabs Filter",
+                          "gap": 6,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "rGeNV",
+                              "name": "Tab / Semua (24)",
+                              "fill": "$box",
+                              "cornerRadius": 6,
+                              "padding": [
+                                6,
+                                12
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "NVKeK",
+                                  "name": "Text",
+                                  "fill": "$ink",
+                                  "content": "Semua (24)",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "B3M4X",
+                              "name": "Tab / Belum Dibaca (3)",
+                              "fill": "$ground",
+                              "cornerRadius": 6,
+                              "padding": [
+                                6,
+                                12
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "h4MSVp",
+                                  "name": "Text",
+                                  "fill": "$ink-mid",
+                                  "content": "Belum Dibaca (3)",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "dOvIz",
+                              "name": "Tab / Sudah Dibaca (21)",
+                              "fill": "$ground",
+                              "cornerRadius": 6,
+                              "padding": [
+                                6,
+                                12
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "YlVsg",
+                                  "name": "Text",
+                                  "fill": "$ink-mid",
+                                  "content": "Sudah Dibaca (21)",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gHRKY",
+                          "name": "Search Input",
+                          "width": 240,
+                          "height": 32,
+                          "fill": "$ground",
+                          "cornerRadius": 6,
+                          "stroke": "$line",
+                          "strokeWidth": 1,
+                          "gap": 8,
+                          "padding": [
+                            0,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "ZxUSA",
+                              "name": "Icon",
+                              "width": 13,
+                              "height": 13,
+                              "icon": "search",
+                              "library": "lucide",
+                              "fill": "$ink-soft"
+                            },
+                            {
+                              "type": "text",
+                              "id": "quGb5",
+                              "name": "Placeholder",
+                              "fill": "$ink-soft",
+                              "content": "Cari isi notifikasi...",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Gr25y",
+                      "name": "Notification Rows",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "L9yAJH",
+                          "name": "Row / Tiket Baru Ditugaskan",
+                          "width": "fill_container",
+                          "fill": "$ground",
+                          "stroke": "$line-soft",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "gap": 14,
+                          "padding": [
+                            14,
+                            18
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "SyTz4",
+                              "name": "Unread Dot",
+                              "fill": "$ink",
+                              "width": 6,
+                              "height": 6
+                            },
+                            {
+                              "type": "icon",
+                              "id": "VWnJt",
+                              "name": "Type Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "ticket",
+                              "library": "lucide",
+                              "fill": "$ink"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "u9vP1",
+                              "name": "Content",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 3,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "DKDpi",
+                                  "name": "Row Title",
+                                  "fill": "$ink",
+                                  "content": "Tiket Baru Ditugaskan",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "aRaiJ",
+                                  "name": "Row Desc",
+                                  "fill": "$ink-mid",
+                                  "content": "Tiket TCK-0042 (Printer Kantor Lantai 3 Tidak Terdeteksi) ditugaskan kepada Anda.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "gpbEf",
+                              "name": "Time",
+                              "fill": "$ink-soft",
+                              "content": "10 menit lalu",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "et3Zs",
+                          "name": "Row / Peringatan SLA",
+                          "width": "fill_container",
+                          "fill": "$ground",
+                          "stroke": "$line-soft",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "gap": 14,
+                          "padding": [
+                            14,
+                            18
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "QWnzQ",
+                              "name": "Unread Dot",
+                              "fill": "$ink",
+                              "width": 6,
+                              "height": 6
+                            },
+                            {
+                              "type": "icon",
+                              "id": "yQ2gW",
+                              "name": "Type Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "clock-alert",
+                              "library": "lucide",
+                              "fill": "$ink"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "uVS09",
+                              "name": "Content",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 3,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "GVpga",
+                                  "name": "Row Title",
+                                  "fill": "$ink",
+                                  "content": "Peringatan SLA",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "aNE2T",
+                                  "name": "Row Desc",
+                                  "fill": "$ink-mid",
+                                  "content": "Tiket TCK-0038 mendekati batas waktu penanganan (tersisa 25 menit).",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "VwCkr",
+                              "name": "Time",
+                              "fill": "$ink-soft",
+                              "content": "35 menit lalu",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "oox62",
+                          "name": "Row / Komentar Baru pada Tiket",
+                          "width": "fill_container",
+                          "fill": "$ground",
+                          "stroke": "$line-soft",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "gap": 14,
+                          "padding": [
+                            14,
+                            18
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "BVQaY",
+                              "name": "Unread Dot",
+                              "fill": "$ink",
+                              "width": 6,
+                              "height": 6
+                            },
+                            {
+                              "type": "icon",
+                              "id": "jZXLl",
+                              "name": "Type Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "message-square",
+                              "library": "lucide",
+                              "fill": "$ink"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "V1g8J",
+                              "name": "Content",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 3,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Wyd29",
+                                  "name": "Row Title",
+                                  "fill": "$ink",
+                                  "content": "Komentar Baru pada Tiket",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "d0Vh8",
+                                  "name": "Row Desc",
+                                  "fill": "$ink-mid",
+                                  "content": "Budi Santoso menambahkan komentar: 'Kabel power sudah diganti baru'.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "suvgb",
+                              "name": "Time",
+                              "fill": "$ink-soft",
+                              "content": "1 jam lalu",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "m1vzwU",
+                          "name": "Row / Tiket Dikonfirmasi Selesai",
+                          "width": "fill_container",
+                          "fill": "$surface",
+                          "stroke": "$line-soft",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "gap": 14,
+                          "padding": [
+                            14,
+                            18
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "FNiSn",
+                              "name": "Unread Dot",
+                              "fill": "$line-soft",
+                              "width": 6,
+                              "height": 6
+                            },
+                            {
+                              "type": "icon",
+                              "id": "D5gNO",
+                              "name": "Type Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "circle-check",
+                              "library": "lucide",
+                              "fill": "$ink-soft"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "y3SzOv",
+                              "name": "Content",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 3,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "fNhyC",
+                                  "name": "Row Title",
+                                  "fill": "$ink",
+                                  "content": "Tiket Dikonfirmasi Selesai",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "S1NrJD",
+                                  "name": "Row Desc",
+                                  "fill": "$ink-mid",
+                                  "content": "Tiket TCK-0031 telah diselesaikan dan dikonfirmasi oleh pelapor.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "qht1c",
+                              "name": "Time",
+                              "fill": "$ink-soft",
+                              "content": "3 jam lalu",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Xshp2",
+                          "name": "Row / Aset Baru Ditautkan",
+                          "width": "fill_container",
+                          "fill": "$surface",
+                          "stroke": "$line-soft",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "gap": 14,
+                          "padding": [
+                            14,
+                            18
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "l9HpcK",
+                              "name": "Unread Dot",
+                              "fill": "$line-soft",
+                              "width": 6,
+                              "height": 6
+                            },
+                            {
+                              "type": "icon",
+                              "id": "wfdEb",
+                              "name": "Type Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "monitor",
+                              "library": "lucide",
+                              "fill": "$ink-soft"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "yr4ta",
+                              "name": "Content",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 3,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "hRKxX",
+                                  "name": "Row Title",
+                                  "fill": "$ink",
+                                  "content": "Aset Baru Ditautkan",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "SFp2t",
+                                  "name": "Row Desc",
+                                  "fill": "$ink-mid",
+                                  "content": "Laptop ThinkPad T14 (AST-0089) berhasil di-assign ke profil Anda.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "ISBVd",
+                              "name": "Time",
+                              "fill": "$ink-soft",
+                              "content": "Kemarin, 14:20",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ckuk9",
+                          "name": "Row / Keamanan Akun",
+                          "width": "fill_container",
+                          "fill": "$surface",
+                          "stroke": "$line-soft",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "gap": 14,
+                          "padding": [
+                            14,
+                            18
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "ellipse",
+                              "id": "ky9L9",
+                              "name": "Unread Dot",
+                              "fill": "$line-soft",
+                              "width": 6,
+                              "height": 6
+                            },
+                            {
+                              "type": "icon",
+                              "id": "Rx5ey",
+                              "name": "Type Icon",
+                              "width": 18,
+                              "height": 18,
+                              "icon": "lock",
+                              "library": "lucide",
+                              "fill": "$ink-soft"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "w1vSaV",
+                              "name": "Content",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 3,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "aaomD",
+                                  "name": "Row Title",
+                                  "fill": "$ink",
+                                  "content": "Keamanan Akun",
+                                  "fontFamily": "$font",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "WQq44",
+                                  "name": "Row Desc",
+                                  "fill": "$ink-mid",
+                                  "content": "Kata sandi Anda berhasil diperbarui melalui sesi web.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "Ziqwr",
+                              "name": "Time",
+                              "fill": "$ink-soft",
+                              "content": "2 hari lalu",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "A3UgR3",
+                      "name": "Pagination Bar",
+                      "width": "fill_container",
+                      "stroke": "$line-soft",
+                      "strokeWidth": {
+                        "top": 1
+                      },
+                      "padding": [
+                        12,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "aq2uI",
+                          "name": "Meta Count",
+                          "fill": "$ink-soft",
+                          "content": "Menampilkan 1-6 dari 24 notifikasi",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iqEPK",
+                          "name": "Page Controls",
+                          "gap": 6,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "Rq3qe",
+                              "name": "Btn Prev",
+                              "fill": "$ground",
+                              "cornerRadius": 4,
+                              "stroke": "$line",
+                              "strokeWidth": 1,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "rb4ys",
+                                  "name": "Text",
+                                  "fill": "$ink-mid",
+                                  "content": "Sebelumnya",
+                                  "fontFamily": "$font",
+                                  "fontSize": 11,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "rpFAg",
+                              "name": "Page 1",
+                              "fill": "$box-deep",
+                              "cornerRadius": 4,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "wI4sd",
+                                  "name": "Text",
+                                  "fill": "$ink",
+                                  "content": "1",
+                                  "fontFamily": "$font",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "BGQoI",
+                              "name": "Page 2",
+                              "fill": "$surface",
+                              "cornerRadius": 4,
+                              "stroke": "$line",
+                              "strokeWidth": 1,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "YbXch",
+                                  "name": "Text",
+                                  "fill": "$ink-mid",
+                                  "content": "2",
+                                  "fontFamily": "$font",
+                                  "fontSize": 11,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "QhQqv",
+                              "name": "Btn Next",
+                              "fill": "$ground",
+                              "cornerRadius": 4,
+                              "stroke": "$line",
+                              "strokeWidth": 1,
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "KUDJ2",
+                                  "name": "Text",
+                                  "fill": "$ink-mid",
+                                  "content": "Berikutnya",
+                                  "fontFamily": "$font",
+                                  "fontSize": 11,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "SEKUi",
+      "x": 15600,
+      "y": 1080,
+      "name": "11 Akses Ditolak & Not Found",
+      "clip": true,
+      "width": 1440,
+      "height": 1024,
+      "fill": "$ground",
+      "children": [
+        {
+          "id": "V0cR44",
+          "type": "ref",
+          "ref": "qu5YY",
+          "name": "Sidebar",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "GV34Y",
+          "name": "Main",
+          "clip": true,
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "id": "x7L2z",
+              "type": "ref",
+              "ref": "qjoPW",
+              "name": "Topbar",
+              "width": "fill_container",
+              "descendants": {
+                "Q6y4fi": {
+                  "content": "Sistem"
+                },
+                "Sgn8M": {
+                  "content": "Beranda / Status"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "K3YbyD",
+              "name": "Body",
+              "width": "fill_container",
+              "height": "fill_container",
+              "gap": 24,
+              "padding": 32,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "AY2pu",
+                  "name": "State / 403 Akses Ditolak",
+                  "width": 480,
+                  "fill": "$surface",
+                  "cornerRadius": 8,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 18,
+                  "padding": 36,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "WNruD",
+                      "name": "Badge Code",
+                      "fill": "$box",
+                      "cornerRadius": 4,
+                      "padding": [
+                        4,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Iw3Bd",
+                          "name": "Code",
+                          "fill": "$ink",
+                          "content": "403 • FORBIDDEN",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.5
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "id": "yQcZp",
+                      "name": "Shield Icon",
+                      "width": 40,
+                      "height": 40,
+                      "icon": "shield-alert",
+                      "library": "lucide",
+                      "fill": "$ink"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "kcd80",
+                      "name": "Text",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Jp9rs",
+                          "name": "Title",
+                          "fill": "$ink",
+                          "content": "Akses Halaman Dibatasi",
+                          "fontFamily": "$font",
+                          "fontSize": 18,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Dau9N",
+                          "name": "Desc",
+                          "fill": "$ink-mid",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Peran akun Anda saat ini tidak memiliki izin (ability) untuk mengakses menu atau tindakan ini. Hubungi Administrator jika membutuhkan wewenang tambahan.",
+                          "lineHeight": 1.5,
+                          "textAlign": "center",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "iCKyD",
+                      "name": "CTA Back",
+                      "fill": "$box-deep",
+                      "cornerRadius": 6,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "padding": [
+                        9,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Pz5tY",
+                          "name": "Label",
+                          "fill": "$ink",
+                          "content": "Kembali ke Dashboard",
+                          "fontFamily": "$font",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "T8Rak9",
+                  "name": "State / 404 Tidak Ditemukan",
+                  "width": 480,
+                  "fill": "$surface",
+                  "cornerRadius": 8,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 18,
+                  "padding": 36,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "YmGu5",
+                      "name": "Badge Code",
+                      "fill": "$box",
+                      "cornerRadius": 4,
+                      "padding": [
+                        4,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "lYUdE",
+                          "name": "Code",
+                          "fill": "$ink",
+                          "content": "404 • NOT FOUND",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.5
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "id": "XrjPe",
+                      "name": "Search Icon",
+                      "width": 40,
+                      "height": 40,
+                      "icon": "file-search",
+                      "library": "lucide",
+                      "fill": "$ink"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "bwz8A",
+                      "name": "Text",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "LaE5y",
+                          "name": "Title",
+                          "fill": "$ink",
+                          "content": "Halaman Tidak Ditemukan",
+                          "fontFamily": "$font",
+                          "fontSize": 18,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Eh8hD",
+                          "name": "Desc",
+                          "fill": "$ink-mid",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Tautan yang Anda tuju mungkin salah ketik, telah dipindahkan, atau nomor tiket/aset yang dicari tidak tersedia di sistem.",
+                          "lineHeight": 1.5,
+                          "textAlign": "center",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QBMx9",
+                      "name": "CTA Home",
+                      "fill": "$box-deep",
+                      "cornerRadius": 6,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "padding": [
+                        9,
+                        16
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Y0RpIB",
+                          "name": "Label",
+                          "fill": "$ink",
+                          "content": "Ke Halaman Utama",
+                          "fontFamily": "$font",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "e9JDG",
+      "x": 17160,
+      "y": 1080,
+      "name": "12 Mobile Shell & Navigation",
+      "clip": true,
+      "width": 790,
+      "height": 844,
+      "fill": "$ground",
+      "gap": 40,
+      "padding": 24,
+      "children": [
+        {
+          "type": "frame",
+          "id": "Iwx6i",
+          "name": "Screen 1: Mobile Closed Topbar",
+          "clip": true,
+          "width": 375,
+          "height": 812,
+          "fill": "$surface",
+          "cornerRadius": 16,
+          "stroke": "$line",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "ItA0D",
+              "name": "Mobile Topbar",
+              "width": "fill_container",
+              "height": 56,
+              "fill": "$surface",
+              "stroke": "$line",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "t56t1",
+                  "name": "Left Brand",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "xGwfE",
+                      "name": "Menu Hamburger",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "menu",
+                      "library": "lucide",
+                      "fill": "$ink"
+                    },
+                    {
+                      "type": "text",
+                      "id": "W2l9SA",
+                      "name": "Wordmark",
+                      "fill": "$ink",
+                      "content": "JARVIS OPS",
+                      "fontFamily": "$font",
+                      "fontSize": 14,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "AIYQz",
+                  "name": "Right Actions",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "HNPA3",
+                      "name": "Bell Icon",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "bell",
+                      "library": "lucide",
+                      "fill": "$ink"
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "Zy5N7",
+                      "name": "Avatar",
+                      "fill": "$box-deep",
+                      "width": 26,
+                      "height": 26
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "O3gBU",
+              "name": "Mobile Content",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "B1JPEZ",
+                  "name": "Greeting",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "vhay7",
+                      "name": "Title",
+                      "fill": "$ink",
+                      "content": "Selamat pagi, Andi",
+                      "fontFamily": "$font",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "I8U39",
+                      "name": "Sub",
+                      "fill": "$ink-mid",
+                      "content": "2 ticket aktif membutuhkan perhatian",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "s7dd2F",
+                  "name": "Metric List",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yUnPh",
+                      "name": "Card / Ticket Terbuka",
+                      "width": "fill_container",
+                      "fill": "$ground",
+                      "cornerRadius": 8,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "padding": 14,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "xh6Bj",
+                          "name": "Text",
+                          "layout": "vertical",
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "nIV3S",
+                              "name": "Label",
+                              "fill": "$ink-mid",
+                              "content": "Ticket Terbuka",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Q6V8iZ",
+                              "name": "Sub",
+                              "fill": "$ink-soft",
+                              "content": "Menunggu teknisi",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "Ey8WO",
+                          "name": "Value",
+                          "fill": "$ink",
+                          "content": "2",
+                          "fontFamily": "$font",
+                          "fontSize": 22,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "jngIq",
+                      "name": "Card / Sedang Dikerjakan",
+                      "width": "fill_container",
+                      "fill": "$ground",
+                      "cornerRadius": 8,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "padding": 14,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "K7OpN",
+                          "name": "Text",
+                          "layout": "vertical",
+                          "gap": 3,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "oLRXS",
+                              "name": "Label",
+                              "fill": "$ink-mid",
+                              "content": "Sedang Dikerjakan",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "bFJtN",
+                              "name": "Sub",
+                              "fill": "$ink-soft",
+                              "content": "Ditangani Budi",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "IZiP3",
+                          "name": "Value",
+                          "fill": "$ink",
+                          "content": "1",
+                          "fontFamily": "$font",
+                          "fontSize": 22,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ylqtu",
+          "name": "Screen 2: Mobile Nav Drawer (Sheet)",
+          "clip": true,
+          "width": 375,
+          "height": 812,
+          "fill": "$surface",
+          "cornerRadius": 16,
+          "stroke": "$line",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "ZjnvX",
+              "name": "Drawer Header",
+              "width": "fill_container",
+              "height": 56,
+              "stroke": "$line-soft",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "KxXnX",
+                  "name": "Brand",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 6,
+                      "id": "Fcwz9",
+                      "name": "Mark",
+                      "fill": "$box-deep",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "text",
+                      "id": "L4GNs",
+                      "name": "Wordmark",
+                      "fill": "$ink",
+                      "content": "JARVIS OPS",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "icon",
+                  "id": "uJEwY",
+                  "name": "Close Icon",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "x",
+                  "library": "lucide",
+                  "fill": "$ink"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "G0FX4o",
+              "name": "Nav List",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 4,
+              "padding": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "S8dixs",
+                  "name": "Nav / Dashboard",
+                  "width": "fill_container",
+                  "fill": "$box",
+                  "cornerRadius": 6,
+                  "gap": 12,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "VK5wl",
+                      "name": "Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "layout-dashboard",
+                      "library": "lucide",
+                      "fill": "$ink"
+                    },
+                    {
+                      "type": "text",
+                      "id": "qRc2h",
+                      "name": "Label",
+                      "fill": "$ink",
+                      "content": "Dashboard",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L3LVW",
+                  "name": "Nav / Ticket",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 6,
+                  "gap": 12,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Y2NpKR",
+                      "name": "Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "ticket",
+                      "library": "lucide",
+                      "fill": "$ink-mid"
+                    },
+                    {
+                      "type": "text",
+                      "id": "F4rRc",
+                      "name": "Label",
+                      "fill": "$ink-mid",
+                      "content": "Ticket",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HQWHC",
+                  "name": "Nav / Aset Saya",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 6,
+                  "gap": 12,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "sK0eG",
+                      "name": "Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "laptop",
+                      "library": "lucide",
+                      "fill": "$ink-mid"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Dd9f7",
+                      "name": "Label",
+                      "fill": "$ink-mid",
+                      "content": "Aset Saya",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZiCSB",
+                  "name": "Nav / Knowledge Base",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 6,
+                  "gap": 12,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "mWMd0",
+                      "name": "Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "book-open",
+                      "library": "lucide",
+                      "fill": "$ink-mid"
+                    },
+                    {
+                      "type": "text",
+                      "id": "weeh0",
+                      "name": "Label",
+                      "fill": "$ink-mid",
+                      "content": "Knowledge Base",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Ev5VI",
+                  "name": "Nav / Notifikasi",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 6,
+                  "gap": 12,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "zLwQW",
+                      "name": "Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "bell",
+                      "library": "lucide",
+                      "fill": "$ink-mid"
+                    },
+                    {
+                      "type": "text",
+                      "id": "XSsre",
+                      "name": "Label",
+                      "fill": "$ink-mid",
+                      "content": "Notifikasi",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "n2oAE",
+              "name": "Drawer Footer",
+              "width": "fill_container",
+              "stroke": "$line-soft",
+              "strokeWidth": {
+                "top": 1
+              },
+              "gap": 10,
+              "padding": 14,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "Khas5",
+                  "name": "Avatar",
+                  "fill": "$box-deep",
+                  "width": 32,
+                  "height": 32
+                },
+                {
+                  "type": "frame",
+                  "id": "c4Ssjt",
+                  "name": "User Info",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "OmH6M",
+                      "name": "Name",
+                      "fill": "$ink",
+                      "content": "Andi Pratama",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Bm7ki",
+                      "name": "Role",
+                      "fill": "$ink-soft",
+                      "content": "Karyawan",
+                      "fontFamily": "$font",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "icon",
+                  "id": "PybBC",
+                  "name": "Logout Icon",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "log-out",
+                  "library": "lucide",
+                  "fill": "$ink-soft"
                 }
               ]
             }
