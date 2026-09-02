@@ -608,25 +608,25 @@ Menyediakan data agregat untuk empat dashboard sesuai §20 PRD.
 
 ## Task
 
-- [ ] `GET /api/dashboard/employee` — my open, my in progress, recently resolved, my assets, artikel terbaru
-- [ ] `GET /api/dashboard/technician` — assigned, open, in progress, SLA breached, rata-rata waktu penyelesaian, aktivitas terbaru
-- [ ] `GET /api/dashboard/manager` — total, open, resolved, SLA compliance, tren ticket, distribusi priority & category, performa technician
+- [x] `GET /api/dashboard/employee` — my open, my in progress, recently resolved, my assets, artikel terbaru
+- [x] `GET /api/dashboard/technician` — assigned, open, in progress, SLA breached, rata-rata waktu penyelesaian, aktivitas terbaru
+- [x] `GET /api/dashboard/manager` — total, open, resolved, SLA compliance, tren ticket, distribusi priority & category, performa technician
 - [ ] `GET /api/dashboard/admin` — seluruh metrik Manager + total user, asset, technician, department, aktivitas sistem
-- [ ] SLA metrics §14: total, within SLA, breached, persentase compliance, rata-rata waktu penyelesaian
-- [ ] Formula compliance persis §14: `resolved within SLA / total resolved × 100`
-- [ ] Tren ticket harian untuk rentang yang bisa dipilih
-- [ ] Technician performance §21: ditangani, diselesaikan, rata-rata waktu, compliance, open, breached
-- [ ] Semua agregasi dilakukan di SQL (`selectRaw`, `groupBy`) — jangan tarik seluruh baris lalu hitung di PHP
-- [ ] Setiap endpoint dijaga Policy sesuai role
-- [ ] Cache ringan jika query berat, dengan invalidasi yang jelas
+- [x] SLA metrics §14: total, within SLA, breached, persentase compliance, rata-rata waktu penyelesaian
+- [x] Formula compliance persis §14: `resolved within SLA / total resolved × 100`
+- [x] Tren ticket harian untuk rentang yang bisa dipilih
+- [x] Technician performance §21: ditangani, diselesaikan, rata-rata waktu, compliance, open, breached
+- [x] Semua agregasi dilakukan di SQL (`selectRaw`, `groupBy`) — jangan tarik seluruh baris lalu hitung di PHP
+- [x] Setiap endpoint dijaga Policy sesuai role
+- [x] Cache ringan jika query berat, dengan invalidasi yang jelas
 
 ### Test (Pest)
 
-- [ ] Skenario data terkontrol → angka compliance sesuai perhitungan manual
-- [ ] Employee mengakses dashboard manager → 403
-- [ ] Dashboard employee hanya memuat data miliknya
-- [ ] Rata-rata waktu penyelesaian dihitung dari `created_at` ke `resolved_at`
-- [ ] Nol pembagi ditangani (tidak ada ticket resolved → compliance tidak error)
+- [x] Skenario data terkontrol → angka compliance sesuai perhitungan manual
+- [x] Employee mengakses dashboard manager → 403
+- [x] Dashboard employee hanya memuat data miliknya
+- [x] Rata-rata waktu penyelesaian dihitung dari `created_at` ke `resolved_at`
+- [x] Nol pembagi ditangani (tidak ada ticket resolved → compliance tidak error)
 
 ## Deliverable
 

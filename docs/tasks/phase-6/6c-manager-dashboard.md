@@ -81,7 +81,7 @@ class ManagerDashboardService
 > - Setiap metrik memakai `clone $tickets` — **jangan** memakai query yang sama tanpa clone (mengubah state builder).
 > - `sla` dihitung dari `resolvedMetrics` yang sudah menerapkan rentang `resolved_at` (keputusan #6).
 
-- [ ] **Step 1: Test — payload manager lengkap, angka sesuai hitungan manual.**
+- [x] **Step 1: Test — payload manager lengkap, angka sesuai hitungan manual.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -135,9 +135,9 @@ class ManagerDashboardService
   });
   ```
 
-- [ ] **Step 2: Implementasi `ManagerDashboardService`** — hapus `PendingDashboardException` untuk method manager di controller, injeksi service.
+- [x] **Step 2: Implementasi `ManagerDashboardService`** — hapus `PendingDashboardException` untuk method manager di controller, injeksi service.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/ManagerDashboardTest.php
   vendor/bin/pint --dirty --format agent
@@ -156,7 +156,7 @@ class ManagerDashboardService
 **Detail:**
 Pastikan gate `dashboard.manager` (Manager/Admin) benar: Employee & Technician → 403. Juga pastikan `date_from`/`date_to` kosong → default 30 hari (tidak error).
 
-- [ ] **Step 1: Test — matriks role untuk manager; default range.**
+- [x] **Step 1: Test — matriks role untuk manager; default range.**
   ```php
   test('manager dashboard: manager and admin ok, employee and technician 403', function () {
       $manager = User::factory()->manager()->create();
@@ -189,7 +189,7 @@ Pastikan gate `dashboard.manager` (Manager/Admin) benar: Employee & Technician �
   });
   ```
 
-- [ ] **Step 2: Verifikasi & commit.**
+- [x] **Step 2: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/
   vendor/bin/pint --dirty --format agent
@@ -207,7 +207,7 @@ Pastikan gate `dashboard.manager` (Manager/Admin) benar: Employee & Technician �
 **Detail:**
 Verifikasi bahwa `date_from`/`date_to` membatasi: `resolvedMetrics` menghitung hanya resolved dalam rentang; `ticket_trend` hanya hari dalam rentang (dengan nol untuk hari kosong).
 
-- [ ] **Step 1: Test — resolved di luar rentang tidak dihitung; trend mengisi semua hari.**
+- [x] **Step 1: Test — resolved di luar rentang tidak dihitung; trend mengisi semua hari.**
   ```php
   test('sla metrics and trend respect the date range', function () {
       $manager = User::factory()->manager()->create();
@@ -251,7 +251,7 @@ Verifikasi bahwa `date_from`/`date_to` membatasi: `resolvedMetrics` menghitung h
   });
   ```
 
-- [ ] **Step 2: Verifikasi & commit.**
+- [x] **Step 2: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/ManagerDashboardTest.php
   vendor/bin/pint --dirty --format agent
@@ -269,7 +269,7 @@ Verifikasi bahwa `date_from`/`date_to` membatasi: `resolvedMetrics` menghitung h
 **Detail:**
 Verifikasi `technician_performance[]` muncul di payload manager dengan field lengkap §21 dan urut `resolved DESC`.
 
-- [ ] **Step 1: Test — performance array terisi, urut resolved desc, null compliance.**
+- [x] **Step 1: Test — performance array terisi, urut resolved desc, null compliance.**
   ```php
   test('manager dashboard includes technician performance sorted by resolved desc', function () {
       $manager = User::factory()->manager()->create();
@@ -301,7 +301,7 @@ Verifikasi `technician_performance[]` muncul di payload manager dengan field len
   });
   ```
 
-- [ ] **Step 2: Verifikasi & commit.**
+- [x] **Step 2: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/ManagerDashboardTest.php
   vendor/bin/pint --dirty --format agent
@@ -319,7 +319,7 @@ Verifikasi `technician_performance[]` muncul di payload manager dengan field len
 **Detail:**
 Verifikasi konsistensi `within_sla + breached = total resolved` (dari `resolvedMetrics`) dan tidak ada N+1 pada manager dashboard.
 
-- [ ] **Step 1: Test — SLA konsistensi; query count stabil.**
+- [x] **Step 1: Test — SLA konsistensi; query count stabil.**
   ```php
   test('within_sla plus breached equals total resolved', function () {
       $manager = User::factory()->manager()->create();
@@ -362,7 +362,7 @@ Verifikasi konsistensi `within_sla + breached = total resolved` (dari `resolvedM
   });
   ```
 
-- [ ] **Step 2: Verifikasi & commit.**
+- [x] **Step 2: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/DashboardDataIntegrityTest.php
   vendor/bin/pint --dirty --format agent
@@ -374,13 +374,13 @@ Verifikasi konsistensi `within_sla + breached = total resolved` (dari `resolvedM
 
 ## Exit Criteria 6c
 
-- [ ] `GET /api/dashboard/manager` — 401 tanpa token; 200 Manager/Admin; 403 Employee/Technician.
-- [ ] Payload lengkap: `total/open/resolved/closed_tickets`, `sla{}`, `ticket_trend[]`, `by_priority[]`, `by_category[]`, `technician_performance[]`.
-- [ ] `sla.compliance_percentage` persis §14/D-03; `null` bila tidak ada resolved; `within_sla + breached = resolved_tickets`.
-- [ ] `avg_resolution_minutes` dari `created_at`→`resolved_at`; `null` bila tak ada resolved.
-- [ ] `ticket_trend` bucket WIB, semua hari terisi termasuk nol; `date_from`/`date_to` membatasi metrik sesuai keputusan #6.
-- [ ] `technician_performance` field lengkap §21, urut `resolved DESC`, `sla_compliance_percentage` null bila 0 resolved.
-- [ ] Query count stabil saat volume data naik.
-- [ ] `PendingDashboardException` untuk method manager sudah dihapus.
-- [ ] `php artisan test` hijau; `vendor/bin/pint --test` bersih.
-- [ ] Payload manager persis mengikuti `API-CONTRACT.md §10`.
+- [x] `GET /api/dashboard/manager` — 401 tanpa token; 200 Manager/Admin; 403 Employee/Technician.
+- [x] Payload lengkap: `total/open/resolved/closed_tickets`, `sla{}`, `ticket_trend[]`, `by_priority[]`, `by_category[]`, `technician_performance[]`.
+- [x] `sla.compliance_percentage` persis §14/D-03; `null` bila tidak ada resolved; `within_sla + breached = resolved_tickets`.
+- [x] `avg_resolution_minutes` dari `created_at`→`resolved_at`; `null` bila tak ada resolved.
+- [x] `ticket_trend` bucket WIB, semua hari terisi termasuk nol; `date_from`/`date_to` membatasi metrik sesuai keputusan #6.
+- [x] `technician_performance` field lengkap §21, urut `resolved DESC`, `sla_compliance_percentage` null bila 0 resolved.
+- [x] Query count stabil saat volume data naik.
+- [x] `PendingDashboardException` untuk method manager sudah dihapus.
+- [x] `php artisan test` hijau; `vendor/bin/pint --test` bersih.
+- [x] Payload manager persis mengikuti `API-CONTRACT.md §10`.
