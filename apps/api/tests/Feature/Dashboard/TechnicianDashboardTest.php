@@ -71,6 +71,17 @@ test('avg_resolution_minutes null when technician has no resolved tickets', func
         ->assertJsonPath('data.avg_resolution_minutes', null);
 });
 
+test('technician_id=999 does not leak other technician data', function () {
+    $tech = User::factory()->technician()->create();
+    $other = User::factory()->technician()->create();
+    Ticket::factory()->inProgress()->create(['technician_id' => $other->id]);
+
+    Sanctum::actingAs($tech);
+    $response = $this->getJson('/api/dashboard/technician?technician_id=999');
+    $response->assertStatus(200)
+        ->assertJsonPath('data.in_progress_tickets', 0);
+});
+
 test('technician dashboard query count is constant under data growth', function () {
     $tech = User::factory()->technician()->create();
     Ticket::factory()->count(10)->inProgress()->create(['technician_id' => $tech->id]);
