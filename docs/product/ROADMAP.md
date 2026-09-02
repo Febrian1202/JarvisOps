@@ -528,23 +528,23 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### Asset management
 
-- [ ] CRUD asset — Technician/Manager/Admin
-- [ ] Enum status: `AVAILABLE`, `ASSIGNED`, `MAINTENANCE`, `RETIRED`, `LOST`
-- [ ] `POST /api/assets/{id}/assign` — buat baris `asset_assignments`, ubah status asset jadi `ASSIGNED`
-- [ ] `POST /api/assets/{id}/release` — isi `released_at`, status balik ke `AVAILABLE`
-- [ ] **Asset `MAINTENANCE` tidak boleh di-assign** (§16 PRD) — validasi di service
-- [ ] Satu asset hanya boleh punya satu assignment aktif (`released_at` null) pada satu waktu
+- [ ] CRUD asset — Technician/Manager/Admin (Technician tidak memiliki izin `delete`)
+- [ ] Enum status: `available`, `assigned`, `maintenance`, `retired`, `lost`
+- [ ] `POST /api/assets/{id}/assign` — buat baris `asset_assignments`, ubah status asset jadi `assigned`
+- [ ] `POST /api/assets/{id}/release` — isi `released_at`, status balik ke `available`
+- [ ] **Asset `maintenance`/`retired`/`lost` tidak boleh di-assign** (§16 PRD) — validasi di service (422)
+- [ ] Satu asset hanya boleh punya satu assignment aktif (`released_at` null) pada satu waktu (conflict → 409)
 - [ ] `asset_histories` dicatat pada setiap create, update status, assign, release
 - [ ] `GET /api/assets/{id}/history` — riwayat kepemilikan seperti contoh §17 PRD
 - [ ] `GET /api/my-assets` — asset milik user login
-- [ ] Search (asset tag, serial number) + filter (status, kategori, pemegang) + pagination
+- [ ] Search (asset tag, serial number, name) + filter (status, kategori, pemegang) + pagination
 
 ### Knowledge base
 
 - [ ] CRUD artikel, slug otomatis dan unik
 - [ ] Status `draft`/`published`; **Technician boleh publish langsung** (Addendum §5.1)
 - [ ] `POST /api/articles/{id}/publish`, `POST /api/articles/{id}/unpublish`
-- [ ] Employee hanya bisa melihat artikel `published` (§19 PRD)
+- [ ] Employee hanya bisa melihat artikel `published` (§19 PRD, draft → 404)
 - [ ] Increment `view_count` saat artikel dibaca
 - [ ] Search judul + isi, filter kategori
 - [ ] Related articles — kategori sama, kecuali dirinya sendiri
@@ -571,13 +571,13 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### Test (Pest)
 
-- [ ] Asset `MAINTENANCE` di-assign → 422
-- [ ] Asset yang sudah ter-assign di-assign lagi → 422
+- [ ] Asset `maintenance` di-assign → 422
+- [ ] Asset yang sudah ter-assign di-assign lagi → 409
 - [ ] Soft delete asset → ticket lama tetap utuh
-- [ ] Employee membaca artikel `draft` → 403/404
+- [ ] Employee membaca artikel `draft` → 404
 - [ ] Technician membuat lalu publish artikel → sukses
 - [ ] Upload 6 MB → 422; upload `.exe` → 422; upload PDF valid → sukses
-- [ ] User non-partisipan mengunduh attachment → 403
+- [ ] User non-partisipan mengunduh attachment → 404 (denyAsNotFound)
 - [ ] Admin membuat user dengan email duplikat → 422
 - [ ] Non-admin membuat user → 403
 

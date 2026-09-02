@@ -68,9 +68,9 @@ Addendum §5.2 juga menawarkan penyederhanaan ("Technician dapat mengelola artik
 
 PRD §5 menandai View Audit Log sebagai "Limited" untuk Manager.
 
-**Keputusan:** Manager boleh melihat audit log untuk modul `ticket`, `asset`, dan `article`. Manager **tidak** boleh melihat log modul `user`, `role`, `department`, `ticket_category`, `ticket_priority`, dan `auth`.
+**Keputusan:** Manager boleh melihat audit log untuk modul `ticket`, `asset`, `article`, dan `knowledge_category`. Manager **tidak** boleh melihat log modul `user`, `role`, `department`, `ticket_category`, `ticket_priority`, dan `auth`.
 
-Alasan: audit log yang boleh dilihat Manager adalah yang berkaitan dengan pekerjaan operasional tim IT — itu tujuan Manager melihatnya. Log modul `user` dan `auth` berisi jejak administrasi akun dan percobaan login, yang menyentuh wilayah kepegawaian dan keamanan sistem; keduanya urusan Admin.
+Alasan: audit log yang boleh dilihat Manager adalah yang berkaitan dengan pekerjaan operasional tim IT — itu tujuan Manager melihatnya. Log modul `user` dan `auth` berisi jejak administrasi akun dan percobaan login, yang menyentuh wilayah kepegawaian dan keamanan sistem; keduanya urusan Admin. Modul `knowledge_category` berkaitan langsung dengan KB operasional sehingga dapat dilihat oleh Manager.
 
 Implementasi: filter modul diterapkan sebagai **query scope di server**, bukan sebagai parameter yang dikirim frontend. Kalau Manager mengirim `?module=user`, hasilnya kosong — bukan error, dan bukan data.
 
@@ -377,8 +377,8 @@ dataset('roles', [
 - [ ] Employee mengirim `status_id = RESOLVED` saat create → diabaikan, tetap `OPEN`
 - [ ] User mengirim `sla_deadline` saat create → diabaikan
 - [ ] Non-admin mengakses seluruh endpoint admin → 403
-- [ ] Admin mengubah `role_id` dirinya sendiri → 422
-- [ ] Admin menonaktifkan akunnya sendiri → 422
+- [ ] Admin mengubah `role_id` dirinya sendiri → 403
+- [ ] Admin menonaktifkan akunnya sendiri → 403
 - [ ] User inactive memakai token yang diterbitkan sebelum dinonaktifkan → 401
 
 Baris terakhir mudah terlewat. Menonaktifkan user tidak otomatis membatalkan token yang sudah beredar — pencabutan token harus dilakukan eksplisit di `deactivate`, dan itu perlu diuji.
