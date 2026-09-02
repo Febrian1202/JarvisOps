@@ -112,3 +112,38 @@ test('trend fills every day in range including zeros', function () {
         ->and($trend[2]['created'])->toBe(0)
         ->and($trend[2]['resolved'])->toBe(0);
 });
+
+test('manager dashboard includes technician performance sorted by resolved desc', function () {
+    $manager = User::factory()->manager()->create();
+    $tech1 = User::factory()->technician()->create(['full_name' => 'Budi']);
+    $tech2 = User::factory()->technician()->create(['full_name' => 'Citra']);
+
+    Ticket::factory()->resolved()->create([
+        'technician_id' => $tech1->id,
+        'created_at' => '2026-06-01 08:00:00',
+        'resolved_at' => '2026-06-01 10:00:00',
+        'sla_deadline' => '2026-06-01 12:00:00',
+    ]);
+    Ticket::factory()->resolved()->create([
+        'technician_id' => $tech1->id,
+        'created_at' => '2026-06-01 08:00:00',
+        'resolved_at' => '2026-06-01 11:00:00',
+        'sla_deadline' => '2026-06-01 14:00:00',
+    ]);
+    Ticket::factory()->resolved()->create([
+        'technician_id' => $tech2->id,
+        'created_at' => '2026-06-01 08:00:00',
+        'resolved_at' => '2026-06-01 10:00:00',
+        'sla_deadline' => '2026-06-01 12:00:00',
+    ]);
+
+    Sanctum::actingAs($manager);
+    $response = $this->getJson('/api/dashboard/manager?date_from=2026-01-01&date_to=2026-12-31');
+    $perf = $response->json('data.technician_performance');
+
+    expect($perf)->toHaveCount(2)
+        ->and($perf[0]['technician']['full_name'])->toBe('Budi')   // resolved 2 > Citra 1
+        ->and($perf[0]['resolved'])->toBe(2)
+        ->and($perf[0]['sla_compliance_percentage'])->toEqual(100.0)
+        ->and($perf[1]['resolved'])->toBe(1);
+});
