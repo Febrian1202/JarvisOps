@@ -29,10 +29,10 @@ Sinkronkan dokumen spec agar seluruh keputusan baru terkunci secara formal:
 5. **PERMISSION-MATRIX §6:** Ubah butir `"Admin mengubah role_id dirinya sendiri"` dan `"Admin menonaktifkan akunnya sendiri"` dari 422 ke **403**.
 6. **ROADMARK:** Baris 531 (Technician CRUD asset → koreksi `delete` = ❌), baris 574 (422 → 422 untuk status tak layak, 409 untuk assignment aktif), baris 577 (403/404 → 404 untuk Employee draft).
 
-- [ ] **Step 1: Edit `docs/adr/DECISIONS.md`** — tambah D-08 Amandemen 3, perjelas D-11.
-- [ ] **Step 2: Edit `docs/product/PERMISSION-MATRIX.md`** — §2.2, §3.3–3.5, §6.
-- [ ] **Step 3: Edit `docs/product/ROADMAP.md`** — koreksi 3 baris.
-- [ ] **Step 4: Commit amandemen spec.**
+- [x] **Step 1: Edit `docs/adr/DECISIONS.md`** — tambah D-08 Amandemen 3, perjelas D-11.
+- [x] **Step 2: Edit `docs/product/PERMISSION-MATRIX.md`** — §2.2, §3.3–3.5, §6.
+- [x] **Step 3: Edit `docs/product/ROADMAP.md`** — koreksi 3 baris.
+- [x] **Step 4: Commit amandemen spec.**
   ```bash
   git add docs/adr/DECISIONS.md docs/product/PERMISSION-MATRIX.md docs/product/ROADMAP.md
   git commit -m "docs(spec): amend D-08, D-11, PERMISSION-MATRIX, and ROADMAP for phase 5"
@@ -88,7 +88,7 @@ case KnowledgeCategory = 'knowledge_category';
 
 > **Jebakan:** Jangan lupa menambah `AuditModule::KnowledgeCategory` di `AuditModule` enum. Tanpa ini, `AuditLogger::log()` akan menolak enum `knowledge_category` karena strict type.
 
-- [ ] **Step 1: Test — unit test keberadaan case baru.**
+- [x] **Step 1: Test — unit test keberadaan case baru.**
   Buat `tests/Unit/EnumsPhase5Test.php`:
   ```php
   <?php
@@ -123,10 +123,10 @@ case KnowledgeCategory = 'knowledge_category';
   });
   ```
 
-- [ ] **Step 2: Implementasi keempat enum.**
+- [x] **Step 2: Implementasi keempat enum.**
   Buat `ArticleStatus`, `AssetHistoryAction`. Edit `AuditAction`, `AuditModule` sesuai daftar di atas.
 
-- [ ] **Step 3: Jalankan test & commit.**
+- [x] **Step 3: Jalankan test & commit.**
   ```bash
   vendor/bin/pest tests/Unit/EnumsPhase5Test.php
   vendor/bin/pint --dirty --format agent
@@ -290,7 +290,7 @@ public function viewHistory(User $user, Asset $asset): bool
 
 > **Jebakan:** Setelah `git mv` `AssetPolicy.php` ke `app/Policies/Asset/`, perbarui namespace di model `Asset` (`#[UsePolicy(AssetPolicy::class)]` → `#[UsePolicy(\App\Policies\Asset\AssetPolicy::class)]`). Juga perbarui import di `tests/Feature/Auth/AssetPolicyTest.php`.
 
-- [ ] **Step 1: Test — ArticlePolicy ability positif & negatif.**
+- [x] **Step 1: Test — ArticlePolicy ability positif & negatif.**
   Buat `tests/Feature/Auth/ArticlePolicyTest.php` dengan dataset role:
   ```php
   test('employee cannot create article', function () {
@@ -304,7 +304,7 @@ public function viewHistory(User $user, Asset $asset): bool
   // dst untuk view, update, publish, unpublish, delete
   ```
 
-- [ ] **Step 2: Test — AttachmentPolicy ability.**
+- [x] **Step 2: Test — AttachmentPolicy ability.**
   Buat `tests/Feature/Auth/AttachmentPolicyTest.php`:
   ```php
   test('employee cannot download attachment of non-participant ticket', function () {
@@ -317,7 +317,7 @@ public function viewHistory(User $user, Asset $asset): bool
   });
   ```
 
-- [ ] **Step 3: Test — AssetPolicy ability baru.**
+- [x] **Step 3: Test — AssetPolicy ability baru.**
   Perluas `tests/Feature/Auth/AssetPolicyTest.php`:
   ```php
   test('technician cannot delete asset', function () {
@@ -333,9 +333,9 @@ public function viewHistory(User $user, Asset $asset): bool
   // dst untuk assign, release, viewHistory
   ```
 
-- [ ] **Step 4: Implementasi** — tulis `ArticlePolicy`, `AttachmentPolicy`, lengkapi `AssetPolicy`, `git mv` AssetPolicy, update `#[UsePolicy]` di model.
+- [x] **Step 4: Implementasi** — tulis `ArticlePolicy`, `AttachmentPolicy`, lengkapi `AssetPolicy`, `git mv` AssetPolicy, update `#[UsePolicy]` di model.
 
-- [ ] **Step 5: Jalankan seluruh test auth & commit.**
+- [x] **Step 5: Jalankan seluruh test auth & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Auth/
   vendor/bin/pint --dirty --format agent
@@ -427,7 +427,7 @@ public function activeAssignments(): HasMany
 
 > **Jebakan:** Jangan menimpa `getRouteKeyName()` di `KnowledgeArticle` dengan `'slug'` — itu akan memecah route `PUT /api/articles/{id}`. Gunakan binding eksplisit di route: `Route::get('/articles/{article:slug}', ...)`.
 
-- [ ] **Step 1: Test — relasi model berfungsi.**
+- [x] **Step 1: Test — relasi model berfungsi.**
   ```php
   test('asset has activeAssignment relation', function () {
       $asset = Asset::factory()->create(['status' => 'assigned']);
@@ -443,9 +443,9 @@ public function activeAssignments(): HasMany
   });
   ```
 
-- [ ] **Step 2: Implementasi** — tambah relasi, cast, `#[UsePolicy]` di model.
+- [x] **Step 2: Implementasi** — tambah relasi, cast, `#[UsePolicy]` di model.
 
-- [ ] **Step 3: Jalankan test & commit.**
+- [x] **Step 3: Jalankan test & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Schema/
   vendor/bin/pint --dirty --format agent
@@ -495,21 +495,21 @@ public function down(): void
 }
 ```
 
-- [ ] **Step 1: Buat migration.**
+- [x] **Step 1: Buat migration.**
   ```bash
   php artisan make:migration add_phase5_indexes --table=knowledge_articles
   ```
 
-- [ ] **Step 2: Isi migration sesuai kode di atas.**
+- [x] **Step 2: Isi migration sesuai kode di atas.**
 
-- [ ] **Step 3: Uji migrasi dan rollback terhadap MySQL.**
+- [x] **Step 3: Uji migrasi dan rollback terhadap MySQL.**
   ```bash
   php artisan migrate
   php artisan migrate:rollback --step=1
   php artisan migrate
   ```
 
-- [ ] **Step 4: Commit.**
+- [x] **Step 4: Commit.**
   ```bash
   git add database/migrations/
   git commit -m "feat(database): add idx_knowledge_articles_title, idx_knowledge_articles_status, idx_assets_status"
@@ -550,14 +550,14 @@ Dua langkah agar **tidak ada** route `/storage/{path}` yang bisa melayani file a
 > **Jebakan 1:** Jangan lupa mematikan `serve` pada `local`. Kalau hanya menambah disk `private` dengan root yang sama, route `/storage/{path}` dari `local` tetap bisa mengakses file attachment.
 > **Jebakan 2:** Jangan set `FILESYSTEM_DISK` ke `private` di `.env` — biarkan `local` tetap default. Framework Laravel sendiri tidak memakai disk `private` untuk hal lain. Fase 5d memanggil `Storage::disk('private')` secara eksplisit.
 
-- [ ] **Step 1: Edit `config/filesystems.php`** — ubah `local.serve` → `false`, tambah disk `private` di array `disks`.
+- [x] **Step 1: Edit `config/filesystems.php`** — ubah `local.serve` → `false`, tambah disk `private` di array `disks`.
 
-- [ ] **Step 2: Verifikasi dengan tinker.**
+- [x] **Step 2: Verifikasi dengan tinker.**
   ```bash
   php artisan tinker --execute 'Storage::disk("private")->put("test.txt", "hello"); echo Storage::disk("private")->get("test.txt"); Storage::disk("private")->delete("test.txt");'
   ```
 
-- [ ] **Step 3: Commit.**
+- [x] **Step 3: Commit.**
   ```bash
   git add config/filesystems.php
   git commit -m "feat(config): add private disk with serve=false for attachment storage"
@@ -613,7 +613,7 @@ public function draft(): static
 }
 ```
 
-- [ ] **Step 1: Test — state factory berfungsi.**
+- [x] **Step 1: Test — state factory berfungsi.**
   ```php
   test('asset factory states produce correct statuses', function () {
       expect(Asset::factory()->available()->create()->status->value)->toBe('available');
@@ -628,9 +628,9 @@ public function draft(): static
   });
   ```
 
-- [ ] **Step 2: Implementasi** — tambah state di kedua factory.
+- [x] **Step 2: Implementasi** — tambah state di kedua factory.
 
-- [ ] **Step 3: Jalankan test & commit.**
+- [x] **Step 3: Jalankan test & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Schema/FactoriesTest.php
   vendor/bin/pint --dirty --format agent
@@ -648,7 +648,7 @@ public function draft(): static
 **Detail:**
 Buat suite pengujian end-to-end yang memverifikasi seluruh fondasi 5a berfungsi bersama.
 
-- [ ] **Step 1: Tulis test suite.**
+- [x] **Step 1: Tulis test suite.**
   ```php
   <?php
 
@@ -691,13 +691,13 @@ Buat suite pengujian end-to-end yang memverifikasi seluruh fondasi 5a berfungsi 
   });
   ```
 
-- [ ] **Step 2: Jalankan seluruh test suite.**
+- [x] **Step 2: Jalankan seluruh test suite.**
   ```bash
   vendor/bin/pest tests/Feature/Phase5/
   vendor/bin/pest  # full suite untuk cek regresi
   ```
 
-- [ ] **Step 3: Formatting & Commit.**
+- [x] **Step 3: Formatting & Commit.**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add tests/Feature/Phase5/
