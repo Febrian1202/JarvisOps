@@ -44,6 +44,9 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/assets/{asset}/history', AssetHistoryController::class)->name('assets.history');
     Route::apiResource('assets', AssetController::class);
     Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('/articles/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
+    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
     Route::apiResource('tickets', TicketController::class);
 
     Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
