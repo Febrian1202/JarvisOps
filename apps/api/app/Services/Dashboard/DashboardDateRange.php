@@ -14,11 +14,11 @@ final class DashboardDateRange
 
     public static function default(): self
     {
-        $todayWib = now('Asia/Jakarta')->startOfDay();
+        $todayWib = CarbonImmutable::now('Asia/Jakarta')->startOfDay();
 
         return new self(
-            $todayWib->subDays(29)->setTimezone('UTC')->toImmutable(),
-            $todayWib->endOfDay()->setTimezone('UTC')->toImmutable(),
+            $todayWib->subDays(29)->setTimezone('UTC'),
+            $todayWib->endOfDay()->setTimezone('UTC'),
         );
     }
 

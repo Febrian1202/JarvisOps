@@ -53,3 +53,22 @@ test('technician dashboard: technician, manager, admin ok, employee 403', functi
     Sanctum::actingAs($employee);
     $this->getJson('/api/dashboard/technician')->assertStatus(403);
 });
+
+test('manager dashboard: manager and admin ok, employee and technician 403', function () {
+    $manager = User::factory()->manager()->create();
+    $admin = User::factory()->admin()->create();
+    $employee = User::factory()->employee()->create();
+    $technician = User::factory()->technician()->create();
+
+    Sanctum::actingAs($manager);
+    $this->getJson('/api/dashboard/manager')->assertStatus(200);
+
+    Sanctum::actingAs($admin);
+    $this->getJson('/api/dashboard/manager')->assertStatus(200);
+
+    Sanctum::actingAs($employee);
+    $this->getJson('/api/dashboard/manager')->assertStatus(403);
+
+    Sanctum::actingAs($technician);
+    $this->getJson('/api/dashboard/manager')->assertStatus(403);
+});

@@ -62,3 +62,14 @@ test('manager dashboard compliance is null when no resolved tickets', function (
         ->assertJsonPath('data.sla.compliance_percentage', null)
         ->assertJsonPath('data.sla.avg_resolution_minutes', null);
 });
+
+test('manager dashboard without date params defaults to 30 days', function () {
+    $manager = User::factory()->manager()->create();
+    // ticket dibuat hari ini (dalam 30 hari) → masuk default
+    Ticket::factory()->open()->create(['created_at' => now()->subDays(2)]);
+
+    Sanctum::actingAs($manager);
+    $response = $this->getJson('/api/dashboard/manager');
+    $response->assertStatus(200)
+        ->assertJsonPath('data.total_tickets', 1);
+});
