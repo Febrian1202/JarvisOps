@@ -1,6 +1,6 @@
 # AGENTS.md — JARVIS OPS
 
-IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 3/10).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 22 migrations, 276 passing tests, and full ticket CRUD with authorization. Expect to write net-new code, not modify existing features.
+IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 4/10).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 22 migrations, 409 passing tests (1572 assertions), and full ticket lifecycle with authorization & workflows (Tag `v0.3.0`). Expect to write net-new code, not modify existing features.
 
 ## Repo layout
 
@@ -86,10 +86,9 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 
 ## Current state, concretely
 
-- `apps/api`: 22 migrations, 18 models, 11 API routes, full ticket CRUD (create/show/update/delete), 5 test files covering ticket lifecycle (276 total tests, 1214 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, enums, and transition matrix are all implemented and passing.
+- `apps/api`: 22 migrations, 18 models, 17 API routes, full ticket lifecycle CRUD + transitions + comments + history + query + references, 6 test files covering tickets (409 total tests, 1572 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, enums, transition matrix, and available actions are all implemented and passing.
 - `apps/web`: login page + protected dashboard (`src/app/login/`, `src/app/dashboard/`), BFF proxy route handler, auth flow with httpOnly cookie.
 - Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) — **complete**
 - Phase 2 (Backend Foundation & Walking Skeleton: auth, login, middleware, health, web dashboard) — **complete**
-- Phase 3a (Ticket Foundation: policies, SLA, audit, notification, enums, factory states, transition matrix) — **complete**
-- Phase 3b (Ticket CRUD: create/show/update/delete, DTOs, form requests, resources, assignable assets endpoint) — **complete**
-- Phase 3c (Ticket Query: list with scoping, filters, search, sort, reference data endpoints) — **next work**
+- Phase 3 (Ticket Core & Workflow: foundation, CRUD, query & references, workflow & transitions, comments & history, golden path — Tag `v0.3.0`) — **complete**
+- Phase 4 (SLA Scheduler, Notification API, Audit Log API) — **next work**

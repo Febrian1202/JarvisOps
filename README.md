@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 3/10).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 22 migration, autentikasi + otorisasi berbasis policy, dan CRUD ticket penuh (Fase 3b). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: desain selesai, implementasi berjalan (Fase 4/10).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 22 migration, autentikasi + otorisasi berbasis policy, dan modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, dan golden path test — Fase 3 Selesai). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -143,21 +143,22 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 - Seluruh dokumen desain di `docs/` — lengkap dan sudah saling diverifikasi konsisten
 - **Fase 0 (Repo, Docker, Toolchain) — SELESAI**: `compose.yaml`, `docker/`, `Makefile`, Pest 5 terpasang, smoke test hijau
 - **Fase 2 (Backend Fondasi & Walking Skeleton) — SELESAI**: auth (login/logout/profile) via Sanctum, middleware, `/api/health`, halaman login + dashboard terproteksi di `apps/web`, BFF proxy dengan httpOnly cookie
-- **Fase 3a (Ticket Foundation) — SELESAI**: enums, matriks transisi status, TicketPolicy/AssetPolicy/TicketCommentPolicy/NotificationPolicy, SlaService (snapshot + defensif), AuditLogger, NotificationService, state TicketFactory, `ApiResponse::paginated()` resource-aware, migration index
-- **Fase 3b (Ticket CRUD) — SELESAI**: DTO + FormRequest + rule kepemilikan asset, `TicketService::create/update/delete/find`, `TicketResource`/`TicketListResource`, `TicketController`, `GET /api/assets/assignable`
-- `apps/api` — Laravel 13.29 + Sanctum 4, 22 migration, 18 model, 276 test passing (1214 assertions), Pint bersih
+- **Fase 3 (Ticket Core & Workflow) — SELESAI (Tag: `v0.3.0`)**:
+  - **3a (Ticket Foundation)**: enums, matriks transisi status, TicketPolicy/AssetPolicy/TicketCommentPolicy/NotificationPolicy, SlaService (snapshot + defensif), AuditLogger, NotificationService, state TicketFactory, `ApiResponse::paginated()` resource-aware, migration index
+  - **3b (Ticket CRUD)**: DTO + FormRequest + rule kepemilikan asset, `TicketService::create/update/delete/find`, `TicketResource`/`TicketListResource`, `TicketController`, `GET /api/assets/assignable`
+  - **3c (Ticket Query & References)**: list dengan scoping role, 11 filter, search LIKE, sort whitelist, dan 4 endpoint referensi read-only (`/ticket-categories`, `/ticket-priorities`, `/ticket-statuses`, `/technicians`)
+  - **3d (Ticket Workflow & Concurrency)**: `TicketStatusService` (assign/unassign/self-assign/status/priority), optimistic locking `expected_status_id` (409 Conflict), `available_actions`, `editable_fields`
+  - **3e (Comments, History, & Golden Path)**: komentar CRUD (jendela 15 menit), history timeline berurutan menaik dengan label manusia, notifikasi `TICKET_COMMENTED`, dan `GoldenPathTest` end-to-end via HTTP
+- `apps/api` — Laravel 13.29 + Sanctum 4, 22 migration, 18 model, 409 test passing (1572 assertions, 0 failures), Pint bersih
 - `apps/web` — login page + protected dashboard, BFF route handler
 
 ### Belum ada
 
-- `GET /api/tickets` (list dengan scoping, filter, search, sort) + 4 endpoint referensi (Fase 3c)
-- Workflow ticket: assign/unassign/self-assign/change-status/change-priority, `expected_status_id` (Fase 3d)
-- Komentar, riwayat perubahan, Golden Path end-to-end (Fase 3e)
-- Scheduler SLA (proses terpisah), endpoint GET notifikasi & audit log (Fase 4)
-- Attachment (disk private + policy), manajemen asset penuh, master-data CRUD (Fase 5)
-- Dashboard & analytics, seluruh halaman frontend lanjutan (Fase 7/8), deployment.
+- Scheduler SLA (proses terpisah `tickets:check-sla`), endpoint GET & update notifikasi serta audit log (Fase 4)
+- Attachment (disk private + policy), manajemen asset penuh, master-data CRUD, knowledge base (Fase 5)
+- Dashboard & analytics (Fase 6), seluruh halaman frontend lanjutan (Fase 7/8), integrasi & deployment (Fase 9/10).
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 3c — Ticket Query**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 4 — SLA, Notification, Audit Log**.
 
 ---
 
