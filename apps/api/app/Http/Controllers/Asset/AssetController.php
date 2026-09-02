@@ -14,6 +14,7 @@ use App\Http\Requests\Asset\ReleaseAssetRequest;
 use App\Http\Requests\Asset\StoreAssetRequest;
 use App\Http\Requests\Asset\UpdateAssetRequest;
 use App\Http\Resources\Asset\AssetListResource;
+use App\Http\Resources\Asset\AssetResource;
 use App\Http\Resources\Asset\AssignableAssetResource;
 use App\Models\Asset;
 use App\Models\AssetAssignment;
@@ -33,6 +34,15 @@ class AssetController extends Controller
         $paginator = $queryService->paginate($request);
 
         return ApiResponse::paginated($paginator, 'Assets retrieved successfully.', AssetListResource::class);
+    }
+
+    public function show(Asset $asset): JsonResponse
+    {
+        $this->authorize('view', $asset);
+
+        $asset->load(['activeAssignment.user']);
+
+        return ApiResponse::success(new AssetResource($asset), 'Asset details retrieved successfully.');
     }
 
     public function store(StoreAssetRequest $request, AssetService $assetService): JsonResponse
