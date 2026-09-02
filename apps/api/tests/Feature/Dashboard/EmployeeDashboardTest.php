@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Database\Seeders\ReferenceDataSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\Sanctum;
 
 uses(RefreshDatabase::class);
@@ -74,4 +75,25 @@ test('my_assets returns only active assignments', function () {
     $response = $this->getJson('/api/dashboard/employee');
     $response->assertStatus(200)
         ->assertJsonCount(1, 'data.my_assets');
+});
+
+test('employee dashboard query count is constant under data growth', function () {
+    $employee = User::factory()->employee()->create();
+    Ticket::factory()->count(10)->open()->create(['reporter_id' => $employee->id]);
+
+    Sanctum::actingAs($employee);
+    DB::enableQueryLog();
+    $this->getJson('/api/dashboard/employee')->assertStatus(200);
+    $countBaseline = count(DB::getQueryLog());
+    DB::disableQueryLog();
+
+    Ticket::factory()->count(20)->open()->create(['reporter_id' => $employee->id]);
+
+    DB::flushQueryLog();
+    DB::enableQueryLog();
+    $this->getJson('/api/dashboard/employee')->assertStatus(200);
+    $countGrowth = count(DB::getQueryLog());
+    DB::disableQueryLog();
+
+    expect($countGrowth)->toBeLessThanOrEqual($countBaseline);
 });

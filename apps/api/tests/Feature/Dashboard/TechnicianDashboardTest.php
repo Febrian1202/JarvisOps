@@ -4,6 +4,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Database\Seeders\ReferenceDataSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\Sanctum;
 
 uses(RefreshDatabase::class);
@@ -68,4 +69,25 @@ test('avg_resolution_minutes null when technician has no resolved tickets', func
     $response = $this->getJson('/api/dashboard/technician');
     $response->assertStatus(200)
         ->assertJsonPath('data.avg_resolution_minutes', null);
+});
+
+test('technician dashboard query count is constant under data growth', function () {
+    $tech = User::factory()->technician()->create();
+    Ticket::factory()->count(10)->inProgress()->create(['technician_id' => $tech->id]);
+
+    Sanctum::actingAs($tech);
+    DB::enableQueryLog();
+    $this->getJson('/api/dashboard/technician')->assertStatus(200);
+    $countBaseline = count(DB::getQueryLog());
+    DB::disableQueryLog();
+
+    Ticket::factory()->count(20)->inProgress()->create(['technician_id' => $tech->id]);
+
+    DB::flushQueryLog();
+    DB::enableQueryLog();
+    $this->getJson('/api/dashboard/technician')->assertStatus(200);
+    $countGrowth = count(DB::getQueryLog());
+    DB::disableQueryLog();
+
+    expect($countGrowth)->toBeLessThanOrEqual($countBaseline);
 });
