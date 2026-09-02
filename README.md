@@ -5,7 +5,7 @@
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
 > **Status: desain selesai, implementasi berjalan (Fase 4/10).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 22 migration, autentikasi + otorisasi berbasis policy, dan modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, dan golden path test — Fase 3 Selesai). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 22 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), dan API notifikasi in-app (Fase 4b Selesai). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -149,12 +149,15 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
   - **3c (Ticket Query & References)**: list dengan scoping role, 11 filter, search LIKE, sort whitelist, dan 4 endpoint referensi read-only (`/ticket-categories`, `/ticket-priorities`, `/ticket-statuses`, `/technicians`)
   - **3d (Ticket Workflow & Concurrency)**: `TicketStatusService` (assign/unassign/self-assign/status/priority), optimistic locking `expected_status_id` (409 Conflict), `available_actions`, `editable_fields`
   - **3e (Comments, History, & Golden Path)**: komentar CRUD (jendela 15 menit), history timeline berurutan menaik dengan label manusia, notifikasi `TICKET_COMMENTED`, dan `GoldenPathTest` end-to-end via HTTP
-- `apps/api` — Laravel 13.29 + Sanctum 4, 22 migration, 18 model, 409 test passing (1572 assertions, 0 failures), Pint bersih
+- **Fase 4 (SLA, Notification, Audit Log) — BERJALAN**:
+  - **4a (SLA Scheduler & Breach Detection)**: background command `tickets:check-sla`, persistensi breach status & timestamp, audit trail sistem `sla_breach` (`user_id = null`), notifikasi `TICKET_SLA_BREACHED` ke teknisi & manager
+  - **4b (Notification API & Event Delivery)**: endpoint `GET /api/notifications` (filter, pagination, ISO 8601 UTC), `GET /api/notifications/unread-count` (1 query COUNT), `POST /api/notifications/{id}/read` & `POST /api/notifications/read-all`, isolasi kepemilikan ketat (404 untuk akses notifikasi user lain tanpa bypass admin), verifikasi pengiriman 11 tipe notifikasi
+- `apps/api` — Laravel 13.29 + Sanctum 4, 22 migration, 18 model, 21 routes (29 operations), 440 test passing (1682 assertions, 0 failures), Pint bersih
 - `apps/web` — login page + protected dashboard, BFF route handler
 
 ### Belum ada
 
-- Scheduler SLA (proses terpisah `tickets:check-sla`), endpoint GET & update notifikasi serta audit log (Fase 4)
+- Endpoint Audit Log API (`GET /api/audit-logs`, `GET /api/audit-logs/{id}`, filtering, CSV export, manager scoping) (Fase 4c)
 - Attachment (disk private + policy), manajemen asset penuh, master-data CRUD, knowledge base (Fase 5)
 - Dashboard & analytics (Fase 6), seluruh halaman frontend lanjutan (Fase 7/8), integrasi & deployment (Fase 9/10).
 
