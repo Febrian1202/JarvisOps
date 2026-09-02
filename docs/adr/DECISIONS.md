@@ -1,9 +1,10 @@
 # JARVIS OPS — DECISION LOG
 
-**Version:** 1.1
+**Document Revision:** 1.2
 **Status:** Approved — mengunci implementasi
 **Basis:** Audit kesiapan seluruh `docs/` sebelum Fase 0, 31 Agustus 2026
 **Perubahan v1.1 (awal Fase 3):** amandemen D-08 (lima action transisi ticket), tambahan D-26 (`expected_status_id`), D-27 (`notifications.type`), D-28 (field SLA turunan), D-29 (bahasa pesan business rule). Semuanya menutup lubang yang ditemukan saat menyiapkan rencana Fase 3 — lihat `docs/tasks/phase-3/README.md §Resolusi Konflik`.
+**Perubahan v1.2:** Tambahan D-30 (Semantic Versioning) untuk menstandarkan penomoran versi dan tagging.
 
 ---
 
@@ -296,3 +297,20 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Keputusan:** Pesan error yang mendarat di `errors.<field>` — baik berasal dari `messages()` FormRequest maupun dari `ValidationException` yang dilempar service layer — seluruhnya **Bahasa Indonesia**, memperluas D-24. `message` pada envelope tetap Bahasa Inggris. Contoh berbahasa Inggris di `STATUS-TRANSITION.md §8` dan `API-CONTRACT.md §2.2` diperlakukan sebagai ilustrasi **bentuk** JSON, bukan string literal yang harus disalin.
 - **Alasan:** D-24 membagi bahasa berdasarkan *lapisan* (envelope vs validasi), tapi contoh di dua dokumen turunan membaginya berdasarkan *sumber* (FormRequest vs service), sehingga satu form bisa menampilkan dua bahasa untuk dua kegagalan yang bagi user tidak berbeda — validasi field dan pelanggaran business rule sama-sama muncul di bawah input yang sama. Pembagian per lapisan yang menang.
 - **Konsekuensi:** Pesan transisi ilegal, prasyarat tidak terpenuhi, dan kepemilikan asset ditulis dalam Bahasa Indonesia dan tetap menyebut **nama** status, bukan ID (`STATUS-TRANSITION.md §8`). Pesan `sort_by`/`sort_dir` di `HandlesPagination` yang terlanjur Inggris di Fase 2 ikut diterjemahkan di Fase 3.
+
+---
+
+## Bagian D — Release & Deployment
+
+### D-30 · Semantic Versioning (SemVer) dan Git Tagging
+- **Status:** DECIDED
+- **Keputusan:**
+  - Penomoran versi menggunakan standar Semantic Versioning 2.0.0 (`vMAJOR.MINOR.PATCH`).
+  - Proyek menggunakan satu tag global di repositori (contoh: `v1.0.0`), berlaku bersama untuk backend (API) dan frontend (Web).
+  - Peningkatan versi:
+    - **MAJOR:** Perubahan arsitektur besar, rilis fase-fase akhir (seperti selesainya Phase 10).
+    - **MINOR:** Rilis fitur baru pada setiap selesainya sebuah fase Roadmap yang stabil (misal Phase 2 selesai menjadi v0.2.0, rilis penuh v1.0.0).
+    - **PATCH:** Perbaikan bug kritis atau pembaruan keamanan.
+  - Tag Git menjadi sumber kebenaran mutlak (SSOT) untuk versi. Nilai ini bisa diinjeksikan sebagai *build argument* atau *environment variable* (misalnya `APP_VERSION`) ke dalam sistem tanpa perlu melakukan hardcode pada source code.
+  - Docker Image akan di-tag mengikuti Git tag (contoh: `jarvisops-api:v1.0.0` dan `jarvisops-web:v1.0.0`) selain tag `:latest`, untuk memudahkan rollback.
+- **Alasan:** Monorepo deployment via Docker sangat rentan tanpa identifikasi versi yang eksplisit. Menggunakan SemVer mempermudah rollback yang stabil di production, memungkinkan automasi CI/CD berbasis Git Tag, dan memberikan kejelasan versi antara frontend dan backend.

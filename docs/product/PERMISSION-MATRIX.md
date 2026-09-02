@@ -1,6 +1,6 @@
 # JARVIS OPS — PERMISSION MATRIX
 
-**Version:** 1.1
+**Document Revision:** 1.1
 **Basis:** PRD §5, Addendum §5.2, `DECISIONS.md` Bagian B
 **Implementasi:** Laravel Gate + Policy berbasis kolom `users.role_id`
 **Perubahan v1.1 (awal Fase 3):** enum `RoleName` diselaraskan dengan D-15 (`Admin = 'administrator'`); ditambahkan §3.2b `TicketCommentPolicy`; `TicketPolicy@update` dan `@changePriority` diperjelas; empat baris route yang diwajibkan D-20 dimasukkan ke §4.

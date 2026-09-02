@@ -245,6 +245,7 @@ penafsiran di atas diterapkan.
 - [ ] `php artisan migrate:fresh --seed` sukses terhadap MySQL, lalu `migrate:rollback` bersih
 - [ ] Setiap route Fase 3 punya barisnya di `PERMISSION-MATRIX.md §4`
 - [ ] Checkbox Fase 3 di `ROADMAP.md` tersinkronisasi dengan yang benar-benar dikerjakan
+- [ ] Git tag `v0.3.0` (Semantic Versioning) ditambahkan dan didorong ke repository saat fase selesai
 
 ## Di Luar Cakupan Fase 3
 

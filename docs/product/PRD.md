@@ -4,7 +4,7 @@
 
 ### IT Service Management System
 
-**Version:** 1.1
+**Document Revision:** 1.1
 **Status:** Approved — Basis Implementasi
 **Product Type:** Web Application
 **Frontend:** Next.js

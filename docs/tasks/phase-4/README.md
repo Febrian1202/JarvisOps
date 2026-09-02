@@ -292,6 +292,7 @@ Fase 4 dinyatakan selesai jika seluruh kondisi berikut terpenuhi:
 - [ ] Seluruh test suite Pest (`php artisan test`) hijau.
 - [ ] Linter Pint (`vendor/bin/pint --test`) bersih tanpa peringatan.
 - [ ] Checkbox Fase 4 di `docs/product/ROADMAP.md` tersinkronisasi.
+- [ ] Git tag `v0.4.0` (Semantic Versioning) ditambahkan dan didorong ke repository saat fase selesai.
 
 ---
 

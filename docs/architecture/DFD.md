@@ -2,7 +2,7 @@
 
 ## JARVIS OPS — IT Service Management System
 
-**Version:** 1.0
+**Document Revision:** 1.0
 **Sumber:** `docs/product/PRD.md` (PRD v1.0 + Addendum v1.1), `docs/schema.sql`
 **Dokumen terkait:** `docs/architecture/CONTEXT-DIAGRAM.md`, `docs/architecture/ERD.md`, `docs/architecture/BACKEND-ARCHITECTURE.md`
 

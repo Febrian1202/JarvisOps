@@ -1,6 +1,6 @@
 # JARVIS OPS — API CONTRACT
 
-**Version:** 1.0
+**Document Revision:** 1.0
 **Base URL:** `/api`
 **Auth:** Laravel Sanctum, header `Authorization: Bearer <token>`
 **Basis:** PRD §29, NFR-005, NFR-006, `DECISIONS.md` Bagian C

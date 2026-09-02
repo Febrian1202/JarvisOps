@@ -2,7 +2,7 @@
 
 ## JARVIS OPS — IT Service Management System
 
-**Version:** 1.2
+**Document Revision:** 1.2
 **Status:** Derived — tidak memperkenalkan keputusan baru; mengkonsolidasikan pola yang tersebar
 **Sumber:** `docs/product/ROADMAP.md` (Fase 7–8), `docs/tasks/phase-2/2d-walking-skeleton.md`, `docs/api/API-CONTRACT.md`, `docs/product/PRD.md`, `AGENTS.md`
 **Dokumen terkait:** `docs/architecture/BACKEND-ARCHITECTURE.md`, `docs/architecture/CONTEXT-DIAGRAM.md`, `docs/architecture/DFD.md`, `docs/product/PERMISSION-MATRIX.md`, `docs/product/STATUS-TRANSITION.md`

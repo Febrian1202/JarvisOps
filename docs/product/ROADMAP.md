@@ -1,6 +1,6 @@
 # JARVIS OPS — DEVELOPMENT ROADMAP
 
-**Version:** 1.0
+**Document Revision:** 1.0
 **Basis:** PRD v1.0 + Addendum v1.1, `docs/adr/DECISIONS.md`, ERD v1.2 (`docs/schema.sql`), `docs/architecture/ERD.md`, `docs/architecture/DFD.md`, `docs/architecture/CONTEXT-DIAGRAM.md`
 **Durasi:** 7 minggu kerja + 1 minggu buffer (full-time)
 **Status:** Approved — siap dieksekusi
@@ -140,6 +140,10 @@ FrankenPHP dipakai dalam **classic mode** (satu request satu proses, seperti PHP
 
 ## Exit criteria
 
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
+
 - [x] `make up` menyalakan seluruh service tanpa error
 - [x] `GET http://localhost:8000/up` → `200` dengan body JSON (atau HTML OK untuk Fase 0)
 - [x] `http://localhost:3000` menampilkan halaman Next.js
@@ -196,6 +200,10 @@ Fase ini tidak menghasilkan kode. Itu wajar dan sengaja.
 Tiga dokumen di atas, di-commit.
 
 ## Exit criteria
+
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
 
 - [x] Setiap endpoint di API contract punya baris di permission matrix
 - [x] Setiap transisi status punya jawaban legal/ilegal yang eksplisit — tidak ada sel kosong
@@ -314,6 +322,10 @@ Migration + model + factory + seeder lengkap, auth API, RBAC, BFF proxy, halaman
 
 ## Exit criteria
 
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
+
 - [x] `migrate:fresh --seed` sukses, 18 tabel terisi data referensi
 - [x] Login dari browser berhasil, cookie httpOnly terpasang, halaman terproteksi menampilkan nama user
 - [x] Token tidak terlihat di `document.cookie` maupun di response body yang diterima browser
@@ -419,6 +431,10 @@ Ticket API lengkap dengan workflow, history, komentar, relasi asset, search/filt
 
 ## Exit criteria
 
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
+
 - [ ] Golden path §38 PRD (create → assign → in progress → resolve → close) bisa diselesaikan penuh via HTTP client
 - [ ] Seluruh 6 skenario §31 punya test yang lulus
 - [ ] Setiap BR punya test
@@ -488,6 +504,10 @@ Membuat sistem bereaksi terhadap waktu dan mencatat jejaknya — bagian yang mem
 Command SLA + scheduler, notification API, audit log API, seluruh event tersambung.
 
 ## Exit criteria
+
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
 
 - [ ] Ticket yang melewati deadline otomatis ditandai breached oleh container scheduler dalam ≤ 5 menit
 - [ ] Notifikasi SLA breach muncul di `GET /api/notifications` recipient yang benar
@@ -567,6 +587,10 @@ Asset API, KB API, attachment API, admin API, beserta test.
 
 ## Exit criteria
 
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
+
 - [ ] Riwayat kepemilikan asset bisa ditampilkan seperti contoh §17 PRD
 - [ ] Artikel bisa dibuat, dipublikasikan, dicari
 - [ ] Attachment tidak bisa diunduh tanpa otorisasi ticket
@@ -609,6 +633,10 @@ Menyediakan data agregat untuk empat dashboard sesuai §20 PRD.
 Empat endpoint dashboard beserta test.
 
 ## Exit criteria
+
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
 
 - [ ] Setiap angka di §20 PRD punya sumber data di API
 - [ ] Angka SLA di dashboard konsisten dengan hasil query manual
@@ -681,6 +709,10 @@ App shell, layer API, komponen bersama, notification bell yang berfungsi.
 
 ## Exit criteria
 
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
+
 - [ ] Login → dashboard placeholder, navigasi tampil sesuai role
 - [ ] `DataTable` sudah terbukti jalan dengan satu endpoint nyata (pagination + filter + search)
 - [ ] Notification bell menampilkan jumlah unread yang benar dan bertambah setelah aksi
@@ -748,6 +780,10 @@ Seluruh halaman fitur tersambung ke API.
 
 ## Exit criteria
 
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
+
 - [ ] Golden path §38 PRD bisa diselesaikan **sepenuhnya dari browser**, berpindah antar 3 akun
 - [ ] Setiap error validasi backend tampil di field yang tepat
 - [ ] Tidak ada aksi yang tampil untuk role yang tidak berhak
@@ -782,6 +818,10 @@ Memvisualisasikan analytics — bagian yang paling terlihat saat presentasi.
 Empat dashboard sesuai §20 PRD.
 
 ## Exit criteria
+
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
 
 - [ ] Setiap metrik yang disebut §20 PRD tampil di dashboard role yang tepat
 - [ ] Chart terbaca di layar mobile
@@ -882,6 +922,10 @@ Prioritas saat ada waktu sisa, berurutan:
 Aplikasi yang berjalan di container produksi, CI hijau, dokumentasi lengkap, demo siap.
 
 ## Exit criteria
+
+- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+
+
 
 - [ ] `docker compose -f compose.prod.yaml up` dari kondisi bersih menghasilkan aplikasi yang berfungsi
 - [ ] CI hijau di `main`

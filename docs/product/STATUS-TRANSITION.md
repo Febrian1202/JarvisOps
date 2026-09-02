@@ -1,6 +1,6 @@
 # JARVIS OPS — TICKET STATUS TRANSITION
 
-**Version:** 1.1
+**Document Revision:** 1.1
 **Basis:** PRD §10, §11, §12, §31; Addendum §7; `DECISIONS.md` Bagian A & B
 **Implementasi:** `App\Services\Ticket\TicketStatusService`
 **Perubahan v1.1 (awal Fase 3):** sel diagonal `ASSIGNED → ASSIGNED` dikoreksi jadi `—` (reassign lewat `POST /assign`); `available_actions` untuk `assign`, `change_priority`, dan `edit` dipersempit; bentuk error `409` (D-26) dan aturan bahasa Indonesia (D-29) ditambahkan; `note` dinyatakan opsional kecuali jalur pembatalan.
