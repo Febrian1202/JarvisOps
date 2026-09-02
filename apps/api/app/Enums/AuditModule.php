@@ -13,4 +13,5 @@ enum AuditModule: string
     case TicketCategory = 'ticket_category';
     case TicketPriority = 'ticket_priority';
     case Auth = 'auth';
+    case KnowledgeCategory = 'knowledge_category';
 }
