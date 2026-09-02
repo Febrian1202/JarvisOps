@@ -541,15 +541,15 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### Knowledge base
 
-- [ ] CRUD artikel, slug otomatis dan unik
-- [ ] Status `draft`/`published`; **Technician boleh publish langsung** (Addendum §5.1)
-- [ ] `POST /api/articles/{id}/publish`, `POST /api/articles/{id}/unpublish`
-- [ ] Employee hanya bisa melihat artikel `published` (§19 PRD, draft → 404)
-- [ ] Increment `view_count` saat artikel dibaca
-- [ ] Search judul + isi, filter kategori
-- [ ] Related articles — kategori sama, kecuali dirinya sendiri
-- [ ] CRUD `knowledge_categories` — Admin
-- [ ] Policy sesuai keputusan "Limited" di permission matrix
+- [x] CRUD artikel, slug otomatis dan unik
+- [x] Status `draft`/`published`; **Technician boleh publish langsung** (Addendum §5.1)
+- [x] `POST /api/articles/{id}/publish`, `POST /api/articles/{id}/unpublish`
+- [x] Employee hanya bisa melihat artikel `published` (§19 PRD, draft → 404)
+- [x] Increment `view_count` saat artikel dibaca
+- [x] Search judul + isi, filter kategori
+- [x] Related articles — kategori sama, kecuali dirinya sendiri
+- [x] CRUD `knowledge_categories` — Admin
+- [x] Policy sesuai keputusan "Limited" di permission matrix
 
 ### File attachment (Addendum §6)
 
@@ -574,8 +574,8 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 - [x] Asset `maintenance` di-assign → 422
 - [x] Asset yang sudah ter-assign di-assign lagi → 409
 - [x] Soft delete asset → ticket lama tetap utuh
-- [ ] Employee membaca artikel `draft` → 404
-- [ ] Technician membuat lalu publish artikel → sukses
+- [x] Employee membaca artikel `draft` → 404
+- [x] Technician membuat lalu publish artikel → sukses
 - [ ] Upload 6 MB → 422; upload `.exe` → 422; upload PDF valid → sukses
 - [ ] User non-partisipan mengunduh attachment → 404 (denyAsNotFound)
 - [ ] Admin membuat user dengan email duplikat → 422

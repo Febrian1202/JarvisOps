@@ -80,7 +80,7 @@ public function create(CreateArticleData $data, User $actor): KnowledgeArticle
 > **Jebakan 1:** `Str::slug` menghasilkan string kosong untuk judul yang hanya berisi karakter non-ASCII tertentu. Jika slug kosong, gunakan fallback `untitled-{id}` atau `article-{unik}`.
 > **Jebakan 2:** `withTrashed()` pada pengecekan slug — tanpa ini, slug yang sudah dipakai artikel tertrash tetap dianggap tersedia, menyebabkan error duplicate key saat artikel baru dibuat.
 
-- [ ] **Step 1: Test — create article (draft + published).**
+- [x] **Step 1: Test — create article (draft + published).**
   ```php
   test('technician can create draft article', function () {
       Sanctum::actingAs(User::factory()->technician()->create());
@@ -107,7 +107,7 @@ public function create(CreateArticleData $data, User $actor): KnowledgeArticle
   });
   ```
 
-- [ ] **Step 2: Test — slug unique dan immutable.**
+- [x] **Step 2: Test — slug unique dan immutable.**
   ```php
   test('duplicate slug gets -2 suffix', function () {
       Sanctum::actingAs(User::factory()->technician()->create());
@@ -117,7 +117,7 @@ public function create(CreateArticleData $data, User $actor): KnowledgeArticle
   });
   ```
 
-- [ ] **Step 3: Test — employee cannot create article (403).**
+- [x] **Step 3: Test — employee cannot create article (403).**
   ```php
   test('employee cannot create article', function () {
       Sanctum::actingAs(User::factory()->employee()->create());
@@ -125,9 +125,9 @@ public function create(CreateArticleData $data, User $actor): KnowledgeArticle
   });
   ```
 
-- [ ] **Step 4: Implementasi** — DTO, service, request, slug generator.
+- [x] **Step 4: Implementasi** — DTO, service, request, slug generator.
 
-- [ ] **Step 5: Verifikasi & commit.**
+- [x] **Step 5: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Knowledge/ArticleCreateTest.php
   vendor/bin/pint --dirty --format agent
@@ -204,7 +204,7 @@ public function delete(KnowledgeArticle $article, User $actor): void
 }
 ```
 
-- [ ] **Step 1: Test — show by slug, update, delete.**
+- [x] **Step 1: Test — show by slug, update, delete.**
   ```php
   test('article can be retrieved by slug', function () {
       $article = KnowledgeArticle::factory()->create(['slug' => 'my-unique-article']);
@@ -232,9 +232,9 @@ public function delete(KnowledgeArticle $article, User $actor): void
   });
   ```
 
-- [ ] **Step 2: Implementasi** — controller, resource, route.
+- [x] **Step 2: Implementasi** — controller, resource, route.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Knowledge/ArticleCrudTest.php
   vendor/bin/pint --dirty --format agent
@@ -315,7 +315,7 @@ public function show(KnowledgeArticle $article, Request $request): JsonResponse
 
 > **Jebakan:** `increment()` menyentuh `updated_at`. Gunakan `withoutTimestamps()` (Laravel 10+) atau update kolom langsung (`DB::raw('view_count + 1')`) untuk menghindari perubahan `updated_at` yang menyesatkan.
 
-- [ ] **Step 1: Test — publish, unpublish, view_count.**
+- [x] **Step 1: Test — publish, unpublish, view_count.**
   ```php
   test('technician can publish article', function () {
       $tech = User::factory()->technician()->create();
@@ -342,9 +342,9 @@ public function show(KnowledgeArticle $article, Request $request): JsonResponse
   });
   ```
 
-- [ ] **Step 2: Implementasi** — controller method, route.
+- [x] **Step 2: Implementasi** — controller method, route.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Knowledge/ArticlePublishTest.php
   vendor/bin/pint --dirty --format agent
@@ -411,7 +411,7 @@ public function paginate(Request $request, User $actor): LengthAwarePaginator
 }
 ```
 
-- [ ] **Step 1: Test — Employee scoping, search, filter.**
+- [x] **Step 1: Test — Employee scoping, search, filter.**
   ```php
   test('employee sees only published articles', function () {
       KnowledgeArticle::factory()->create(['status' => 'published']);
@@ -434,9 +434,9 @@ public function paginate(Request $request, User $actor): LengthAwarePaginator
   });
   ```
 
-- [ ] **Step 2: Implementasi** — request, query service, controller.
+- [x] **Step 2: Implementasi** — request, query service, controller.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Knowledge/ArticleListTest.php
   vendor/bin/pint --dirty --format agent
@@ -480,7 +480,7 @@ public function destroy(KnowledgeCategory $category, Request $request): JsonResp
 }
 ```
 
-- [ ] **Step 1: Test — CRUD + delete guard.**
+- [x] **Step 1: Test — CRUD + delete guard.**
   ```php
   test('admin can create knowledge category', function () {
       Sanctum::actingAs(User::factory()->admin()->create());
@@ -501,9 +501,9 @@ public function destroy(KnowledgeCategory $category, Request $request): JsonResp
   });
   ```
 
-- [ ] **Step 2: Implementasi** — controller, request, route.
+- [x] **Step 2: Implementasi** — controller, request, route.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Knowledge/KnowledgeCategoryTest.php
   vendor/bin/pint --dirty --format agent
@@ -536,17 +536,17 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 > **Jebakan:** Route `{article:slug}` hanya untuk `show`. `update`, `destroy`, `publish`, `unpublish` memakai `{article}` (default id) — karena `PUT /articles/{slug}`, `DELETE /articles/{slug}` ambigu secara semantik (slug bukan milik resource yang di-mutate oleh user).
 
-- [ ] **Step 1: Uji seluruh route terdaftar.**
+- [x] **Step 1: Uji seluruh route terdaftar.**
   ```bash
   php artisan route:list --path=api
   ```
 
-- [ ] **Step 2: Jalankan seluruh test KB.**
+- [x] **Step 2: Jalankan seluruh test KB.**
   ```bash
   vendor/bin/pest tests/Feature/Knowledge/
   ```
 
-- [ ] **Step 3: Formatting & commit.**
+- [x] **Step 3: Formatting & commit.**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add routes/api.php
@@ -567,13 +567,13 @@ Tambahkan minimal 1 artikel draft dan 1 assignment aktif untuk employee demo aga
 
 ## Exit Criteria 5c
 
-- [ ] Artikel CRUD: create (201), show by slug, update (slug immutable), delete (T hanya own).
-- [ ] Publish/unpublish: T boleh publish langsung (Addendum §5.1), `published_at` diisi, tidak direset saat unpublish.
-- [ ] `view_count` increment atomik pada `GET /articles/{slug}` (published only).
-- [ ] Related articles: kategori sama, ≤5, published, exclude diri.
-- [ ] List: Employee scoped published-only, filter `status` diabaikan untuk Employee.
-- [ ] Search: `title` + `content` LIKE, sanitasi wildcard.
-- [ ] Knowledge category CRUD (Admin), delete diblokir 409 jika masih punya artikel.
-- [ ] `GET /api/knowledge-categories` — semua role terautentikasi.
-- [ ] Route binding: `{article:slug}` untuk show, `{article}` (id) untuk mutasi.
-- [ ] `php artisan test` hijau, `pint --test` bersih.
+- [x] Artikel CRUD: create (201), show by slug, update (slug immutable), delete (T hanya own).
+- [x] Publish/unpublish: T boleh publish langsung (Addendum §5.1), `published_at` diisi, tidak direset saat unpublish.
+- [x] `view_count` increment atomik pada `GET /articles/{slug}` (published only).
+- [x] Related articles: kategori sama, ≤5, published, exclude diri.
+- [x] List: Employee scoped published-only, filter `status` diabaikan untuk Employee.
+- [x] Search: `title` + `content` LIKE, sanitasi wildcard.
+- [x] Knowledge category CRUD (Admin), delete diblokir 409 jika masih punya artikel.
+- [x] `GET /api/knowledge-categories` — semua role terautentikasi.
+- [x] Route binding: `{article:slug}` untuk show, `{article}` (id) untuk mutasi.
+- [x] `php artisan test` hijau, `pint --test` bersih.
