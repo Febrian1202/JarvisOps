@@ -47,14 +47,15 @@ class TicketService
         if (! empty($validated['search'])) {
             $search = str_replace(['%', '_'], ['\\%', '\\_'], $validated['search']);
             $query->where(function ($q) use ($search) {
-                $q->where('ticket_number', 'LIKE', "%{$search}%")
-                    ->orWhere('title', 'LIKE', "%{$search}%");
+                $q->whereRaw('ticket_number LIKE ? ESCAPE ?', ["%{$search}%", '\\'])
+                    ->orWhereRaw('title LIKE ? ESCAPE ?', ["%{$search}%", '\\']);
             });
         }
 
         foreach (['status_id', 'priority_id', 'category_id'] as $field) {
             if (! empty($validated[$field])) {
-                $ids = array_filter(array_map('intval', explode(',', $validated[$field])));
+                $ids = array_map('intval', explode(',', $validated[$field]));
+                $ids = array_values(array_filter($ids, fn ($v) => $v > 0));
                 $query->whereIn($field, $ids);
             }
         }
@@ -86,11 +87,11 @@ class TicketService
         }
 
         if (! empty($validated['created_from'])) {
-            $query->whereDate('created_at', '>=', $validated['created_from']);
+            $query->where('created_at', '>=', $validated['created_from'].' 00:00:00');
         }
 
         if (! empty($validated['created_to'])) {
-            $query->whereDate('created_at', '<=', $validated['created_to']);
+            $query->where('created_at', '<=', $validated['created_to'].' 23:59:59');
         }
 
         $sortBy = $validated['sort_by'] ?? 'created_at';

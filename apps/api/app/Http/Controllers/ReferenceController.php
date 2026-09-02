@@ -19,6 +19,8 @@ class ReferenceController extends Controller
      */
     public function categories(): JsonResponse
     {
+        $this->authorize('ticket-category.viewAny');
+
         return ApiResponse::success(TicketCategory::all(['id', 'name']), 'Ticket categories retrieved.');
     }
 
@@ -27,6 +29,8 @@ class ReferenceController extends Controller
      */
     public function priorities(): JsonResponse
     {
+        $this->authorize('ticket-priority.viewAny');
+
         return ApiResponse::success(TicketPriority::all(['id', 'name', 'sla_minutes']), 'Ticket priorities retrieved.');
     }
 
@@ -35,6 +39,8 @@ class ReferenceController extends Controller
      */
     public function statuses(): JsonResponse
     {
+        $this->authorize('ticket-status.viewAny');
+
         return ApiResponse::success(TicketStatus::all(['id', 'name']), 'Ticket statuses retrieved.');
     }
 

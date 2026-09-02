@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Asset;
+use App\Models\Department;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -47,11 +49,102 @@ test('search matches ticket_number and title', function () {
 
 test('search sanitizes wildcards', function () {
     $employee = User::factory()->employee()->create();
-    Ticket::factory()->open()->count(3)->create(['reporter_id' => $employee->id]);
+    Ticket::factory()->open()->create([
+        'title' => 'Laptop 50% rusak',
+        'reporter_id' => $employee->id,
+    ]);
+    Ticket::factory()->open()->create([
+        'title' => 'Monitor_Screen mati',
+        'reporter_id' => $employee->id,
+    ]);
+    Ticket::factory()->open()->count(2)->create(['reporter_id' => $employee->id]);
     Sanctum::actingAs($employee);
 
-    $this->getJson('/api/tickets?search=%')->assertJsonPath('meta.total', 0);
-    $this->getJson('/api/tickets?search=_')->assertJsonPath('meta.total', 0);
+    $this->getJson('/api/tickets?search=%')->assertJsonPath('meta.total', 1);
+    $this->getJson('/api/tickets?search=_')->assertJsonPath('meta.total', 1);
+});
+
+test('filter by status_id', function () {
+    $manager = User::factory()->manager()->create();
+    Ticket::factory()->open()->create(['status_id' => 1]);
+    Ticket::factory()->resolved()->create(['status_id' => 4]);
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?status_id=1')->assertJsonPath('meta.total', 1);
+    $this->getJson('/api/tickets?status_id=4')->assertJsonPath('meta.total', 1);
+    $this->getJson('/api/tickets?status_id=1,4')->assertJsonPath('meta.total', 2);
+});
+
+test('filter by priority_id', function () {
+    $manager = User::factory()->manager()->create();
+    Ticket::factory()->open()->create(['priority_id' => 1]);
+    Ticket::factory()->open()->create(['priority_id' => 2]);
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?priority_id=1')->assertJsonPath('meta.total', 1);
+    $this->getJson('/api/tickets?priority_id=1,2')->assertJsonPath('meta.total', 2);
+});
+
+test('filter by category_id', function () {
+    $manager = User::factory()->manager()->create();
+    Ticket::factory()->open()->create(['category_id' => 1]);
+    Ticket::factory()->open()->create(['category_id' => 2]);
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?category_id=1')->assertJsonPath('meta.total', 1);
+    $this->getJson('/api/tickets?category_id=1,2')->assertJsonPath('meta.total', 2);
+});
+
+test('filter by technician_id', function () {
+    $manager = User::factory()->manager()->create();
+    $tech = User::factory()->technician()->create();
+    Ticket::factory()->open()->create(['technician_id' => $tech->id]);
+    Ticket::factory()->open()->create(['technician_id' => User::factory()->technician()]);
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?technician_id='.$tech->id)->assertJsonPath('meta.total', 1);
+});
+
+test('filter by technician_id unassigned', function () {
+    $manager = User::factory()->manager()->create();
+    Ticket::factory()->open()->create(['technician_id' => null]);
+    Ticket::factory()->open()->create(['technician_id' => User::factory()->technician()]);
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?technician_id=unassigned')->assertJsonPath('meta.total', 1);
+});
+
+test('filter by department_id', function () {
+    $manager = User::factory()->manager()->create();
+    $department = Department::factory()->create();
+    Ticket::factory()->open()->create(['department_id' => $department->id]);
+    Ticket::factory()->open()->create();
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?department_id='.$department->id)->assertJsonPath('meta.total', 1);
+});
+
+test('filter by asset_id', function () {
+    $manager = User::factory()->manager()->create();
+    $asset = Asset::factory()->create();
+    Ticket::factory()->open()->create(['asset_id' => $asset->id]);
+    Ticket::factory()->open()->create();
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?asset_id='.$asset->id)->assertJsonPath('meta.total', 1);
+});
+
+test('filter by created_from and created_to', function () {
+    $manager = User::factory()->manager()->create();
+    $ticket = Ticket::factory()->open()->create();
+    $ticket->forceFill(['created_at' => '2024-01-15 10:00:00'])->save();
+    $other = Ticket::factory()->open()->create();
+    $other->forceFill(['created_at' => '2024-02-20 10:00:00'])->save();
+    Sanctum::actingAs($manager);
+
+    $this->getJson('/api/tickets?created_from=2024-01-01&created_to=2024-01-31')->assertJsonPath('meta.total', 1);
+    $this->getJson('/api/tickets?created_from=2024-02-01')->assertJsonPath('meta.total', 1);
+    $this->getJson('/api/tickets?created_to=2024-01-01')->assertJsonPath('meta.total', 0);
 });
 
 test('invalid sort_by returns 422', function () {
