@@ -49,7 +49,7 @@ class DemoDataSeeder extends Seeder
             );
         }
 
-        // 2. Seed 10 Knowledge Articles
+        // 2. Seed 10 Knowledge Articles (plus 1 draft for technician/admin editing demo)
         $hwCat = KnowledgeCategory::where('name', 'Hardware Troubleshooting')->first();
         $netCat = KnowledgeCategory::where('name', 'Network & Connectivity')->first();
         $swCat = KnowledgeCategory::where('name', 'Software & OS')->first();
@@ -57,20 +57,22 @@ class DemoDataSeeder extends Seeder
         $offCat = KnowledgeCategory::where('name', 'Office Facility')->first();
 
         $articles = [
-            ['cat_id' => $hwCat?->id, 'title' => 'Mengatasi Laptop Tidak Mau Menyala (Hard Reset)', 'slug' => 'mengatasi-laptop-tidak-mau-menyala'],
-            ['cat_id' => $hwCat?->id, 'title' => 'Panduan Menghubungkan Dual Monitor di macOS dan Windows', 'slug' => 'panduan-menghubungkan-dual-monitor'],
-            ['cat_id' => $netCat?->id, 'title' => 'Cara Menghubungkan ke Wi-Fi Perusahaan (WPA2/WPA3 Enterprise)', 'slug' => 'cara-menghubungkan-ke-wifi-perusahaan'],
-            ['cat_id' => $netCat?->id, 'title' => 'Setup dan Troubleshooting Koneksi VPN Kantor', 'slug' => 'setup-troubleshooting-vpn-kantor'],
-            ['cat_id' => $swCat?->id, 'title' => 'Aktivasi dan Instalasi Microsoft 365 Enterprise', 'slug' => 'aktivasi-instalasi-microsoft-365'],
-            ['cat_id' => $swCat?->id, 'title' => 'Prosedur Request Instalasi Software Berlisensi', 'slug' => 'prosedur-request-software-berlisensi'],
-            ['cat_id' => $accCat?->id, 'title' => 'Kebijakan Standar Password dan Masa Berlaku Kredensial', 'slug' => 'kebijakan-standar-password'],
-            ['cat_id' => $accCat?->id, 'title' => 'Cara Mengaktifkan Autentikasi Dua Faktor (2FA)', 'slug' => 'cara-mengaktifkan-autentikasi-2fa'],
-            ['cat_id' => $offCat?->id, 'title' => 'Panduan Setting Printer Kantor dan Print Quota', 'slug' => 'panduan-setting-printer-kantor'],
-            ['cat_id' => $offCat?->id, 'title' => 'Cara Penggunaan Smart Display Meeting Room', 'slug' => 'cara-penggunaan-smart-display-meeting-room'],
+            ['cat_id' => $hwCat?->id, 'title' => 'Mengatasi Laptop Tidak Mau Menyala (Hard Reset)', 'slug' => 'mengatasi-laptop-tidak-mau-menyala', 'status' => 'published'],
+            ['cat_id' => $hwCat?->id, 'title' => 'Panduan Menghubungkan Dual Monitor di macOS dan Windows', 'slug' => 'panduan-menghubungkan-dual-monitor', 'status' => 'published'],
+            ['cat_id' => $netCat?->id, 'title' => 'Cara Menghubungkan ke Wi-Fi Perusahaan (WPA2/WPA3 Enterprise)', 'slug' => 'cara-menghubungkan-ke-wifi-perusahaan', 'status' => 'published'],
+            ['cat_id' => $netCat?->id, 'title' => 'Setup dan Troubleshooting Koneksi VPN Kantor', 'slug' => 'setup-troubleshooting-vpn-kantor', 'status' => 'published'],
+            ['cat_id' => $swCat?->id, 'title' => 'Aktivasi dan Instalasi Microsoft 365 Enterprise', 'slug' => 'aktivasi-instalasi-microsoft-365', 'status' => 'published'],
+            ['cat_id' => $swCat?->id, 'title' => 'Prosedur Request Instalasi Software Berlisensi', 'slug' => 'prosedur-request-software-berlisensi', 'status' => 'published'],
+            ['cat_id' => $accCat?->id, 'title' => 'Kebijakan Standar Password dan Masa Berlaku Kredensial', 'slug' => 'kebijakan-standar-password', 'status' => 'published'],
+            ['cat_id' => $accCat?->id, 'title' => 'Cara Mengaktifkan Autentikasi Dua Faktor (2FA)', 'slug' => 'cara-mengaktifkan-autentikasi-2fa', 'status' => 'published'],
+            ['cat_id' => $offCat?->id, 'title' => 'Panduan Setting Printer Kantor dan Print Quota', 'slug' => 'panduan-setting-printer-kantor', 'status' => 'published'],
+            ['cat_id' => $offCat?->id, 'title' => 'Cara Penggunaan Smart Display Meeting Room', 'slug' => 'cara-penggunaan-smart-display-meeting-room', 'status' => 'published'],
+            ['cat_id' => $hwCat?->id, 'title' => 'Troubleshooting Docking Station Thunderbolt (Draft)', 'slug' => 'troubleshooting-docking-station-thunderbolt', 'status' => 'draft'],
         ];
 
         foreach ($articles as $art) {
             if ($art['cat_id']) {
+                $isPublished = ($art['status'] ?? 'published') === 'published';
                 KnowledgeArticle::updateOrCreate(
                     ['slug' => $art['slug']],
                     [
@@ -78,9 +80,9 @@ class DemoDataSeeder extends Seeder
                         'author_id' => $admin->id,
                         'title' => $art['title'],
                         'content' => 'Dokumentasi dan petunjuk langkah demi langkah untuk '.$art['title'].'. Pastikan mengikuti instruksi keselamatan dan keamanan kerja IT.',
-                        'status' => 'published',
-                        'view_count' => rand(10, 200),
-                        'published_at' => now()->subDays(rand(1, 30)),
+                        'status' => $art['status'] ?? 'published',
+                        'view_count' => $isPublished ? rand(10, 200) : 0,
+                        'published_at' => $isPublished ? now()->subDays(rand(1, 30)) : null,
                     ]
                 );
             }

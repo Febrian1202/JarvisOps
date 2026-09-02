@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Article\KnowledgeCategoryController;
 use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Asset\AssetHistoryController;
 use App\Http\Controllers\Audit\AuditLogController;
@@ -42,6 +44,14 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::post('/assets/{asset}/release', [AssetController::class, 'release'])->name('assets.release');
     Route::get('/assets/{asset}/history', AssetHistoryController::class)->name('assets.history');
     Route::apiResource('assets', AssetController::class);
+    Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('/articles/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
+    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+    Route::post('/articles/{article}/publish', [ArticleController::class, 'publish'])->name('articles.publish');
+    Route::post('/articles/{article}/unpublish', [ArticleController::class, 'unpublish'])->name('articles.unpublish');
+    Route::apiResource('knowledge-categories', KnowledgeCategoryController::class);
     Route::apiResource('tickets', TicketController::class);
 
     Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
