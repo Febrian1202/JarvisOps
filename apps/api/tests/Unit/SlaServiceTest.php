@@ -109,3 +109,38 @@ test('isBreached returns true defensively if sla_breached is true or deadline pa
 
     Carbon::setTestNow();
 });
+
+test('breachCandidates query returns only active unbreached tickets past deadline', function () {
+    $slaService = new SlaService;
+
+    // 1. Tiket breach valid
+    $t1 = Ticket::factory()->open()->create([
+        'sla_breached' => false,
+        'sla_deadline' => now()->subMinutes(10),
+    ]);
+
+    // 2. Tiket sudah ditandai breach sebelumnya (harus diabaikan)
+    $t2 = Ticket::factory()->open()->create([
+        'sla_breached' => true,
+        'sla_deadline' => now()->subMinutes(10),
+    ]);
+
+    // 3. Tiket belum melewati deadline (harus diabaikan)
+    $t3 = Ticket::factory()->open()->create([
+        'sla_breached' => false,
+        'sla_deadline' => now()->addMinutes(30),
+    ]);
+
+    // 4. Tiket resolved yang melewati deadline (harus diabaikan)
+    $t4 = Ticket::factory()->resolved()->create([
+        'sla_breached' => false,
+        'sla_deadline' => now()->subMinutes(10),
+    ]);
+
+    $candidates = $slaService->breachCandidates()->pluck('id')->all();
+
+    expect($candidates)->toContain($t1->id)
+        ->and($candidates)->not->toContain($t2->id)
+        ->and($candidates)->not->toContain($t3->id)
+        ->and($candidates)->not->toContain($t4->id);
+});
