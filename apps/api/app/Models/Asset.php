@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Enums\AssetStatus;
 use App\Models\Concerns\SerializesDatesAsIso8601;
-use App\Policies\AssetPolicy;
+use App\Policies\Asset\AssetPolicy;
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

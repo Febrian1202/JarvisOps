@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Models\Concerns\SerializesDatesAsIso8601;
+use App\Policies\Article\ArticlePolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[UsePolicy(ArticlePolicy::class)]
 class KnowledgeArticle extends Model
 {
     use HasFactory, SerializesDatesAsIso8601, SoftDeletes;

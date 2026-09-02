@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\Concerns\SerializesDatesAsIso8601;
+use App\Policies\Attachment\AttachmentPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[UsePolicy(AttachmentPolicy::class)]
 class TicketAttachment extends Model
 {
     use HasFactory, SerializesDatesAsIso8601;
