@@ -1,11 +1,11 @@
 # AGENTS.md — JARVIS OPS
 
-IT Service Management monorepo. **Design phase is complete; implementation has barely started.** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the code is still near-scaffold. Expect to write net-new code, not modify existing features.
+IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 3/10).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 22 migrations, 276 passing tests, and full ticket CRUD with authorization. Expect to write net-new code, not modify existing features.
 
 ## Repo layout
 
 ```
-apps/api/    Laravel 13.17 + Sanctum 4 (PHP ^8.3, local runtime is 8.5)
+apps/api/    Laravel 13.29 + Sanctum 4 (PHP ^8.3, local runtime is 8.5)
 apps/web/    Next.js 16.3 + React 19 + Tailwind v4 (App Router, src/app)
 docs/        approved design docs — the spec
 PRODUCT.md   product truth for the impeccable design skill
@@ -63,7 +63,7 @@ composer dev                             # php artisan dev (concurrent dev proce
 
 Pest 5 is installed with `pest-plugin-laravel` and PHPUnit 13.3. Tests run against **SQLite in-memory** (`phpunit.xml`) while `apps/api/.env` points at **MySQL** (`DB_DATABASE=JarvisOps`, jarvisops/secret in Docker, root/root local).
 
-Health endpoint today is `/up` (`bootstrap/app.php`); the `/api/health` in ROADMAP/PERMISSION-MATRIX does not exist yet. API exceptions already render as JSON for `api/*`.
+Health endpoint: `/api/health` (`app/Http/Controllers/HealthController.php`), not the `/up` from bootstrap. API exceptions already render as JSON for `api/*`.
 
 ## Frontend commands (`apps/web`)
 
@@ -86,6 +86,10 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 
 ## Current state, concretely
 
-- `apps/api`: Laravel's default migrations plus `personal_access_tokens`. One model (`User`), `app/Http/Controllers` holds only the base `Controller`, `routes/api.php` is the stock `/user` closure. Tests have been migrated to Pest with a single `HealthCheckTest`. Pint is clean.
-- `apps/web`: unmodified `create-next-app` output — `src/app/{page,layout,globals.css}`.
-- Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) is **complete**. Phase 2 (Backend Foundation & Walking Skeleton) is the next work.
+- `apps/api`: 22 migrations, 18 models, 11 API routes, full ticket CRUD (create/show/update/delete), 5 test files covering ticket lifecycle (276 total tests, 1214 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, enums, and transition matrix are all implemented and passing.
+- `apps/web`: login page + protected dashboard (`src/app/login/`, `src/app/dashboard/`), BFF proxy route handler, auth flow with httpOnly cookie.
+- Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) — **complete**
+- Phase 2 (Backend Foundation & Walking Skeleton: auth, login, middleware, health, web dashboard) — **complete**
+- Phase 3a (Ticket Foundation: policies, SLA, audit, notification, enums, factory states, transition matrix) — **complete**
+- Phase 3b (Ticket CRUD: create/show/update/delete, DTOs, form requests, resources, assignable assets endpoint) — **complete**
+- Phase 3c (Ticket Query: list with scoping, filters, search, sort, reference data endpoints) — **next work**

@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: tahap perencanaan selesai, implementasi belum dimulai.**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Kode aplikasi masih berupa skeleton Laravel dan Next.js hasil scaffold. Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: desain selesai, implementasi berjalan (Fase 3/10).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 22 migration, autentikasi + otorisasi berbasis policy, dan CRUD ticket penuh (Fase 3b). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -142,14 +142,22 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 
 - Seluruh dokumen desain di `docs/` — lengkap dan sudah saling diverifikasi konsisten
 - **Fase 0 (Repo, Docker, Toolchain) — SELESAI**: `compose.yaml`, `docker/`, `Makefile`, Pest 5 terpasang, smoke test hijau
-- `apps/api` — skeleton Laravel 13.17 dengan Sanctum 4 terpasang, Pest 5 terkonfigurasi
-- `apps/web` — hasil `create-next-app` dengan Tailwind v4
+- **Fase 2 (Backend Fondasi & Walking Skeleton) — SELESAI**: auth (login/logout/profile) via Sanctum, middleware, `/api/health`, halaman login + dashboard terproteksi di `apps/web`, BFF proxy dengan httpOnly cookie
+- **Fase 3a (Ticket Foundation) — SELESAI**: enums, matriks transisi status, TicketPolicy/AssetPolicy/TicketCommentPolicy/NotificationPolicy, SlaService (snapshot + defensif), AuditLogger, NotificationService, state TicketFactory, `ApiResponse::paginated()` resource-aware, migration index
+- **Fase 3b (Ticket CRUD) — SELESAI**: DTO + FormRequest + rule kepemilikan asset, `TicketService::create/update/delete/find`, `TicketResource`/`TicketListResource`, `TicketController`, `GET /api/assets/assignable`
+- `apps/api` — Laravel 13.29 + Sanctum 4, 22 migration, 18 model, 276 test passing (1214 assertions), Pint bersih
+- `apps/web` — login page + protected dashboard, BFF route handler
 
 ### Belum ada
 
-Migration 18 tabel, seeder, autentikasi, otorisasi, seluruh modul fitur, seluruh halaman frontend, dan deployment.
+- `GET /api/tickets` (list dengan scoping, filter, search, sort) + 4 endpoint referensi (Fase 3c)
+- Workflow ticket: assign/unassign/self-assign/change-status/change-priority, `expected_status_id` (Fase 3d)
+- Komentar, riwayat perubahan, Golden Path end-to-end (Fase 3e)
+- Scheduler SLA (proses terpisah), endpoint GET notifikasi & audit log (Fase 4)
+- Attachment (disk private + policy), manajemen asset penuh, master-data CRUD (Fase 5)
+- Dashboard & analytics, seluruh halaman frontend lanjutan (Fase 7/8), deployment.
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 2 — Backend Fondasi & Walking Skeleton**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 3c — Ticket Query**.
 
 ---
 
