@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Asset\AssetController;
+use App\Http\Controllers\Asset\AssetHistoryController;
 use App\Http\Controllers\Audit\AuditLogController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
@@ -38,6 +39,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::post('/assets/{asset}/assign', [AssetController::class, 'assign'])->name('assets.assign');
     Route::post('/assets/{asset}/release', [AssetController::class, 'release'])->name('assets.release');
+    Route::get('/assets/{asset}/history', AssetHistoryController::class)->name('assets.history');
     Route::apiResource('assets', AssetController::class);
     Route::apiResource('tickets', TicketController::class);
 
