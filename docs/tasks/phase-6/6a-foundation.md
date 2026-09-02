@@ -100,7 +100,7 @@ public function messages(): array
 
 > **Jebakan:** **Jangan** tambahkan parameter `technician_id` di request ini — keputusan #8: dashboard technician selalu `self`, parameter apa pun diabaikan. Tidak perlu validasi `date_from <= date_to` di sini (serahkan ke service; bila salah, query mengembalikan 0, bukan error — menghindari 422 untuk hal yang tidak merusak).
 
-- [ ] **Step 1: Test — `DashboardDateRange` default 30 hari, parse WIB, applyToCreated/Resolved.**
+- [x] **Step 1: Test — `DashboardDateRange` default 30 hari, parse WIB, applyToCreated/Resolved.**
   ```php
   test('default range covers last 30 days in WIB', function () {
       $range = DashboardDateRange::default();
@@ -138,9 +138,9 @@ public function messages(): array
   });
   ```
 
-- [ ] **Step 2: Implementasi `DashboardDateRange`** sesuai kode di atas.
+- [x] **Step 2: Implementasi `DashboardDateRange`** sesuai kode di atas.
 
-- [ ] **Step 3: Test — `IndexDashboardRequest` validasi format tanggal.**
+- [x] **Step 3: Test — `IndexDashboardRequest` validasi format tanggal.**
   ```php
   test('valid date formats pass', function () {
       $request = new IndexDashboardRequest(['date_from' => '2026-08-01', 'date_to' => '2026-08-31']);
@@ -160,9 +160,9 @@ public function messages(): array
   });
   ```
 
-- [ ] **Step 4: Implementasi `IndexDashboardRequest`** — sesuai kode di atas.
+- [x] **Step 4: Implementasi `IndexDashboardRequest`** — sesuai kode di atas.
 
-- [ ] **Step 5: Verifikasi running & commit.**
+- [x] **Step 5: Verifikasi running & commit.**
   ```bash
   vendor/bin/pest tests/Unit/DashboardDateRangeTest.php
   vendor/bin/pest tests/Unit/DashboardRequestTest.php
@@ -225,7 +225,7 @@ class DashboardQueryService
 > - **MySQL (prod):** `CONVERT_TZ(col, '+00:00', '+07:00')` dengan **offset numerik** (`'+00:00'`) **tidak** membutuhkan tabel timezone MySQL — tabel hanya wajib untuk zona bernama (`'Asia/Jakarta'`, `'UTC'`). Jadi `DATE(CONVERT_TZ(col, '+00:00', '+07:00'))` aman di MySQL 8.4 tanpa setup tambahan.
 > - Kedua cabang `match` harus menghasilkan **`'YYYY-MM-DD'`** agar key array (`pluck('count', 'date')`) konsisten lintas driver.
 
-- [ ] **Step 1: Test — `dateBucket` dan `minutesDiff` mengembalikan SQL yang benar untuk driver.**
+- [x] **Step 1: Test — `dateBucket` dan `minutesDiff` mengembalikan SQL yang benar untuk driver.**
   ```php
   test('dateBucket returns correct SQL for sqlite', function () {
       $service = new DashboardQueryService();
@@ -247,9 +247,9 @@ class DashboardQueryService
   });
   ```
 
-- [ ] **Step 2: Implementasi `DashboardQueryService`** — sesuai kode di atas.
+- [x] **Step 2: Implementasi `DashboardQueryService`** — sesuai kode di atas.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Unit/DashboardQueryServiceTest.php
   vendor/bin/pint --dirty --format agent
@@ -314,7 +314,7 @@ class SlaMetricsCalculator
 
 > **Jebakan:** `$resolved` di-clone dari `$ticketQuery` yang sudah di-scope role. Pastikan `clone $query` — bukan `$query` langsung — karena method compose beberapa clone. `whereColumn` membandingkan dua kolom (lintas-driver aman). `compliance_percentage` dibulatkan 1 desimal (`87.0`).
 
-- [ ] **Step 1: Test — Skenario terkontrol, hitung manual.**
+- [x] **Step 1: Test — Skenario terkontrol, hitung manual.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -360,9 +360,9 @@ class SlaMetricsCalculator
   });
   ```
 
-- [ ] **Step 2: Implementasi `SlaMetricsCalculator`** — sesuai kode di atas.
+- [x] **Step 2: Implementasi `SlaMetricsCalculator`** — sesuai kode di atas.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Unit/SlaMetricsCalculatorTest.php
   vendor/bin/pint --dirty --format agent
@@ -434,7 +434,7 @@ class TicketTrendQuery
 
 > **Jebakan:** `pluck(count, date)` — urutan parameter `pluck($value, $key)`. GroupBy `date` dengan alias `date`; SQLite mengembalikan alias tanpa masalah. Pastikan `$range->toUtc` dikonversi ke WIB untuk iterasi perbandingan `$current->lte($end)`.
 
-- [ ] **Step 1: Test — created & resolved counts per day, all days filled.**
+- [x] **Step 1: Test — created & resolved counts per day, all days filled.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -459,9 +459,9 @@ class TicketTrendQuery
   });
   ```
 
-- [ ] **Step 2: Implementasi `TicketTrendQuery`** — sesuai kode di atas.
+- [x] **Step 2: Implementasi `TicketTrendQuery`** — sesuai kode di atas.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Unit/TicketTrendQueryTest.php
   vendor/bin/pint --dirty --format agent
@@ -578,7 +578,7 @@ class TechnicianPerformanceQuery
 
 > **Jebakan:** `SUM(CASE WHEN ...)` adalah sintaks SQL lintas-driver (MySQL & SQLite mendukung). Pastikan `CASE WHEN resolved_at <= sla_deadline THEN 1 ELSE 0 END` — operator `<=` membandingkan dua kolom timestamp, driver-agnostic. Urutan hasil: `resolved DESC` (keputusan #16). `$resolvedStats` di-key `technician_id` untuk lookup cepat.
 
-- [ ] **Step 1: Test — dua teknisi dengan data terkontrol, zero-resolved → null compliance.**
+- [x] **Step 1: Test — dua teknisi dengan data terkontrol, zero-resolved → null compliance.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -616,9 +616,9 @@ class TechnicianPerformanceQuery
   });
   ```
 
-- [ ] **Step 2: Implementasi `TechnicianPerformanceQuery`** — sesuai kode di atas.
+- [x] **Step 2: Implementasi `TechnicianPerformanceQuery`** — sesuai kode di atas.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Unit/TechnicianPerformanceQueryTest.php
   vendor/bin/pint --dirty --format agent
@@ -693,7 +693,7 @@ class DashboardCountsQuery
 
 > **Jebakan:** `countByPriority` dan `countByCategory` memakai `join` — pastikan tidak ada nama kolom ambigu (`id`). GroupBy di SQLite mewajibkan semua kolom yang bukan agregat di GROUP BY — `ticket_priorities.id` dan `ticket_priorities.name` keduanya di-GROUP BY agar aman. `orderBy('ticket_priorities.id')` menjamin urutan deterministik (Critical → High → Medium → Low).
 
-- [ ] **Step 1: Test — countByPriority, countByCategory, counts per role.**
+- [x] **Step 1: Test — countByPriority, countByCategory, counts per role.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -733,9 +733,9 @@ class DashboardCountsQuery
   });
   ```
 
-- [ ] **Step 2: Implementasi `DashboardCountsQuery`** — sesuai kode di atas.
+- [x] **Step 2: Implementasi `DashboardCountsQuery`** — sesuai kode di atas.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Unit/DashboardCountsQueryTest.php
   vendor/bin/pint --dirty --format agent
@@ -747,12 +747,12 @@ class DashboardCountsQuery
 
 ## Exit Criteria 6a
 
-- [ ] `DashboardDateRange` — default 30 hari; parse dari/form `Y-m-d`; WIB→UTC; applyToCreated/Resolved.
-- [ ] `IndexDashboardRequest` — validasi `date_from`/`date_to` format `Y-m-d`; pesan error Indonesia.
-- [ ] `DashboardQueryService` — `dateBucket()` & `minutesDiff()` menghasilkan SQL driver-aware; `avgResolutionMinutes` mengembalikan null bila set kosong.
-- [ ] `SlaMetricsCalculator` — `resolvedMetrics` output cocok hitung manual; ticket cancel keluar; compliance null bila 0 resolved.
-- [ ] `TicketTrendQuery` — bucket harian WIB; semua hari dalam rentang terisi, termasuk nol; created & resolved per hari.
-- [ ] `TechnicianPerformanceQuery` — handled/resolved/open/breached/avg/compliance per teknisi; urut resolved DESC; null compliance bila 0 resolved.
-- [ ] `DashboardCountsQuery` — countByPriority, countByCategory mencakup join ke tabel referensi; countOpenByStatus akurat.
-- [ ] `php artisan test` hijau (semua unit test baru); `vendor/bin/pint --test` bersih.
-- [ ] Tidak ada HTTP endpoint baru di fase ini — semua pengujian via unit test.
+- [x] `DashboardDateRange` — default 30 hari; parse dari/form `Y-m-d`; WIB→UTC; applyToCreated/Resolved.
+- [x] `IndexDashboardRequest` — validasi `date_from`/`date_to` format `Y-m-d`; pesan error Indonesia.
+- [x] `DashboardQueryService` — `dateBucket()` & `minutesDiff()` menghasilkan SQL driver-aware; `avgResolutionMinutes` mengembalikan null bila set kosong.
+- [x] `SlaMetricsCalculator` — `resolvedMetrics` output cocok hitung manual; ticket cancel keluar; compliance null bila 0 resolved.
+- [x] `TicketTrendQuery` — bucket harian WIB; semua hari dalam rentang terisi, termasuk nol; created & resolved per hari.
+- [x] `TechnicianPerformanceQuery` — handled/resolved/open/breached/avg/compliance per teknisi; urut resolved DESC; null compliance bila 0 resolved.
+- [x] `DashboardCountsQuery` — countByPriority, countByCategory mencakup join ke tabel referensi; countOpenByStatus akurat.
+- [x] `php artisan test` hijau (semua unit test baru); `vendor/bin/pint --test` bersih.
+- [x] Tidak ada HTTP endpoint baru di fase ini — semua pengujian via unit test.
