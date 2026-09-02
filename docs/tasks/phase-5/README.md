@@ -334,18 +334,18 @@ Setiap task di sub-berkas 5a–5e dirancang untuk dieksekusi dengan disiplin **T
 
 Fase 5 dinyatakan selesai jika seluruh kondisi berikut terpenuhi:
 
-- [ ] **Asset:** CRUD (T/M/A, tanpa `delete` utk T), assign/release (422 utk status tak layak, 409 utk assignment aktif), `GET /api/my-assets` (Employee), `GET /api/assets/{id}/history` (timeline gabungan §17 PRD), search (3 field) + filter (status/category/assigned_user_id) + pagination.
+- [x] **Asset:** CRUD (T/M/A, tanpa `delete` utk T), assign/release (422 utk status tak layak, 409 utk assignment aktif), `GET /api/my-assets` (Employee), `GET /api/assets/{id}/history` (timeline gabungan §17 PRD), search (3 field) + filter (status/category/assigned_user_id) + pagination.
 - [ ] **Knowledge Base:** artikel CRUD + publish/unpublish (T boleh langsung publish), slug otomatis-unik-immutable, `view_count` atomik, related articles (≤5, published), Employee hanya melihat `published` (draft → 404), search judul+isi + filter kategori, kategori CRUD (Admin).
 - [ ] **Attachment:** upload hanya partisipan; validasi MIME+ekstensi+5 MB; tolak `.exe`/`.sh`/`.bat` dan mismatch MIME; disk `private` tanpa route `/storage/*`; download lewat `TicketPolicy` (Employee non-partisipan → 404); delete (uploader/M/A) menghapus record + file fisik; `throttle:upload` aktif.
 - [ ] **Administrasi:** user CRUD (Admin), email unik (BR-018), deaktivasi mencabut token, reset-password server-generate memicu `must_change_password`, delete user/mater data yang dirujuk → 409, `sla_minutes` diubah tidak mengubah ticket lama (snapshot).
 - [ ] **Otorisasi:** setiap ability baru punya test positif & negatif; 401 tanpa token; 403 vs 404 sesuai PERMISSION §5; Admin tidak bisa deaktivasi/ubah role diri (403).
-- [ ] **N+1:** jumlah query pada list endpoint tidak bertambah saat volume data naik (DB::listen).
+- [x] **N+1:** jumlah query pada list endpoint tidak bertambah saat volume data naik (DB::listen).
 - [ ] **Definisi Technical Success Addendum §12** butir 1, 3, 9, 10, 11 terverifikasi dengan test.
-- [ ] `php artisan test` seluruhnya hijau (suite gabungan Fase 1–5).
-- [ ] `vendor/bin/pint --test` bersih.
+- [x] `php artisan test` seluruhnya hijau (suite gabungan Fase 1–5).
+- [x] `vendor/bin/pint --test` bersih.
 - [ ] `php artisan migrate:fresh --seed` sukses terhadap MySQL, lalu `migrate:rollback` bersih.
 - [ ] Checkbox Fase 5 di `docs/product/ROADMAP.md` tersinkronisasi (termasuk koreksi baris 531, 574, 577 sesuai tabel resolusi konflik).
-- [ ] `docs/product/PERMISSION-MATRIX.md §4` memuat seluruh route baru; §2.2 modul Manager mencakup `knowledge_category`; §6 butir self-protection dikoreksi jadi 403.
+- [x] `docs/product/PERMISSION-MATRIX.md §4` memuat seluruh route baru; §2.2 modul Manager mencakup `knowledge_category`; §6 butir self-protection dikoreksi jadi 403.
 - [ ] Git tag `v0.5.0` (Semantic Versioning, D-30) ditambahkan dan didorong saat fase selesai.
 
 ---
