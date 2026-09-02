@@ -6,8 +6,10 @@ use App\DTOs\Ticket\CreateTicketData;
 use App\DTOs\Ticket\UpdateTicketData;
 use App\Enums\RoleName;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Ticket\IndexTicketRequest;
 use App\Http\Requests\Ticket\StoreTicketRequest;
 use App\Http\Requests\Ticket\UpdateTicketRequest;
+use App\Http\Resources\Ticket\TicketListResource;
 use App\Http\Resources\Ticket\TicketResource;
 use App\Models\Ticket;
 use App\Services\Ticket\TicketService;
@@ -20,6 +22,15 @@ class TicketController extends Controller
     public function __construct(
         protected TicketService $ticketService,
     ) {}
+
+    public function index(IndexTicketRequest $request): JsonResponse
+    {
+        $this->authorize('viewAny', Ticket::class);
+
+        $paginator = $this->ticketService->paginate($request, $request->user());
+
+        return ApiResponse::paginated($paginator, 'Tickets retrieved successfully.', TicketListResource::class);
+    }
 
     public function store(StoreTicketRequest $request): JsonResponse
     {
