@@ -86,7 +86,7 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 
 ## Current state, concretely
 
-- `apps/api`: 22 migrations, 18 models, 23 API routes (31 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), full audit log API (`/api/audit-logs`), 456 total tests (1748 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, AuditLogQueryService, enums, transition matrix, and available actions are all implemented and passing.
+- `apps/api`: 23 migrations, 18 models, 28 API routes (40 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), full audit log API (`/api/audit-logs`), full asset management API (`/api/assets`, `/api/my-assets`, `/api/assets/{id}/assign`, `/api/assets/{id}/release`, `/api/assets/{id}/history`), 503 total tests (1972 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, ArticlePolicy, AttachmentPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, AuditLogQueryService, AssetService, AssetAssignmentService, AssetQueryService, enums, transition matrix, and available actions are all implemented and passing.
 - `apps/web`: login page + protected dashboard (`src/app/login/`, `src/app/dashboard/`), BFF proxy route handler, auth flow with httpOnly cookie.
 - Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) — **complete**
 - Phase 2 (Backend Foundation & Walking Skeleton: auth, login, middleware, health, web dashboard) — **complete**
@@ -94,4 +94,6 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 - Phase 4a (SLA Scheduler & Breach Detection) — **complete**
 - Phase 4b (Notification API & Event Delivery) — **complete**
 - Phase 4c (Audit Log API — Tag `v0.4.0`) — **complete**
-- Phase 5 (Asset Management, Knowledge Base, Attachment) — **next work**
+- Phase 5a (Foundation, Spec Amendment, Policy, Enum, Index, Disk) — **complete**
+- Phase 5b (Asset Management) — **complete**
+- Phase 5c (Knowledge Base) — **next work**
