@@ -60,7 +60,7 @@ class StoreAttachmentRequest extends FormRequest
 > **Jebakan 2 — batas PHP:** Jika `upload_max_filesize`/`post_max_size` di PHP lebih kecil dari 5 MB, request upload > batas tiba sebagai request **kosong** → `file` required gagal dengan pesan menyesatkan. Periksa `php -i | grep upload_max_filesize`. Di container dev, pastikan `upload_max_filesize=6M` dan `post_max_size=6M` (dokumentasikan di README Phase 5).
 > **Jebakan 3 — satuan:** Laravel `max` pada file menggunakan **kilobyte**. 5 MB = **5120** KB (bukan 5). Kolom `file_size` disimpan dalam **byte** (`$file->getSize()`).
 
-- [ ] **Step 1: Test — upload valid → 201, upload oversized → 422, .exe → 422, MIME mismatch → 422.**
+- [x] **Step 1: Test — upload valid → 201, upload oversized → 422, .exe → 422, MIME mismatch → 422.**
   ```php
   test('participant can upload valid pdf', function () {
       $reporter = User::factory()->employee()->create();
@@ -103,9 +103,9 @@ class StoreAttachmentRequest extends FormRequest
   });
   ```
 
-- [ ] **Step 2: Implementasi** — buat `StoreAttachmentRequest`.
+- [x] **Step 2: Implementasi** — buat `StoreAttachmentRequest`.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Attachment/AttachmentValidationTest.php
   vendor/bin/pint --dirty --format agent
@@ -174,30 +174,9 @@ public function store(StoreAttachmentRequest $request, Ticket $ticket): JsonResp
 > **Jebakan 1:** Tulis file fisik **sebelum** transaksi DB agar kalau transaksi gagal tidak menyisakan record yang menunjuk file yang tidak ada. Namun jika file ditulis lalu transaksi rollback, file menjadi yatim. Solusi terbaik: tulis file, simpan record; jika transaksi gagal, hapus file di `catch` — atau tulis di `afterCommit`. Untuk MVP cukup: tulis file, lalu `DB::transaction` untuk record; kalau record gagal, `Storage::delete` di blok catch.
 > **Jebakan 2:** `$file->getClientOriginalExtension()` berasal dari nama file client — jangan dipakai untuk keamanan (sudah divalidasi `extensions` di FormRequest). Gunakan `$file->getMimeType()` (dari konten) untuk `mime_type`.
 
-- [ ] **Step 1: Test — store menyimpan file + metadata (di 5d StoreAttachmentRequest).**
-  ```php
-  test('attachment is stored on private disk with generated filename', function () {
-      $reporter = User::factory()->employee()->create();
-      $ticket = Ticket::factory()->open()->create(['reporter_id' => $reporter->id]);
-      Sanctum::actingAs($reporter);
-      Storage::fake('private');
-
-      $this->postJson("/api/tickets/{$ticket->id}/attachments", [
-          'file' => UploadedFile::fake()->create('my-screenshot.png', 200, 'image/png'),
-      ])->assertStatus(201);
-
-      $row = TicketAttachment::first();
-      expect($row->storage_path)->toMatch('/^tickets\/'.$ticket->id.'\/.+\.png$/')
-          ->and($row->stored_filename)->not->toBe('my-screenshot.png')
-          ->and($row->mime_type)->toBe('image/png')
-          ->and($row->file_size)->toBe(200);
-      Storage::disk('private')->assertExists($row->storage_path);
-  });
-  ```
-
-- [ ] **Step 2: Implementasi** — service, controller, resource.
-
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 1: Test — store menyimpan file + metadata (di 5d StoreAttachmentRequest).**
+- [x] **Step 2: Implementasi** — service, controller, resource.
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Attachment/AttachmentStoreTest.php
   vendor/bin/pint --dirty --format agent
@@ -237,37 +216,9 @@ public function download(TicketAttachment $attachment): BinaryFileResponse
 > **Jebakan 2:** `AttachmentPolicy@view/download` memakai `$attachment->ticket` relasi. Pastikan relasi `ticket` di model `TicketAttachment` ada (sudah ada di Fase 2).
 > **Jebakan 3:** Employee non-partisipan mengunduh attachment dari ticket orang lain → `TicketPolicy@view` mengembalikan `denyAsNotFound` → **404** (PERMISSION §5), bukan 403.
 
-- [ ] **Step 1: Test — download oleh partisipan, 404 non-partisipan.**
-  ```php
-  test('reporter can download own ticket attachment', function () {
-      $reporter = User::factory()->employee()->create();
-      $ticket = Ticket::factory()->open()->create(['reporter_id' => $reporter->id]);
-      $attachment = TicketAttachment::factory()->create(['ticket_id' => $ticket->id]);
-      Storage::fake('private');
-      Storage::disk('private')->put($attachment->storage_path, 'file-content');
-
-      Sanctum::actingAs($reporter);
-      $this->get("/api/attachments/{$attachment->id}/download")
-          ->assertStatus(200)
-          ->assertHeader('Content-Disposition', 'attachment');
-  });
-
-  test('employee cannot download attachment of non-participant ticket (404)', function () {
-      $employee = User::factory()->employee()->create();
-      $other = User::factory()->employee()->create();
-      $ticket = Ticket::factory()->open()->create(['reporter_id' => $other->id]);
-      $attachment = TicketAttachment::factory()->create(['ticket_id' => $ticket->id]);
-      Storage::fake('private');
-      Storage::disk('private')->put($attachment->storage_path, 'x');
-
-      Sanctum::actingAs($employee);
-      $this->get("/api/attachments/{$attachment->id}/download")->assertStatus(404);
-  });
-  ```
-
-- [ ] **Step 2: Implementasi** — controller method.
-
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 1: Test — download oleh partisipan, 404 non-partisipan.**
+- [x] **Step 2: Implementasi** — controller method.
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Attachment/AttachmentDownloadTest.php
   vendor/bin/pint --dirty --format agent
@@ -328,36 +279,9 @@ public function destroy(TicketAttachment $attachment, Request $request): JsonRes
 > **Jebakan 1:** Gunakan `$afterCommit = true` — tanpa ini, jika `DB::transaction` membungkus delete dan kemudian rollback, file sudah terlanjur terhapus padahal record kembali ada.
 > **Jebakan 2:** Jangan gunakan `forceDelete`/event `restoring` — attachment tidak soft-delete.
 
-- [ ] **Step 1: Test — delete record menghapus file fisik; uploader-only.**
-  ```php
-  test('deleting attachment removes physical file', function () {
-      $reporter = User::factory()->employee()->create();
-      $ticket = Ticket::factory()->open()->create(['reporter_id' => $reporter->id]);
-      $attachment = TicketAttachment::factory()->create(['ticket_id' => $ticket->id]);
-      Storage::fake('private');
-      Storage::disk('private')->put($attachment->storage_path, 'file-content');
-
-      Sanctum::actingAs($reporter);
-      $this->deleteJson("/api/attachments/{$attachment->id}")->assertStatus(200);
-      Storage::disk('private')->assertMissing($attachment->storage_path);
-      expect(TicketAttachment::find($attachment->id))->toBeNull();
-  });
-
-  test('employee cannot delete attachment they did not upload', function () {
-      $employee = User::factory()->employee()->create();
-      $other = User::factory()->employee()->create();
-      $ticket = Ticket::factory()->open()->create(['reporter_id' => $other->id]);
-      $attachment = TicketAttachment::factory()->create(['ticket_id' => $ticket->id, 'uploaded_by' => $other->id]);
-      Storage::fake('private');
-
-      Sanctum::actingAs($employee);
-      $this->deleteJson("/api/attachments/{$attachment->id}")->assertStatus(403);
-  });
-  ```
-
-- [ ] **Step 2: Implementasi** — observer, model annotation, controller.
-
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 1: Test — delete record menghapus file fisik; uploader-only.**
+- [x] **Step 2: Implementasi** — observer, model annotation, controller.
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Attachment/AttachmentDeleteTest.php
   vendor/bin/pint --dirty --format agent
@@ -406,23 +330,9 @@ return [
 
 > **Jebakan:** `download_url` di sini adalah path relatif API (bukan URL absolut dari backend) — konsisten dengan D-27 `url` notifikasi dan komentar "frontend memakai BFF proxy".
 
-- [ ] **Step 1: Test — list attachment + tidak membocorkan storage_path.**
-  ```php
-  test('attachments list returns metadata without storage path', function () {
-      $reporter = User::factory()->employee()->create();
-      $ticket = Ticket::factory()->open()->create(['reporter_id' => $reporter->id]);
-      TicketAttachment::factory()->count(2)->create(['ticket_id' => $ticket->id]);
-      Sanctum::actingAs($reporter);
-      $response = $this->getJson("/api/tickets/{$ticket->id}/attachments")->assertStatus(200);
-      expect($response->json('data'))->toHaveCount(2);
-      $response->assertJsonMissingPath('data.0.storage_path');
-      $response->assertJsonMissingPath('data.0.stored_filename');
-  });
-  ```
-
-- [ ] **Step 2: Implementasi** — controller, resource, route.
-
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 1: Test — list attachment + tidak membocorkan storage_path.**
+- [x] **Step 2: Implementasi** — controller, resource, route.
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Attachment/AttachmentListTest.php
   vendor/bin/pint --dirty --format agent
@@ -455,43 +365,19 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 > **Jebakan:** Route `GET /tickets/{ticket}/attachments` dan `POST` harus dideklarasikan di luar `apiResource('tickets', ...)` (atau ditambahkan setelahnya dengan method eksplisit) — route apiResource Fase 3 tidak mencakup sub-resource ini.
 
-- [ ] **Step 1: Uji route terdaftar.**
+- [x] **Step 1: Uji route terdaftar.**
   ```bash
   php artisan route:list --path=api
   ```
 
-- [ ] **Step 2: Test keamanan menyeluruh.**
-  ```php
-  test('attachment upload respects rate limit', function () {
-      $reporter = User::factory()->employee()->create();
-      $ticket = Ticket::factory()->open()->create(['reporter_id' => $reporter->id]);
-      Sanctum::actingAs($reporter);
-      Storage::fake('private');
-      // throttle:upload = 20/menit/user; request ke-21 harus ditolak
-      foreach (range(1, 20) as $i) {
-          $this->postJson("/api/tickets/{$ticket->id}/attachments", [
-              'file' => UploadedFile::fake()->create("f{$i}.pdf", 10, 'application/pdf'),
-          ]);
-      }
-      $this->postJson("/api/tickets/{$ticket->id}/attachments", [
-          'file' => UploadedFile::fake()->create('f21.pdf', 10, 'application/pdf'),
-      ])->assertStatus(429);
-  });
-
-  test('no public storage route serves attachment files', function () {
-      // Pastikan route storage/{path} tidak aktif: serve=false di disk local (5a) & private (5a)
-      $routes = collect(app('router')->getRoutes()->getRoutesByName());
-      expect($routes->has('storage.local'))->toBeFalse();
-  });
-  ```
-
-- [ ] **Step 3: Verifikasi seluruh test attachment + regresi.**
+- [x] **Step 2: Test keamanan menyeluruh.**
+- [x] **Step 3: Verifikasi seluruh test attachment + regresi.**
   ```bash
   vendor/bin/pest tests/Feature/Attachment/
   vendor/bin/pest
   ```
 
-- [ ] **Step 4: Formatting & commit.**
+- [x] **Step 4: Formatting & commit.**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add routes/api.php tests/Feature/Attachment/
@@ -502,13 +388,13 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 ## Exit Criteria 5d
 
-- [ ] Upload: hanya partisipan ticket (`TicketPolicy@attach`); validasi MIME + ekstensi + 5 MB; tolak `.exe`/`.sh`/`.bat` dan mismatch MIME → 422.
-- [ ] File disimpan di disk `private` (`storage_path('app/private')`), nama file ULID, metadata lengkap di `ticket_attachments`.
-- [ ] Download: selalu lewat controller + `AttachmentPolicy@download` (delegasi ke `TicketPolicy@view`); Employee non-partisipan → **404**.
-- [ ] Delete: uploader atau Manager/Admin; menghapus record **dan** file fisik (observer `$afterCommit`).
-- [ ] `GET /api/tickets/{id}/attachments` — metadata tanpa `storage_path`/`stored_filename`.
-- [ ] `throttle:upload` (20/mnt) aktif pada POST.
-- [ ] Tidak ada route `storage/{path}` yang melayani file attachment (`serve=false` di disk `local` dan `private`).
-- [ ] `attachments_count` di `TicketResource` kini bernilai > 0 saat ada file (verifikasi respons detail ticket).
-- [ ] `php artisan test` hijau, `pint --test` bersih.
-- [ ] Route baru terdaftar di `docs/product/PERMISSION-MATRIX.md §4`.
+- [x] Upload: hanya partisipan ticket (`TicketPolicy@attach`); validasi MIME + ekstensi + 5 MB; tolak `.exe`/`.sh`/`.bat` dan mismatch MIME → 422.
+- [x] File disimpan di disk `private` (`storage_path('app/private')`), nama file ULID, metadata lengkap di `ticket_attachments`.
+- [x] Download: selalu lewat controller + `AttachmentPolicy@download` (delegasi ke `TicketPolicy@view`); Employee non-partisipan → **404**.
+- [x] Delete: uploader atau Manager/Admin; menghapus record **dan** file fisik (observer `$afterCommit`).
+- [x] `GET /api/tickets/{id}/attachments` — metadata tanpa `storage_path`/`stored_filename`.
+- [x] `throttle:upload` (20/mnt) aktif pada POST.
+- [x] Tidak ada route `storage/{path}` yang melayani file attachment (`serve=false` di disk `local` dan `private`).
+- [x] `attachments_count` di `TicketResource` kini bernilai > 0 saat ada file (verifikasi respons detail ticket).
+- [x] `php artisan test` hijau, `pint --test` bersih.
+- [x] Route baru terdaftar di `docs/product/PERMISSION-MATRIX.md §4`.

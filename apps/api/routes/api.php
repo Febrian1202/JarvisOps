@@ -4,6 +4,7 @@ use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\KnowledgeCategoryController;
 use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Asset\AssetHistoryController;
+use App\Http\Controllers\Attachment\AttachmentController;
 use App\Http\Controllers\Audit\AuditLogController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
@@ -53,6 +54,13 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::post('/articles/{article}/unpublish', [ArticleController::class, 'unpublish'])->name('articles.unpublish');
     Route::apiResource('knowledge-categories', KnowledgeCategoryController::class);
     Route::apiResource('tickets', TicketController::class);
+
+    Route::get('/tickets/{ticket}/attachments', [AttachmentController::class, 'index'])->name('tickets.attachments.index');
+    Route::post('/tickets/{ticket}/attachments', [AttachmentController::class, 'store'])
+        ->middleware('throttle:upload')
+        ->name('tickets.attachments.store');
+    Route::get('/attachments/{attachment}/download', [AttachmentController::class, 'download'])->name('attachments.download');
+    Route::delete('/attachments/{attachment}', [AttachmentController::class, 'destroy'])->name('attachments.destroy');
 
     Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
 
