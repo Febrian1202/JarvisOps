@@ -158,17 +158,17 @@ terakhir karena ia mengonsumsi endpoint yang lahir di 2c.
 
 Diambil dari ROADMAP:310-315, dengan penafsiran di atas diterapkan.
 
-- [ ] `php artisan migrate:fresh --seed` sukses terhadap MySQL, 18 tabel domain terisi data referensi
-- [ ] `php artisan migrate:fresh` lalu `php artisan migrate:rollback` bersih tanpa error FK (MySQL)
-- [ ] Seeder dijalankan dua kali berturut-turut tanpa error (idempoten)
-- [ ] Login dari browser berhasil, cookie `httpOnly` terpasang, halaman terproteksi menampilkan nama user
-- [ ] Token **tidak** terlihat di `document.cookie` maupun di response body yang diterima browser
-- [ ] Employee dengan `status = 'inactive'` tidak bisa login (BR-019)
-- [ ] Seluruh test Pest hijau: `php artisan test`
-- [ ] Setiap ability role-based di `AbilityMatrix` punya test positif **dan** negatif
-- [ ] `vendor/bin/pint --test` bersih
-- [ ] `npm run build` dan `npm run lint` di `apps/web` bersih
-- [ ] Tidak ada route registrasi publik (BR-016)
+- [x] `php artisan migrate:fresh --seed` sukses terhadap MySQL, 18 tabel domain terisi data referensi
+- [x] `php artisan migrate:fresh` lalu `php artisan migrate:rollback` bersih tanpa error FK (MySQL)
+- [x] Seeder dijalankan dua kali berturut-turut tanpa error (idempoten)
+- [x] Login dari browser berhasil, cookie `httpOnly` terpasang, halaman terproteksi menampilkan nama user
+- [x] Token **tidak** terlihat di `document.cookie` maupun di response body yang diterima browser
+- [x] Employee dengan `status = 'inactive'` tidak bisa login (BR-019)
+- [x] Seluruh test Pest hijau: `php artisan test`
+- [x] Setiap ability role-based di `AbilityMatrix` punya test positif **dan** negatif
+- [x] `vendor/bin/pint --test` bersih
+- [x] `npm run build` dan `npm run lint` di `apps/web` bersih
+- [x] Tidak ada route registrasi publik (BR-016)
 
 ## Di Luar Cakupan Fase 2
 

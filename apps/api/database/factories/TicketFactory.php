@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Department;
 use App\Models\Ticket;
 use App\Models\TicketCategory;
-use App\Models\TicketPriority;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,14 +14,22 @@ class TicketFactory extends Factory
 
     public function definition(): array
     {
-        $duration = fake()->randomElement([120, 240, 480, 1440]);
+        $priorityId = fake()->randomElement([1, 2, 3, 4]);
+
+        $durations = [
+            1 => 120,
+            2 => 240,
+            3 => 480,
+            4 => 1440,
+        ];
+        $duration = $durations[$priorityId];
 
         return [
             'ticket_number' => 'TCK-'.fake()->unique()->numerify('#####'),
             'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
-            'category_id' => TicketCategory::factory(),
-            'priority_id' => TicketPriority::factory(['sla_minutes' => $duration]),
+            'category_id' => TicketCategory::query()->inRandomOrder()->value('id') ?? TicketCategory::factory(),
+            'priority_id' => $priorityId,
             'status_id' => 1,
             'reporter_id' => User::factory(),
             'technician_id' => null,
