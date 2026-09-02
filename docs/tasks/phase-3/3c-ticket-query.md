@@ -24,7 +24,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
 - `TicketService::paginate(IndexTicketRequest $request, User $actor): LengthAwarePaginator` —
   kembalikan paginator dengan eager load penuh, scoping, filter, sort, search
 
-- [ ] **Step 1: Test — Employee hanya melihat ticket miliknya (PERMISSION-MATRIX §7.2)**
+- [x] **Step 1: Test — Employee hanya melihat ticket miliknya (PERMISSION-MATRIX §7.2)**
   ```php
   test('employee sees only own tickets', function () {
       $employee = User::factory()->employee()->create();
@@ -35,7 +35,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   });
   ```
 
-- [ ] **Step 2: Test — filter tidak memperluas cakupan (PERMISSION-MATRIX §7.3)**
+- [x] **Step 2: Test — filter tidak memperluas cakupan (PERMISSION-MATRIX §7.3)**
   ```php
   test('employee filter by reporter_id is ignored', function () {
       $employee = User::factory()->employee()->create();
@@ -47,7 +47,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   });
   ```
 
-- [ ] **Step 3: Test — filter SLA status**
+- [x] **Step 3: Test — filter SLA status**
   ```php
   test('filter by sla_status breached', function () {
       Ticket::factory()->breached()->count(2)->create(['reporter_id' => $employee->id]);
@@ -57,7 +57,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   });
   ```
 
-- [ ] **Step 4: Test — search by ticket_number dan title (D-10)**
+- [x] **Step 4: Test — search by ticket_number dan title (D-10)**
   ```php
   test('search matches ticket_number and title', function () {
       Ticket::factory()->open()->create(['ticket_number' => 'TCK-9999', 'reporter_id' => $employee->id]);
@@ -71,7 +71,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   });
   ```
 
-- [ ] **Step 5: Test — sort_by whitelist**
+- [x] **Step 5: Test — sort_by whitelist**
   ```php
   test('invalid sort_by returns 422', function () {
       Sanctum::actingAs($employee);
@@ -79,7 +79,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   });
   ```
 
-- [ ] **Step 6: Test — pagination metadata**
+- [x] **Step 6: Test — pagination metadata**
   ```php
   test('meta has exactly six keys and no links', function () {
       Sanctum::actingAs($employee);
@@ -93,7 +93,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   });
   ```
 
-- [ ] **Step 7: Test — tidak ada N+1**
+- [x] **Step 7: Test — tidak ada N+1**
   ```php
   test('list query count does not increase with more tickets', function () {
       DB::listen(fn ($q) => $queries[] = $q);
@@ -117,7 +117,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   Alternatif: buat test yang menegaskan total query list tidak melebihi batas absolut
   (misal 4 + n_eager_loads). Pakai `DB::enableQueryLog()` dan `assertLessThan(10, count($queries))`.
 
-- [ ] **Step 8: Implementasi `TicketService::paginate`**
+- [x] **Step 8: Implementasi `TicketService::paginate`**
   ```php
   public function paginate(IndexTicketRequest $request, User $actor): LengthAwarePaginator
   {
@@ -145,7 +145,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   }
   ```
 
-- [ ] **Step 9: Verifikasi & Commit.**
+- [x] **Step 9: Verifikasi & Commit.**
 
 ---
 
@@ -155,7 +155,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
 - Create: `app/Http/Controllers/ReferenceController.php` (atau controller per entitas)
 - Modify: `routes/api.php`
 
-- [ ] **Step 1: Test — setiap endpoint referensi mengembalikan data yang benar**
+- [x] **Step 1: Test — setiap endpoint referensi mengembalikan data yang benar**
   ```php
   test('ticket categories list returns all 22 categories', function () {
       Sanctum::actingAs($employee);
@@ -171,7 +171,7 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   });
   ```
 
-- [ ] **Step 2: Implementasi**
+- [x] **Step 2: Implementasi**
   ```php
   Route::middleware(['auth:sanctum'])->group(function () {
       Route::get('/ticket-categories', [ReferenceController::class, 'categories'])->name('ticket-categories.index');
@@ -194,17 +194,17 @@ dan 4 endpoint referensi read-only. Tidak ada N+1.
   Gunakan `RoleName::Technician->id()` — method id() enum perlu ditambahkan untuk RoleName.
   Atau: `Role::where('name', RoleName::Technician->value)->first()->id`.
 
-- [ ] **Step 3: Verifikasi & Commit.**
+- [x] **Step 3: Verifikasi & Commit.**
 
 ---
 
 ## Exit Criteria 3c
 
-- [ ] `GET /api/tickets` — Employee hanya ticket sendiri, Manager/Technician/Admin semua
-- [ ] 11 filter berfungsi, filter tidak memperluas cakupan
-- [ ] `search` mencocokkan `ticket_number` dan `title`, wildcard disanitasi
-- [ ] `sort_by` whitelist 6 kolom, invalid → 422
-- [ ] `sla_status` filter `breached`/`on_track` (defensif)
-- [ ] 4 endpoint referensi — data benar, Technician hanya menampilkan yang active
-- [ ] Tidak ada N+1 pada list
-- [ ] `php artisan test` hijau, `pint --test` bersih
+- [x] `GET /api/tickets` — Employee hanya ticket sendiri, Manager/Technician/Admin semua
+- [x] 11 filter berfungsi, filter tidak memperluas cakupan
+- [x] `search` mencocokkan `ticket_number` dan `title`, wildcard disanitasi
+- [x] `sort_by` whitelist 6 kolom, invalid → 422
+- [x] `sla_status` filter `breached`/`on_track` (defensif)
+- [x] 4 endpoint referensi — data benar, Technician hanya menampilkan yang active
+- [x] Tidak ada N+1 pada list
+- [x] `php artisan test` hijau, `pint --test` bersih

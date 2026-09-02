@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Ticket;
 
 use App\Services\Sla\SlaService;
+use App\Services\Ticket\TicketActionResolver;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -11,6 +12,8 @@ class TicketResource extends JsonResource
     public function toArray(Request $request): array
     {
         $sla = app(SlaService::class);
+        $actionResolver = app(TicketActionResolver::class);
+        $user = $request->user();
 
         $asset = $this->whenLoaded('asset', function () {
             $data = [
@@ -50,8 +53,8 @@ class TicketResource extends JsonResource
             'closed_at' => $this->closed_at,
             'comments_count' => $this->whenLoaded('comments', fn () => $this->comments->count()),
             'attachments_count' => $this->whenLoaded('attachments', fn () => $this->attachments->count()),
-            'available_actions' => $this->available_actions ?? [],
-            'editable_fields' => $this->editable_fields ?? [],
+            'available_actions' => $user ? $actionResolver->availableActions($this->resource, $user) : [],
+            'editable_fields' => $user ? $actionResolver->editableFields($this->resource, $user) : [],
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

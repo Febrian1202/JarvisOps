@@ -23,7 +23,9 @@ test('show returns full ticket shape', function () {
                 'comments_count', 'attachments_count', 'available_actions', 'editable_fields',
                 'created_at', 'updated_at',
             ],
-        ]);
+        ])
+        ->assertJsonPath('data.available_actions', ['comment', 'attach', 'edit'])
+        ->assertJsonPath('data.editable_fields', ['title', 'description']);
 });
 
 test('employee viewing anothers ticket gets 404', function () {

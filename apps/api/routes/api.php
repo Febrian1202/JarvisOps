@@ -34,6 +34,11 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::apiResource('tickets', TicketController::class);
 
+    Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
+    Route::post('/tickets/{ticket}/assign', [TicketController::class, 'assign'])->name('tickets.assign');
+    Route::post('/tickets/{ticket}/unassign', [TicketController::class, 'unassign'])->name('tickets.unassign');
+    Route::post('/tickets/{ticket}/priority', [TicketController::class, 'changePriority'])->name('tickets.priority');
+
     Route::get('/ticket-categories', [ReferenceController::class, 'categories'])->name('ticket-categories.index');
     Route::get('/ticket-priorities', [ReferenceController::class, 'priorities'])->name('ticket-priorities.index');
     Route::get('/ticket-statuses', [ReferenceController::class, 'statuses'])->name('ticket-statuses.index');

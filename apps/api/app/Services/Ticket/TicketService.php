@@ -144,7 +144,7 @@ class TicketService
 
     public function find(int $id): Ticket
     {
-        $ticket = Ticket::query()
+        return Ticket::query()
             ->with([
                 'status',
                 'priority',
@@ -157,11 +157,6 @@ class TicketService
                 'attachments',
             ])
             ->findOrFail($id);
-
-        $ticket->setAttribute('available_actions', []);
-        $ticket->setAttribute('editable_fields', []);
-
-        return $ticket;
     }
 
     public function update(Ticket $ticket, UpdateTicketData $data, User $actor): Ticket
