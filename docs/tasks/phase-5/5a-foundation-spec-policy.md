@@ -708,13 +708,13 @@ Buat suite pengujian end-to-end yang memverifikasi seluruh fondasi 5a berfungsi 
 
 ## Exit Criteria 5a
 
-- [ ] D-08 Amandemen 3, D-11 amandemen, PERMISSION-MATRIX §2.2/3.3–3.5/§6, ROADMAP 3 baris — semua diamandemen.
-- [ ] `ArticleStatus`, `AssetHistoryAction` enum baru; `AuditAction` +5, `AuditModule` +1.
-- [ ] `ArticlePolicy`, `AttachmentPolicy` — semua ability punya test positif & negatif.
-- [ ] `AssetPolicy` lengkap 10 ability; `git mv` ke subfolder `Asset/`; `#[UsePolicy]` diperbarui.
-- [ ] Model: `Asset.activeAssignment`, `User.assetAssignments`/`.activeAssignments`, `User.activeAssignments`; cast `ArticleStatus`; `#[UsePolicy]` di `KnowledgeArticle` & `TicketAttachment`.
-- [ ] Migrasi 3 index: `knowledge_articles(title)`, `knowledge_articles(status)`, `assets(status)`.
-- [ ] Disk `private` (serve=false, root sesuai Addendum §6.1) terverifikasi lewat tinker.
-- [ ] Factory state: `AssetFactory::available/assigned/maintenance/retired/lost`, `KnowledgeArticleFactory::draft`.
-- [ ] Seluruh test suite hijau (`vendor/bin/pest`).
-- [ ] Linter Pint bersih (`vendor/bin/pint --test`).
+- [x] D-08 Amandemen 3, D-11 amandemen, PERMISSION-MATRIX §2.2/3.3–3.5/§6, ROADMAP 3 baris — semua diamandemen.
+- [x] `ArticleStatus`, `AssetHistoryAction` enum baru; `AuditAction` +5, `AuditModule` +1.
+- [x] `ArticlePolicy`, `AttachmentPolicy` — semua ability punya test positif & negatif.
+- [x] `AssetPolicy` lengkap 10 ability; `git mv` ke subfolder `Asset/`; `#[UsePolicy]` diperbarui.
+- [x] Model: `Asset.activeAssignment`, `User.assetAssignments`/`.activeAssignments`, `User.activeAssignments`; cast `ArticleStatus`; `#[UsePolicy]` di `KnowledgeArticle` & `TicketAttachment`.
+- [x] Migrasi 3 index: `knowledge_articles(title)`, `knowledge_articles(status)`, `assets(status)`.
+- [x] Disk `private` (serve=false, root sesuai Addendum §6.1) terverifikasi lewat tinker.
+- [x] Factory state: `AssetFactory::available/assigned/maintenance/retired/lost`, `KnowledgeArticleFactory::draft`.
+- [x] Seluruh test suite hijau (`vendor/bin/pest`).
+- [x] Linter Pint bersih (`vendor/bin/pint --test`).
