@@ -1,6 +1,6 @@
 # AGENTS.md — JARVIS OPS
 
-IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 4/10).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 22 migrations, 440 passing tests (1682 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), and notification API (4b). Expect to write net-new code, not modify existing features.
+IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 5/10).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 22 migrations, 456 passing tests (1748 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), notification API (4b), and audit log API with scoping & timezone filters (Tag `v0.4.0`). Expect to write net-new code, not modify existing features.
 
 ## Repo layout
 
