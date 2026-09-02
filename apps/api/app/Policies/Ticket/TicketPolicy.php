@@ -103,7 +103,23 @@ class TicketPolicy
 
     public function comment(User $user, Ticket $ticket): Response|bool
     {
-        return $this->isParticipant($user, $ticket);
+        if ((int) $ticket->status_id === 5 || (bool) ($ticket->status?->is_final ?? false)) {
+            return false;
+        }
+
+        if ($user->isAdmin() || $user->hasRole(RoleName::Manager)) {
+            return true;
+        }
+
+        if ($user->hasRole(RoleName::Technician)) {
+            return $ticket->technician_id === $user->id
+                ? true
+                : Response::denyAsNotFound();
+        }
+
+        return $ticket->reporter_id === $user->id
+            ? true
+            : Response::denyAsNotFound();
     }
 
     public function viewHistory(User $user, Ticket $ticket): Response|bool
@@ -123,7 +139,9 @@ class TicketPolicy
         }
 
         if ($user->hasRole(RoleName::Technician)) {
-            return $ticket->technician_id === $user->id;
+            return $ticket->technician_id === $user->id
+                ? true
+                : Response::denyAsNotFound();
         }
 
         return $ticket->reporter_id === $user->id

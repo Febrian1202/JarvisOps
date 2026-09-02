@@ -355,75 +355,75 @@ Membangun entitas inti produk beserta seluruh business rule-nya. Ini fase paling
 
 ### Ticket CRUD
 
-- [ ] `TicketService::create()` di dalam transaksi database:
+- [x] `TicketService::create()` di dalam transaksi database:
   - generate `ticket_number` format `TCK-0001` — gunakan `lockForUpdate()` atau tabel counter, **jangan** `max(id)+1` tanpa lock (rawan tabrakan)
   - status awal `OPEN` (BR-002), `technician_id` null (BR-003)
   - reporter diambil dari user terautentikasi, **bukan** dari request body (BR-001)
   - `department_id` diturunkan dari department reporter
   - snapshot SLA (lihat bawah)
   - catat ticket history + audit log
-- [ ] `GET /api/tickets` — scoping berdasarkan role: Employee hanya ticket miliknya, Technician/Manager/Admin semua
-- [ ] `GET /api/tickets/{id}` — Policy `view`, eager load relasi untuk hindari N+1
-- [ ] `PUT /api/tickets/{id}` — field yang boleh diubah berbeda per role; ticket `CLOSED` tidak bisa diubah Employee (BR-009)
-- [ ] `DELETE /api/tickets/{id}` — soft delete, Admin saja
+- [x] `GET /api/tickets` — scoping berdasarkan role: Employee hanya ticket miliknya, Technician/Manager/Admin semua
+- [x] `GET /api/tickets/{id}` — Policy `view`, eager load relasi untuk hindari N+1
+- [x] `PUT /api/tickets/{id}` — field yang boleh diubah berbeda per role; ticket `CLOSED` tidak bisa diubah Employee (BR-009)
+- [x] `DELETE /api/tickets/{id}` — soft delete, Admin saja
 
 ### Snapshot SLA saat create
 
-- [ ] `sla_duration_minutes` dan `sla_deadline` diisi dari `ticket_priorities.sla_minutes` saat ticket dibuat
-- [ ] Kolom snapshot ini **wajib** diisi, bukan dihitung ulang lewat join ke priority setiap kali dibaca. Kalau Admin mengubah konfigurasi SLA di kemudian hari, ticket lama harus tetap dinilai dengan SLA yang berlaku saat ia dibuat — kalau tidak, angka compliance historis berubah sendiri dan analytics jadi tidak bisa dipercaya. Skema sudah menyediakan kolom ini dengan benar.
-- [ ] Saat priority ticket diubah, putuskan dan dokumentasikan: `sla_deadline` dihitung ulang dari `created_at` dengan durasi baru (bukan dari waktu perubahan), dan perubahannya dicatat di history
+- [x] `sla_duration_minutes` dan `sla_deadline` diisi dari `ticket_priorities.sla_minutes` saat ticket dibuat
+- [x] Kolom snapshot ini **wajib** diisi, bukan dihitung ulang lewat join ke priority setiap kali dibaca. Kalau Admin mengubah konfigurasi SLA di kemudian hari, ticket lama harus tetap dinilai dengan SLA yang berlaku saat ia dibuat — kalau tidak, angka compliance historis berubah sendiri dan analytics jadi tidak bisa dipercaya. Skema sudah menyediakan kolom ini dengan benar.
+- [x] Saat priority ticket diubah, putuskan dan dokumentasikan: `sla_deadline` dihitung ulang dari `created_at` dengan durasi baru (bukan dari waktu perubahan), dan perubahannya dicatat di history
 
 ### Assignment
 
-- [ ] `POST /api/tickets/{id}/assign` — Manager/Admin saja (BR-004)
-- [ ] Validasi target benar-benar user dengan role technician dan berstatus active
-- [ ] Status berpindah `OPEN → ASSIGNED`, history dicatat, notifikasi ke technician (Skenario 2 §31)
-- [ ] Reassign ticket yang sudah punya technician: diizinkan, dicatat sebagai perubahan `technician_id`
+- [x] `POST /api/tickets/{id}/assign` — Manager/Admin saja (BR-004)
+- [x] Validasi target benar-benar user dengan role technician dan berstatus active
+- [x] Status berpindah `OPEN → ASSIGNED`, history dicatat, notifikasi ke technician (Skenario 2 §31)
+- [x] Reassign ticket yang sudah punya technician: diizinkan, dicatat sebagai perubahan `technician_id`
 
 ### Status transition
 
-- [ ] `POST /api/tickets/{id}/status` dilayani `TicketStatusService`
-- [ ] Validasi terhadap matriks di `docs/product/STATUS-TRANSITION.md` — transisi ilegal → 422 dengan pesan jelas
-- [ ] Technician hanya boleh memproses ticket yang di-assign kepadanya (BR-005)
-- [ ] `RESOLVED` mengisi `resolved_at`; `CLOSED` mengisi `closed_at`
-- [ ] `CLOSED` hanya oleh reporter, Manager, atau Admin (Skenario 5 §31)
-- [ ] Reopen `RESOLVED → IN_PROGRESS` oleh reporter (§12 PRD)
-- [ ] Setiap transisi menulis ticket history (BR-008) dan audit log (BR-010)
+- [x] `POST /api/tickets/{id}/status` dilayani `TicketStatusService`
+- [x] Validasi terhadap matriks di `docs/product/STATUS-TRANSITION.md` — transisi ilegal → 422 dengan pesan jelas
+- [x] Technician hanya boleh memproses ticket yang di-assign kepadanya (BR-005)
+- [x] `RESOLVED` mengisi `resolved_at`; `CLOSED` mengisi `closed_at`
+- [x] `CLOSED` hanya oleh reporter, Manager, atau Admin (Skenario 5 §31)
+- [x] Reopen `RESOLVED → IN_PROGRESS` oleh reporter (§12 PRD)
+- [x] Setiap transisi menulis ticket history (BR-008) dan audit log (BR-010)
 
 ### Relasi asset (Addendum §1)
 
-- [ ] `asset_id` opsional/nullable (BR-011)
-- [ ] `GET /api/assets/assignable` — daftar asset yang sedang di-assign ke user login, status layak pakai, bukan retired/lost (Addendum §1.3)
-- [ ] **Validasi kepemilikan di backend** (BR-014): rule kustom yang memastikan asset benar-benar ter-assign ke reporter. Filter di frontend hanya kenyamanan, bukan mekanisme keamanan.
-- [ ] Employee tidak bisa memilih asset milik Employee lain (BR-012) — ini poin nomor 1 di "Definition of Technical Success" Addendum §12
-- [ ] Hapus asset tidak menghapus histori ticket (BR-015) — soft delete + `ON DELETE SET NULL`
+- [x] `asset_id` opsional/nullable (BR-011)
+- [x] `GET /api/assets/assignable` — daftar asset yang sedang di-assign ke user login, status layak pakai, bukan retired/lost (Addendum §1.3)
+- [x] **Validasi kepemilikan di backend** (BR-014): rule kustom yang memastikan asset benar-benar ter-assign ke reporter. Filter di frontend hanya kenyamanan, bukan mekanisme keamanan.
+- [x] Employee tidak bisa memilih asset milik Employee lain (BR-012) — ini poin nomor 1 di "Definition of Technical Success" Addendum §12
+- [x] Hapus asset tidak menghapus histori ticket (BR-015) — soft delete + `ON DELETE SET NULL`
 
 ### Komentar & history
 
-- [ ] `POST /api/tickets/{id}/comments` — hanya partisipan ticket (reporter, technician, manager, admin)
-- [ ] `GET /api/tickets/{id}/comments` — paginated
-- [ ] `GET /api/tickets/{id}/histories` — timeline perubahan
-- [ ] Notifikasi komentar ke partisipan lain (bukan ke diri sendiri)
+- [x] `POST /api/tickets/{id}/comments` — hanya partisipan ticket (reporter, technician, manager, admin)
+- [x] `GET /api/tickets/{id}/comments` — paginated
+- [x] `GET /api/tickets/{id}/histories` — timeline perubahan
+- [x] Notifikasi komentar ke partisipan lain (bukan ke diri sendiri)
 
 ### Search, filter, pagination (§24, §25)
 
-- [ ] Search: `ticket_number`, `title`
-- [ ] Filter: status, priority, category, technician, rentang tanggal
-- [ ] Sort: `created_at`, `sla_deadline`, priority
-- [ ] Pagination sesuai format API contract
-- [ ] Filter diterapkan **setelah** scoping role — jangan sampai filter jadi jalan memutar untuk melihat ticket orang lain
+- [x] Search: `ticket_number`, `title`
+- [x] Filter: status, priority, category, technician, rentang tanggal
+- [x] Sort: `created_at`, `sla_deadline`, priority
+- [x] Pagination sesuai format API contract
+- [x] Filter diterapkan **setelah** scoping role — jangan sampai filter jadi jalan memutar untuk melihat ticket orang lain
 
 ### Test (Pest)
 
-- [ ] Keenam skenario acceptance criteria §31 PRD, masing-masing satu test
-- [ ] Setiap BR-001 sampai BR-015 punya test negatif
-- [ ] Employee mencoba memilih asset milik orang lain → 422
-- [ ] Technician mencoba memproses ticket yang bukan miliknya → 403
-- [ ] Employee mencoba assign technician → 403
-- [ ] Transisi ilegal (mis. `OPEN → RESOLVED`) → 422 — daftar lengkap di `STATUS-TRANSITION.md §10`. Catatan: `OPEN → CLOSED` justru **legal** untuk Manager/Admin (jalur pembatalan, §4.3); contoh di versi sebelumnya keliru.
-- [ ] Employee mencoba mengubah ticket `CLOSED` → 403
-- [ ] Employee melihat daftar ticket → hanya miliknya
-- [ ] `ticket_number` unik di bawah pembuatan bersamaan
+- [x] Keenam skenario acceptance criteria §31 PRD, masing-masing satu test
+- [x] Setiap BR-001 sampai BR-015 punya test negatif
+- [x] Employee mencoba memilih asset milik orang lain → 422
+- [x] Technician mencoba memproses ticket yang bukan miliknya → 403
+- [x] Employee mencoba assign technician → 403
+- [x] Transisi ilegal (mis. `OPEN → RESOLVED`) → 422 — daftar lengkap di `STATUS-TRANSITION.md §10`. Catatan: `OPEN → CLOSED` justru **legal** untuk Manager/Admin (jalur pembatalan, §4.3); contoh di versi sebelumnya keliru.
+- [x] Employee mencoba mengubah ticket `CLOSED` → 403
+- [x] Employee melihat daftar ticket → hanya miliknya
+- [x] `ticket_number` unik di bawah pembuatan bersamaan
 
 ## Deliverable
 
@@ -435,10 +435,10 @@ Ticket API lengkap dengan workflow, history, komentar, relasi asset, search/filt
 
 
 
-- [ ] Golden path §38 PRD (create → assign → in progress → resolve → close) bisa diselesaikan penuh via HTTP client
-- [ ] Seluruh 6 skenario §31 punya test yang lulus
-- [ ] Setiap BR punya test
-- [ ] Tidak ada N+1 pada endpoint list dan detail (verifikasi dengan query log)
+- [x] Golden path §38 PRD (create → assign → in progress → resolve → close) bisa diselesaikan penuh via HTTP client
+- [x] Seluruh 6 skenario §31 punya test yang lulus
+- [x] Setiap BR punya test
+- [x] Tidak ada N+1 pada endpoint list dan detail (verifikasi dengan query log)
 
 ---
 

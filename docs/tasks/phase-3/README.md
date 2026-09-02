@@ -228,23 +228,23 @@ endpoint yang mengelolanya.
 Diambil dari ROADMAP:407-412, `STATUS-TRANSITION.md §10`, dan `PERMISSION-MATRIX.md §6`, dengan
 penafsiran di atas diterapkan.
 
-- [ ] Golden path §38 PRD (create → assign → in progress → resolve → close) selesai penuh dalam
+- [x] Golden path §38 PRD (create → assign → in progress → resolve → close) selesai penuh dalam
       satu test end-to-end, memakai empat akun demo dan berpindah aktor di tiap langkah
-- [ ] Keenam skenario `§31` PRD punya test yang lulus
-- [ ] Seluruh checklist `STATUS-TRANSITION.md §10` hijau, termasuk lima baris konkurensi v1.1
-- [ ] BR-001 sampai BR-015 masing-masing punya test negatif
-- [ ] Setiap ability di `TicketPolicy`, `TicketCommentPolicy`, dan `AssetPolicy` yang dipakai
+- [x] Keenam skenario `§31` PRD punya test yang lulus
+- [x] Seluruh checklist `STATUS-TRANSITION.md §10` hijau, termasuk lima baris konkurensi v1.1
+- [x] BR-001 sampai BR-015 masing-masing punya test negatif
+- [x] Setiap ability di `TicketPolicy`, `TicketCommentPolicy`, dan `AssetPolicy` yang dipakai
       Fase 3 punya test positif **dan** negatif
-- [ ] Setiap kode di `PERMISSION-MATRIX.md §5` terverifikasi — 403 dan 404 tidak tertukar
-- [ ] Setiap route Fase 3 punya test tanpa token → 401
-- [ ] Tidak ada N+1 pada `GET /api/tickets` dan `GET /api/tickets/{id}`
-- [ ] Tidak ada satu pun endpoint yang menerima `status_id`, `technician_id`, `reporter_id`,
+- [x] Setiap kode di `PERMISSION-MATRIX.md §5` terverifikasi — 403 dan 404 tidak tertukar
+- [x] Setiap route Fase 3 punya test tanpa token → 401
+- [x] Tidak ada N+1 pada `GET /api/tickets` dan `GET /api/tickets/{id}`
+- [x] Tidak ada satu pun endpoint yang menerima `status_id`, `technician_id`, `reporter_id`,
       `ticket_number`, atau field SLA dari body client
-- [ ] `php artisan test` seluruhnya hijau
-- [ ] `vendor/bin/pint --test` bersih
-- [ ] `php artisan migrate:fresh --seed` sukses terhadap MySQL, lalu `migrate:rollback` bersih
-- [ ] Setiap route Fase 3 punya barisnya di `PERMISSION-MATRIX.md §4`
-- [ ] Checkbox Fase 3 di `ROADMAP.md` tersinkronisasi dengan yang benar-benar dikerjakan
+- [x] `php artisan test` seluruhnya hijau
+- [x] `vendor/bin/pint --test` bersih
+- [x] `php artisan migrate:fresh --seed` sukses terhadap MySQL, lalu `migrate:rollback` bersih
+- [x] Setiap route Fase 3 punya barisnya di `PERMISSION-MATRIX.md §4`
+- [x] Checkbox Fase 3 di `ROADMAP.md` tersinkronisasi dengan yang benar-benar dikerjakan
 - [ ] Git tag `v0.3.0` (Semantic Versioning) ditambahkan dan didorong ke repository saat fase selesai
 
 ## Di Luar Cakupan Fase 3

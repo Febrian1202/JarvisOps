@@ -34,7 +34,7 @@ mandiri yang dibuat user langsung.
 - `TicketCommentService::paginate(Ticket $ticket): LengthAwarePaginator` — urut `created_at` naik
 - `TicketCommentResource::toArray()` — bentuk komentar
 
-- [ ] **Step 1: Test — POST komentar**
+- [x] **Step 1: Test — POST komentar**
   ```php
   test('participant can comment', function () {
       $reporter = User::factory()->employee()->create();
@@ -56,7 +56,7 @@ mandiri yang dibuat user langsung.
   });
   ```
 
-- [ ] **Step 2: Test — komentar paginated urut naik**
+- [x] **Step 2: Test — komentar paginated urut naik**
   ```php
   test('comments are paginated in ascending order', function () {
       // create 15 komentar, GET ?per_page=10
@@ -64,7 +64,7 @@ mandiri yang dibuat user langsung.
   });
   ```
 
-- [ ] **Step 3: Test — notifikasi komentar ke partisipan lain**
+- [x] **Step 3: Test — notifikasi komentar ke partisipan lain**
   ```php
   test('comment notifies other participants but not actor', function () {
       // reporter + technician assigned + manager
@@ -73,7 +73,7 @@ mandiri yang dibuat user langsung.
   });
   ```
 
-- [ ] **Step 4: Test — update komentar**
+- [x] **Step 4: Test — update komentar**
   ```php
   test('author can update comment within 15 minutes', function () { ... });
   test('author cannot update after 15 minutes', function () {
@@ -85,7 +85,7 @@ mandiri yang dibuat user langsung.
   });
   ```
 
-- [ ] **Step 5: Test — delete komentar**
+- [x] **Step 5: Test — delete komentar**
   ```php
   test('author can delete comment within 15 minutes', function () { ... });
   test('admin can delete any comment', function () { ... });
@@ -94,7 +94,7 @@ mandiri yang dibuat user langsung.
   });
   ```
 
-- [ ] **Step 6: Implementasi `TicketCommentService`**
+- [x] **Step 6: Implementasi `TicketCommentService`**
   ```php
   public function create(Ticket $ticket, CreateCommentData $data, User $actor): TicketComment
   {
@@ -119,7 +119,7 @@ mandiri yang dibuat user langsung.
   }
   ```
 
-- [ ] **Step 7: Implementasi `TicketCommentController`**
+- [x] **Step 7: Implementasi `TicketCommentController`**
   ```php
   public function index(Request $request, Ticket $ticket): JsonResponse
   {
@@ -152,7 +152,7 @@ mandiri yang dibuat user langsung.
   Route binding scoping: pastikan `$comment->ticket_id === $ticket->id` (kalau tidak, 404).
   Tambahkan di controller atau gunakan `->where()` di route + validasi manual.
 
-- [ ] **Step 8: Routes**
+- [x] **Step 8: Routes**
   ```php
   Route::get('/tickets/{ticket}/comments', [TicketCommentController::class, 'index'])->name('tickets.comments.index');
   Route::post('/tickets/{ticket}/comments', [TicketCommentController::class, 'store'])->name('tickets.comments.store');
@@ -160,7 +160,7 @@ mandiri yang dibuat user langsung.
   Route::delete('/tickets/{ticket}/comments/{comment}', [TicketCommentController::class, 'destroy'])->name('tickets.comments.destroy');
   ```
 
-- [ ] **Step 9: Verifikasi & Commit.**
+- [x] **Step 9: Verifikasi & Commit.**
 
 ---
 
@@ -173,7 +173,7 @@ mandiri yang dibuat user langsung.
 - Modify: `routes/api.php`
 - Create: `tests/Feature/Ticket/HistoryTest.php`
 
-- [ ] **Step 1: Test — histories timeline**
+- [x] **Step 1: Test — histories timeline**
   ```php
   test('history shows readable values and ascending order', function () {
       // create ticket, then transition through statuses
@@ -190,7 +190,7 @@ mandiri yang dibuat user langsung.
   });
   ```
 
-- [ ] **Step 2: Implementasi `TicketHistoryController`**
+- [x] **Step 2: Implementasi `TicketHistoryController`**
   ```php
   public function index(Request $request, Ticket $ticket): JsonResponse
   {
@@ -203,12 +203,12 @@ mandiri yang dibuat user langsung.
   }
   ```
 
-- [ ] **Step 3: Routes**
+- [x] **Step 3: Routes**
   ```php
   Route::get('/tickets/{ticket}/histories', [TicketHistoryController::class, 'index'])->name('tickets.histories');
   ```
 
-- [ ] **Step 4: Verifikasi & Commit.**
+- [x] **Step 4: Verifikasi & Commit.**
 
 ---
 
@@ -217,7 +217,7 @@ mandiri yang dibuat user langsung.
 **Files:**
 - Create: `tests/Feature/Ticket/GoldenPathTest.php`
 
-- [ ] **Step 1: Test — golden path §38 PRD penuh lewat HTTP**
+- [x] **Step 1: Test — golden path §38 PRD penuh lewat HTTP**
   ```php
   test('golden path completes end to end over HTTP', function () {
       // 1. Login Employee → buat ticket → 201, status OPEN
@@ -229,9 +229,9 @@ mandiri yang dibuat user langsung.
   });
   ```
 
-- [ ] **Step 2: Verifikasi — jalankan seluruh test suite Fase 3, `php artisan test` hijau.**
+- [x] **Step 2: Verifikasi — jalankan seluruh test suite Fase 3, `php artisan test` hijau.**
 
-- [ ] **Step 3: Commit.**
+- [x] **Step 3: Commit.**
 
 ---
 
@@ -243,27 +243,27 @@ mandiri yang dibuat user langsung.
 - Modify: `docs/product/STATUS-TRANSITION.md` (verifikasi checklist §10)
 - Create: `docs/tasks/phase-3/CLOSED.md` (ringkasan apa yang dikerjakan, penyimpangan, catatan)
 
-- [ ] **Step 1: Centang checkbox yang sudah selesai di ROADMAP Fase 3, tandai yang berubah.**
+- [x] **Step 1: Centang checkbox yang sudah selesai di ROADMAP Fase 3, tandai yang berubah.**
 
-- [ ] **Step 2: Pastikan PERMISSION-MATRIX §4 memuat semua route Fase 3.**
+- [x] **Step 2: Pastikan PERMISSION-MATRIX §4 memuat semua route Fase 3.**
 
-- [ ] **Step 3: Tulis `CLOSED.md` — ringkasan, keputusan yang diambil, hal yang diserahkan ke Fase 4/5.**
+- [x] **Step 3: Tulis `CLOSED.md` — ringkasan, keputusan yang diambil, hal yang diserahkan ke Fase 4/5.**
 
-- [ ] **Step 4: Verifikasi seluruh exit criteria Fase 3 dari README, pastikan tercatat.**
+- [x] **Step 4: Verifikasi seluruh exit criteria Fase 3 dari README, pastikan tercatat.**
 
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
 
 ---
 
 ## Exit Criteria 3e (dan penutup Fase 3)
 
-- [ ] Komentar: create/update/delete, jendela 15 menit, Admin kapan saja, partisipan saja
-- [ ] Komentar paginated urut naik, notifikasi ke partisipan lain (bukan aktor)
-- [ ] History: readable values, urut naik, append-only
-- [ ] `GoldenPathTest` end-to-end lulus
-- [ ] Seluruh checklist `STATUS-TRANSITION.md §10` + konkurensi hijau
-- [ ] Seluruh BR-001..015 punya test
-- [ ] Tidak ada N+1 pada list & detail
-- [ ] `php artisan test` seluruhnya hijau, `pint --test` bersih
-- [ ] `migrate:fresh --seed` + `rollback` bersih terhadap MySQL
-- [ ] ROADMAP Fase 3 tersinkronisasi
+- [x] Komentar: create/update/delete, jendela 15 menit, Admin kapan saja, partisipan saja
+- [x] Komentar paginated urut naik, notifikasi ke partisipan lain (bukan aktor)
+- [x] History: readable values, urut naik, append-only
+- [x] `GoldenPathTest` end-to-end lulus
+- [x] Seluruh checklist `STATUS-TRANSITION.md §10` + konkurensi hijau
+- [x] Seluruh BR-001..015 punya test
+- [x] Tidak ada N+1 pada list & detail
+- [x] `php artisan test` seluruhnya hijau, `pint --test` bersih
+- [x] `migrate:fresh --seed` + `rollback` bersih terhadap MySQL
+- [x] ROADMAP Fase 3 tersinkronisasi

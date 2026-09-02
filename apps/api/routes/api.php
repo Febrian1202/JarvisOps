@@ -5,7 +5,9 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\ReferenceController;
+use App\Http\Controllers\Ticket\TicketCommentController;
 use App\Http\Controllers\Ticket\TicketController;
+use App\Http\Controllers\Ticket\TicketHistoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', HealthController::class);
@@ -35,6 +37,16 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::apiResource('tickets', TicketController::class);
 
     Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
+
+    // Ticket Comments
+    Route::get('/tickets/{ticket}/comments', [TicketCommentController::class, 'index'])->name('tickets.comments.index');
+    Route::post('/tickets/{ticket}/comments', [TicketCommentController::class, 'store'])->name('tickets.comments.store');
+    Route::put('/tickets/{ticket}/comments/{comment}', [TicketCommentController::class, 'update'])->name('tickets.comments.update');
+    Route::delete('/tickets/{ticket}/comments/{comment}', [TicketCommentController::class, 'destroy'])->name('tickets.comments.destroy');
+
+    // Ticket History Timeline
+    Route::get('/tickets/{ticket}/histories', [TicketHistoryController::class, 'index'])->name('tickets.histories');
+
     Route::post('/tickets/{ticket}/assign', [TicketController::class, 'assign'])->name('tickets.assign');
     Route::post('/tickets/{ticket}/unassign', [TicketController::class, 'unassign'])->name('tickets.unassign');
     Route::post('/tickets/{ticket}/priority', [TicketController::class, 'changePriority'])->name('tickets.priority');
