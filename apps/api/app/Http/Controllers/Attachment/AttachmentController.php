@@ -25,6 +25,21 @@ class AttachmentController extends Controller
         protected AuditLogger $auditLogger
     ) {}
 
+    public function index(Ticket $ticket, Request $request): JsonResponse
+    {
+        $this->authorize('view', $ticket);
+
+        $attachments = $ticket->attachments()
+            ->with('uploader')
+            ->orderBy('created_at')
+            ->get();
+
+        return ApiResponse::success(
+            AttachmentResource::collection($attachments),
+            'Attachments retrieved.'
+        );
+    }
+
     public function store(StoreAttachmentRequest $request, Ticket $ticket): JsonResponse
     {
         $this->authorize('attach', $ticket);

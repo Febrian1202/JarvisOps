@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::apiResource('knowledge-categories', KnowledgeCategoryController::class);
     Route::apiResource('tickets', TicketController::class);
 
+    Route::get('/tickets/{ticket}/attachments', [AttachmentController::class, 'index'])->name('tickets.attachments.index');
     Route::post('/tickets/{ticket}/attachments', [AttachmentController::class, 'store'])
         ->middleware('throttle:upload')
         ->name('tickets.attachments.store');
