@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Asset\AssetHistoryController;
 use App\Http\Controllers\Audit\AuditLogController;
@@ -42,6 +43,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::post('/assets/{asset}/release', [AssetController::class, 'release'])->name('assets.release');
     Route::get('/assets/{asset}/history', AssetHistoryController::class)->name('assets.history');
     Route::apiResource('assets', AssetController::class);
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
     Route::apiResource('tickets', TicketController::class);
 
     Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
