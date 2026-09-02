@@ -73,3 +73,42 @@ test('manager dashboard without date params defaults to 30 days', function () {
     $response->assertStatus(200)
         ->assertJsonPath('data.total_tickets', 1);
 });
+
+test('sla metrics and trend respect the date range', function () {
+    $manager = User::factory()->manager()->create();
+
+    Ticket::factory()->resolved()->create([
+        'created_at' => '2026-06-01 08:00:00',
+        'resolved_at' => '2026-06-01 10:00:00',
+        'sla_deadline' => '2026-06-01 12:00:00',
+    ]);
+    Ticket::factory()->resolved()->create([
+        'created_at' => '2026-07-15 08:00:00',
+        'resolved_at' => '2026-07-15 10:00:00',
+        'sla_deadline' => '2026-07-15 12:00:00',
+    ]);
+
+    Sanctum::actingAs($manager);
+    $response = $this->getJson('/api/dashboard/manager?date_from=2026-06-01&date_to=2026-06-30');
+
+    $response->assertStatus(200)
+        ->assertJsonPath('data.resolved_tickets', 1)
+        ->assertJsonPath('data.sla.within_sla', 1)
+        ->assertJsonPath('data.sla.breached', 0);
+});
+
+test('trend fills every day in range including zeros', function () {
+    $manager = User::factory()->manager()->create();
+    Ticket::factory()->open()->create(['created_at' => '2026-06-01 10:00:00']);
+
+    Sanctum::actingAs($manager);
+    $response = $this->getJson('/api/dashboard/manager?date_from=2026-06-01&date_to=2026-06-03');
+    $trend = $response->json('data.ticket_trend');
+
+    expect($trend)->toHaveCount(3)
+        ->and($trend[0]['date'])->toBe('2026-06-01')
+        ->and($trend[0]['created'])->toBe(1)
+        ->and($trend[2]['date'])->toBe('2026-06-03')
+        ->and($trend[2]['created'])->toBe(0)
+        ->and($trend[2]['resolved'])->toBe(0);
+});
