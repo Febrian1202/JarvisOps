@@ -53,7 +53,7 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 ## Bagian A — Skema & Migration (Fase 2)
 
 ### D-01 · SLA dihitung 24/7 (kalender flat)
-- **Status:** CONFIRM (default: 24/7)
+- **Status:** DECIDED
 - **Keputusan:** `sla_deadline = created_at + sla_duration_minutes`. Tidak ada konsep jam kerja, hari libur, atau kalender bisnis di MVP. Ticket yang dibuat Jumat 17:00 dengan SLA 1440 menit (24 jam) akan breach pada Sabtu 17:00.
 - **Alasan:** Menambahkan jam kerja membutuhkan tabel hari libur, konfigurasi shift, dan penanganan zona waktu lokal. Tidak ada di PRD maupun ERD. Untuk MVP ITSM internal fase 1, kalender 24/7 adalah baseline yang deterministik dan mudah diuji.
 - **Konsekuensi:** `SlaService` cukup melakukan penambahan integer menit ke `created_at`.
@@ -114,6 +114,13 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Alasan:** `STATUS-TRANSITION.md §6` memetakan sembilan side-effect transisi ke audit action yang berbeda-beda, dan lima di antaranya tidak ada di daftar asli. Kalau daftar asli dipaksakan, kelimanya runtuh menjadi `status_change` dan distingsi yang §6 bangun secara sengaja hilang dari audit trail — padahal justru `resolve` versus `cancel` yang membedakan ticket selesai dari ticket dibatalkan, dan D-03 bergantung pada perbedaan itu untuk menghitung SLA compliance.
 - **Kosakata `action` lengkap sesudah amandemen (16 nilai):** `create`, `update`, `delete`, `assign`, `reassign`, `unassign`, `self_assign`, `status_change`, `priority_change`, `reopen`, `resolve`, `close`, `cancel`, `login`, `logout`, `password_reset`.
 - **Konsekuensi:** Kosakata direifikasi jadi enum `App\Enums\AuditAction` dan `App\Enums\AuditModule`; `AuditLogger` hanya menerima enum, bukan string bebas, sehingga daftar ini tidak bisa melar diam-diam.
+
+#### Amandemen 2 (Fase 4) — action SLA breach oleh background scheduler
+
+- **Tambahan `action`:** `sla_breach`.
+- **Alasan:** Penandaan breach oleh scheduler mengubah state persisten ticket secara permanen (`sla_breached = true`, `sla_breached_at = now()`) dan memicu notifikasi penting. Perubahan ini wajib memiliki jejak audit trail yang jelas sesuai PRD BR-010 dan DFD 4.3.
+- **Kosakata `action` lengkap sesudah amandemen 2 (17 nilai):** `create`, `update`, `delete`, `assign`, `reassign`, `unassign`, `self_assign`, `status_change`, `priority_change`, `reopen`, `resolve`, `close`, `cancel`, `login`, `logout`, `password_reset`, `sla_breach`.
+- **Konsekuensi:** Tambahkan case `SlaBreach = 'sla_breach'` pada enum `App\Enums\AuditAction`.
 
 ### D-09 · Constraint Integritas `asset_assignments`
 - **Status:** DECIDED
@@ -276,10 +283,9 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
 - **Status:** DECIDED
 - **Keputusan:**
   - Casing: **SCREAMING_SNAKE_CASE**, mengikuti contoh `API-CONTRACT.md:573` (`TICKET_ASSIGNED`). Anotasi lowercase di `ERD.md:262` diperlakukan sebagai deskripsi, bukan nilai literal.
-  - Daftar tertutup untuk domain ticket, memetakan sembilan side-effect `STATUS-TRANSITION.md §6` satu-ke-satu: `TICKET_ASSIGNED`, `TICKET_REASSIGNED`, `TICKET_UNASSIGNED`, `TICKET_STATUS_CHANGED`, `TICKET_SELF_ASSIGNED`, `TICKET_REOPENED`, `TICKET_RESOLVED`, `TICKET_CLOSED`, `TICKET_CANCELLED`, `TICKET_COMMENTED`.
-  - `TICKET_SLA_BREACHED` ditambahkan di Fase 4 bersama scheduler-nya.
-  - `notifications.data` wajib memuat kunci: `ticket_id`, `ticket_number`, `title`, `actor_name`, `message`, `url`. `message` berbahasa Indonesia (D-24), `url` relatif (`/tickets/{id}`).
-- **Alasan:** Fase 3 sudah menulis baris `notifications` walau modul notifikasi nominalnya Fase 4, jadi kosakatanya harus dipin sekarang atau Fase 4 akan mewarisi data dengan tipe yang tidak konsisten. Nilai `type` ikut jadi filter di `GET /api/notifications`, sehingga ia bagian dari kontrak publik, bukan detail internal.
+  - Daftar tertutup untuk domain ticket, memetakan side-effect transisi dan event penting: `TICKET_ASSIGNED`, `TICKET_REASSIGNED`, `TICKET_UNASSIGNED`, `TICKET_STATUS_CHANGED`, `TICKET_SELF_ASSIGNED`, `TICKET_REOPENED`, `TICKET_RESOLVED`, `TICKET_CLOSED`, `TICKET_CANCELLED`, `TICKET_COMMENTED`, `TICKET_SLA_BREACHED`.
+  - `notifications.data` wajib memuat kunci: `ticket_id`, `ticket_number`, `title`, `actor_name`, `message`, `url`. `message` berbahasa Indonesia (D-24), `url` relatif (`/tickets/{id}`). Untuk event sistem (seperti SLA breach), `actor_name` bernilai `"Sistem"`.
+- **Alasan:** Memastikan payload notifikasi seragam di seluruh aplikasi. Nilai `type` menjadi filter di `GET /api/notifications` sehingga merupakan bagian dari kontrak publik.
 - **Konsekuensi:** Direifikasi jadi enum `App\Enums\NotificationType`; `NotificationService` hanya menerima enum.
 
 ### D-28 · Semantik Field SLA Turunan (`sla_status`, `sla_remaining_minutes`)
@@ -314,3 +320,11 @@ PRD berada di posisi terakhir bukan karena tidak penting, tapi karena ia ditulis
   - Tag Git menjadi sumber kebenaran mutlak (SSOT) untuk versi. Nilai ini bisa diinjeksikan sebagai *build argument* atau *environment variable* (misalnya `APP_VERSION`) ke dalam sistem tanpa perlu melakukan hardcode pada source code.
   - Docker Image akan di-tag mengikuti Git tag (contoh: `jarvisops-api:v1.0.0` dan `jarvisops-web:v1.0.0`) selain tag `:latest`, untuk memudahkan rollback.
 - **Alasan:** Monorepo deployment via Docker sangat rentan tanpa identifikasi versi yang eksplisit. Menggunakan SemVer mempermudah rollback yang stabil di production, memungkinkan automasi CI/CD berbasis Git Tag, dan memberikan kejelasan versi antara frontend dan backend.
+
+### D-31 · Pencatatan Audit Log untuk Event Sistem Background (Actor-less)
+- **Status:** DECIDED
+- **Keputusan:**
+  - Untuk aksi otomatis yang diinisiasi oleh sistem background (seperti `tickets:check-sla`), `AuditLogger::log()` menerima `$actor = null`.
+  - Kolom `audit_logs.user_id`, `audit_logs.ip_address`, dan `audit_logs.user_agent` disimpan sebagai `null` di database.
+- **Alasan:** Background command/scheduler dieksekusi di lingkungan CLI tanpa sesi user HTTP aktif. Skema `audit_logs.user_id` sudah bertipe `NULLABLE` di database.
+- **Konsekuensi:** `AuditLogger::log(?User $actor, ...)` menggunakan null-safe operator `$actor?->id`.
