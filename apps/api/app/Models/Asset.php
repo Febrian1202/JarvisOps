@@ -8,7 +8,9 @@ use App\Policies\Asset\AssetPolicy;
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[UsePolicy(AssetPolicy::class)]
@@ -44,6 +46,25 @@ class Asset extends Model
             'purchase_date' => 'date',
             'status' => AssetStatus::class,
         ];
+    }
+
+    /**
+     * Get the active assignment for the asset.
+     */
+    public function activeAssignment(): HasOne
+    {
+        return $this->hasOne(AssetAssignment::class)->whereNull('released_at');
+    }
+
+    /**
+     * Get the current holder of the asset through active assignment.
+     */
+    public function currentHolder(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id', 'id')
+            ->join('asset_assignments', 'asset_assignments.user_id', '=', 'users.id')
+            ->where('asset_assignments.asset_id', $this->id)
+            ->whereNull('asset_assignments.released_at');
     }
 
     /**

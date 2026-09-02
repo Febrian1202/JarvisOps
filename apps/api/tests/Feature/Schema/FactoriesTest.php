@@ -35,6 +35,12 @@ test('all 18 models have working factories and user factory states work', functi
         ->and($employee->status)->toBe('inactive')
         ->and($admin->employeeProfile)->not->toBeNull();
 
+    $testAsset = Asset::factory()->create(['status' => 'assigned']);
+    AssetAssignment::factory()->create(['asset_id' => $testAsset->id, 'user_id' => $admin->id, 'released_at' => null]);
+    expect($testAsset->activeAssignment)->not->toBeNull()
+        ->and($admin->activeAssignments)->toHaveCount(1)
+        ->and($admin->assetAssignments)->toHaveCount(1);
+
     expect(Role::factory()->create())->toBeInstanceOf(Role::class)
         ->and(Department::factory()->create())->toBeInstanceOf(Department::class)
         ->and(EmployeeProfile::factory()->create())->toBeInstanceOf(EmployeeProfile::class)

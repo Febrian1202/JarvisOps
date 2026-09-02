@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ArticleStatus;
 use App\Models\Concerns\SerializesDatesAsIso8601;
 use App\Policies\Article\ArticlePolicy;
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
@@ -39,6 +40,7 @@ class KnowledgeArticle extends Model
     protected function casts(): array
     {
         return [
+            'status' => ArticleStatus::class,
             'view_count' => 'integer',
             'published_at' => 'datetime',
         ];
