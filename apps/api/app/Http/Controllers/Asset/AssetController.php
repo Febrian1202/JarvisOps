@@ -22,11 +22,14 @@ use App\Services\Asset\AssetAssignmentService;
 use App\Services\Asset\AssetQueryService;
 use App\Services\Asset\AssetService;
 use App\Support\ApiResponse;
+use App\Support\HandlesPagination;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AssetController extends Controller
 {
+    use HandlesPagination;
+
     public function index(IndexAssetRequest $request, AssetQueryService $queryService): JsonResponse
     {
         $this->authorize('viewAny', Asset::class);
@@ -95,6 +98,19 @@ class AssetController extends Controller
         $released = $assignmentService->release($asset, $dto, $request->user());
 
         return ApiResponse::success(new AssetListResource($released), 'Asset released successfully.');
+    }
+
+    public function myAssets(Request $request): JsonResponse
+    {
+        $this->authorize('viewOwn', Asset::class);
+
+        $paginator = Asset::query()
+            ->with(['activeAssignment.user'])
+            ->whereHas('activeAssignment', fn ($q) => $q->where('user_id', $request->user()->id))
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->getPerPage($request));
+
+        return ApiResponse::paginated($paginator, 'My assets retrieved successfully.', AssetListResource::class);
     }
 
     public function assignable(Request $request): JsonResponse

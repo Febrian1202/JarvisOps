@@ -37,6 +37,7 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
 
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
+    Route::get('/my-assets', [AssetController::class, 'myAssets'])->name('assets.my-assets');
     Route::post('/assets/{asset}/assign', [AssetController::class, 'assign'])->name('assets.assign');
     Route::post('/assets/{asset}/release', [AssetController::class, 'release'])->name('assets.release');
     Route::get('/assets/{asset}/history', AssetHistoryController::class)->name('assets.history');
