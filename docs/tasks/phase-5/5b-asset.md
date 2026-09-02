@@ -89,7 +89,7 @@ public function paginate(Request $request): LengthAwarePaginator
 
 > **Jebakan:** Jangan pakai `whereHas('assignments', fn ($q) => $q->whereNull('released_at')->where('user_id', $x))` — pakai relasi `activeAssignment` yang sudah dibatasi `released_at IS NULL` agar query-nya bersih.
 
-- [ ] **Step 1: Test — Employee 403, search 3 field, filter status, filter assigned_user_id.**
+- [x] **Step 1: Test — Employee 403, search 3 field, filter status, filter assigned_user_id.**
   ```php
   test('employee cannot list assets', function () {
       $employee = User::factory()->employee()->create();
@@ -122,7 +122,7 @@ public function paginate(Request $request): LengthAwarePaginator
   });
   ```
 
-- [ ] **Step 2: Test — sort_by whitelist + pagination meta.**
+- [x] **Step 2: Test — sort_by whitelist + pagination meta.**
   ```php
   test('invalid sort_by returns 422', function () {
       Sanctum::actingAs(User::factory()->manager()->create());
@@ -135,7 +135,7 @@ public function paginate(Request $request): LengthAwarePaginator
   });
   ```
 
-- [ ] **Step 3: Test — tidak ada N+1.**
+- [x] **Step 3: Test — tidak ada N+1.**
   ```php
   test('asset list query count does not grow with volume', function () {
       DB::listen(fn ($q) => $queries[] = $q);
@@ -151,9 +151,9 @@ public function paginate(Request $request): LengthAwarePaginator
   });
   ```
 
-- [ ] **Step 4: Implementasi** — buat `IndexAssetRequest`, `AssetQueryService`.
+- [x] **Step 4: Implementasi** — buat `IndexAssetRequest`, `AssetQueryService`.
 
-- [ ] **Step 5: Verifikasi & commit.**
+- [x] **Step 5: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Asset/AssetListTest.php
   vendor/bin/pint --dirty --format agent
@@ -249,7 +249,7 @@ public function delete(Asset $asset, User $actor): void
 
 > **Jebakan:** `Asset::create($data->toArray())` — pastikan `CreateAssetData::toArray()` mengembalikan hanya field yang ada di `$fillable` model Asset. Jangan mengirim `id`, `created_at`, dll.
 
-- [ ] **Step 1: Test — create valid + 201.**
+- [x] **Step 1: Test — create valid + 201.**
   ```php
   test('manager can create asset', function () {
       Sanctum::actingAs(User::factory()->manager()->create());
@@ -263,7 +263,7 @@ public function delete(Asset $asset, User $actor): void
   });
   ```
 
-- [ ] **Step 2: Test — duplicate asset_tag/serial_number → 422, technician cannot delete.**
+- [x] **Step 2: Test — duplicate asset_tag/serial_number → 422, technician cannot delete.**
   ```php
   test('duplicate asset_tag returns 422', function () {
       Asset::factory()->create(['asset_tag' => 'AST-DUP']);
@@ -279,7 +279,7 @@ public function delete(Asset $asset, User $actor): void
   });
   ```
 
-- [ ] **Step 3: Test — delete blocked 409 saat masih di-assign.**
+- [x] **Step 3: Test — delete blocked 409 saat masih di-assign.**
   ```php
   test('cannot delete asset with active assignment', function () {
       $asset = Asset::factory()->create(['status' => 'assigned']);
@@ -289,7 +289,7 @@ public function delete(Asset $asset, User $actor): void
   });
   ```
 
-- [ ] **Step 4: Test — soft delete asset tidak menghapus ticket (BR-015).**
+- [x] **Step 4: Test — soft delete asset tidak menghapus ticket (BR-015).**
   ```php
   test('soft delete asset keeps ticket history intact', function () {
       $ticket = Ticket::factory()->create();
@@ -301,9 +301,9 @@ public function delete(Asset $asset, User $actor): void
   });
   ```
 
-- [ ] **Step 5: Implementasi** — DTO, service, request, controller method.
+- [x] **Step 5: Implementasi** — DTO, service, request, controller method.
 
-- [ ] **Step 6: Verifikasi & commit.**
+- [x] **Step 6: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Asset/AssetCrudTest.php
   vendor/bin/pint --dirty --format agent
@@ -409,7 +409,7 @@ public function release(Asset $asset, ReleaseAssetData $data, User $actor): Asse
 > **Jebakan 1:** Jangan lupa `lockForUpdate()` — tanpa itu dua request assign bersamaan bisa membuat dua assignment aktif (invariant D-09 rusak).
 > **Jebakan 2:** 409 vs 422: `StateConflictException` → 409, `ValidationException` → 422. Jangan tertukar.
 
-- [ ] **Step 1: Test — assign maintenance → 422, assign already-assigned → 409.**
+- [x] **Step 1: Test — assign maintenance → 422, assign already-assigned → 409.**
   ```php
   test('cannot assign maintenance asset', function () {
       $asset = Asset::factory()->maintenance()->create();
@@ -425,7 +425,7 @@ public function release(Asset $asset, ReleaseAssetData $data, User $actor): Asse
   });
   ```
 
-- [ ] **Step 2: Test — assign success mengubah status + membuat history.**
+- [x] **Step 2: Test — assign success mengubah status + membuat history.**
   ```php
   test('assign marks asset assigned and records history', function () {
       $manager = User::factory()->manager()->create();
@@ -440,7 +440,7 @@ public function release(Asset $asset, ReleaseAssetData $data, User $actor): Asse
   });
   ```
 
-- [ ] **Step 3: Test — release mengubah status kembali + release tanpa assignment → 409.**
+- [x] **Step 3: Test — release mengubah status kembali + release tanpa assignment → 409.**
   ```php
   test('release returns asset to available', function () {
       $asset = Asset::factory()->assigned()->create();
@@ -458,9 +458,9 @@ public function release(Asset $asset, ReleaseAssetData $data, User $actor): Asse
   });
   ```
 
-- [ ] **Step 4: Implementasi** — DTO, service, request, controller.
+- [x] **Step 4: Implementasi** — DTO, service, request, controller.
 
-- [ ] **Step 5: Verifikasi & commit.**
+- [x] **Step 5: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Asset/AssetAssignmentTest.php
   vendor/bin/pint --dirty --format agent
@@ -498,7 +498,7 @@ return [
 
 **`AssetResource`** (detail, API-CONTRACT §7.2 baris 451–468) — menambahkan `brand`, `model`, `serial_number`, `notes`, dan `current_assignment` lengkap.
 
-- [ ] **Step 1: Test — show asset detail.**
+- [x] **Step 1: Test — show asset detail.**
   ```php
   test('manager can view asset detail', function () {
       $asset = Asset::factory()->create();
@@ -512,9 +512,9 @@ return [
   });
   ```
 
-- [ ] **Step 2: Implementasi** — resource + controller.
+- [x] **Step 2: Implementasi** — resource + controller.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Asset/AssetShowTest.php
   vendor/bin/pint --dirty --format agent
@@ -566,7 +566,7 @@ public function __invoke(Asset $asset, Request $request): JsonResponse
 }
 ```
 
-- [ ] **Step 1: Test — history menggabungkan assignment & history.**
+- [x] **Step 1: Test — history menggabungkan assignment & history.**
   ```php
   test('asset history merges assignments and history', function () {
       $asset = Asset::factory()->create();
@@ -579,9 +579,9 @@ public function __invoke(Asset $asset, Request $request): JsonResponse
   });
   ```
 
-- [ ] **Step 2: Implementasi** — controller + route (`GET /api/assets/{asset}/history`).
+- [x] **Step 2: Implementasi** — controller + route (`GET /api/assets/{asset}/history`).
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Asset/AssetHistoryTest.php
   vendor/bin/pint --dirty --format agent
@@ -617,7 +617,7 @@ public function myAssets(Request $request): JsonResponse
 
 > **Jebakan:** `viewOwn` dibatasi ke asset milik pemanggil — tidak ada parameter yang bisa mengubah cakupan ini. Jangan tambahkan query param `user_id`.
 
-- [ ] **Step 1: Test — employee hanya melihat asset miliknya.**
+- [x] **Step 1: Test — employee hanya melihat asset miliknya.**
   ```php
   test('employee sees only own assets', function () {
       $employee = User::factory()->employee()->create();
@@ -629,9 +629,9 @@ public function myAssets(Request $request): JsonResponse
   });
   ```
 
-- [ ] **Step 2: Implementasi** — controller + route (`GET /api/my-assets`).
+- [x] **Step 2: Implementasi** — controller + route (`GET /api/my-assets`).
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Asset/MyAssetsTest.php
   vendor/bin/pint --dirty --format agent
@@ -661,19 +661,19 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 > **Jebakan:** `Route::apiResource` otomatis menghasilkan `GET /assets/{asset}`, `POST /assets`, `PUT /assets/{asset}`, `DELETE /assets/{asset}`. Jangan daftar ulang route `GET /assets/assignable` **setelah** apiResource.
 
-- [ ] **Step 1: Uji seluruh route terdaftar & otorisasi.**
+- [x] **Step 1: Uji seluruh route terdaftar & otorisasi.**
   ```bash
   php artisan route:list --path=api
   vendor/bin/pest tests/Feature/Asset/
   ```
 
-- [ ] **Step 2: Verifikasi N+1 pada list & detail.**
+- [x] **Step 2: Verifikasi N+1 pada list & detail.**
   ```bash
   # Mengandalkan test DB::listen yang ditulis di Task 1
   vendor/bin/pest tests/Feature/Asset/AssetListTest.php
   ```
 
-- [ ] **Step 3: Formatting & commit.**
+- [x] **Step 3: Formatting & commit.**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add routes/api.php
@@ -684,16 +684,16 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 ## Exit Criteria 5b
 
-- [ ] `GET /api/assets` — T/M/A; search 3 field; filter status/category/assigned_user_id; sort whitelist; pagination 6-key.
-- [ ] `POST /api/assets` (201), `GET /api/assets/{id}`, `PUT /api/assets/{id}`, `DELETE /api/assets/{id}` (soft delete).
-- [ ] Technician tidak bisa `delete` (403); Manager/Admin bisa.
-- [ ] Assign: 422 utk maintenance/retired/lost; 409 utk assignment aktif; 200 + status `assigned` + history + audit.
-- [ ] Release: 409 tanpa assignment aktif; 200 + status `available` + history + audit.
-- [ ] Invariant satu-assignment-aktif terjaga dengan `lockForUpdate()` (D-09).
-- [ ] `GET /api/assets/{id}/history` — timeline gabungan assignment + history.
-- [ ] `GET /api/my-assets` — hanya asset milik user login.
-- [ ] Soft delete asset → ticket lama tetap utuh (BR-015).
-- [ ] Tidak ada N+1 pada list & detail.
-- [ ] Route literal (`assignable`, `my-assets`) terdaftar sebelum `{id}`.
-- [ ] `php artisan test` hijau, `pint --test` bersih.
-- [ ] Route baru terdaftar di `docs/product/PERMISSION-MATRIX.md §4` (baris `GET /api/assets/{id}/history`, `GET /api/my-assets` jika belum ada).
+- [x] `GET /api/assets` — T/M/A; search 3 field; filter status/category/assigned_user_id; sort whitelist; pagination 6-key.
+- [x] `POST /api/assets` (201), `GET /api/assets/{id}`, `PUT /api/assets/{id}`, `DELETE /api/assets/{id}` (soft delete).
+- [x] Technician tidak bisa `delete` (403); Manager/Admin bisa.
+- [x] Assign: 422 utk maintenance/retired/lost; 409 utk assignment aktif; 200 + status `assigned` + history + audit.
+- [x] Release: 409 tanpa assignment aktif; 200 + status `available` + history + audit.
+- [x] Invariant satu-assignment-aktif terjaga dengan `lockForUpdate()` (D-09).
+- [x] `GET /api/assets/{id}/history` — timeline gabungan assignment + history.
+- [x] `GET /api/my-assets` — hanya asset milik user login.
+- [x] Soft delete asset → ticket lama tetap utuh (BR-015).
+- [x] Tidak ada N+1 pada list & detail.
+- [x] Route literal (`assignable`, `my-assets`) terdaftar sebelum `{id}`.
+- [x] `php artisan test` hijau, `pint --test` bersih.
+- [x] Route baru terdaftar di `docs/product/PERMISSION-MATRIX.md §4` (baris `GET /api/assets/{id}/history`, `GET /api/my-assets` jika belum ada).
