@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Asset;
 
+use App\DTOs\Asset\CreateAssetData;
+use App\DTOs\Asset\UpdateAssetData;
 use App\Enums\AssetStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Asset\IndexAssetRequest;
+use App\Http\Requests\Asset\StoreAssetRequest;
+use App\Http\Requests\Asset\UpdateAssetRequest;
 use App\Http\Resources\Asset\AssetListResource;
 use App\Http\Resources\Asset\AssignableAssetResource;
 use App\Models\Asset;
 use App\Models\AssetAssignment;
 use App\Services\Asset\AssetQueryService;
+use App\Services\Asset\AssetService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -23,6 +28,38 @@ class AssetController extends Controller
         $paginator = $queryService->paginate($request);
 
         return ApiResponse::paginated($paginator, 'Assets retrieved successfully.', AssetListResource::class);
+    }
+
+    public function store(StoreAssetRequest $request, AssetService $assetService): JsonResponse
+    {
+        $this->authorize('create', Asset::class);
+
+        $dto = CreateAssetData::fromArray($request->validated());
+        $asset = $assetService->create($dto, $request->user());
+
+        return ApiResponse::created(new AssetListResource($asset), 'Asset created successfully.');
+    }
+
+    public function update(UpdateAssetRequest $request, Asset $asset, AssetService $assetService): JsonResponse
+    {
+        $this->authorize('update', $asset);
+
+        $oldData = $asset->only([
+            'asset_tag', 'name', 'category', 'brand', 'model', 'serial_number', 'purchase_date', 'status', 'notes',
+        ]);
+        $dto = UpdateAssetData::fromArray($request->validated(), $oldData);
+        $updated = $assetService->update($asset, $dto, $request->user());
+
+        return ApiResponse::success(new AssetListResource($updated), 'Asset updated successfully.');
+    }
+
+    public function destroy(Request $request, Asset $asset, AssetService $assetService): JsonResponse
+    {
+        $this->authorize('delete', $asset);
+
+        $assetService->delete($asset, $request->user());
+
+        return ApiResponse::success(null, 'Asset deleted successfully.');
     }
 
     public function assignable(Request $request): JsonResponse
