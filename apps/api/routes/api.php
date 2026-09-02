@@ -12,6 +12,7 @@ use App\Http\Controllers\Attachment\AttachmentController;
 use App\Http\Controllers\Audit\AuditLogController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\ReferenceController;
@@ -92,6 +93,13 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::apiResource('ticket-priorities', TicketPriorityController::class);
     Route::get('/ticket-statuses', [ReferenceController::class, 'statuses'])->name('ticket-statuses.index');
     Route::get('/technicians', [ReferenceController::class, 'technicians'])->name('technicians.index');
+
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('/employee', [DashboardController::class, 'employee'])->name('employee');
+        Route::get('/technician', [DashboardController::class, 'technician'])->name('technician');
+        Route::get('/manager', [DashboardController::class, 'manager'])->name('manager');
+        Route::get('/admin', [DashboardController::class, 'admin'])->name('admin');
+    });
 
     Route::prefix('notifications')->name('notifications.')->group(function () {
         Route::get('/', [NotificationController::class, 'index'])->name('index');
