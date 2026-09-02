@@ -23,7 +23,7 @@ class AuditLogger
     ) {}
 
     public function log(
-        User $actor,
+        ?User $actor,
         AuditAction $action,
         AuditModule $module,
         ?int $moduleId = null,
@@ -32,10 +32,10 @@ class AuditLogger
         ?array $newData = null,
         ?Request $request = null
     ): AuditLog {
-        $req = $request ?? $this->request ?? (app()->bound('request') ? app('request') : null);
+        $req = $request ?? $this->request ?? (app()->runningInConsole() ? null : (app()->bound('request') ? app('request') : null));
 
         return AuditLog::create([
-            'user_id' => $actor->id,
+            'user_id' => $actor?->id,
             'action' => $action->value,
             'module' => $module->value,
             'module_id' => $moduleId,

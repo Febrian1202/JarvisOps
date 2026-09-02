@@ -68,3 +68,20 @@ test('redaction strips sensitive blacklist keys from old_data and new_data', fun
     expect($log->new_data)->toHaveKey('email');
     expect($log->new_data['email'])->toBe('new@test.com');
 });
+
+test('AuditLogger accepts null actor for system background events', function () {
+    $logger = new AuditLogger;
+    $log = $logger->log(
+        actor: null,
+        action: AuditAction::SlaBreach,
+        module: AuditModule::Ticket,
+        moduleId: 10,
+        description: 'SLA tiket #TCK-0010 telah terlampaui.',
+    );
+
+    expect($log->user_id)->toBeNull()
+        ->and($log->action)->toBe('sla_breach')
+        ->and($log->module)->toBe('ticket')
+        ->and($log->ip_address)->toBeNull()
+        ->and($log->user_agent)->toBeNull();
+});
