@@ -528,16 +528,16 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### Asset management
 
-- [ ] CRUD asset — Technician/Manager/Admin (Technician tidak memiliki izin `delete`)
-- [ ] Enum status: `available`, `assigned`, `maintenance`, `retired`, `lost`
-- [ ] `POST /api/assets/{id}/assign` — buat baris `asset_assignments`, ubah status asset jadi `assigned`
-- [ ] `POST /api/assets/{id}/release` — isi `released_at`, status balik ke `available`
-- [ ] **Asset `maintenance`/`retired`/`lost` tidak boleh di-assign** (§16 PRD) — validasi di service (422)
-- [ ] Satu asset hanya boleh punya satu assignment aktif (`released_at` null) pada satu waktu (conflict → 409)
-- [ ] `asset_histories` dicatat pada setiap create, update status, assign, release
-- [ ] `GET /api/assets/{id}/history` — riwayat kepemilikan seperti contoh §17 PRD
-- [ ] `GET /api/my-assets` — asset milik user login
-- [ ] Search (asset tag, serial number, name) + filter (status, kategori, pemegang) + pagination
+- [x] CRUD asset — Technician/Manager/Admin (Technician tidak memiliki izin `delete`)
+- [x] Enum status: `available`, `assigned`, `maintenance`, `retired`, `lost`
+- [x] `POST /api/assets/{id}/assign` — buat baris `asset_assignments`, ubah status asset jadi `assigned`
+- [x] `POST /api/assets/{id}/release` — isi `released_at`, status balik ke `available`
+- [x] **Asset `maintenance`/`retired`/`lost` tidak boleh di-assign** (§16 PRD) — validasi di service (422)
+- [x] Satu asset hanya boleh punya satu assignment aktif (`released_at` null) pada satu waktu (conflict → 409)
+- [x] `asset_histories` dicatat pada setiap create, update status, assign, release
+- [x] `GET /api/assets/{id}/history` — riwayat kepemilikan seperti contoh §17 PRD
+- [x] `GET /api/my-assets` — asset milik user login
+- [x] Search (asset tag, serial number, name) + filter (status, kategori, pemegang) + pagination
 
 ### Knowledge base
 
@@ -571,9 +571,9 @@ Melengkapi dua modul pendukung dan menyelesaikan penanganan file dengan benar.
 
 ### Test (Pest)
 
-- [ ] Asset `maintenance` di-assign → 422
-- [ ] Asset yang sudah ter-assign di-assign lagi → 409
-- [ ] Soft delete asset → ticket lama tetap utuh
+- [x] Asset `maintenance` di-assign → 422
+- [x] Asset yang sudah ter-assign di-assign lagi → 409
+- [x] Soft delete asset → ticket lama tetap utuh
 - [ ] Employee membaca artikel `draft` → 404
 - [ ] Technician membuat lalu publish artikel → sukses
 - [ ] Upload 6 MB → 422; upload `.exe` → 422; upload PDF valid → sukses
@@ -591,7 +591,7 @@ Asset API, KB API, attachment API, admin API, beserta test.
 
 
 
-- [ ] Riwayat kepemilikan asset bisa ditampilkan seperti contoh §17 PRD
+- [x] Riwayat kepemilikan asset bisa ditampilkan seperti contoh §17 PRD
 - [ ] Artikel bisa dibuat, dipublikasikan, dicari
 - [ ] Attachment tidak bisa diunduh tanpa otorisasi ticket
 - [ ] Seluruh poin 1–11 "Definition of Technical Success" (Addendum §12) sudah punya test yang lulus, kecuali yang bergantung pada UI
