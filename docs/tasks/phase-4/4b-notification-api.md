@@ -37,7 +37,7 @@
 
 > **Jebakan:** Jangan izinkan kolom `user_id` atau `data` pada whitelist `sort_by` untuk mencegah query error dan kebocoran data.
 
-- [ ] **Step 1: Test — `NotificationResource` memformat field dan timestamp ISO 8601 UTC dengan benar**
+- [x] **Step 1: Test — `NotificationResource` memformat field dan timestamp ISO 8601 UTC dengan benar**
   Buat `tests/Unit/NotificationResourceTest.php`:
   ```php
   <?php
@@ -74,7 +74,7 @@
   });
   ```
 
-- [ ] **Step 2: Implementasi `NotificationResource`**
+- [x] **Step 2: Implementasi `NotificationResource`**
   Buat `app/Http/Resources/Notification/NotificationResource.php`:
   ```php
   <?php
@@ -104,7 +104,7 @@
   }
   ```
 
-- [ ] **Step 3: Implementasi `IndexNotificationRequest`**
+- [x] **Step 3: Implementasi `IndexNotificationRequest`**
   Buat `app/Http/Requests/Notification/IndexNotificationRequest.php`:
   ```php
   <?php
@@ -146,7 +146,7 @@
   }
   ```
 
-- [ ] **Step 4: Jalankan test & commit**
+- [x] **Step 4: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Unit/NotificationResourceTest.php
   vendor/bin/pint --dirty --format agent
@@ -177,7 +177,7 @@ Buat service untuk query pembacaan dan pembaruan status notifikasi:
 4. `markAllAsRead(User $user)`:
    - `Notification::where('user_id', $user->id)->where('is_read', false)->update(['is_read' => true, 'read_at' => now()])`.
 
-- [ ] **Step 1: Test unit untuk `NotificationQueryService`**
+- [x] **Step 1: Test unit untuk `NotificationQueryService`**
   Buat `tests/Unit/NotificationQueryServiceTest.php`:
   ```php
   <?php
@@ -210,7 +210,7 @@ Buat service untuk query pembacaan dan pembaruan status notifikasi:
   });
   ```
 
-- [ ] **Step 2: Implementasi `NotificationQueryService`**
+- [x] **Step 2: Implementasi `NotificationQueryService`**
   Buat `app/Services/Notification/NotificationQueryService.php`:
   ```php
   <?php
@@ -276,7 +276,7 @@ Buat service untuk query pembacaan dan pembaruan status notifikasi:
   }
   ```
 
-- [ ] **Step 3: Jalankan test & commit**
+- [x] **Step 3: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Unit/NotificationQueryServiceTest.php
   vendor/bin/pint --dirty --format agent
@@ -307,7 +307,7 @@ Buat controller yang mengimplementasikan 4 action:
 
 > **Jebakan:** Jangan gunakan status HTTP `204 No Content`. Kontrak API JarvisOps (API-CONTRACT §3) melarang 204 dan mewajibkan status 200 dengan `data: null`.
 
-- [ ] **Step 1: Implementasi `NotificationController`**
+- [x] **Step 1: Implementasi `NotificationController`**
   Buat `app/Http/Controllers/Notification/NotificationController.php`:
   ```php
   <?php
@@ -399,7 +399,7 @@ Buat controller yang mengimplementasikan 4 action:
   }
   ```
 
-- [ ] **Step 2: Daftarkan route di `routes/api.php`**
+- [x] **Step 2: Daftarkan route di `routes/api.php`**
   Tambahkan di dalam grup middleware `['auth:sanctum', 'password.changed']`:
   ```php
   Route::prefix('notifications')->name('notifications.')->group(function () {
@@ -410,7 +410,7 @@ Buat controller yang mengimplementasikan 4 action:
   });
   ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
   ```bash
   vendor/bin/pint --dirty --format agent
   git add app/Http/Controllers/Notification/ routes/api.php
@@ -432,7 +432,7 @@ Uji seluruh kontrak keamanan dan perilaku HTTP:
 4. `GET /notifications/unread-count` menghasilkan payload integer yang akurat dan hanya menjalankan tepat 1 query COUNT (menggunakan `DB::listen` / `DB::getQueryLog()`).
 5. `POST /notifications/read-all` hanya mengubah notifikasi user yang sedang login.
 
-- [ ] **Step 1: Buat feature test di `tests/Feature/Notification/NotificationApiTest.php`**
+- [x] **Step 1: Buat feature test di `tests/Feature/Notification/NotificationApiTest.php`**
   ```php
   <?php
 
@@ -527,7 +527,7 @@ Uji seluruh kontrak keamanan dan perilaku HTTP:
   });
   ```
 
-- [ ] **Step 2: Jalankan test & commit**
+- [x] **Step 2: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Feature/Notification/NotificationApiTest.php
   git add tests/Feature/Notification/NotificationApiTest.php
@@ -555,7 +555,7 @@ Tulis feature test yang memverifikasi bahwa 10 event transisi tiket dari Fase 3 
 10. `TICKET_COMMENTED` → Partisipan tiket lainnya (bukan penulis komentar)
 11. `TICKET_SLA_BREACHED` → Teknisi + Seluruh Manager
 
-- [ ] **Step 1: Buat suite test di `tests/Feature/Notification/NotificationEventDeliveryTest.php`**
+- [x] **Step 1: Buat suite test di `tests/Feature/Notification/NotificationEventDeliveryTest.php`**
   ```php
   <?php
 
@@ -594,7 +594,7 @@ Tulis feature test yang memverifikasi bahwa 10 event transisi tiket dari Fase 3 
   });
   ```
 
-- [ ] **Step 2: Jalankan test & commit**
+- [x] **Step 2: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Feature/Notification/NotificationEventDeliveryTest.php
   vendor/bin/pint --dirty --format agent
@@ -612,7 +612,7 @@ Tulis feature test yang memverifikasi bahwa 10 event transisi tiket dari Fase 3 
 **Detail:**
 Pastikan notifikasi breach yang di-generate oleh command `tickets:check-sla` dapat diambil via `GET /api/notifications` dan `unread-count` oleh teknisi serta manager terkait.
 
-- [ ] **Step 1: Tambahkan test integrasi cross-module**
+- [x] **Step 1: Tambahkan test integrasi cross-module**
   ```php
   test('SLA breach generated by scheduler is readable via notification API by technician and manager', function () {
       $manager = User::factory()->manager()->create();
@@ -641,7 +641,7 @@ Pastikan notifikasi breach yang di-generate oleh command `tickets:check-sla` dap
   });
   ```
 
-- [ ] **Step 2: Jalankan test & commit**
+- [x] **Step 2: Jalankan test & commit**
   ```bash
   vendor/bin/pest tests/Feature/Notification/
   git add tests/Feature/Notification/NotificationApiTest.php
@@ -652,11 +652,11 @@ Pastikan notifikasi breach yang di-generate oleh command `tickets:check-sla` dap
 
 ## Exit Criteria 4b
 
-- [ ] 4 endpoint notifikasi berfungsi penuh dan terdaftar di `routes/api.php`.
-- [ ] List notifikasi selalu tersekat ke user login (`meta.total` hanya menghitung milik sendiri).
-- [ ] Percobaan membaca atau menandai notifikasi milik user lain menghasilkan `404 Not Found`.
-- [ ] Admin terbukti tidak dapat mengintip notifikasi user lain (D-16 #3).
-- [ ] `unread-count` berjalan cepat dengan 1 query `COUNT`.
-- [ ] Seluruh 11 tipe notifikasi terbukti sampai ke recipient yang berhak dan aktor tidak pernah menerima notifikasi dirinya sendiri.
-- [ ] Linter Pint bersih (`vendor/bin/pint --test`).
-- [ ] Seluruh test di `tests/Feature/Notification/` dan `tests/Unit/` hijau.
+- [x] 4 endpoint notifikasi berfungsi penuh dan terdaftar di `routes/api.php`.
+- [x] List notifikasi selalu tersekat ke user login (`meta.total` hanya menghitung milik sendiri).
+- [x] Percobaan membaca atau menandai notifikasi milik user lain menghasilkan `404 Not Found`.
+- [x] Admin terbukti tidak dapat mengintip notifikasi user lain (D-16 #3).
+- [x] `unread-count` berjalan cepat dengan 1 query `COUNT`.
+- [x] Seluruh 11 tipe notifikasi terbukti sampai ke recipient yang berhak dan aktor tidak pernah menerima notifikasi dirinya sendiri.
+- [x] Linter Pint bersih (`vendor/bin/pint --test`).
+- [x] Seluruh test di `tests/Feature/Notification/` dan `tests/Unit/` hijau.
