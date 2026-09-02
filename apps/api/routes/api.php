@@ -36,6 +36,8 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
 
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
+    Route::post('/assets/{asset}/assign', [AssetController::class, 'assign'])->name('assets.assign');
+    Route::post('/assets/{asset}/release', [AssetController::class, 'release'])->name('assets.release');
     Route::apiResource('assets', AssetController::class);
     Route::apiResource('tickets', TicketController::class);
 

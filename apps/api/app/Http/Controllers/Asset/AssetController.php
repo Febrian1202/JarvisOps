@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\Asset;
 
+use App\DTOs\Asset\AssignAssetData;
 use App\DTOs\Asset\CreateAssetData;
+use App\DTOs\Asset\ReleaseAssetData;
 use App\DTOs\Asset\UpdateAssetData;
 use App\Enums\AssetStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Asset\AssignAssetRequest;
 use App\Http\Requests\Asset\IndexAssetRequest;
+use App\Http\Requests\Asset\ReleaseAssetRequest;
 use App\Http\Requests\Asset\StoreAssetRequest;
 use App\Http\Requests\Asset\UpdateAssetRequest;
 use App\Http\Resources\Asset\AssetListResource;
 use App\Http\Resources\Asset\AssignableAssetResource;
 use App\Models\Asset;
 use App\Models\AssetAssignment;
+use App\Services\Asset\AssetAssignmentService;
 use App\Services\Asset\AssetQueryService;
 use App\Services\Asset\AssetService;
 use App\Support\ApiResponse;
@@ -60,6 +65,26 @@ class AssetController extends Controller
         $assetService->delete($asset, $request->user());
 
         return ApiResponse::success(null, 'Asset deleted successfully.');
+    }
+
+    public function assign(AssignAssetRequest $request, Asset $asset, AssetAssignmentService $assignmentService): JsonResponse
+    {
+        $this->authorize('assign', $asset);
+
+        $dto = AssignAssetData::fromArray($request->validated());
+        $assigned = $assignmentService->assign($asset, $dto, $request->user());
+
+        return ApiResponse::success(new AssetListResource($assigned), 'Asset assigned successfully.');
+    }
+
+    public function release(ReleaseAssetRequest $request, Asset $asset, AssetAssignmentService $assignmentService): JsonResponse
+    {
+        $this->authorize('release', $asset);
+
+        $dto = ReleaseAssetData::fromArray($request->validated());
+        $released = $assignmentService->release($asset, $dto, $request->user());
+
+        return ApiResponse::success(new AssetListResource($released), 'Asset released successfully.');
     }
 
     public function assignable(Request $request): JsonResponse
