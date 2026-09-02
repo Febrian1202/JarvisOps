@@ -320,13 +320,13 @@ Setiap task di sub-berkas 5a–5e dirancang untuk dieksekusi dengan disiplin **T
 ```
 
 ### Checklist Sebelum Membuka Pull Request (PR)
-- [ ] Seluruh test unit & feature sub-tahap lulus (`vendor/bin/pest`).
-- [ ] Tidak ada pelanggaran formatting (`vendor/bin/pint --test`).
-- [ ] `php artisan migrate:fresh --seed` berhasil dijalankan pada database MySQL.
-- [ ] Endpoint yang baru dibuat terdaftar di `docs/product/PERMISSION-MATRIX.md §4` (baris yang belum ada).
-- [ ] Setiap route baru punya test tanpa token → 401.
-- [ ] Checkbox task terkait di sub-berkas telah dicentang.
-- [ ] Deskripsi audit log (Indonesia) dan `AuditAction`/`AuditModule` yang dipakai konsisten dengan D-08 Amandemen 3.
+- [x] Seluruh test unit & feature sub-tahap lulus (`vendor/bin/pest`).
+- [x] Tidak ada pelanggaran formatting (`vendor/bin/pint --test`).
+- [x] `php artisan migrate:fresh --seed` berhasil dijalankan pada database MySQL.
+- [x] Endpoint yang baru dibuat terdaftar di `docs/product/PERMISSION-MATRIX.md §4` (baris yang belum ada).
+- [x] Setiap route baru punya test tanpa token → 401.
+- [x] Checkbox task terkait di sub-berkas telah dicentang.
+- [x] Deskripsi audit log (Indonesia) dan `AuditAction`/`AuditModule` yang dipakai konsisten dengan D-08 Amandemen 3.
 
 ---
 
