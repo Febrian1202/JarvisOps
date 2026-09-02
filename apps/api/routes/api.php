@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::post('/tickets/{ticket}/attachments', [AttachmentController::class, 'store'])
         ->middleware('throttle:upload')
         ->name('tickets.attachments.store');
+    Route::get('/attachments/{attachment}/download', [AttachmentController::class, 'download'])->name('attachments.download');
 
     Route::post('/tickets/{ticket}/status', [TicketController::class, 'transition'])->name('tickets.status');
 
