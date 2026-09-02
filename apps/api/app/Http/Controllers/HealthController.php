@@ -22,6 +22,7 @@ class HealthController extends Controller
 
         return ApiResponse::success([
             'status' => 'ok',
+            'version' => config('app.version'),
             'db' => $db,
             'timestamp' => now()->utc()->format('Y-m-d\TH:i:s\Z'),
         ], 'Service healthy.');

@@ -32,6 +32,7 @@ services:
       XDG_CONFIG_HOME: /tmp
       XDG_DATA_HOME: /tmp
       HOME: /tmp
+      APP_VERSION: "${APP_VERSION:-0.2.0}"
       DB_HOST: mysql
       DB_PORT: 3306
       DB_DATABASE: JarvisOps
@@ -83,6 +84,7 @@ services:
     working_dir: /app
     environment:
       API_BASE_URL: http://api:8000/api
+      APP_VERSION: "${APP_VERSION:-0.2.0}"
       PORT: 3000
     ports:
       - "3000:3000"
