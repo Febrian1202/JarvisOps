@@ -6,7 +6,9 @@ use App\DTOs\Ticket\CreateTicketData;
 use App\DTOs\Ticket\UpdateTicketData;
 use App\Enums\AuditAction;
 use App\Enums\AuditModule;
+use App\Enums\RoleName;
 use App\Enums\TicketStatusName;
+use App\Http\Requests\Ticket\IndexTicketRequest;
 use App\Models\Ticket;
 use App\Models\TicketCategory;
 use App\Models\TicketHistory;
@@ -15,16 +17,88 @@ use App\Models\TicketStatus;
 use App\Models\User;
 use App\Services\Audit\AuditLogger;
 use App\Services\Sla\SlaService;
+use App\Support\HandlesPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class TicketService
 {
+    use HandlesPagination;
+
     public function __construct(
         private readonly SlaService $slaService,
         private readonly AuditLogger $auditLogger,
     ) {}
+
+    public function paginate(IndexTicketRequest $request, User $actor): LengthAwarePaginator
+    {
+        $query = Ticket::with(['status', 'priority', 'category', 'reporter', 'technician']);
+
+        $isPrivileged = $actor->isAdmin() || $actor->hasRole(RoleName::Manager, RoleName::Technician);
+
+        if (! $isPrivileged) {
+            $query->where('reporter_id', $actor->id);
+        }
+
+        $validated = $request->validated();
+
+        if (! empty($validated['search'])) {
+            $search = str_replace(['%', '_'], ['\\%', '\\_'], $validated['search']);
+            $query->where(function ($q) use ($search) {
+                $q->whereRaw('ticket_number LIKE ? ESCAPE ?', ["%{$search}%", '\\'])
+                    ->orWhereRaw('title LIKE ? ESCAPE ?', ["%{$search}%", '\\']);
+            });
+        }
+
+        foreach (['status_id', 'priority_id', 'category_id'] as $field) {
+            if (! empty($validated[$field])) {
+                $ids = array_map('intval', explode(',', $validated[$field]));
+                $ids = array_values(array_filter($ids, fn ($v) => $v > 0));
+                $query->whereIn($field, $ids);
+            }
+        }
+
+        if (! empty($validated['technician_id'])) {
+            if ($validated['technician_id'] === 'unassigned') {
+                $query->whereNull('technician_id');
+            } else {
+                $query->whereIn('technician_id', [(int) $validated['technician_id']]);
+            }
+        }
+
+        if ($isPrivileged && ! empty($validated['reporter_id'])) {
+            $query->where('reporter_id', (int) $validated['reporter_id']);
+        }
+
+        foreach (['department_id', 'asset_id'] as $field) {
+            if (! empty($validated[$field])) {
+                $query->where($field, (int) $validated[$field]);
+            }
+        }
+
+        if (! empty($validated['sla_status'])) {
+            if ($validated['sla_status'] === 'breached') {
+                $this->slaService->scopeBreached($query);
+            } else {
+                $this->slaService->scopeOnTrack($query);
+            }
+        }
+
+        if (! empty($validated['created_from'])) {
+            $query->where('created_at', '>=', $validated['created_from'].' 00:00:00');
+        }
+
+        if (! empty($validated['created_to'])) {
+            $query->where('created_at', '<=', $validated['created_to'].' 23:59:59');
+        }
+
+        $sortBy = $validated['sort_by'] ?? 'created_at';
+        $sortDir = $validated['sort_dir'] ?? 'desc';
+
+        return $query->orderBy($sortBy, $sortDir)->paginate($this->getPerPage($request));
+    }
 
     public function create(CreateTicketData $data, User $actor): Ticket
     {

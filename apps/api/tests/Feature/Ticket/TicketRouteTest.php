@@ -13,8 +13,8 @@ beforeEach(function () {
     Sanctum::actingAs($this->employee);
 });
 
-test('ticket index route not yet registered', function () {
-    $this->getJson('/api/tickets')->assertStatus(405);
+test('ticket index route is registered', function () {
+    $this->getJson('/api/tickets')->assertStatus(200);
 });
 
 test('assignable returns only assets assigned to current user', function () {
