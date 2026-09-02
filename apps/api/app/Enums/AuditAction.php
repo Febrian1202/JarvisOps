@@ -20,4 +20,5 @@ enum AuditAction: string
     case Login = 'login';
     case Logout = 'logout';
     case PasswordReset = 'password_reset';
+    case SlaBreach = 'sla_breach';
 }
