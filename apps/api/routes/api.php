@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Article\KnowledgeCategoryController;
 use App\Http\Controllers\Asset\AssetController;
@@ -39,6 +40,12 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
     ->name('me.password.update');
 
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
+    Route::get('/roles', [UserController::class, 'roles'])->name('roles.index');
+    Route::post('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');
+    Route::post('/users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
+    Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+    Route::apiResource('users', UserController::class);
+
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::get('/my-assets', [AssetController::class, 'myAssets'])->name('assets.my-assets');
     Route::post('/assets/{asset}/assign', [AssetController::class, 'assign'])->name('assets.assign');
