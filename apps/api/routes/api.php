@@ -4,6 +4,7 @@ use App\Http\Controllers\Asset\AssetController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HealthController;
+use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\Ticket\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,9 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::apiResource('tickets', TicketController::class);
+
+    Route::get('/ticket-categories', [ReferenceController::class, 'categories'])->name('ticket-categories.index');
+    Route::get('/ticket-priorities', [ReferenceController::class, 'priorities'])->name('ticket-priorities.index');
+    Route::get('/ticket-statuses', [ReferenceController::class, 'statuses'])->name('ticket-statuses.index');
+    Route::get('/technicians', [ReferenceController::class, 'technicians'])->name('technicians.index');
 });
