@@ -73,7 +73,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
 
 > **Jebakan:** Route dashboard berada **di dalam** group `auth:sanctum` + `password.changed` yang sudah ada (di bawah route notifications). Jangan membuat group terpisah di luar — seluruh endpoint dashboard butuh autentikasi.
 
-- [ ] **Step 1: Test — 401 tanpa token; 403 lintas-role untuk employee & technician; 200 untuk role benar.**
+- [x] **Step 1: Test — 401 tanpa token; 403 lintas-role untuk employee & technician; 200 untuk role benar.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -107,7 +107,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
   });
   ```
 
-- [ ] **Step 2: Buat `PendingDashboardException` + controller skeleton (employee & technician memakai service yang belum ada → TDD: service dibuat di Task 2).** Untuk membuat test Task 1 lulus, buat **stub sementara** `EmployeeDashboardService` & `TechnicianDashboardService` yang mengembalikan payload kosong (`[]`); diimplementasikan penuh di Task 2–4. Setelah Task 2–4, stub dihapus.
+- [x] **Step 2: Buat `PendingDashboardException` + controller skeleton (employee & technician memakai service yang belum ada → TDD: service dibuat di Task 2).** Untuk membuat test Task 1 lulus, buat **stub sementara** `EmployeeDashboardService` & `TechnicianDashboardService` yang mengembalikan payload kosong (`[]`); diimplementasikan penuh di Task 2–4. Setelah Task 2–4, stub dihapus.
 
   ```bash
   php artisan make:exception PendingDashboardException
@@ -125,7 +125,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
   }
   ```
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/DashboardAuthorizationTest.php
   php artisan route:list --path=api
@@ -202,7 +202,7 @@ class EmployeeDashboardService
 
 > **Jebakan:** `countOpenTickets` di `DashboardCountsQuery` (6a) menghitung ticket berstatus `is_closed = false` (OPEN/ASSIGNED/IN_PROGRESS) — inilah definisi "my open" (keputusan #1). `recent_tickets` wajib eager-load relasi (`status`, `priority`, `category`, `reporter`, `technician`) karena `TicketListResource` memakai `whenLoaded` — tanpanya N+1 di resource. `recent_articles` **wajib** filter `status = published` (PERMISSION §3.5 — jangan bocorkan draft). `activeAssignment` adalah relasi `hasOne` di model `Asset` yang dibatasi `whereNull('released_at')` — jika belum ada (Fase 5), buat di `Asset.php` atau ganti dengan `whereHas('assignments', fn ($q) => $q->whereNull('released_at'))`.
 
-- [ ] **Step 1: Test — payload Employee, scoping, limit 5, published-only article.**
+- [x] **Step 1: Test — payload Employee, scoping, limit 5, published-only article.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -265,9 +265,9 @@ class EmployeeDashboardService
   });
   ```
 
-- [ ] **Step 2: Implementasi `EmployeeDashboardService` penuh** — hapus stub di Task 1, injeksi service di controller. Pastikan `ArticleResource` ada (buat jika Fase 5 belum — shape minimal `{ id, title, slug, category, published_at }`).
+- [x] **Step 2: Implementasi `EmployeeDashboardService` penuh** — hapus stub di Task 1, injeksi service di controller. Pastikan `ArticleResource` ada (buat jika Fase 5 belum — shape minimal `{ id, title, slug, category, published_at }`).
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/EmployeeDashboardTest.php
   vendor/bin/pint --dirty --format agent
@@ -350,7 +350,7 @@ class TechnicianDashboardService
 > - `recent_activity` dari `ticket_histories` — `TicketHistoryResource` mengharapkan `user` & `ticket` relasi; eager-load keduanya. Pastikan resource menampilkan `ticket_number`/`title` (tambahkan field `ticket` ke resource atau gunakan array manual).
 > - `avg_resolution_minutes` dihitung dari ticket yang di-assign ke teknisi & resolved — `created_at`→`resolved_at` (keputusan #5).
 
-- [ ] **Step 1: Test — payload technician, `?technician_id` diabaikan, open antrean global.**
+- [x] **Step 1: Test — payload technician, `?technician_id` diabaikan, open antrean global.**
   ```php
   uses(RefreshDatabase::class);
 
@@ -414,9 +414,9 @@ class TechnicianDashboardService
   });
   ```
 
-- [ ] **Step 2: Implementasi `TechnicianDashboardService` penuh** — hapus stub, injeksi di controller.
+- [x] **Step 2: Implementasi `TechnicianDashboardService` penuh** — hapus stub, injeksi di controller.
 
-- [ ] **Step 3: Verifikasi & commit.**
+- [x] **Step 3: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/TechnicianDashboardTest.php
   vendor/bin/pint --dirty --format agent
@@ -435,7 +435,7 @@ class TechnicianDashboardService
 **Detail:**
 Tambahkan test yang memastikan jumlah query konstan walau volume data naik (guard N+1). Pakai `DB::enableQueryLog()`.
 
-- [ ] **Step 1: Test — query count stabil pada volume besar.**
+- [x] **Step 1: Test — query count stabil pada volume besar.**
   ```php
   test('employee dashboard query count is constant under data growth', function () {
       $employee = User::factory()->employee()->create();
@@ -457,7 +457,7 @@ Tambahkan test yang memastikan jumlah query konstan walau volume data naik (guar
   });
   ```
 
-- [ ] **Step 2: Verifikasi & commit.**
+- [x] **Step 2: Verifikasi & commit.**
   ```bash
   vendor/bin/pest tests/Feature/Dashboard/EmployeeDashboardTest.php tests/Feature/Dashboard/TechnicianDashboardTest.php
   vendor/bin/pint --dirty --format agent
@@ -476,7 +476,7 @@ Tambahkan test yang memastikan jumlah query konstan walau volume data naik (guar
 **Detail:**
 Kunci perilaku keputusan #8 dengan test eksplisit (sudah ditulis di Task 3, tapi pertegas): teknisi mengirim `?technician_id=X` untuk teknisi lain → data tetap miliknya. Juga pastikan route literal tidak bentrok (tidak ada `{id}` di route dashboard, jadi aman).
 
-- [ ] **Step 1: Test — technician_id dari user lain diabaikan (sudah ada di Task 3 Step 1; tambahkan kasus 999).**
+- [x] **Step 1: Test — technician_id dari user lain diabaikan (sudah ada di Task 3 Step 1; tambahkan kasus 999).**
   ```php
   test('technician_id=999 does not leak other technician data', function () {
       $tech = User::factory()->technician()->create();
@@ -490,7 +490,7 @@ Kunci perilaku keputusan #8 dengan test eksplisit (sudah ditulis di Task 3, tapi
   });
   ```
 
-- [ ] **Step 2: Verifikasi route lengkap & commit.**
+- [x] **Step 2: Verifikasi route lengkap & commit.**
   ```bash
   php artisan route:list --path=api
   vendor/bin/pest tests/Feature/Dashboard/
@@ -503,10 +503,10 @@ Kunci perilaku keputusan #8 dengan test eksplisit (sudah ditulis di Task 3, tapi
 
 ## Exit Criteria 6b
 
-- [ ] `GET /api/dashboard/employee` — 401 tanpa token; 200 untuk semua role (gate `dashboard.employee`); hanya data milik pemanggil; `recent_tickets`/`my_assets`/`recent_articles` ≤5; artikel hanya `published`.
-- [ ] `GET /api/dashboard/technician` — 401 tanpa token; 403 untuk Employee; `?technician_id` (nilai apa pun) diabaikan; `open_tickets` = antrean OPEN global; `sla_breached` defensif; `avg_resolution_minutes` null bila tak ada resolved.
-- [ ] Keempat route dashboard terdaftar di dalam group `auth:sanctum` + `password.changed`.
-- [ ] Method `manager`/`admin` di controller melempar `PendingDashboardException` (belum diimplementasikan; dihapus di 6c/6d).
-- [ ] Query count stabil saat volume data naik (guard N+1) untuk kedua endpoint.
-- [ ] `php artisan test` hijau; `vendor/bin/pint --test` bersih.
-- [ ] Payload employee & technician persis mengikuti `API-CONTRACT.md §10`.
+- [x] `GET /api/dashboard/employee` — 401 tanpa token; 200 untuk semua role (gate `dashboard.employee`); hanya data milik pemanggil; `recent_tickets`/`my_assets`/`recent_articles` ≤5; artikel hanya `published`.
+- [x] `GET /api/dashboard/technician` — 401 tanpa token; 403 untuk Employee; `?technician_id` (nilai apa pun) diabaikan; `open_tickets` = antrean OPEN global; `sla_breached` defensif; `avg_resolution_minutes` null bila tak ada resolved.
+- [x] Keempat route dashboard terdaftar di dalam group `auth:sanctum` + `password.changed`.
+- [x] Method `manager`/`admin` di controller melempar `PendingDashboardException` (belum diimplementasikan; dihapus di 6c/6d).
+- [x] Query count stabil saat volume data naik (guard N+1) untuk kedua endpoint.
+- [x] `php artisan test` hijau; `vendor/bin/pint --test` bersih.
+- [x] Payload employee & technician persis mengikuti `API-CONTRACT.md §10`.
