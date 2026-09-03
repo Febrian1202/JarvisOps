@@ -65,6 +65,24 @@ class UserController extends Controller
         );
     }
 
+    public function assignable(Request $request): JsonResponse
+    {
+        $this->authorize('user.lookup');
+
+        $query = User::query()->where('status', 'active');
+
+        if ($search = $request->query('search')) {
+            $term = str_replace(['%', '_'], ['\\%', '\\_'], $search);
+            $query->where('full_name', 'like', "%{$term}%");
+        }
+
+        $users = $query->orderBy('full_name')
+            ->get(['id', 'full_name', 'department_id'])
+            ->load('department:id,name');
+
+        return ApiResponse::success($users, 'Assignable users retrieved.');
+    }
+
     public function show(User $user): JsonResponse
     {
         $this->authorize('user.view', $user);

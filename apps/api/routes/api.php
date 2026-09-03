@@ -45,6 +45,7 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
 
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/roles', [UserController::class, 'roles'])->name('roles.index');
+    Route::get('/users/assignable', [UserController::class, 'assignable'])->name('users.assignable');
     Route::post('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');
     Route::post('/users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
     Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');

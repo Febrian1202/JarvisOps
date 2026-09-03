@@ -43,6 +43,7 @@ class AbilityMatrix
         'user.activate' => [RoleName::Admin],
         'user.deactivate' => [RoleName::Admin],
         'user.reset-password' => [RoleName::Admin],
+        'user.lookup' => [RoleName::Admin, RoleName::Manager, RoleName::Technician],
         'technician.list' => [RoleName::Admin, RoleName::Manager],
         'department.viewAny' => [RoleName::Admin, RoleName::Manager, RoleName::Technician, RoleName::Employee],
         'department.manage' => [RoleName::Admin],
