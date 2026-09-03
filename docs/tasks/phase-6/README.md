@@ -309,14 +309,14 @@ Setiap task di sub-berkas 6a–6d dirancang untuk dieksekusi dengan disiplin **T
 ```
 
 ### Checklist Sebelum Membuka Pull Request (PR)
-- [ ] Seluruh test unit & feature sub-tahap lulus (`vendor/bin/pest`).
-- [ ] Tidak ada pelanggaran formatting (`vendor/bin/pint --test`).
-- [ ] `php artisan migrate:fresh --seed` berhasil dijalankan pada database MySQL.
-- [ ] Endpoint yang baru dibuat terdaftar di `docs/product/PERMISSION-MATRIX.md §4` (baris 286–289 — verifikasi sudah ada; tambah jika belum).
-- [ ] Setiap route baru punya test tanpa token → 401.
-- [ ] Checkbox task terkait di sub-berkas telah dicentang.
-- [ ] Payload persis mengikuti `API-CONTRACT.md §10` (field name, tipe, nesting `sla.{}`, `technician_performance[]`).
-- [ ] Tidak ada metrik yang dihitung di PHP dari `->get()` seluruh baris — verifikasi dengan `DB::enableQueryLog()` di 6d.
+- [x] Seluruh test unit & feature sub-tahap lulus (`vendor/bin/pest`).
+- [x] Tidak ada pelanggaran formatting (`vendor/bin/pint --test`).
+- [x] `php artisan migrate:fresh --seed` berhasil dijalankan pada database MySQL.
+- [x] Endpoint yang baru dibuat terdaftar di `docs/product/PERMISSION-MATRIX.md §4` (baris 286–289 — verifikasi sudah ada; tambah jika belum).
+- [x] Setiap route baru punya test tanpa token → 401.
+- [x] Checkbox task terkait di sub-berkas telah dicentang.
+- [x] Payload persis mengikuti `API-CONTRACT.md §10` (field name, tipe, nesting `sla.{}`, `technician_performance[]`).
+- [x] Tidak ada metrik yang dihitung di PHP dari `->get()` seluruh baris — verifikasi dengan `DB::enableQueryLog()` di 6d.
 
 ---
 
