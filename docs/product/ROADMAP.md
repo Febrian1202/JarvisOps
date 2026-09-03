@@ -658,13 +658,13 @@ Membangun kerangka aplikasi dan komponen bersama yang dipakai seluruh fitur. Pek
 
 ### Setup
 
-- [ ] Inisialisasi shadcn/ui di atas Tailwind v4 yang sudah ada
-- [ ] Pasang komponen dasar: button, input, select, textarea, table, dialog, dropdown-menu, badge, card, tabs, toast, skeleton, pagination, form, avatar, popover, calendar
+- [x] Inisialisasi shadcn/ui di atas Tailwind v4 yang sudah ada
+- [x] Pasang komponen dasar: button, input, select, textarea, table, dialog, dropdown-menu, badge, card, tabs, toast, skeleton, pagination, form, avatar, popover, calendar
 - [ ] TanStack Query provider di root layout, atur `staleTime` dan retry default
-- [ ] Recharts, react-hook-form, zod, `date-fns`
+- [x] Recharts, react-hook-form, zod, `date-fns`
 - [ ] Struktur folder: `src/lib/api/`, `src/components/ui/`, `src/components/shared/`, `src/features/<domain>/`, `src/hooks/`, `src/types/` — detail pola arsitektur di `docs/architecture/FRONTEND-ARCHITECTURE.md`
-- [ ] Path alias `@/*`
-- [ ] Pastikan `tsc --noEmit` dan `next lint` bersih sejak awal
+- [x] Path alias `@/*`
+- [x] Pastikan `tsc --noEmit` dan `next lint` bersih sejak awal
 
 ### API layer
 

@@ -21,9 +21,9 @@
 **Detail:**
 Next.js 16 secara resmi mengganti konvensi berkas `middleware.ts` menjadi `proxy.ts` (walau `middleware.ts` masih kompatibel, proyek ini sudah menggunakan `src/proxy.ts` sejak Fase 2d). Dokumen arsitektur perlu disinkronkan agar tidak menimbulkan kebingungan bagi developer baru. Selain itu, script `"typecheck": "tsc --noEmit"` harus ditambahkan ke `package.json` sebagai gerbang pengecekan tipe statis.
 
-- [ ] **Step 1: Update `docs/architecture/FRONTEND-ARCHITECTURE.md`**
+- [x] **Step 1: Update `docs/architecture/FRONTEND-ARCHITECTURE.md`**
   Perbarui bagian §4.3 (Next.js Middleware) menjadi `src/proxy.ts` (Next.js 16 Proxy Convention), jelaskan fungsinya sebagai penjaga rute berbasis cookie token `httpOnly`.
-- [ ] **Step 2: Tambahkan script `typecheck` di `apps/web/package.json`**
+- [x] **Step 2: Tambahkan script `typecheck` di `apps/web/package.json`**
   ```json
   "scripts": {
     "dev": "next dev",
@@ -33,11 +33,11 @@ Next.js 16 secara resmi mengganti konvensi berkas `middleware.ts` menjadi `proxy
     "typecheck": "tsc --noEmit"
   }
   ```
-- [ ] **Step 3: Verifikasi lint & typecheck awal.**
+- [x] **Step 3: Verifikasi lint & typecheck awal.**
   ```bash
   cd apps/web && npm run typecheck && npm run lint
   ```
-- [ ] **Step 4: Commit.**
+- [x] **Step 4: Commit.**
   ```bash
   git add docs/architecture/FRONTEND-ARCHITECTURE.md apps/web/package.json
   git commit -m "docs(frontend): sync proxy.ts naming and add typecheck script"
@@ -63,13 +63,13 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
 
 > **Catatan React 19:** Beberapa paket shadcn/radix mungkin memiliki peringatan peer dependency pada React 19. Gunakan flag `--force` atau `--legacy-peer-deps` jika npm memblokir instalasi.
 
-- [ ] **Step 1: Jalankan perintah instalasi dependensi.**
+- [x] **Step 1: Jalankan perintah instalasi dependensi.**
   ```bash
   cd apps/web
   npm install @tanstack/react-query@^5 react-hook-form @hookform/resolvers zod date-fns recharts lucide-react clsx tailwind-merge class-variance-authority sonner
   npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom @types/node
   ```
-- [ ] **Step 2: Konfigurasi `apps/web/vitest.config.ts`.**
+- [x] **Step 2: Konfigurasi `apps/web/vitest.config.ts`.**
   ```typescript
   import { defineConfig } from 'vitest/config';
   import react from '@vitejs/plugin-react';
@@ -88,7 +88,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     },
   });
   ```
-- [ ] **Step 3: Buat `apps/web/src/test/setup.ts` dan `apps/web/src/test/test-utils.tsx`.**
+- [x] **Step 3: Buat `apps/web/src/test/setup.ts` dan `apps/web/src/test/test-utils.tsx`.**
   `setup.ts`:
   ```typescript
   import '@testing-library/jest-dom';
@@ -124,7 +124,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     return render(ui, { wrapper: Wrapper, ...options });
   }
   ```
-- [ ] **Step 4: Tambahkan smoke test `apps/web/src/test/smoke.test.ts`.**
+- [x] **Step 4: Tambahkan smoke test `apps/web/src/test/smoke.test.ts`.**
   ```typescript
   import { describe, it, expect } from 'vitest';
 
@@ -134,11 +134,11 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     });
   });
   ```
-- [ ] **Step 5: Tambahkan script `"test": "vitest run"` di `package.json` dan jalankan test.**
+- [x] **Step 5: Tambahkan script `"test": "vitest run"` di `package.json` dan jalankan test.**
   ```bash
   cd apps/web && npm run test
   ```
-- [ ] **Step 6: Commit.**
+- [x] **Step 6: Commit.**
   ```bash
   git add apps/web/package.json apps/web/package-lock.json apps/web/vitest.config.ts apps/web/src/test/
   git commit -m "feat(web): configure dependencies and vitest testing infrastructure"
@@ -168,7 +168,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
    - Hapus blok `.dark` dan `prefers-color-scheme: dark` agar tidak ada kebocoran palet tak terdesain.
 3. **Radius & Spacing:** `--radius: 0.375rem` (6px) sesuai DESIGN.md.
 
-- [ ] **Step 1: Setup `apps/web/src/lib/utils.ts`.**
+- [x] **Step 1: Setup `apps/web/src/lib/utils.ts`.**
   ```typescript
   import { clsx, type ClassValue } from 'clsx';
   import { twMerge } from 'tailwind-merge';
@@ -177,7 +177,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     return twMerge(clsx(inputs));
   }
   ```
-- [ ] **Step 2: Buat konfigurasi `apps/web/components.json` untuk shadcn CLI.**
+- [x] **Step 2: Buat konfigurasi `apps/web/components.json` untuk shadcn CLI.**
   ```json
   {
     "$schema": "https://ui.shadcn.com/schema.json",
@@ -200,7 +200,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     "iconLibrary": "lucide"
   }
   ```
-- [ ] **Step 3: Update `apps/web/src/app/globals.css`.**
+- [x] **Step 3: Update `apps/web/src/app/globals.css`.**
   ```css
   @import "tailwindcss";
 
@@ -243,7 +243,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     --popover: #fbfaf7;
     --popover-foreground: #1c1c1c;
     --primary: #1c1c1c;
-    --primary-foreground: #fbfaf7;
+    --primary-foreground: #fcfbf8;
     --secondary: #eceae4;
     --secondary-foreground: #1c1c1c;
     --muted: #f0ede6;
@@ -251,7 +251,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     --accent: #eceae4;
     --accent-foreground: #1c1c1c;
     --destructive: #b91c1c;
-    --destructive-foreground: #fbfaf7;
+    --destructive-foreground: #fcfbf8;
     --border: #eceae4;
     --input: rgba(28, 28, 28, 0.45);
     --ring: rgba(59, 130, 246, 0.5);
@@ -279,7 +279,7 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     }
   }
   ```
-- [ ] **Step 4: Update `apps/web/src/app/layout.tsx`.**
+- [x] **Step 4: Update `apps/web/src/app/layout.tsx`.**
   ```tsx
   import type { Metadata } from 'next';
   import { Plus_Jakarta_Sans } from 'next/font/google';
@@ -311,11 +311,11 @@ Instalasi seluruh dependensi yang telah dikunci di `ROADMAP.md` §2 dan keputusa
     );
   }
   ```
-- [ ] **Step 5: Verifikasi rendering font dan warna di dev mode.**
+- [x] **Step 5: Verifikasi rendering font dan warna di dev mode.**
   ```bash
   cd apps/web && npm run typecheck
   ```
-- [ ] **Step 6: Commit.**
+- [x] **Step 6: Commit.**
   ```bash
   git add apps/web/src/app/globals.css apps/web/src/app/layout.tsx apps/web/src/lib/utils.ts apps/web/components.json
   git commit -m "feat(web): configure Plus Jakarta Sans font and warm-neutral theme tokens"
@@ -352,7 +352,7 @@ Implementasikan 16 komponen baseline shadcn/ui dengan penyesuaian wajib aturan `
 3. `badge.tsx`: Variasi visual warm-neutral (`default`, `secondary`, `destructive`, `outline`, `success`, `warning`).
 4. `sonner.tsx`: Toaster kustom dengan gaya warm cream toast.
 
-- [ ] **Step 1: Tulis unit test untuk `Button` component `apps/web/src/test/button.test.tsx`.**
+- [x] **Step 1: Tulis unit test untuk `Button` component `apps/web/src/test/button.test.tsx`.**
   ```tsx
   import React from 'react';
   import { render, screen } from '@testing-library/react';
@@ -377,21 +377,21 @@ Implementasikan 16 komponen baseline shadcn/ui dengan penyesuaian wajib aturan `
     });
   });
   ```
-- [ ] **Step 2: Jalankan test untuk melihat status (RED).**
+- [x] **Step 2: Jalankan test untuk melihat status (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/button.test.tsx
   ```
-- [ ] **Step 3: Implementasikan berkas-berkas komponen di `apps/web/src/components/ui/`.**
+- [x] **Step 3: Implementasikan berkas-berkas komponen di `apps/web/src/components/ui/`.**
   Pasang kode standar shadcn/ui untuk `button.tsx`, `input.tsx`, `badge.tsx`, `card.tsx`, `table.tsx`, `dialog.tsx`, `dropdown-menu.tsx`, `select.tsx`, `textarea.tsx`, `tabs.tsx`, `sonner.tsx`, `skeleton.tsx`, `pagination.tsx`, `avatar.tsx`, `popover.tsx`, `separator.tsx`, `form.tsx`.
-- [ ] **Step 4: Jalankan test kembali untuk verifikasi (GREEN).**
+- [x] **Step 4: Jalankan test kembali untuk verifikasi (GREEN).**
   ```bash
   cd apps/web && npm run test
   ```
-- [ ] **Step 5: Verifikasi typecheck dan lint.**
+- [x] **Step 5: Verifikasi typecheck dan lint.**
   ```bash
   cd apps/web && npm run typecheck && npm run lint
   ```
-- [ ] **Step 6: Commit.**
+- [x] **Step 6: Commit.**
   ```bash
   git add apps/web/src/components/ui/ apps/web/src/test/button.test.tsx
   git commit -m "feat(ui): add 16 baseline shadcn/ui components customized for warm-neutral theme"
