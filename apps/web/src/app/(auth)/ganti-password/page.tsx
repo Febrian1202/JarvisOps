@@ -18,7 +18,6 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { apiFetch, ApiClientError } from '@/lib/client/api';
 import { setFormErrors } from '@/lib/client/error-mapper';
-import { useAuth } from '@/components/providers/auth-provider';
 
 const changePasswordSchema = z
   .object({
@@ -35,7 +34,6 @@ type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
 
 export default function GantiPasswordPage() {
   const router = useRouter();
-  const { refetchUser } = useAuth();
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -58,7 +56,6 @@ export default function GantiPasswordPage() {
         body: JSON.stringify(values),
       });
 
-      refetchUser();
       router.push('/');
     } catch (err) {
       if (err instanceof ApiClientError) {

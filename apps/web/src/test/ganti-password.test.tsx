@@ -10,13 +10,6 @@ vi.mock('next/navigation', () => ({
   }),
 }));
 
-vi.mock('@/components/providers/auth-provider', () => ({
-  useAuth: () => ({
-    user: { id: 1, email: 'user@jarvisops.test', must_change_password: true },
-    refetchUser: vi.fn(),
-  }),
-}));
-
 describe('Ganti Password Page', () => {
   it('renders current password, new password, and confirmation inputs', () => {
     render(<GantiPasswordPage />);
