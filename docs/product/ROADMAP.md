@@ -733,25 +733,25 @@ Menyambungkan seluruh API MVP ke antarmuka yang bisa dipakai.
 
 ### Ticket
 
-- [ ] `/tickets` — DataTable dengan filter status, priority, category, technician, rentang tanggal; search; indikator SLA
-- [ ] `/tickets/new` — form dengan react-hook-form + zod: judul, deskripsi, kategori, priority, asset opsional
-- [ ] Asset picker mengambil dari `/api/assets/assignable`; jelaskan di UI bahwa field ini opsional
-- [ ] `/tickets/[id]` — detail lengkap: atribut, reporter, technician, asset terkait, informasi SLA
-- [ ] Tab detail: komentar, riwayat, attachment
-- [ ] Timeline riwayat yang terbaca manusia (`ASSIGNED → IN_PROGRESS`, bukan dump ID)
-- [ ] Form komentar dengan optimistic update
-- [ ] Upload attachment dengan progress + daftar file, unduh lewat proxy
-- [ ] Aksi kondisional per role dan status: Assign (Manager/Admin), Start Work/Resolve (Technician pemegang), Confirm Close/Reopen (reporter), Ubah Priority
-- [ ] Dialog assign dengan pencarian technician
-- [ ] Setelah aksi: invalidasi query terkait, tampilkan toast, perbarui timeline
+- [x] `/tickets` — DataTable dengan filter status, priority, category, technician, rentang tanggal; search; indikator SLA
+- [x] `/tickets/new` — form dengan react-hook-form + zod: judul, deskripsi, kategori, priority, asset opsional
+- [x] Asset picker mengambil dari `/api/assets/assignable`; jelaskan di UI bahwa field ini opsional
+- [x] `/tickets/[id]` — detail lengkap: atribut, reporter, technician, asset terkait, informasi SLA
+- [x] Tab detail: komentar, riwayat, attachment
+- [x] Timeline riwayat yang terbaca manusia (`ASSIGNED → IN_PROGRESS`, bukan dump ID)
+- [x] Form komentar dengan optimistic update
+- [x] Upload attachment dengan progress + daftar file, unduh lewat proxy
+- [x] Aksi kondisional per role dan status: Assign (Manager/Admin), Start Work/Resolve (Technician pemegang), Confirm Close/Reopen (reporter), Ubah Priority
+- [x] Dialog assign dengan pencarian technician
+- [x] Setelah aksi: invalidasi query terkait, tampilkan toast, perbarui timeline
 
 ### Asset
 
-- [ ] `/assets` — DataTable, filter status/kategori/pemegang, search asset tag & serial number
-- [ ] `/assets/new`, `/assets/[id]/edit`
-- [ ] `/assets/[id]` — detail + riwayat kepemilikan (§17 PRD)
-- [ ] Dialog assign/release dengan validasi status
-- [ ] `/my-assets` untuk Employee
+- [x] `/assets` — DataTable, filter status/kategori/pemegang, search asset tag & serial number
+- [x] `/assets/new`, `/assets/[id]/edit`
+- [x] `/assets/[id]` — detail + riwayat kepemilikan (§17 PRD)
+- [x] Dialog assign/release dengan validasi status
+- [x] `/my-assets` untuk Employee
 
 ### Knowledge base
 
@@ -780,15 +780,12 @@ Seluruh halaman fitur tersambung ke API.
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
-
-
-
-- [ ] Golden path §38 PRD bisa diselesaikan **sepenuhnya dari browser**, berpindah antar 3 akun
-- [ ] Setiap error validasi backend tampil di field yang tepat
-- [ ] Tidak ada aksi yang tampil untuk role yang tidak berhak
-- [ ] Upload dan download attachment berfungsi lewat proxy
-- [ ] Semua halaman punya state loading, empty, dan error
+- [x] Git tag SemVer ditambahkan saat fase selesai (v0.8.0)
+- [x] Golden path §38 PRD bisa diselesaikan **sepenuhnya dari browser**, berpindah antar 3 akun
+- [x] Setiap error validasi backend tampil di field yang tepat
+- [x] Tidak ada aksi yang tampil untuk role yang tidak berhak
+- [x] Upload dan download attachment berfungsi lewat proxy
+- [x] Semua halaman punya state loading, empty, dan error
 
 ---
 

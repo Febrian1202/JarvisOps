@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 8/10 in progress — 8a–8f selesai, 8g next).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), serta pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik, dan 15 rute aplikasi (Fase 7 Selesai — Tag `v0.7.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: desain selesai, implementasi berjalan (Fase 8 Selesai — Tag `v0.8.0`, Fase 9 selanjutnya).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), serta seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil, E2E testing Playwright & a11y WCAG 2.2 AA — Fase 8 Selesai, Tag `v0.8.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -169,9 +169,9 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 
 ### Belum ada
 
-- Finalisasi frontend & E2E (Fase 8g — Tag `v0.8.0`), integrasi & deployment (Fase 10), serta Fase 9 (Dashboard & Optimization).
+- Finalisasi frontend & E2E (Fase 8g — Tag `v0.8.0` Selesai), Fase 9 (Dashboard & Optimization), serta integrasi & deployment (Fase 10).
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Sub-tahap berikutnya adalah **Fase 8g — E2E, A11y, & Finalisasi**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 9 — Dashboard UI & Visual Analytics**.
 
 ---
 

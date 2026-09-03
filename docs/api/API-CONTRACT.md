@@ -818,3 +818,60 @@ Daftar ini adalah inti NFR-002 dan Addendum §8. Nilai berikut **selalu** ditent
 - Kelayakan `asset_id` — diverifikasi ulang terhadap assignment reporter (BR-014)
 
 Frontend bukan sumber kebenaran untuk permission, SLA, kepemilikan asset, kepemilikan ticket, maupun business rule apa pun.
+
+---
+
+## 14. Amandemen Endpoint Fase 8
+
+Untuk mendukung form filter, assign aset, dan editor artikel KB di UI frontend, ditambahkan 3 endpoint operasional (Amandemen A2, A3, A4):
+
+### A2. Distinct Kategori Aset
+- **Route:** `GET /api/assets/categories`
+- **Gate:** `asset.viewAny`
+- **Respons:** Array string daftar kategori unik aset yang ada di database, terurut abjad.
+```json
+{
+  "success": true,
+  "message": "Asset categories retrieved.",
+  "data": ["Laptop", "Monitor", "Printer"]
+}
+```
+
+### A3. Pengguna untuk Penugasan Aset
+- **Route:** `GET /api/users/assignable`
+- **Gate:** `user.lookup` (Admin, Manager, Technician)
+- **Parameter:** `?search=` (opsional)
+- **Respons:** Array ringkas pengguna aktif yang dapat menerima penugasan aset.
+```json
+{
+  "success": true,
+  "message": "Assignable users retrieved.",
+  "data": [
+    {
+      "id": 4,
+      "full_name": "Demo Employee",
+      "department": "Human Resources"
+    }
+  ]
+}
+```
+
+### A4. Detail Artikel untuk Editor
+- **Route:** `GET /api/articles/{article}/edit`
+- **Gate:** `ArticlePolicy@update` (Admin, Manager, Technician pembuat artikel)
+- **Respons:** Mengembalikan detail artikel tanpa menaikkan `view_count` dan tanpa `related_articles`.
+```json
+{
+  "success": true,
+  "message": "Article edit data retrieved.",
+  "data": {
+    "id": 1,
+    "title": "Cara Konfigurasi VPN Kantor",
+    "slug": "cara-konfigurasi-vpn-kantor",
+    "content": "...",
+    "category_id": 2,
+    "status": "published"
+  }
+}
+```
+

@@ -1,6 +1,6 @@
 # AGENTS.md — JARVIS OPS
 
-IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 8/10 in progress — 8a–8f complete, 8g next).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 23 migrations, 631 passing backend tests (2622 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), notification API (4b), audit log API with scoping & timezone filters (Tag `v0.4.0`), asset management, knowledge base, file attachments, 4 dashboard APIs for employee, technician, manager, and admin (Tag `v0.6.0`), and complete Frontend Foundation, App Shell, 16 baseline UI + 9 shared components, 149 passing frontend unit tests, 30s background-safe polling notifications, and 33 app routes (Tag `v0.7.0`). Expect to write net-new code, not modify existing features. Sudah termasuk halaman: ticket list, detail, create; asset management; knowledge base; admin users, master data, audit logs; profile.
+IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 8 complete — Tag `v0.8.0`, Phase 9 next).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 23 migrations, 631 passing backend tests (2622 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), notification API (4b), audit log API with scoping & timezone filters (Tag `v0.4.0`), asset management, knowledge base, file attachments, 4 dashboard APIs for employee, technician, manager, and admin (Tag `v0.6.0`), and complete Frontend Foundation, App Shell, 16 baseline UI + 9 shared components, 149 passing frontend unit tests, 30s background-safe polling notifications, 33 app routes, and automated Playwright E2E testing (Tag `v0.8.0`). Expect to write net-new code, not modify existing features. Sudah termasuk halaman: ticket list, detail, create; asset management; knowledge base; admin users, master data, audit logs; profile.
 
 ## Repo layout
 
@@ -107,4 +107,5 @@ npm run test       # vitest run (unit & component tests)
 - Phase 6c (Manager Dashboard) — **complete**
 - Phase 6d (Admin Dashboard & Finalization — Tag `v0.6.0`) — **complete**
 - Phase 7 (Frontend Foundation, App Shell, & Shared Components — Tag `v0.7.0`) — **complete**
-- Phase 8 (Full Functional Frontend Features) — **8a–8f selesai, 8g next**
+- Phase 8 (Full Functional Frontend Features) — **complete (Tag `v0.8.0`)**
+- Phase 9 (Dashboard UI & Visual Analytics) — **next work**
