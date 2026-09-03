@@ -30,7 +30,7 @@
    - `on_track` (aman): Muted green / warm slate (`#15803d` / `#5f5f5d`).
 4. `RelativeTime`: Menampilkan format "2 jam lalu", "3 hari lalu" dengan tooltip tanggal absolut format WIB (`Intl.DateTimeFormat` Asia/Jakarta).
 
-- [ ] **Step 1: Tulis unit test untuk komponen indikator `apps/web/src/test/indicators.test.tsx` (TDD RED).**
+- [x] **Step 1: Tulis unit test untuk komponen indikator `apps/web/src/test/indicators.test.tsx` (TDD RED).**
   ```tsx
   import React from 'react';
   import { render, screen } from '@testing-library/react';
@@ -50,16 +50,16 @@
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/indicators.test.tsx
   ```
-- [ ] **Step 3: Implementasikan `status-badge.tsx`, `priority-badge.tsx`, `sla-indicator.tsx`, dan `relative-time.tsx`.**
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 3: Implementasikan `status-badge.tsx`, `priority-badge.tsx`, `sla-indicator.tsx`, dan `relative-time.tsx`.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/components/shared/ apps/web/src/test/indicators.test.tsx
   git commit -m "feat(components): implement StatusBadge, PriorityBadge, SlaIndicator, and RelativeTime components"
@@ -84,7 +84,7 @@
    - Menampilkan `EmptyState` yang bersahabat saat data kosong (`data.length === 0`).
 2. `DataTablePagination`: Kontrol paginasi terpadu (menampilkan info "Menampilkan 1-10 dari 124 data", dropdown ukuran halaman 10/25/50, tombol Sebelumnya/Berikutnya/Awal/Akhir).
 
-- [ ] **Step 1: Tulis unit test untuk `DataTable` di `apps/web/src/test/data-table.test.tsx` (TDD RED).**
+- [x] **Step 1: Tulis unit test untuk `DataTable` di `apps/web/src/test/data-table.test.tsx` (TDD RED).**
   ```tsx
   import React from 'react';
   import { render, screen } from '@testing-library/react';
@@ -110,16 +110,16 @@
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/data-table.test.tsx
   ```
-- [ ] **Step 3: Implementasikan komponen DataTable di `apps/web/src/components/shared/data-table/` dan `empty-state.tsx`.**
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 3: Implementasikan komponen DataTable di `apps/web/src/components/shared/data-table/` dan `empty-state.tsx`.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/components/shared/data-table/ apps/web/src/components/shared/empty-state.tsx apps/web/src/test/data-table.test.tsx
   git commit -m "feat(components): implement server-paginated DataTable with column headers and EmptyState"
@@ -143,7 +143,7 @@
 3. `FileUpload`: Komponen upload file attachment dengan validasi client-side (maksimal 5 MB, tipe JPG/JPEG/PNG/PDF), preview nama/ukuran file, dan progress indikator.
 4. `ConfirmDialog`: Dialog konfirmasi aksi destruktif (mis. hapus tiket, release aset) berbasis modal Radix.
 
-- [ ] **Step 1: Tulis unit test untuk `useDebounce` dan `FileUpload` validation (TDD RED).**
+- [x] **Step 1: Tulis unit test untuk `useDebounce` dan `FileUpload` validation (TDD RED).**
   ```tsx
   import { renderHook, act } from '@testing-library/react';
   import { describe, it, expect, vi } from 'vitest';
@@ -168,16 +168,16 @@
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/filter-bar.test.tsx
   ```
-- [ ] **Step 3: Implementasikan `use-debounce.ts`, `search-input.tsx`, `filter-bar.tsx`, `file-upload.tsx`, dan `confirm-dialog.tsx`.**
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 3: Implementasikan `use-debounce.ts`, `search-input.tsx`, `filter-bar.tsx`, `file-upload.tsx`, dan `confirm-dialog.tsx`.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/components/shared/ apps/web/src/hooks/use-debounce.ts apps/web/src/test/filter-bar.test.tsx
   git commit -m "feat(components): implement URL-synced FilterBar, SearchInput, FileUpload, and ConfirmDialog"
@@ -199,7 +199,7 @@ Gunakan seluruh komponen yang telah dibuat (DataTable, FilterBar, SearchInput, S
 3. Menampilkan baris tiket lengkap: Nomor Tiket, Judul, Kategori, Prioritas (Badge), Status (Badge), SLA Deadline & Status (SlaIndicator), Pelapor, Teknisi, dan Waktu Pembuatan (RelativeTime).
 4. Menangani state loading skeleton dan empty state saat tidak ada tiket yang cocok.
 
-- [ ] **Step 1: Buat hook `apps/web/src/hooks/use-tickets.ts`.**
+- [x] **Step 1: Buat hook `apps/web/src/hooks/use-tickets.ts`.**
   ```typescript
   import { useQuery } from '@tanstack/react-query';
   import { apiFetch } from '@/lib/client/api';
@@ -222,8 +222,8 @@ Gunakan seluruh komponen yang telah dibuat (DataTable, FilterBar, SearchInput, S
     });
   }
   ```
-- [ ] **Step 2: Implementasikan `apps/web/src/app/(app)/tickets/page.tsx`.**
-- [ ] **Step 3: Tulis integrasi test di `apps/web/src/test/tickets-page.test.tsx`.**
+- [x] **Step 2: Implementasikan `apps/web/src/app/(app)/tickets/page.tsx`.**
+- [x] **Step 3: Tulis integrasi test di `apps/web/src/test/tickets-page.test.tsx`.**
   ```tsx
   import React from 'react';
   import { screen } from '@testing-library/react';
@@ -238,15 +238,15 @@ Gunakan seluruh komponen yang telah dibuat (DataTable, FilterBar, SearchInput, S
     });
   });
   ```
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Verifikasi build produksi Next.js.**
+- [x] **Step 5: Verifikasi build produksi Next.js.**
   ```bash
   cd apps/web && npm run build
   ```
-- [ ] **Step 6: Commit.**
+- [x] **Step 6: Commit.**
   ```bash
   git add apps/web/src/app/\(app\)/tickets/page.tsx apps/web/src/hooks/use-tickets.ts apps/web/src/test/tickets-page.test.tsx
   git commit -m "feat(tickets): build minimal tickets list page proving DataTable, FilterBar, and SLA indicators"
@@ -256,8 +256,8 @@ Gunakan seluruh komponen yang telah dibuat (DataTable, FilterBar, SearchInput, S
 
 ## Exit Criteria 7d
 
-- [ ] Pustaka 9 shared components (`StatusBadge`, `PriorityBadge`, `SlaIndicator`, `RelativeTime`, `DataTable`, `FilterBar`, `SearchInput`, `FileUpload`, `ConfirmDialog`) tuntas dan memiliki unit test di Vitest.
-- [ ] Halaman `/tickets` berhasil menampilkan daftar tiket riil dari API dengan fitur server-side pagination, sorting, search debounce, dan filter kategori/status/prioritas.
-- [ ] Indikator SLA menampilkan label keterlambatan (merah) untuk breached ticket dan peringatan waktu sisa (amber) untuk mendekati deadline.
-- [ ] Seluruh komponen memenuhi standar kontras WCAG 2.2 AA dan navigasi keyboard.
-- [ ] `npm run test`, `npm run typecheck`, dan `npm run build` 100% hijau.
+- [x] Pustaka 9 shared components (`StatusBadge`, `PriorityBadge`, `SlaIndicator`, `RelativeTime`, `DataTable`, `FilterBar`, `SearchInput`, `FileUpload`, `ConfirmDialog`) tuntas dan memiliki unit test di Vitest.
+- [x] Halaman `/tickets` berhasil menampilkan daftar tiket riil dari API dengan fitur server-side pagination, sorting, search debounce, dan filter kategori/status/prioritas.
+- [x] Indikator SLA menampilkan label keterlambatan (merah) untuk breached ticket dan peringatan waktu sisa (amber) untuk mendekati deadline.
+- [x] Seluruh komponen memenuhi standar kontras WCAG 2.2 AA dan navigasi keyboard.
+- [x] `npm run test`, `npm run typecheck`, dan `npm run build` 100% hijau.

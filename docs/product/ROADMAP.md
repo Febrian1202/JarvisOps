@@ -687,13 +687,13 @@ Membangun kerangka aplikasi dan komponen bersama yang dipakai seluruh fitur. Pek
 
 ### Komponen bersama
 
-- [ ] `DataTable` — pagination server-side, sorting, kolom yang bisa dikonfigurasi, state loading/empty/error
-- [ ] `FilterBar` — filter yang tersinkron dengan URL search params supaya bisa di-share dan tahan refresh
-- [ ] `SearchInput` dengan debounce
-- [ ] `StatusBadge`, `PriorityBadge`, `SlaIndicator` (aman/mendekati deadline/breached)
-- [ ] `EmptyState`, `LoadingSkeleton`, `ConfirmDialog`
-- [ ] `FileUpload` — validasi ukuran/tipe di client sebagai kenyamanan, tetap mengandalkan backend
-- [ ] `RelativeTime`, formatter tanggal dan durasi
+- [x] `DataTable` — pagination server-side, sorting, kolom yang bisa dikonfigurasi, state loading/empty/error
+- [x] `FilterBar` — filter yang tersinkron dengan URL search params supaya bisa di-share dan tahan refresh
+- [x] `SearchInput` dengan debounce
+- [x] `StatusBadge`, `PriorityBadge`, `SlaIndicator` (aman/mendekati deadline/breached)
+- [x] `EmptyState`, `LoadingSkeleton`, `ConfirmDialog`
+- [x] `FileUpload` — validasi ukuran/tipe di client sebagai kenyamanan, tetap mengandalkan backend
+- [x] `RelativeTime`, formatter tanggal dan durasi
 
 ### Notification UI
 
