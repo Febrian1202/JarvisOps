@@ -14,7 +14,7 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     // Log error to console for diagnostic purposes
-    console.error('Unhandled Application Error:', error);
+    console.error('Unhandled Application Error:', error?.message, error?.stack);
   }, [error]);
 
   return (

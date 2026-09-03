@@ -26,15 +26,17 @@ export function AuditLogsPageClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { can, hasRole } = useAuth();
+  const { can, hasRole, isLoading: isAuthLoading } = useAuth();
 
   const canView = can('audit-log.viewAny');
   const canViewUsers = can('user.viewAny');
   const isManager = hasRole('manager');
 
   useEffect(() => {
-    if (!canView) router.replace('/403');
-  }, [canView, router]);
+    if (!isAuthLoading && !canView) {
+      router.replace('/403');
+    }
+  }, [canView, isAuthLoading, router]);
 
   const page = Number(searchParams.get('page')) || 1;
   const perPage = Number(searchParams.get('per_page')) || 15;
@@ -58,13 +60,13 @@ export function AuditLogsPageClient() {
     sort_dir: sortDir,
   };
 
-  const { data: response, isLoading } = useAuditLogs(queryParams, canView);
+  const { data: response, isLoading } = useAuditLogs(queryParams, !isAuthLoading && canView);
   const items = response?.data ?? [];
   const meta = response?.meta;
 
   const { data: usersResponse } = useUsers(
     { per_page: 100, status: 'active' },
-    canViewUsers
+    !isAuthLoading && canViewUsers
   );
   const usersList = usersResponse?.data ?? [];
 
@@ -106,6 +108,16 @@ export function AuditLogsPageClient() {
         MANAGER_MODULES.includes(key)
       )
     : Object.entries(auditModuleLabels);
+
+  if (isAuthLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="h-8 w-48 bg-muted animate-pulse rounded" />
+        <div className="h-12 w-full bg-muted animate-pulse rounded" />
+        <div className="h-64 w-full bg-muted animate-pulse rounded" />
+      </div>
+    );
+  }
 
   if (!canView) return null;
 
