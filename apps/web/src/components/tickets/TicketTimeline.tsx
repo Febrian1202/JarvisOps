@@ -84,7 +84,7 @@ export function TicketTimeline({
                       className="text-[11px] text-muted-foreground shrink-0"
                     />
                   </div>
-                  <p className="mt-1 rounded-lg rounded-tl-none border border-border bg-muted/30 px-3 py-2 text-sm text-foreground leading-relaxed whitespace-pre-wrap break-words">
+                  <p className="mt-1 rounded-lg rounded-tl-none border border-border bg-muted/30 px-3 py-2 text-sm text-foreground leading-relaxed whitespace-pre-wrap wrap-break-word">
                     {entry.body}
                   </p>
                 </>
