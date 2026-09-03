@@ -763,16 +763,16 @@ Menyambungkan seluruh API MVP ke antarmuka yang bisa dipakai.
 
 ### Administrasi
 
-- [ ] `/admin/users` — CRUD, penetapan role & department, toggle active
-- [ ] `/admin/departments`, `/admin/categories`, `/admin/knowledge-categories`
-- [ ] `/admin/priorities` — termasuk pengaturan `sla_minutes`
-- [ ] `/admin/audit-logs` — tabel dengan filter user/module/action/tanggal
-- [ ] Seluruh route admin dijaga di middleware Next.js **dan** Policy Laravel
+- [x] `/admin/users` — CRUD, penetapan role & department, toggle active
+- [x] `/admin/departments`, `/admin/categories`, `/admin/knowledge-categories`
+- [x] `/admin/priorities` — termasuk pengaturan `sla_minutes`
+- [x] `/admin/audit-logs` — tabel dengan filter user/module/action/tanggal
+- [x] Seluruh route admin dijaga di middleware Next.js **dan** Policy Laravel
 
 ### Profil
 
-- [ ] `/profile` — lihat profil, ubah password
-- [ ] `/notifications` — halaman penuh daftar notifikasi
+- [x] `/profile` — lihat profil, ubah password
+- [x] `/notifications` — halaman penuh daftar notifikasi
 
 ## Deliverable
 

@@ -160,9 +160,9 @@ git commit -m "feat(web): add profile page with edit and change password"
 
 ## Exit Criteria 8f
 
-- [ ] `/admin/*` dijaga server-component guard; Manager bisa akses audit-logs, bukan halaman admin lain.
-- [ ] `/admin/users` — CRUD, activate/deactivate, reset-password (temporary password sekali-tampil + salin), hapus.
-- [ ] 4 halaman master data via `MasterDataPage` — array polos tanpa `meta`, 409 handling, parent select bertingkat, sla_minutes hint.
-- [ ] `/admin/audit-logs` — filter, detail dialog, Manager scoping.
-- [ ] `/profile` — edit full_name + phone, ganti password.
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
+- [x] `/admin/*` dijaga server-component guard; Manager bisa akses audit-logs, bukan halaman admin lain.
+- [x] `/admin/users` — CRUD, activate/deactivate, reset-password (temporary password sekali-tampil + salin), hapus.
+- [x] 4 halaman master data via `MasterDataPage` — array polos tanpa `meta`, 409 handling, parent select bertingkat, sla_minutes hint.
+- [x] `/admin/audit-logs` — filter, detail dialog, Manager scoping.
+- [x] `/profile` — edit full_name + phone, ganti password.
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
