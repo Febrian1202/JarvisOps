@@ -67,7 +67,7 @@ export function DataTable<TData>({
                 <TableRow key={`skeleton-row-${rIdx}`} className="border-border">
                   {columns.map((col, cIdx) => (
                     <TableCell key={`skeleton-cell-${cIdx}`} className="py-3">
-                      <Skeleton className="h-5 w-full rounded-[var(--radius-sm)]" />
+                      <Skeleton className="h-5 w-full rounded-sm" />
                     </TableCell>
                   ))}
                 </TableRow>

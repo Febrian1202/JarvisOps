@@ -71,7 +71,7 @@ export function NotificationBell() {
         <Button
           variant="ghost"
           size="icon"
-          className="relative rounded-[var(--radius)] text-muted-foreground hover:text-foreground"
+          className="relative rounded-lg text-muted-foreground hover:text-foreground"
           aria-label={`Buka menu notifikasi (${unreadCount} belum dibaca)`}
         >
           <Bell className="h-5 w-5" />

@@ -44,7 +44,7 @@ export function SearchInput({
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder={placeholder}
-        className="h-9 pl-8 pr-8 rounded-[var(--radius)] text-xs border-border bg-card"
+        className="h-9 pl-8 pr-8 rounded-lg text-xs border-border bg-card"
         aria-label={placeholder}
       />
       {searchTerm && (

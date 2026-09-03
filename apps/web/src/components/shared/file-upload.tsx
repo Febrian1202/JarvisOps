@@ -74,7 +74,7 @@ export function FileUpload({
         <label
           htmlFor="file-upload-input"
           className={cn(
-            'flex flex-col items-center justify-center p-6 border-2 border-dashed border-border rounded-[var(--radius)] bg-muted/20 hover:bg-muted/40 transition-colors cursor-pointer text-center',
+            'flex flex-col items-center justify-center p-6 border-2 border-dashed border-border rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors cursor-pointer text-center',
             disabled && 'opacity-50 cursor-not-allowed'
           )}
         >
@@ -87,7 +87,7 @@ export function FileUpload({
           </p>
         </label>
       ) : (
-        <div className="flex items-center justify-between p-3 border border-border rounded-[var(--radius)] bg-card">
+        <div className="flex items-center justify-between p-3 border border-border rounded-lg bg-card">
           <div className="flex items-center gap-2.5 overflow-hidden">
             <File className="h-5 w-5 text-primary shrink-0" />
             <div className="overflow-hidden">

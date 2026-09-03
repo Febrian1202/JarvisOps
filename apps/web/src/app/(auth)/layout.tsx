@@ -10,7 +10,7 @@ export default function AuthLayout({
       <div className="w-full max-w-md space-y-6">
         <div className="space-y-1 text-center">
           <div className="inline-flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[var(--radius)] bg-primary font-bold text-primary-foreground text-sm shadow-sm">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-sm shadow-sm">
               JO
             </span>
             <h1 className="font-bold text-2xl text-foreground tracking-tight">

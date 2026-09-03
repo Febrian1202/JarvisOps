@@ -67,7 +67,7 @@ export function FilterBar({
                 }
               }}
             >
-              <SelectTrigger className="h-9 rounded-[var(--radius)] text-xs border-border bg-card">
+              <SelectTrigger className="h-9 rounded-lg text-xs border-border bg-card">
                 <SelectValue placeholder={filter.label} />
               </SelectTrigger>
               <SelectContent>

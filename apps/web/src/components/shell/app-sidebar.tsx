@@ -22,7 +22,7 @@ export function AppSidebar() {
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-border border-r bg-card transition-transform md:flex">
       {/* Brand Header */}
       <div className="flex h-14 items-center gap-3 border-border border-b px-6">
-        <span className="flex h-7 w-7 items-center justify-center rounded-[var(--radius)] bg-primary font-bold text-primary-foreground text-xs shadow-sm">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-xs shadow-sm">
           JO
         </span>
         <span className="font-semibold text-foreground text-sm tracking-tight">
@@ -49,7 +49,7 @@ export function AppSidebar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-3 rounded-[var(--radius)] px-3 py-2 text-sm font-medium transition-colors',
+                    'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                     isActive
                       ? 'bg-secondary text-foreground font-semibold'
                       : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
@@ -78,7 +78,7 @@ export function AppSidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-3 rounded-[var(--radius)] px-3 py-2 text-sm font-medium transition-colors',
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-secondary text-foreground font-semibold'
                         : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
@@ -96,7 +96,7 @@ export function AppSidebar() {
 
       {/* Sidebar Footer */}
       <div className="border-border border-t p-3">
-        <div className="rounded-[var(--radius)] bg-muted/50 p-2 text-center">
+        <div className="rounded-lg bg-muted/50 p-2 text-center">
           <p className="text-[11px] text-muted-foreground">
             JARVIS OPS v0.7.0
           </p>

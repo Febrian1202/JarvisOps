@@ -18,7 +18,7 @@ export function EmptyState({
   onAction,
 }: EmptyStateProps) {
   return (
-    <div className="flex min-h-[220px] flex-col items-center justify-center rounded-[var(--radius)] border border-border border-dashed p-8 text-center animate-in fade-in-50">
+    <div className="flex min-h-56 flex-col items-center justify-center rounded-lg border border-border border-dashed p-8 text-center animate-in fade-in-50">
       <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
         <Icon className="h-6 w-6" />
       </div>
@@ -33,7 +33,7 @@ export function EmptyState({
           onClick={onAction}
           variant="outline"
           size="sm"
-          className="mt-4 rounded-[var(--radius)] text-xs"
+          className="mt-4 rounded-lg text-xs"
         >
           {actionText}
         </Button>

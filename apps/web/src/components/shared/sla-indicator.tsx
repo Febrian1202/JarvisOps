@@ -24,7 +24,7 @@ export function SlaIndicator({
     return (
       <div
         className={cn(
-          'inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] bg-[#fae8e8] px-2 py-0.5 text-xs font-medium text-[#991b1b]',
+          'inline-flex items-center gap-1.5 rounded-sm bg-[#fae8e8] px-2 py-0.5 text-xs font-medium text-[#991b1b]',
           className
         )}
       >
@@ -46,7 +46,7 @@ export function SlaIndicator({
     return (
       <div
         className={cn(
-          'inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] bg-[#fbf0e4] px-2 py-0.5 text-xs font-medium text-[#b45309]',
+          'inline-flex items-center gap-1.5 rounded-sm bg-[#fbf0e4] px-2 py-0.5 text-xs font-medium text-[#b45309]',
           className
         )}
       >
@@ -59,7 +59,7 @@ export function SlaIndicator({
   return (
     <div
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] bg-[#eaf0e6] px-2 py-0.5 text-xs font-medium text-[#4d663e]',
+        'inline-flex items-center gap-1.5 rounded-sm bg-[#eaf0e6] px-2 py-0.5 text-xs font-medium text-[#4d663e]',
         className
       )}
     >

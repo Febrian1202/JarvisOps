@@ -107,7 +107,7 @@ function NotificationsContent() {
           size="sm"
           onClick={() => markAllAsRead()}
           disabled={isMarkingAllRead || isLoading || notifications.length === 0}
-          className="gap-1.5 self-start sm:self-auto rounded-[var(--radius)]"
+          className="gap-1.5 self-start sm:self-auto rounded-lg"
         >
           <CheckCheck className="h-4 w-4" />
           <span>Tandai Semua Dibaca</span>

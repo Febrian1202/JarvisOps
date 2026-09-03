@@ -20,7 +20,7 @@ export function PagePlaceholder({
       <Card className="border border-border bg-card shadow-sm">
         <CardHeader className="flex flex-row items-center gap-4 space-y-0 p-6">
           {Icon && (
-            <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius)] bg-primary/10 text-primary">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Icon className="h-6 w-6" />
             </div>
           )}
@@ -30,7 +30,7 @@ export function PagePlaceholder({
           </div>
         </CardHeader>
         <CardContent className="p-6 pt-0">
-          <div className="flex flex-col items-center justify-center rounded-[var(--radius)] border border-border/60 border-dashed bg-muted/20 py-12 text-center">
+          <div className="flex flex-col items-center justify-center rounded-lg border border-border/60 border-dashed bg-muted/20 py-12 text-center">
             <p className="font-medium text-foreground text-sm">
               Modul Sedang Disiapkan
             </p>

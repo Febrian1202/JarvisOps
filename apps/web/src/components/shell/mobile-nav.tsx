@@ -34,7 +34,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
       <DialogContent className="fixed top-0 bottom-0 left-0 right-auto z-50 h-full w-72 max-w-none translate-x-0 translate-y-0 rounded-none border-r border-border bg-card p-0 shadow-xl data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left">
         <DialogHeader className="border-b border-border p-4 text-left">
           <DialogTitle className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-[var(--radius)] bg-primary font-bold text-primary-foreground text-xs shadow-sm">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-xs shadow-sm">
               JO
             </span>
             <span className="font-semibold text-foreground text-sm tracking-tight">
@@ -62,7 +62,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
                     href={item.href}
                     onClick={() => onOpenChange(false)}
                     className={cn(
-                      'flex items-center gap-3 rounded-[var(--radius)] px-3 py-2 text-sm font-medium transition-colors',
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-secondary text-foreground font-semibold'
                         : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
@@ -92,7 +92,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
                       href={item.href}
                       onClick={() => onOpenChange(false)}
                       className={cn(
-                        'flex items-center gap-3 rounded-[var(--radius)] px-3 py-2 text-sm font-medium transition-colors',
+                        'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                         isActive
                           ? 'bg-secondary text-foreground font-semibold'
                           : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'

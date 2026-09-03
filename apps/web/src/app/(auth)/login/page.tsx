@@ -94,7 +94,7 @@ export default function LoginPage() {
         {generalError && (
           <div
             role="alert"
-            className="mb-4 rounded-[var(--radius)] bg-destructive/10 p-3 text-destructive text-sm"
+            className="mb-4 rounded-lg bg-destructive/10 p-3 text-destructive text-sm"
           >
             {generalError}
           </div>
