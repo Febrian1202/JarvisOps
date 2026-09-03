@@ -4,7 +4,7 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 8/10 in progress — 8a–8e selesai, 8f–8g next).**
+> **Status: desain selesai, implementasi berjalan (Fase 8/10 in progress — 8a–8f selesai, 8g next).**
 > Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), serta pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik, dan 15 rute aplikasi (Fase 7 Selesai — Tag `v0.7.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
@@ -165,13 +165,13 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
   - **6c (Manager Dashboard) — SELESAI**: `GET /api/dashboard/manager` dengan SLA metrics (D-03), daily trend WIB, distribusi priority & category, serta performa teknisi.
   - **6d (Admin Dashboard & Finalisasi) — SELESAI**: `GET /api/dashboard/admin` memperluas metrik manager dengan sistem totals (user, technician, department, asset), status asset breakdown, recent system audit logs, serta verifikasi N+1/performa (<500ms).
 - `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 37 routes (53 operations), 629 test passing (2605 assertions, 0 failures), Pint bersih
-- `apps/web` — login page + protected dashboard, BFF route handler, full ticket list + detail + create, asset management, knowledge base, 27 app routes, 113 passing unit/component tests
+- `apps/web` — login page + protected dashboard, BFF route handler, full ticket list + detail + create, asset management, knowledge base, admin users/master data/audit logs, profile, 33 app routes, 149 passing unit/component tests
 
 ### Belum ada
 
-- Seluruh halaman frontend lanjutan (Fase 8f–8g), integrasi & deployment (Fase 10), serta Fase 9 (Dashboard & Optimization).
+- Finalisasi frontend & E2E (Fase 8g — Tag `v0.8.0`), integrasi & deployment (Fase 10), serta Fase 9 (Dashboard & Optimization).
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Sub-tahap berikutnya adalah **Fase 8f — Administrasi & Profil**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Sub-tahap berikutnya adalah **Fase 8g — E2E, A11y, & Finalisasi**.
 
 ---
 
