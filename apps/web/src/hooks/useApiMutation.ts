@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { ApiClientError } from '@/lib/client/api';
+import { mapApiErrorMessages } from '@/lib/client/error-mapper';
 import { errorMessages } from '@/lib/labels';
 import type { ApiResponse } from '@/types/api';
 
@@ -47,9 +48,16 @@ export function useApiMutation<TData, TResult = unknown>({
         const status = err.status;
 
         // 422: Validation error - delegate to form handler if available
-        if (status === 422 && err.errors && onFormError) {
-          onFormError(err.errors);
-          toast.error('Mohon periksa kembali data yang dimasukkan.');
+        if (status === 422 && err.errors) {
+          if (onFormError) {
+            onFormError(err.errors);
+            toast.error('Mohon periksa kembali data yang dimasukkan.');
+          } else {
+            // No form to bind to (e.g. dialog): show the first Indonesian error
+            const mapped = mapApiErrorMessages(err.errors);
+            const firstError = Object.values(mapped)[0];
+            toast.error(firstError ?? 'Mohon periksa kembali data yang dimasukkan.');
+          }
           onError?.(err);
           return;
         }
