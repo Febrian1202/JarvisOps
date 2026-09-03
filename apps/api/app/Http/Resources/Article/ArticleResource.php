@@ -27,8 +27,7 @@ class ArticleResource extends JsonResource
             ]),
             'author' => $this->whenLoaded('author', fn () => [
                 'id' => $this->author->id,
-                'name' => $this->author->name,
-                'email' => $this->author->email,
+                'full_name' => $this->author->full_name,
             ]),
             'status' => $this->status?->value ?? (string) $this->status,
             'view_count' => $this->view_count,
