@@ -3,6 +3,8 @@
 > **Panduan Eksekusi:**
 > - **Untuk agentic worker:** SUB-SKILL WAJIB — gunakan `superpowers:subagent-driven-development` (disarankan) atau `superpowers:executing-plans`. Langkah memakai `- [ ]`.
 > - **Untuk developer manusia:** Ikuti alur TDD di setiap task. Sub-tahap ini membangun seluruh permukaan UI modul yang sudah ada backendnya: Ticket, Asset, Knowledge Base, Administrasi, dan Profil.
+>
+> **Skill frontend wajib (gunakan yang sama dengan sesi fase 8 yang sudah berjalan):** `impeccable`, `next-best-practices`, `vercel-react-best-practices`, `shadcn`, `frontend-design`, `tailwindcss-development`, `test-driven-development`. Muat skill-skill ini lewat tool `skill` sebelum menulis kode frontend.
 
 **Goal:** Menyelesaikan seluruh fitur frontend sesuai ROADMAP Fase 8 (tickets, assets, knowledge base, administration, profile), dengan golden path §38 PRD terselesaikan penuh dari browser. Backend **tidak** diubah secara struktural; hanya 4 amandemen sempit yang terdokumentasi (lihat §Titik Awal → Amandemen) agar UI bisa dibangun di atas API yang sudah ada.
 

@@ -4,6 +4,8 @@
 > - **Untuk agentic worker:** SUB-SKILL WAJIB — gunakan `superpowers:subagent-driven-development` (disarankan) atau `superpowers:executing-plans`. Langkah memakai `- [ ]`.
 > - **Untuk developer manusia:** Bacalah README ini sebagai peta arsitektur dan urutan ketergantungan, lalu kerjakan sub-tahap 9a–9e secara berurutan. Setiap sub-berkas berisi langkah TDD (`- [ ]`) yang bisa dikerjakan satu per satu.
 >
+> **Skill frontend wajib (gunakan yang sama dengan sesi fase 8 yang sudah berjalan):** `impeccable`, `next-best-practices`, `vercel-react-best-practices`, `shadcn`, `frontend-design`, `tailwindcss-development`, `test-driven-development`. Muat skill-skill ini lewat tool `skill` sebelum menulis kode frontend.
+>
 > **Konvensi centang:** `[x]` = sudah terpenuhi saat dokumen ini ditulis (Fase 6 backend + Fase 7/8 frontend + wireframe sudah ada). `[ ]` = pekerjaan yang harus diselesaikan di sub-tahap. Jangan membangun ulang yang sudah `[x]`.
 
 **Goal:** Memvisualisasikan keempat dashboard API (employee, technician, manager, admin) menjadi UI lengkap dengan Recharts, pemilih rentang tanggal, tabel performa technician yang bisa diurutkan, highlight SLA breached, dan router berbasis role di `/` — sehingga golden path §38 PRD langkah 12–13 ("Manager melihat analytics" → "Dashboard menunjukkan SLA & performance") bisa didemokan dari browser.

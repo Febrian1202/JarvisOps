@@ -85,6 +85,7 @@ npm run test       # vitest run (unit & component tests)
 - `apps/api/opencode.json` registers the `laravel-boost` MCP server, and config resolution walks up from cwd — so Boost tools (`database-schema`, `search-docs`, `record-rule`) are **unavailable in a root-level session**. Start opencode in `apps/api` for backend work.
 - Skills live in `.opencode/skills/`: `laravel-best-practices`, `testing-best-practices`, `tailwindcss-development`, `infer-conventions`, `impeccable`. `.opencode/` is gitignored, so these are local-only.
  - UI work goes through the `impeccable` skill. Its product truth is the tracked root `PRODUCT.md`; its settings are `.impeccable/config.json` (`buildPath: comp` — new surfaces start from a generated comp). The visual spec is root `DESIGN.md` (warm cream theme); it is implemented via the Tailwind v4 theme in `apps/web`, see `docs/architecture/FRONTEND-ARCHITECTURE.md` §3.
+ - **Frontend work (Phases 8+) must load the same skills used by the phase-8 sessions:** `impeccable`, `next-best-practices`, `vercel-react-best-practices`, `shadcn`, `frontend-design`, `tailwindcss-development`, `test-driven-development`. Invoke them via the `skill` tool before writing any frontend code (see `docs/tasks/phase-8/README.md` and `docs/tasks/phase-9/README.md`).
 
 ## Current state, concretely
 
