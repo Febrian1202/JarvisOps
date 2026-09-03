@@ -4,6 +4,8 @@
 > - **Untuk agentic worker:** SUB-SKILL WAJIB — gunakan `superpowers:subagent-driven-development` (disarankan) atau `superpowers:executing-plans`. Langkah memakai `- [ ]`.
 > - **Untuk developer manusia:** Bacalah README ini sebagai peta. Fase 10 adalah **fase terakhir** — tujuannya mengubah aplikasi yang berfungsi menjadi aplikasi yang **bisa dipertahankan di depan reviewer** (ROADMAP:839): audit keamanan, Docker produksi, CI, Octane worker mode, dokumentasi, dan demo yang siap presentasi. Kerjakan sub-tahap 10a–10g secara berurutan.
 >
+> **Skill frontend wajib (gunakan yang sama dengan sesi fase 8 yang sudah berjalan):** `impeccable`, `next-best-practices`, `vercel-react-best-practices`, `shadcn`, `frontend-design`, `tailwindcss-development`, `test-driven-development`. Muat skill-skill ini lewat tool `skill` sebelum menulis kode frontend (mis. `CsvExportButton` di 10f, polish UI di 10e).
+>
 > **Konvensi centang:** `[x]` = sudah terpenuhi saat dokumen ini ditulis (Fase 9 diasumsikan selesai dan di-merge, tag `v0.9.0` sudah ada di `main`). `[ ]` = pekerjaan sub-tahap. Jangan membangun ulang yang sudah `[x]`.
 
 **Goal:** Aplikasi berjalan di container produksi (`docker compose -f compose.prod.yaml up` dari kondisi bersih), CI hijau di `main`, dokumentasi lengkap (termasuk `docs/ops/DEPLOYMENT.md` & `docs/ops/TESTING.md`), `docs/schema.sql` tersinkron dengan migration final, golden path §38 PRD siap didemokan tanpa kesalahan, dan — atas keputusan user — **Octane worker mode dikerjakan sebagai sub-tahap wajib**, dengan Export CSV sebagai prioritas buffer.
