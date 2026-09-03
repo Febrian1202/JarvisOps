@@ -741,12 +741,12 @@ git commit -m "chore(web): add Playwright skeleton with login smoke test"
 
 ## Exit Criteria 8a
 
-- [ ] 13 frame wireframe baru selesai, tidak tumpang tindih, memakai komponen reusable.
-- [ ] A1: `author.name` → `full_name` — test hijau, tidak ada kolom `email` diekspos.
-- [ ] A2: `GET /api/assets/categories` — distinct, terurut, gate `asset.viewAny`, test hijau.
-- [ ] A3: `GET /api/users/assignable` — `id`, `full_name`, `department`, dukung `?search=`, gate `user.lookup` (A/M/T), test hijau, PERMISSION-MATRIX disinkronkan.
-- [ ] A4: `GET /api/articles/{article}/edit` — tanpa `view_count++`, tanpa `related_articles`, gate `ArticlePolicy@update`, test hijau.
-- [ ] `useApiMutation`, `useUploadWithProgress`, `query-keys.ts`, `labels.ts`, `action-to-endpoint.ts`, `MasterDataPage.tsx`, `MarkdownRenderer.tsx` selesai dan lulus `tsc --noEmit`.
-- [ ] Playwright terpasang, smoke login hijau.
-- [ ] `vendor/bin/pest` masih hijau (599 + test baru).
-- [ ] `vendor/bin/pint --dirty --format agent` bersih.
+- [x] 13 frame wireframe baru selesai, tidak tumpang tindih, memakai komponen reusable.
+- [x] A1: `author.name` → `full_name` — test hijau, tidak ada kolom `email` diekspos.
+- [x] A2: `GET /api/assets/categories` — distinct, terurut, gate `asset.viewAny`, test hijau.
+- [x] A3: `GET /api/users/assignable` — `id`, `full_name`, `department`, dukung `?search=`, gate `user.lookup` (A/M/T), test hijau, PERMISSION-MATRIX disinkronkan.
+- [x] A4: `GET /api/articles/{article}/edit` — tanpa `view_count++`, tanpa `related_articles`, gate `ArticlePolicy@update`, test hijau.
+- [x] `useApiMutation`, `useUploadWithProgress`, `query-keys.ts`, `labels.ts`, `action-to-endpoint.ts`, `MasterDataPage.tsx`, `MarkdownRenderer.tsx` selesai dan lulus `tsc --noEmit`.
+- [x] Playwright terpasang, smoke login hijau.
+- [x] `vendor/bin/pest` masih hijau (599 + test baru).
+- [x] `vendor/bin/pint --dirty --format agent` bersih.
