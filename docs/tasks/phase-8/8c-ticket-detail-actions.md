@@ -241,13 +241,13 @@ git commit -m "feat(web): add ticket action dialogs (assign, status, priority, e
 
 ## Exit Criteria 8c
 
-- [ ] Halaman `/tickets/[id]` menampilkan banner + action bar dari `available_actions`.
-- [ ] SLA Tracker menampilkan sisa/terlambat benar; bar disembunyikan saat final.
-- [ ] Timeline gabungan komentar + riwayat, terjemahan Indonesia benar, urutan ASC.
-- [ ] Form komentar optimistic update; gagal → rollback + toast.
-- [ ] Kartu attachment: upload progress (XHR), download via proxy, hapus (Admin/pengunggah).
-- [ ] `expected_status_id` dikirim pada `/status` & `/assign`; 409 → toast + refetch.
-- [ ] `cancel` mewajibkan `note`; `change_priority` tidak mengirim `expected_status_id`.
-- [ ] Edit dialog hanya mengirim `editable_fields`.
-- [ ] Tombol hapus (Admin) dari `can('ticket.delete')`.
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
+- [x] Halaman `/tickets/[id]` menampilkan banner + action bar dari `available_actions`.
+- [x] SLA Tracker menampilkan sisa/terlambat benar; bar disembunyikan saat final.
+- [x] Timeline gabungan komentar + riwayat, terjemahan Indonesia benar, urutan ASC.
+- [x] Form komentar optimistic update; gagal → rollback + toast.
+- [x] Kartu attachment: upload progress (XHR), download via proxy, hapus (Admin/pengunggah).
+- [x] `expected_status_id` dikirim pada `/status` & `/assign`; 409 → toast + refetch.
+- [x] `cancel` mewajibkan `note`; `change_priority` tidak mengirim `expected_status_id`.
+- [x] Edit dialog hanya mengirim `editable_fields`.
+- [x] Tombol hapus (Admin) dari `can('ticket.delete')`.
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
