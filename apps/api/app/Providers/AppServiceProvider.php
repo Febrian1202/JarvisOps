@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
      */
     private function configureRateLimiters(): void
     {
-        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
+        RateLimiter::for('login', fn (Request $request) => app()->environment('testing', 'local') ? Limit::none() : Limit::perMinute(5)->by($request->ip()));
 
         RateLimiter::for('upload', fn (Request $request) => Limit::perMinute(20)->by($request->user()?->id ?: $request->ip()));
 

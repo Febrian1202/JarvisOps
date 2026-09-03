@@ -26,7 +26,7 @@ class TicketPriorityController extends Controller
     {
         $this->authorize('ticket-priority.viewAny');
 
-        $priorities = TicketPriority::orderBy('level')->get();
+        $priorities = TicketPriority::orderBy('sla_minutes')->get();
 
         return ApiResponse::success($priorities, 'Ticket priorities retrieved.');
     }
