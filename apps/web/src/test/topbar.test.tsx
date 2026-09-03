@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import React from 'react';
 import { NotificationBell } from '@/components/shell/notification-bell';
+import { renderWithProviders } from '@/test/test-utils';
 
 // Mock useAuth
 vi.mock('@/components/providers/auth-provider', () => ({
@@ -17,11 +18,19 @@ vi.mock('@/components/providers/auth-provider', () => ({
   }),
 }));
 
+vi.mock('@/hooks/use-notifications-poll', () => ({
+  useNotificationsPoll: () => ({
+    data: { unread_count: 3 },
+    isLoading: false,
+  }),
+}));
+
 describe('App Topbar Components', () => {
-  it('renders NotificationBell with accessible link', () => {
-    render(<NotificationBell unreadCount={3} />);
-    const link = screen.getByRole('link', { name: /pusat notifikasi/i });
-    expect(link).toBeInTheDocument();
+  it('renders NotificationBell with accessible trigger', () => {
+    renderWithProviders(<NotificationBell />);
+    const btn = screen.getByRole('button', { name: /buka menu notifikasi/i });
+    expect(btn).toBeInTheDocument();
     expect(screen.getByText('3')).toBeInTheDocument();
   });
 });
+
