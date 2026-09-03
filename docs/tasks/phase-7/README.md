@@ -187,4 +187,4 @@ apps/web/src/
 - [x] **Shared Components (7d):** Pustaka komponen bersama (DataTable, FilterBar, StatusBadge, SlaIndicator, FileUpload, RelativeTime, ConfirmDialog) tuntas dan teruji di Vitest. Halaman `/tickets` membuktikan integrasi DataTable nyata (pagination, sorting, filter, SLA indicator).
 - [x] **Notification & A11y (7e):** NotificationBell melakukan polling 30 detik pada kondisi window fokus, dropdown notifikasi dapat menandai baca, halaman `/notifications` paginated berfungsi penuh, kontras warna dan keyboard focus lolos WCAG 2.2 AA.
 - [x] **Kualitas Kode:** `npm run typecheck` (`tsc --noEmit`) 0 error, `npm run lint` bersih, `npm run test` (Vitest) 100% lulus, `npm run build` sukses membuat artefak produksi Next.js.
-- [ ] **Dokumentasi & Versi:** `docs/product/ROADMAP.md` Fase 7 tercentang, git tag `v0.7.0` diterbitkan.
+- [x] **Dokumentasi & Versi:** `docs/product/ROADMAP.md` Fase 7 tercentang, git tag `v0.7.0` diterbitkan.
