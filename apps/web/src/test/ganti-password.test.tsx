@@ -13,11 +13,11 @@ vi.mock('next/navigation', () => ({
 describe('Ganti Password Page', () => {
   it('renders current password, new password, and confirmation inputs', () => {
     render(<GantiPasswordPage />);
-    expect(screen.getByLabelText(/password saat ini/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/^password baru/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/konfirmasi password baru/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/kata sandi saat ini/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^kata sandi baru/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/konfirmasi kata sandi baru/i)).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /simpan & masuk/i })
+      screen.getByRole('button', { name: /simpan & lanjutkan ke sistem/i })
     ).toBeInTheDocument();
   });
 });

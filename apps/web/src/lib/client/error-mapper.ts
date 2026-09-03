@@ -13,6 +13,9 @@ const VALIDATION_TRANSLATIONS: Record<string, string> = {
   'validation.date': 'Format tanggal tidak valid.',
   'validation.mimes': 'Format berkas tidak didukung.',
   'validation.max.file': 'Ukuran berkas melebihi batas maksimal.',
+  // Auth Laravel messages (D-24/D-29)
+  'These credentials do not match our records.': 'Email atau kata sandi salah.',
+  'This account is inactive.': 'Akun ini dinonaktifkan. Hubungi Administrator.',
 };
 
 export function translateValidationError(message: string): string {
