@@ -17,6 +17,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'full_name' => $this->full_name,
             'status' => $this->status,
+            'must_change_password' => (bool) $this->must_change_password,
             'role' => $this->whenLoaded('role', fn () => $this->role->only('id', 'name')),
             'department' => $this->whenLoaded('department', fn () => $this->department->only('id', 'name')),
             'profile' => $this->whenLoaded('employeeProfile', fn () => $this->employeeProfile->only('employee_code', 'position', 'phone')),

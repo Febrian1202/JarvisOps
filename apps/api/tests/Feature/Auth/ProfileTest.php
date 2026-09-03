@@ -16,6 +16,38 @@ function profileUser(array $attributes = []): User
     ], $attributes));
 }
 
+test('profile payload returns all 66 role and policy abilities for admin', function () {
+    $admin = User::factory()->admin()->create();
+    Sanctum::actingAs($admin);
+
+    $response = $this->getJson('/api/me')
+        ->assertStatus(200)
+        ->assertJsonStructure([
+            'success',
+            'data' => [
+                'id',
+                'email',
+                'full_name',
+                'must_change_password',
+                'role',
+                'permissions',
+            ],
+        ]);
+
+    $permissions = $response->json('data.permissions');
+    expect($permissions)->toBeArray()->toHaveCount(66);
+    expect($permissions)->toContain('ticket.create', 'article.create', 'dashboard.admin', 'asset.viewAny');
+});
+
+test('profile payload includes must_change_password flag', function () {
+    $user = User::factory()->employee()->create(['must_change_password' => true]);
+    Sanctum::actingAs($user);
+
+    $this->getJson('/api/me')
+        ->assertStatus(200)
+        ->assertJsonPath('data.must_change_password', true);
+});
+
 test('get me returns profile with permissions', function () {
     $user = profileUser();
     Sanctum::actingAs($user);

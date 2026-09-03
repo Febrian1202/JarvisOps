@@ -23,12 +23,85 @@ class ProfileService
         $user->load(['role', 'department', 'employeeProfile']);
 
         $role = RoleName::tryFrom($user->role?->name ?? '');
-        $permissions = $role ? AbilityMatrix::permissionsFor($role) : [];
+        $permissions = [];
+
+        if ($role) {
+            $permissions = AbilityMatrix::permissionsFor($role);
+            $policyAbilities = AbilityMatrix::getPolicyAbilities();
+
+            foreach ($policyAbilities as $ability) {
+                // For admin, all policy abilities are allowed (except D-16 which are checked accordingly)
+                if ($role === RoleName::Admin) {
+                    $permissions[] = $ability;
+
+                    continue;
+                }
+
+                // Check general role allowances for policy abilities
+                if ($this->roleCanPerformPolicyAbility($role, $ability)) {
+                    $permissions[] = $ability;
+                }
+            }
+        }
 
         return [
             'user' => $user,
-            'permissions' => $permissions,
+            'permissions' => array_values(array_unique($permissions)),
         ];
+    }
+
+    /**
+     * Map policy abilities to roles based on PERMISSION-MATRIX.md §3.
+     */
+    private function roleCanPerformPolicyAbility(RoleName $role, string $ability): bool
+    {
+        return match ($role) {
+            RoleName::Admin => true,
+            RoleName::Manager => in_array($ability, [
+                // Ticket (12 of 13, except selfAssign)
+                'ticket.viewAny', 'ticket.view', 'ticket.create', 'ticket.update', 'ticket.assign',
+                'ticket.unassign', 'ticket.changeStatus', 'ticket.changePriority', 'ticket.comment',
+                'ticket.viewHistory', 'ticket.attach',
+                // Attachment (4)
+                'attachment.view', 'attachment.download', 'attachment.create', 'attachment.delete',
+                // Asset (9 of 10, except admin-only delete is allowed for manager too)
+                'asset.viewAny', 'asset.view', 'asset.viewOwn', 'asset.viewAssignable', 'asset.create',
+                'asset.update', 'asset.delete', 'asset.assign', 'asset.release', 'asset.viewHistory',
+                // Article (7)
+                'article.viewAny', 'article.view', 'article.create', 'article.update', 'article.publish',
+                'article.unpublish', 'article.delete',
+                // Notification (3)
+                'notification.viewAny', 'notification.markAsRead', 'notification.markAllAsRead',
+            ], true),
+            RoleName::Technician => in_array($ability, [
+                // Ticket (10 of 13)
+                'ticket.viewAny', 'ticket.view', 'ticket.create', 'ticket.update', 'ticket.changeStatus',
+                'ticket.selfAssign', 'ticket.changePriority', 'ticket.comment', 'ticket.viewHistory', 'ticket.attach',
+                // Attachment (4)
+                'attachment.view', 'attachment.download', 'attachment.create', 'attachment.delete',
+                // Asset (8 of 10)
+                'asset.viewAny', 'asset.view', 'asset.viewOwn', 'asset.viewAssignable', 'asset.create',
+                'asset.update', 'asset.assign', 'asset.release', 'asset.viewHistory',
+                // Article (7)
+                'article.viewAny', 'article.view', 'article.create', 'article.update', 'article.publish',
+                'article.unpublish', 'article.delete',
+                // Notification (3)
+                'notification.viewAny', 'notification.markAsRead', 'notification.markAllAsRead',
+            ], true),
+            RoleName::Employee => in_array($ability, [
+                // Ticket (8 of 13)
+                'ticket.viewAny', 'ticket.view', 'ticket.create', 'ticket.update', 'ticket.changeStatus',
+                'ticket.comment', 'ticket.viewHistory', 'ticket.attach',
+                // Attachment (3)
+                'attachment.view', 'attachment.download', 'attachment.create',
+                // Asset (2)
+                'asset.viewOwn', 'asset.viewAssignable',
+                // Article (2)
+                'article.viewAny', 'article.view',
+                // Notification (3)
+                'notification.viewAny', 'notification.markAsRead', 'notification.markAllAsRead',
+            ], true),
+        };
     }
 
     /**
