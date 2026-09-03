@@ -9,12 +9,17 @@ export interface KnowledgeCategory {
   updated_at?: string;
 }
 
+export interface ArticleAuthor {
+  id: number;
+  full_name: string;
+}
+
 export interface KnowledgeArticleListItem {
   id: number;
   title: string;
   slug: string;
   category: { id: number; name: string } | null;
-  author: { id: number; name: string; email: string } | null;
+  author: ArticleAuthor | null;
   status: ArticleStatus;
   view_count: number;
   published_at: string | null;
@@ -22,7 +27,14 @@ export interface KnowledgeArticleListItem {
   updated_at: string;
 }
 
+export interface RelatedArticle {
+  id: number;
+  title: string;
+  slug: string;
+  view_count: number;
+}
+
 export interface KnowledgeArticleDetail extends KnowledgeArticleListItem {
   content: string;
-  related_articles?: KnowledgeArticleListItem[];
+  related_articles?: RelatedArticle[];
 }
