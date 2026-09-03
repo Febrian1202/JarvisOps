@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useApiMutation } from '@/hooks/useApiMutation';
 import { apiFetch } from '@/lib/client/api';
 import { ticketKeys } from '@/lib/query-keys';
+import type { ApiResponse } from '@/types/api';
 import type { TicketComment } from '@/types/tickets';
 import { useAuth } from '@/components/providers/auth-provider';
 
@@ -33,17 +34,24 @@ export function CommentForm({ ticketId, enabled = true, onCommented }: CommentFo
     onSuccessMessage: 'Komentar berhasil ditambahkan.',
     onSuccess: (res: { data: TicketComment }) => {
       const real = res.data;
-      // Replace temp entry (negative id) with the real server comment
-      queryClient.setQueryData<TicketComment[]>(commentsKey, (old = []) => {
-        const existing = old ?? [];
+      // Replace temp entry (negative id) with the real server comment in envelope
+      queryClient.setQueryData<ApiResponse<TicketComment[]>>(commentsKey, (old) => {
+        const existing = old?.data ?? [];
         const pending = existing.find((c) => c.id < 0);
-        if (pending) {
-          return existing.map((c) => (c.id === pending.id ? real : c));
-        }
-        return [...existing, real];
+        const updatedList = pending
+          ? existing.map((c) => (c.id === pending.id ? real : c))
+          : [...existing, real];
+
+        return {
+          success: true,
+          message: old?.message ?? 'Comments retrieved.',
+          data: updatedList,
+          meta: old?.meta,
+        };
       });
       setBody('');
       onCommented?.();
+      void queryClient.invalidateQueries({ queryKey: ticketKeys.detail(ticketId) });
     },
     onError: () => {
       // Rollback: refetch comments from server, dropping any temp/pending entry
@@ -68,10 +76,15 @@ export function CommentForm({ ticketId, enabled = true, onCommented }: CommentFo
       updated_at: new Date().toISOString(),
     };
 
-    queryClient.setQueryData<TicketComment[]>(commentsKey, (old = []) => [
-      ...(old ?? []),
-      tempComment,
-    ]);
+    queryClient.setQueryData<ApiResponse<TicketComment[]>>(commentsKey, (old) => {
+      const existing = old?.data ?? [];
+      return {
+        success: true,
+        message: old?.message ?? 'Comments retrieved.',
+        data: [...existing, tempComment],
+        meta: old?.meta,
+      };
+    });
 
     setBody('');
     commentMutation.mutate(text);

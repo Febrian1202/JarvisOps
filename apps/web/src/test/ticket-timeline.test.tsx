@@ -76,4 +76,39 @@ describe('CommentForm', () => {
       );
     });
   });
+
+  it('submits comment with existing cache and updates envelope data', async () => {
+    mockApiFetch.mockResolvedValueOnce({
+      success: true,
+      message: 'ok',
+      data: { id: 99, ticket_id: 42, user: { id: 5, full_name: 'Andi Kusuma' }, body: 'Sudah dicoba', created_at: '2026-09-03T12:00:00Z', updated_at: '2026-09-03T12:00:00Z' },
+    });
+
+    const { queryClient } = renderWithProviders(<CommentForm ticketId={42} enabled />);
+    // Populate queryClient cache with envelope response as produced by useQuery in page-client.tsx
+    queryClient.setQueryData(['tickets', 'detail', 42, 'comments'], {
+      success: true,
+      message: 'Loaded',
+      data: [
+        { id: 1, ticket_id: 42, user: { id: 1, full_name: 'Admin' }, body: 'Halo', created_at: '2026-09-03T10:00:00Z', updated_at: '2026-09-03T10:00:00Z' },
+      ],
+    });
+
+    const input = screen.getByLabelText(/tulis komentar/i);
+    fireEvent.change(input, { target: { value: 'Sudah dicoba' } });
+    const button = screen.getByRole('button', { name: /kirim komentar/i });
+    expect(button).toBeEnabled();
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(mockApiFetch).toHaveBeenCalledWith(
+        '/tickets/42/comments',
+        expect.objectContaining({ method: 'POST' })
+      );
+    });
+
+    const cached = queryClient.getQueryData<{ success: boolean; data: unknown[] }>(['tickets', 'detail', 42, 'comments']);
+    expect(cached?.data).toBeDefined();
+    expect(cached?.data.length).toBe(2);
+  });
 });

@@ -24,5 +24,8 @@ export function renderWithProviders(
       </QueryClientProvider>
     );
   }
-  return render(ui, { wrapper: Wrapper, ...options });
+  return {
+    ...render(ui, { wrapper: Wrapper, ...options }),
+    queryClient: testQueryClient,
+  };
 }
