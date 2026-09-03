@@ -53,6 +53,16 @@ class ArticleController extends Controller
         return ApiResponse::success($resource, 'Article retrieved successfully.');
     }
 
+    public function edit(KnowledgeArticle $article): JsonResponse
+    {
+        $this->authorize('update', $article);
+
+        return ApiResponse::success(
+            new ArticleResource($article->load(['category', 'author'])),
+            'Article retrieved for editing.'
+        );
+    }
+
     public function store(StoreArticleRequest $request, ArticleService $articleService): JsonResponse
     {
         $this->authorize('create', KnowledgeArticle::class);
