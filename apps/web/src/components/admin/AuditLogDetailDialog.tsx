@@ -158,10 +158,10 @@ export function AuditLogDetailDialog({
                 <div className="rounded-lg border border-border overflow-hidden">
                   <table className="w-full text-left text-xs border-collapse">
                     <thead>
-                      <tr className="border-b border-border bg-muted/50 font-semibold text-muted-foreground">
-                        <th className="p-2.5 w-1/4">Field</th>
-                        <th className="p-2.5 w-[37.5%]">Nilai Lama</th>
-                        <th className="p-2.5 w-[37.5%]">Nilai Baru</th>
+                      <tr className="border-b border-border text-left text-xs font-semibold text-muted-foreground">
+                        <th scope="col" className="p-2.5 w-1/4">Field</th>
+                        <th scope="col" className="p-2.5 w-[37.5%]">Nilai Lama</th>
+                        <th scope="col" className="p-2.5 w-[37.5%]">Nilai Baru</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border">

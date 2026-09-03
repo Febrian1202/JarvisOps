@@ -12,7 +12,7 @@ import { AssignDialog } from '@/components/assets/AssignDialog';
 import { ReleaseDialog } from '@/components/assets/ReleaseDialog';
 import { EmptyState } from '@/components/shared/empty-state';
 import { useAsset, useAssetHistory } from '@/hooks/use-assets';
-import { apiFetch, ApiError } from '@/lib/client/api';
+import { apiFetch, ApiClientError } from '@/lib/client/api';
 import { assetKeys } from '@/lib/query-keys';
 import { useApiMutation } from '@/hooks/useApiMutation';
 import { useAuth } from '@/components/providers/auth-provider';
@@ -146,7 +146,7 @@ export function AssetDetailPageClient({ assetId }: { assetId: number }) {
   }
 
   if (error || !response?.data) {
-    const is404 = error instanceof ApiError && error.status === 404;
+    const is404 = error instanceof ApiClientError && error.status === 404;
 
     return (
       <div className="rounded-xl border border-border bg-card p-12 text-center shadow-xs">
@@ -157,10 +157,8 @@ export function AssetDetailPageClient({ assetId }: { assetId: number }) {
               ? 'Aset dengan ID tersebut tidak ditemukan dalam sistem.'
               : 'Terjadi kendala saat memuat rincian aset.'
           }
-          action={{
-            label: 'Kembali ke Inventaris',
-            href: '/assets',
-          }}
+          actionText="Kembali ke Inventaris"
+          onAction={() => window.location.assign('/assets')}
         />
       </div>
     );
