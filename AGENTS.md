@@ -1,6 +1,6 @@
 # AGENTS.md — JARVIS OPS
 
-IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 6/10 complete, Phase 7 next).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 23 migrations, 629 passing tests (2605 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), notification API (4b), audit log API with scoping & timezone filters (Tag `v0.4.0`), asset management, knowledge base, file attachments, and 4 dashboard APIs for employee, technician, manager, and admin (Tag `v0.6.0`). Expect to write net-new code, not modify existing features.
+IT Service Management monorepo. **Design phase is complete; implementation is in progress (Phase 7/10 complete, Phase 8 next).** `docs/` is dense and authoritative (~6.3k lines, Indonesian); the codebase has grown to 18 models, 23 migrations, 631 passing backend tests (2622 assertions), full ticket lifecycle with authorization & workflows (Tag `v0.3.0`), background SLA breach scheduler (4a), notification API (4b), audit log API with scoping & timezone filters (Tag `v0.4.0`), asset management, knowledge base, file attachments, 4 dashboard APIs for employee, technician, manager, and admin (Tag `v0.6.0`), and complete Frontend Foundation, App Shell, 16 baseline UI + 9 shared components, 40 passing frontend unit tests, 30s background-safe polling notifications, and 23 app routes (Tag `v0.7.0`). Expect to write net-new code, not modify existing features.
 
 ## Repo layout
 
@@ -68,9 +68,11 @@ Health endpoint: `/api/health` (`app/Http/Controllers/HealthController.php`), no
 ## Frontend commands (`apps/web`)
 
 ```bash
-npm run dev     # next dev
-npm run build
-npm run lint    # eslint flat config; no typecheck or test script wired yet
+npm run dev        # next dev
+npm run build      # next build (production build)
+npm run lint       # eslint
+npm run typecheck  # tsc --noEmit
+npm run test       # vitest run (unit & component tests)
 ```
 
 `apps/web/.env.example` exists and contains the internal BFF URL.
@@ -86,8 +88,8 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 
 ## Current state, concretely
 
-- `apps/api`: 23 migrations, 18 models, 37 API routes (53 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), full audit log API (`/api/audit-logs`), full asset management API (`/api/assets`, `/api/my-assets`, `/api/assets/{id}/assign`, `/api/assets/{id}/release`, `/api/assets/{id}/history`), full knowledge base API (`/api/articles`, `/api/articles/{slug}`, `/api/articles/{id}/publish`, `/api/articles/{id}/unpublish`, `/api/knowledge-categories`), full dashboard APIs (`/api/dashboard/employee`, `/api/dashboard/technician`, `/api/dashboard/manager`, `/api/dashboard/admin`), 629 total tests (2605 assertions). Auth (login/logout/profile), policies (TicketPolicy, AssetPolicy, ArticlePolicy, AttachmentPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, AuditLogQueryService, AssetService, AssetAssignmentService, AssetQueryService, ArticleService, ArticleQueryService, EmployeeDashboardService, TechnicianDashboardService, ManagerDashboardService, AdminDashboardService, enums, transition matrix, and available actions are all implemented and passing.
-- `apps/web`: login page + protected dashboard (`src/app/login/`, `src/app/dashboard/`), BFF proxy route handler, auth flow with httpOnly cookie.
+- `apps/api`: 23 migrations, 18 models, 37 API routes (53 endpoint operations), full ticket lifecycle CRUD + transitions + comments + history + query + references, background SLA breach scheduler (`tickets:check-sla`), full notification API (`/api/notifications`), full audit log API (`/api/audit-logs`), full asset management API (`/api/assets`, `/api/my-assets`, `/api/assets/{id}/assign`, `/api/assets/{id}/release`, `/api/assets/{id}/history`), full knowledge base API (`/api/articles`, `/api/articles/{slug}`, `/api/articles/{id}/publish`, `/api/articles/{id}/unpublish`, `/api/knowledge-categories`), full dashboard APIs (`/api/dashboard/employee`, `/api/dashboard/technician`, `/api/dashboard/manager`, `/api/dashboard/admin`), 631 total tests (2622 assertions). Auth (login/logout/profile with 66 abilities & must_change_password), policies (TicketPolicy, AssetPolicy, ArticlePolicy, AttachmentPolicy, TicketCommentPolicy, NotificationPolicy), SLA service, AuditLogger, NotificationService, AuditLogQueryService, AssetService, AssetAssignmentService, AssetQueryService, ArticleService, ArticleQueryService, EmployeeDashboardService, TechnicianDashboardService, ManagerDashboardService, AdminDashboardService, enums, transition matrix, and available actions are all implemented and passing.
+- `apps/web`: Next.js 16.3 + React 19 + Tailwind CSS v4, Plus Jakarta Sans, warm-neutral theme (`#f7f4ed`), Route Groups `(auth)` dan `(app)`, responsive App Shell (desktop Sidebar + mobile Drawer), Topbar dengan 30s background-safe polling notifikasi, Quick-Action Notification Popover, AuthProvider & QueryProvider, production Login form (RHF + Zod), alur ganti password paksa (`/ganti-password`), 16 baseline UI components + 9 shared components (`DataTable`, `FilterBar`, `SearchInput`, `StatusBadge`, `PriorityBadge`, `SlaIndicator`, `RelativeTime`, `FileUpload`, `ConfirmDialog`, `EmptyState`), 23 app routes, dan 40 passing unit/component tests di Vitest.
 - Phase 0 (Repo, Docker, Toolchain, Pest 5 migration) — **complete**
 - Phase 2 (Backend Foundation & Walking Skeleton: auth, login, middleware, health, web dashboard) — **complete**
 - Phase 3 (Ticket Core & Workflow: foundation, CRUD, query & references, workflow & transitions, comments & history, golden path — Tag `v0.3.0`) — **complete**
@@ -103,4 +105,5 @@ npm run lint    # eslint flat config; no typecheck or test script wired yet
 - Phase 6b (Employee & Technician Dashboards) — **complete**
 - Phase 6c (Manager Dashboard) — **complete**
 - Phase 6d (Admin Dashboard & Finalization — Tag `v0.6.0`) — **complete**
-- Phase 7 (Frontend Foundation) — **next work**
+- Phase 7 (Frontend Foundation, App Shell, & Shared Components — Tag `v0.7.0`) — **complete**
+- Phase 8 (Full Functional Frontend Features) — **next work**
