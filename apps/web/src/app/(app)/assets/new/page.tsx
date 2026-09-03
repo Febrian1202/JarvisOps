@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AssetsPageClient } from './page-client';
+import { CreateAssetPageClient } from './page-client';
 
 export const metadata = {
-  title: 'Inventaris Aset | JARVIS OPS',
-  description: 'Manajemen inventaris perangkat dan aset perusahaan.',
+  title: 'Tambah Aset Baru | JARVIS OPS',
+  description: 'Formulir pencatatan perangkat baru dalam inventaris IT perusahaan.',
 };
 
-export default function AssetsPage() {
+export default function CreateAssetPage() {
   return (
     <Suspense
       fallback={
@@ -18,7 +18,7 @@ export default function AssetsPage() {
         </div>
       }
     >
-      <AssetsPageClient />
+      <CreateAssetPageClient />
     </Suspense>
   );
 }
