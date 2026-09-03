@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import { Clock, BookOpen, AlertCircle, FileText } from 'lucide-react';
@@ -38,7 +38,6 @@ export function TicketForm() {
     register,
     handleSubmit,
     control,
-    watch,
     setError,
     formState: { errors, isSubmitting },
   } = useForm<TicketFormData>({
@@ -52,8 +51,8 @@ export function TicketForm() {
     },
   });
 
-  const selectedPriorityId = watch('priority_id');
-  const watchedTitle = watch('title');
+  const selectedPriorityId = useWatch({ control, name: 'priority_id' });
+  const watchedTitle = useWatch({ control, name: 'title' });
   const debouncedTitle = useDebounce(watchedTitle, 500);
 
   // 1. Fetch user's assignable assets
