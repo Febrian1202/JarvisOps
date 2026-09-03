@@ -14,7 +14,8 @@ import { AttachmentList, AttachmentSectionTitle } from '@/components/tickets/Att
 import { ActionDialogs } from '@/components/tickets/action-dialogs';
 import { useTicketActions } from '@/components/tickets/use-ticket-actions';
 import { mergeTimeline } from '@/components/tickets/timeline-merge';
-import { apiFetch } from '@/lib/client/api';
+import { EmptyState } from '@/components/shared/empty-state';
+import { apiFetch, ApiError } from '@/lib/client/api';
 import { ticketKeys } from '@/lib/query-keys';
 import type { TicketComment, TicketHistoryItem, TicketDetail, TicketAction } from '@/types/tickets';
 
@@ -145,18 +146,49 @@ function TicketLoaded({ ticket }: { ticket: TicketDetail }) {
 }
 
 export function TicketDetailPageClient({ ticketId }: { ticketId: number }) {
-  const { data: detailResponse, isLoading } = useQuery({
+  const { data: detailResponse, isLoading, error } = useQuery({
     queryKey: ticketKeys.detail(ticketId),
     queryFn: () => apiFetch<TicketDetail>(`/tickets/${ticketId}`),
     enabled: Number.isFinite(ticketId),
+    retry: false,
   });
 
-  if (isLoading || !detailResponse?.data) {
+  if (isLoading) {
     return (
       <div className="space-y-4">
         <Skeleton className="h-8 w-40" />
         <Skeleton className="h-28 w-full" />
         <Skeleton className="h-64 w-full" />
+      </div>
+    );
+  }
+
+  if (error || !detailResponse?.data) {
+    const is404 = error instanceof ApiError && error.status === 404;
+    const is403 = error instanceof ApiError && error.status === 403;
+
+    return (
+      <div className="rounded-xl border border-border bg-card p-12 text-center shadow-xs">
+        <EmptyState
+          title={
+            is404
+              ? 'Tiket Tidak Ditemukan'
+              : is403
+                ? 'Akses Tiket Ditolak'
+                : 'Gagal Memuat Tiket'
+          }
+          description={
+            is404
+              ? 'Tiket dengan nomor atau ID tersebut tidak ditemukan dalam sistem.'
+              : is403
+                ? 'Anda tidak memiliki hak akses untuk melihat tiket ini.'
+                : 'Terjadi kendala saat memuat data tiket. Silakan coba kembali.'
+          }
+          action={{
+            label: 'Kembali ke Daftar Tiket',
+            href: '/tickets',
+          }}
+        />
       </div>
     );
   }
