@@ -213,6 +213,7 @@ Mengakses notifikasi milik orang lain → **404**.
 | `user.delete` | ❌ | ❌ | ❌ | ✅ | |
 | `user.activate` / `deactivate` | ❌ | ❌ | ❌ | ✅ | Deaktivasi mencabut token |
 | `user.reset-password` | ❌ | ❌ | ❌ | ✅ | |
+| `user.lookup` | ❌ | ✅ | ✅ | ✅ | Melihat daftar pengguna untuk assign aset |
 | `technician.list` | ❌ | ❌ | ✅ | ✅ | Untuk dropdown assign |
 | `department.viewAny` | ✅ | ✅ | ✅ | ✅ | Read boleh semua |
 | `department.manage` | ❌ | ❌ | ❌ | ✅ | |
@@ -288,6 +289,7 @@ Tabel ini adalah checklist audit Fase 10. Setiap route di `routes/api.php` harus
 | GET | `/api/dashboard/manager` | `dashboard.manager` |
 | GET | `/api/dashboard/admin` | `dashboard.admin` |
 | GET | `/api/users` | `user.viewAny` |
+| GET | `/api/users/assignable` | `user.lookup` |
 | POST | `/api/users` | `user.create` |
 | GET | `/api/users/{id}` | `user.view` |
 | PUT | `/api/users/{id}` | `user.update` |

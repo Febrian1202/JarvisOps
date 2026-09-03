@@ -26,7 +26,7 @@ class ArticleListResource extends JsonResource
             ]),
             'author' => $this->whenLoaded('author', fn () => [
                 'id' => $this->author->id,
-                'name' => $this->author->name,
+                'full_name' => $this->author->full_name,
             ]),
             'status' => $this->status?->value ?? (string) $this->status,
             'view_count' => $this->view_count,

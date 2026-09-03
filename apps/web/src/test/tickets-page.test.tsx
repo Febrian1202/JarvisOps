@@ -17,6 +17,7 @@ vi.mock('@/components/providers/auth-provider', () => ({
   useAuth: () => ({
     user: { id: 1, permissions: ['ticket.viewAny', 'ticket.create'] },
     can: () => true,
+    hasRole: (role: string) => role === 'manager',
   }),
 }));
 

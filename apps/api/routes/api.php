@@ -45,11 +45,13 @@ Route::put('/me/password', [ProfileController::class, 'updatePassword'])
 
 Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::get('/roles', [UserController::class, 'roles'])->name('roles.index');
+    Route::get('/users/assignable', [UserController::class, 'assignable'])->name('users.assignable');
     Route::post('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');
     Route::post('/users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
     Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::apiResource('users', UserController::class);
 
+    Route::get('/assets/categories', [AssetController::class, 'categories'])->name('assets.categories');
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::get('/my-assets', [AssetController::class, 'myAssets'])->name('assets.my-assets');
     Route::post('/assets/{asset}/assign', [AssetController::class, 'assign'])->name('assets.assign');
@@ -58,6 +60,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::apiResource('assets', AssetController::class);
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
     Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::get('/articles/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
     Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');

@@ -230,3 +230,82 @@ export function getAuditModuleLabel(module: AuditModule | string): string {
       return module;
   }
 }
+
+export const errorMessages: Record<number, string> = {
+  403: 'Anda tidak memiliki izin untuk mengakses halaman ini.',
+  404: 'Halaman yang Anda cari tidak ditemukan.',
+  409: 'Data sudah diubah oleh pihak lain. Silakan muat ulang.',
+  429: 'Terlalu banyak permintaan. Silakan tunggu beberapa saat.',
+  500: 'Terjadi kesalahan server. Silakan coba lagi.',
+};
+
+export const slaLabels = {
+  on_track: 'On Track',
+  breached: 'SLA Terlambat',
+  resolved: 'Selesai',
+};
+
+export const attachmentLabels = {
+  upload: 'Unggah Lampiran',
+  maxSize: 'Maksimal 5 MB per file',
+  allowedFormats: 'Format: .jpg, .jpeg, .png, .pdf',
+  delete: 'Hapus',
+  download: 'Unduh',
+  uploading: 'Mengunggah...',
+};
+
+export const auditModuleLabels: Record<string, string> = {
+  ticket: 'Ticket',
+  asset: 'Aset',
+  article: 'Artikel',
+  knowledge_category: 'Kategori Pengetahuan',
+  ticket_category: 'Kategori Ticket',
+  ticket_priority: 'Prioritas Ticket',
+  department: 'Departemen',
+  user: 'Pengguna',
+  login: 'Login',
+  notification: 'Notifikasi',
+};
+
+export const auditActionLabels: Record<string, string> = {
+  create: 'Membuat',
+  update: 'Mengubah',
+  delete: 'Menghapus',
+  login: 'Login',
+  logout: 'Logout',
+  assign: 'Menugaskan',
+  unassign: 'Melepas Tugas',
+  status_change: 'Mengubah Status',
+  priority_change: 'Mengubah Prioritas',
+  comment: 'Berkomentar',
+  upload: 'Mengunggah',
+  download: 'Mengunduh',
+  publish: 'Menerbitkan',
+  unpublish: 'Menarik',
+  activate: 'Mengaktifkan',
+  deactivate: 'Menonaktifkan',
+  reset_password: 'Reset Password',
+  transition: 'Transisi Status',
+  release: 'Melepas Aset',
+  bulk_update: 'Ubah Massal',
+  import: 'Impor',
+  export: 'Ekspor',
+};
+
+export const assetStatusLabels: Record<string, string> = {
+  available: 'Tersedia',
+  assigned: 'Ditugaskan',
+  maintenance: 'Perbaikan',
+  retired: 'Pensiun',
+  lost: 'Hilang',
+};
+
+export const articleStatusLabels: Record<string, string> = {
+  draft: 'Draf',
+  published: 'Terbit',
+};
+
+export const userStatusLabels: Record<string, string> = {
+  active: 'Aktif',
+  inactive: 'Nonaktif',
+};

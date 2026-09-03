@@ -39,6 +39,19 @@ class AssetController extends Controller
         return ApiResponse::paginated($paginator, 'Assets retrieved successfully.', AssetListResource::class);
     }
 
+    public function categories(): JsonResponse
+    {
+        $this->authorize('viewAny', Asset::class);
+
+        $categories = Asset::query()
+            ->whereNotNull('category')
+            ->distinct()
+            ->orderBy('category')
+            ->pluck('category');
+
+        return ApiResponse::success($categories, 'Asset categories retrieved.');
+    }
+
     public function show(Asset $asset): JsonResponse
     {
         $this->authorize('view', $asset);

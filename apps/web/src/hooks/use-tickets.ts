@@ -9,6 +9,13 @@ export interface TicketQueryParams {
   status_id?: number | string;
   priority_id?: number | string;
   category_id?: number | string;
+  technician_id?: number | string;
+  department_id?: number | string;
+  reporter_id?: number | string;
+  asset_id?: number | string;
+  sla_status?: string;
+  created_from?: string;
+  created_to?: string;
   search?: string;
   sort_by?: string;
   sort_dir?: 'asc' | 'desc';

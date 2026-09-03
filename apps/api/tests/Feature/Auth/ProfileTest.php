@@ -35,8 +35,8 @@ test('profile payload returns all 66 role and policy abilities for admin', funct
         ]);
 
     $permissions = $response->json('data.permissions');
-    expect($permissions)->toBeArray()->toHaveCount(66);
-    expect($permissions)->toContain('ticket.create', 'article.create', 'dashboard.admin', 'asset.viewAny');
+    expect($permissions)->toBeArray()->toHaveCount(67);
+    expect($permissions)->toContain('ticket.create', 'article.create', 'dashboard.admin', 'asset.viewAny', 'user.lookup');
 });
 
 test('profile payload includes must_change_password flag', function () {

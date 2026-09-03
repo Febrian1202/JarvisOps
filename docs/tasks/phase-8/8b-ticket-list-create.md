@@ -157,11 +157,11 @@ git commit -m "feat(web): add ticket creation form with asset picker, SLA previe
 
 ## Exit Criteria 8b
 
-- [ ] `/tickets` menampilkan tabel dengan 11 filter, URL sync, sort, pagination, SLA indicator.
-- [ ] Filter teknisi tidak dirender untuk Employee; Technician melihat preset "Tiket Saya" / "Belum Ditugaskan".
-- [ ] Filter `reporter_id` tidak dirender untuk Employee.
-- [ ] `/tickets/new` menampilkan form 2-kolom sesuai wireframe frame 07.
-- [ ] Asset picker hanya menampilkan aset yang dipegang user.
-- [ ] Upload file terjadi setelah ticket dibuat (background).
-- [ ] 422 validation errors terpetakan ke field form.
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
+- [x] `/tickets` menampilkan tabel dengan 11 filter, URL sync, sort, pagination, SLA indicator.
+- [x] Filter teknisi tidak dirender untuk Employee; Technician melihat preset "Tiket Saya" / "Belum Ditugaskan".
+- [x] Filter `reporter_id` tidak dirender untuk Employee.
+- [x] `/tickets/new` menampilkan form 2-kolom sesuai wireframe frame 07.
+- [x] Asset picker hanya menampilkan aset yang dipegang user.
+- [x] Upload file terjadi setelah ticket dibuat (background).
+- [x] 422 validation errors terpetakan ke field form.
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
