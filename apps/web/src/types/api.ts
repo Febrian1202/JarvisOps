@@ -1,3 +1,11 @@
+export * from './auth';
+export * from './tickets';
+export * from './assets';
+export * from './articles';
+export * from './notifications';
+export * from './audit';
+export * from './dashboard';
+
 export interface ApiResponse<T> {
   success: boolean;
   message: string;
@@ -20,22 +28,10 @@ export interface PaginationMeta {
   to: number | null;
 }
 
-export interface Role {
-  id: number;
-  name: string;
-}
-
-export interface User {
-  id: number;
-  email: string;
-  full_name: string;
-  status: string;
-  role: Role;
-  department?: { id: number; name: string } | null;
-  profile?: {
-    employee_code?: string | null;
-    position?: string | null;
-    phone?: string | null;
-  } | null;
-  permissions?: string[];
+export interface StandardQueryParams {
+  page?: number;
+  per_page?: number;
+  search?: string;
+  sort_by?: string;
+  sort_dir?: 'asc' | 'desc';
 }
