@@ -27,7 +27,7 @@
    - Tombol "Tandai Semua Dibaca": memanggil `POST /api/proxy/notifications/read-all`.
    - Link "Lihat Semua Notifikasi": mengarahkan ke `/notifications`.
 
-- [ ] **Step 1: Tulis unit test untuk hook polling dan bell `apps/web/src/test/notification-bell.test.tsx` (TDD RED).**
+- [x] **Step 1: Tulis unit test untuk hook polling dan bell `apps/web/src/test/notification-bell.test.tsx` (TDD RED).**
   ```tsx
   import React from 'react';
   import { screen } from '@testing-library/react';
@@ -42,11 +42,11 @@
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/notification-bell.test.tsx
   ```
-- [ ] **Step 3: Implementasikan `use-notifications-poll.ts` dan perbarui `notification-bell.tsx`.**
+- [x] **Step 3: Implementasikan `use-notifications-poll.ts` dan perbarui `notification-bell.tsx`.**
   ```typescript
   // apps/web/src/hooks/use-notifications-poll.ts
   import { useQuery } from '@tanstack/react-query';
@@ -62,11 +62,11 @@
     });
   }
   ```
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/components/shell/notification-bell.tsx apps/web/src/hooks/use-notifications-poll.ts apps/web/src/test/notification-bell.test.tsx
   git commit -m "feat(notifications): implement NotificationBell with 30s background-safe polling and quick-action popover"
@@ -88,9 +88,9 @@ Membangun halaman manajemen notifikasi lengkap:
 3. Tombol "Tandai Semua Dibaca" di header halaman.
 4. Setiap kartu/baris notifikasi menampilkan ikon sesuai `type`, pesan dalam bahasa Indonesia yang ramah, waktu relatif (`RelativeTime`), dan indikator dot biru untuk item belum dibaca.
 
-- [ ] **Step 1: Buat hook `apps/web/src/hooks/use-notifications.ts`.**
-- [ ] **Step 2: Implementasikan `apps/web/src/app/(app)/notifications/page.tsx`.**
-- [ ] **Step 3: Tulis test integrasi di `apps/web/src/test/notifications-page.test.tsx`.**
+- [x] **Step 1: Buat hook `apps/web/src/hooks/use-notifications.ts`.**
+- [x] **Step 2: Implementasikan `apps/web/src/app/(app)/notifications/page.tsx`.**
+- [x] **Step 3: Tulis test integrasi di `apps/web/src/test/notifications-page.test.tsx`.**
   ```tsx
   import React from 'react';
   import { screen } from '@testing-library/react';
@@ -105,11 +105,11 @@ Membangun halaman manajemen notifikasi lengkap:
     });
   });
   ```
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/app/\(app\)/notifications/page.tsx apps/web/src/hooks/use-notifications.ts apps/web/src/test/notifications-page.test.tsx
   git commit -m "feat(notifications): build complete paginated /notifications page with filters and read-all action"
@@ -131,15 +131,15 @@ Membangun halaman manajemen notifikasi lengkap:
    - Focus Appearance (SC 2.4.11 / 2.4.13): Seluruh elemen interaktif memiliki ring fokus terlihat saat ditekan via Tab keyboard (`:focus-visible`).
    - Semantic HTML: Tabel menggunakan `<thead>`, `<tbody>`, `<th>` dengan `scope="col"`, tombol memiliki `aria-label` jika hanya berupa ikon.
 
-- [ ] **Step 1: Hapus berkas SVG demo di `apps/web/public/`.**
+- [x] **Step 1: Hapus berkas SVG demo di `apps/web/public/`.**
   ```bash
   cd apps/web && rm -f public/file.svg public/globe.svg public/next.svg public/vercel.svg public/window.svg
   ```
-- [ ] **Step 2: Jalankan full test suite dan typecheck.**
+- [x] **Step 2: Jalankan full test suite dan typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck && npm run lint
   ```
-- [ ] **Step 3: Commit.**
+- [x] **Step 3: Commit.**
   ```bash
   git add apps/web/
   git commit -m "chore(web): remove create-next-app boilerplate SVGs and verify WCAG 2.2 AA contrast rules"
@@ -161,17 +161,17 @@ Sinkronisasi seluruh dokumen proyek untuk mencerminkan bahwa fondasi frontend, A
 1. `docs/product/ROADMAP.md`: Centang seluruh checkbox pada blok Fase 7 (`- [x]`) dan tandai exit criteria Fase 7 telah tercapai.
 2. `README.md`: Update bagian Status Implementasi menjadi `Fase 7 (Frontend Foundation) — SELESAI (Tag: v0.7.0)`.
 
-- [ ] **Step 1: Update `docs/product/ROADMAP.md` dan `README.md`.**
-- [ ] **Step 2: Verifikasi build produksi Next.js final.**
+- [x] **Step 1: Update `docs/product/ROADMAP.md` dan `README.md`.**
+- [x] **Step 2: Verifikasi build produksi Next.js final.**
   ```bash
   cd apps/web && npm run build
   ```
-- [ ] **Step 3: Jalankan seluruh test backend & frontend untuk verifikasi holistik.**
+- [x] **Step 3: Jalankan seluruh test backend & frontend untuk verifikasi holistik.**
   ```bash
   cd apps/api && vendor/bin/pest
   cd apps/web && npm run test
   ```
-- [ ] **Step 4: Commit dan terbitkan Git Tag `v0.7.0`.**
+- [x] **Step 4: Commit dan terbitkan Git Tag `v0.7.0`.**
   ```bash
   git add docs/product/ROADMAP.md README.md
   git commit -m "docs: complete Phase 7 frontend foundation and update project roadmap"
@@ -183,10 +183,10 @@ Sinkronisasi seluruh dokumen proyek untuk mencerminkan bahwa fondasi frontend, A
 
 ## Exit Criteria 7e
 
-- [ ] NotificationBell melakukan polling `GET /api/notifications/unread-count` tiap 30 detik secara background-safe.
-- [ ] Popover notifikasi dan halaman `/notifications` paginated berfungsi penuh dengan aksi tandai baca.
-- [ ] Seluruh SVG demo create-next-app terhapus bersih.
-- [ ] Kontras warna dan ring keyboard focus memenuhi standar WCAG 2.2 AA.
-- [ ] `npm run build` sukses membuat bundle produksi Next.js 16 tanpa error.
-- [ ] `docs/product/ROADMAP.md` dan `README.md` tersinkronisasi.
-- [ ] Git tag `v0.7.0` diterbitkan.
+- [x] NotificationBell melakukan polling `GET /api/notifications/unread-count` tiap 30 detik secara background-safe.
+- [x] Popover notifikasi dan halaman `/notifications` paginated berfungsi penuh dengan aksi tandai baca.
+- [x] Seluruh SVG demo create-next-app terhapus bersih.
+- [x] Kontras warna dan ring keyboard focus memenuhi standar WCAG 2.2 AA.
+- [x] `npm run build` sukses membuat bundle produksi Next.js 16 tanpa error.
+- [x] `docs/product/ROADMAP.md` dan `README.md` tersinkronisasi.
+- [x] Git tag `v0.7.0` diterbitkan.

@@ -697,11 +697,11 @@ Membangun kerangka aplikasi dan komponen bersama yang dipakai seluruh fitur. Pek
 
 ### Notification UI
 
-- [ ] `NotificationBell` dengan badge unread count
-- [ ] Polling 30 detik lewat TanStack Query `refetchInterval` (Addendum §4.2)
-- [ ] Polling berhenti saat tab tidak aktif — hemat request tanpa mengorbankan pengalaman
-- [ ] Dropdown daftar notifikasi, klik menandai read + menuju ticket terkait
-- [ ] Tombol mark-all-as-read
+- [x] `NotificationBell` dengan badge unread count
+- [x] Polling 30 detik lewat TanStack Query `refetchInterval` (Addendum §4.2)
+- [x] Polling berhenti saat tab tidak aktif — hemat request tanpa mengorbankan pengalaman
+- [x] Dropdown daftar notifikasi, klik menandai read + menuju ticket terkait
+- [x] Tombol mark-all-as-read
 
 ## Deliverable
 
@@ -709,15 +709,15 @@ App shell, layer API, komponen bersama, notification bell yang berfungsi.
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
+- [x] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
 
 
 
-- [ ] Login → dashboard placeholder, navigasi tampil sesuai role
-- [ ] `DataTable` sudah terbukti jalan dengan satu endpoint nyata (pagination + filter + search)
-- [ ] Notification bell menampilkan jumlah unread yang benar dan bertambah setelah aksi
-- [ ] Layout enak dipakai di 375px, 768px, dan 1440px
-- [ ] `tsc --noEmit` bersih
+- [x] Login → dashboard placeholder, navigasi tampil sesuai role
+- [x] `DataTable` sudah terbukti jalan dengan satu endpoint nyata (pagination + filter + search)
+- [x] Notification bell menampilkan jumlah unread yang benar dan bertambah setelah aksi
+- [x] Layout enak dipakai di 375px, 768px, dan 1440px
+- [x] `tsc --noEmit` bersih
 
 ---
 

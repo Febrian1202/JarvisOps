@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 6/10 Selesai — Backend MVP Tag `v0.6.0`).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), serta Dashboard API untuk Employee, Technician, Manager, dan Admin (Fase 6 Selesai — Tag `v0.6.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: desain selesai, implementasi berjalan (Fase 7/10 Selesai — Frontend Foundation Tag `v0.7.0`).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), serta pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik, dan 15 rute aplikasi (Fase 7 Selesai — Tag `v0.7.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
