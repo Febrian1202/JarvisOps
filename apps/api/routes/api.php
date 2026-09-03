@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
     Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::apiResource('users', UserController::class);
 
+    Route::get('/assets/categories', [AssetController::class, 'categories'])->name('assets.categories');
     Route::get('/assets/assignable', [AssetController::class, 'assignable'])->name('asset.assignable');
     Route::get('/my-assets', [AssetController::class, 'myAssets'])->name('assets.my-assets');
     Route::post('/assets/{asset}/assign', [AssetController::class, 'assign'])->name('assets.assign');
