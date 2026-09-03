@@ -126,7 +126,7 @@ export function NotificationBell() {
                 asChild
                 className={cn(
                   'flex items-start gap-3 p-3 cursor-pointer transition-colors focus:bg-muted/40',
-                  !item.is_read && 'bg-primary/[0.03]'
+                  !item.is_read && 'bg-primary/3'
                 )}
                 onClick={() => {
                   if (!item.is_read) {

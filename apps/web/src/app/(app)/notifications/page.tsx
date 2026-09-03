@@ -161,7 +161,7 @@ function NotificationsContent() {
               key={item.id}
               className={cn(
                 'border border-border bg-card transition-colors hover:border-border/80',
-                !item.is_read && 'bg-primary/[0.02] border-primary/20'
+                !item.is_read && 'bg-primary/2 border-primary/20'
               )}
             >
               <CardContent className="flex items-start justify-between gap-4 p-4">
