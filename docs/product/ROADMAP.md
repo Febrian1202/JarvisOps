@@ -668,12 +668,12 @@ Membangun kerangka aplikasi dan komponen bersama yang dipakai seluruh fitur. Pek
 
 ### API layer
 
-- [ ] Lengkapi BFF proxy dari Fase 2: dukung seluruh method, teruskan query string, `multipart/form-data` untuk upload, streaming untuk download
-- [ ] Proxy menangani 401 dengan menghapus cookie dan mengarahkan ke login
-- [ ] Client `apiFetch` typed dengan unwrapping envelope sesuai API contract
-- [ ] Tipe TypeScript untuk seluruh entity dan bentuk respons — turunkan dari API contract, jangan dari tebakan
-- [ ] Mapper error validasi Laravel (422) → `setError` react-hook-form per field
-- [ ] Query key factory yang konsisten agar invalidasi cache tidak saling tabrakan
+- [x] Lengkapi BFF proxy dari Fase 2: dukung seluruh method, teruskan query string, `multipart/form-data` untuk upload, streaming untuk download
+- [x] Proxy menangani 401 dengan menghapus cookie dan mengarahkan ke login
+- [x] Client `apiFetch` typed dengan unwrapping envelope sesuai API contract
+- [x] Tipe TypeScript untuk seluruh entity dan bentuk respons — turunkan dari API contract, jangan dari tebakan
+- [x] Mapper error validasi Laravel (422) → `setError` react-hook-form per field
+- [x] Query key factory yang konsisten agar invalidasi cache tidak saling tabrakan
 
 ### App shell
 

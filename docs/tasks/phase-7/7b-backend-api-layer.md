@@ -23,7 +23,7 @@
 1. **Ability Resolution:** `ProfileService::show()` saat ini hanya mengembalikan 29 *role abilities*. Tambahkan kemampuan kelas (`policy abilities`) yang dapat dievaluasi tanpa instans spesifik untuk role pengguna saat itu (`ticket.viewAny`, `ticket.create`, `asset.viewAny`, `asset.create`, `article.viewAny`, `article.create`, `notification.viewAny`, dll.) sehingga total ability yang dikembalikan mencakup 66 ability.
 2. **Must Change Password:** Sertakan `'must_change_password' => (bool) $this->must_change_password` pada `UserResource` agar frontend dapat melakukan *forced redirect* ke halaman ganti password jika admin melakukan reset password (D-11).
 
-- [ ] **Step 1: Tulis feature test di `apps/api/tests/Feature/Auth/ProfileTest.php` (TDD RED).**
+- [x] **Step 1: Tulis feature test di `apps/api/tests/Feature/Auth/ProfileTest.php` (TDD RED).**
   ```php
   test('profile payload returns all 66 role and policy abilities for admin', function () {
       $admin = User::factory()->admin()->create();
@@ -56,11 +56,11 @@
           ->assertJsonPath('data.must_change_password', true);
   });
   ```
-- [ ] **Step 2: Jalankan test untuk melihat kegagalan (RED).**
+- [x] **Step 2: Jalankan test untuk melihat kegagalan (RED).**
   ```bash
   cd apps/api && vendor/bin/pest tests/Feature/Auth/ProfileTest.php
   ```
-- [ ] **Step 3: Update `apps/api/app/Http/Resources/Auth/UserResource.php`.**
+- [x] **Step 3: Update `apps/api/app/Http/Resources/Auth/UserResource.php`.**
   ```php
   public function toArray(Request $request): array
   {
@@ -76,7 +76,7 @@
       ];
   }
   ```
-- [ ] **Step 4: Update `apps/api/app/Services/Auth/ProfileService.php`.**
+- [x] **Step 4: Update `apps/api/app/Services/Auth/ProfileService.php`.**
   Gabungkan *role abilities* dan *policy abilities* yang relevan untuk role pengguna berdasarkan `AbilityMatrix`:
   ```php
   public function show(User $user): array
@@ -103,11 +103,11 @@
       ];
   }
   ```
-- [ ] **Step 5: Jalankan test verifikasi (GREEN).**
+- [x] **Step 5: Jalankan test verifikasi (GREEN).**
   ```bash
   cd apps/api && vendor/bin/pest tests/Feature/Auth/ProfileTest.php && vendor/bin/pint --dirty --format agent
   ```
-- [ ] **Step 6: Commit.**
+- [x] **Step 6: Commit.**
   ```bash
   git add apps/api/app/Http/Resources/Auth/UserResource.php apps/api/app/Services/Auth/ProfileService.php apps/api/tests/Feature/Auth/ProfileTest.php
   git commit -m "feat(api): include policy abilities and must_change_password flag in profile endpoint"
@@ -129,7 +129,7 @@ Lengkapi BFF proxy (`/api/proxy/*`) agar:
 4. Mendukung **Streaming Unduhan File**: Teruskan `Content-Disposition`, `Content-Type` dari response Laravel ke browser, serta bersihkan header `content-encoding` jika body sudah di-decode oleh node-fetch.
 5. Menangani status 401: otomatis panggil `deleteToken()` untuk menghapus cookie sesi kadaluwarsa.
 
-- [ ] **Step 1: Tulis unit test untuk fungsi helper proxy.**
+- [x] **Step 1: Tulis unit test untuk fungsi helper proxy.**
   ```typescript
   import { describe, it, expect } from 'vitest';
 
@@ -142,7 +142,7 @@ Lengkapi BFF proxy (`/api/proxy/*`) agar:
     });
   });
   ```
-- [ ] **Step 2: Update `apps/web/src/app/api/proxy/[...path]/route.ts`.**
+- [x] **Step 2: Update `apps/web/src/app/api/proxy/[...path]/route.ts`.**
   ```typescript
   import { NextRequest, NextResponse } from 'next/server';
   import { getToken, deleteToken } from '@/lib/server/session';
@@ -216,11 +216,11 @@ Lengkapi BFF proxy (`/api/proxy/*`) agar:
   export const PATCH = handleProxy;
   export const DELETE = handleProxy;
   ```
-- [ ] **Step 3: Verifikasi test proxy dan compile.**
+- [x] **Step 3: Verifikasi test proxy dan compile.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 4: Commit.**
+- [x] **Step 4: Commit.**
   ```bash
   git add apps/web/src/app/api/proxy/[...path]/route.ts apps/web/src/test/proxy-handler.test.ts
   git commit -m "feat(bff): enhance catch-all proxy to support PATCH, multipart upload, and binary streaming"
@@ -249,7 +249,7 @@ Definisikan tipe data statis TypeScript untuk seluruh entitas API dan enums yang
 4. `SlaStatus`: `'on_track' | 'breached'`
 5. `labels.ts`: Fungsi penerjemah kamus bahasa Indonesia untuk seluruh status, prioritas, tipe notifikasi, aksi audit, dan role.
 
-- [ ] **Step 1: Tulis test untuk `src/lib/labels.ts` (TDD RED).**
+- [x] **Step 1: Tulis test untuk `src/lib/labels.ts` (TDD RED).**
   ```typescript
   import { describe, it, expect } from 'vitest';
   import {
@@ -282,17 +282,17 @@ Definisikan tipe data statis TypeScript untuk seluruh entitas API dan enums yang
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/labels.test.ts
   ```
-- [ ] **Step 3: Implementasikan tipe di `apps/web/src/types/` dan kamus `apps/web/src/lib/labels.ts`.**
+- [x] **Step 3: Implementasikan tipe di `apps/web/src/types/` dan kamus `apps/web/src/lib/labels.ts`.**
   Buat berkas types `auth.ts`, `tickets.ts`, `assets.ts`, `articles.ts`, `notifications.ts`, `audit.ts`, serta fungsi kamus lengkap di `labels.ts`.
-- [ ] **Step 4: Jalankan test (GREEN).**
+- [x] **Step 4: Jalankan test (GREEN).**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/types/ apps/web/src/lib/labels.ts apps/web/src/test/labels.test.ts
   git commit -m "feat(types): add complete TypeScript entity models and Indonesian label dictionary"
@@ -314,7 +314,7 @@ Definisikan tipe data statis TypeScript untuk seluruh entitas API dan enums yang
 2. `mapApiErrorsToForm(error, setError)`: Memetakan `errors: Record<string, string[]>` dari respons 422 Laravel langsung ke field form `react-hook-form` `setError(field, { message })`. Menerjemahkan fallback `validation.*` yang belum terlokalisasi di backend.
 3. `query-keys.ts`: Query key factory terpusat per domain (`ticketKeys`, `assetKeys`, `articleKeys`, `notificationKeys`, `dashboardKeys`, `authKeys`).
 
-- [ ] **Step 1: Tulis unit test untuk error mapper & query keys (TDD RED).**
+- [x] **Step 1: Tulis unit test untuk error mapper & query keys (TDD RED).**
   ```typescript
   import { describe, it, expect } from 'vitest';
   import { mapApiErrorMessages } from '@/lib/client/error-mapper';
@@ -338,16 +338,16 @@ Definisikan tipe data statis TypeScript untuk seluruh entitas API dan enums yang
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/error-mapper.test.ts
   ```
-- [ ] **Step 3: Implementasikan `error-mapper.ts`, `api.ts`, dan `query-keys.ts`.**
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 3: Implementasikan `error-mapper.ts`, `api.ts`, dan `query-keys.ts`.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/lib/client/ apps/web/src/lib/query-keys.ts apps/web/src/test/error-mapper.test.ts apps/web/src/test/query-keys.test.ts
   git commit -m "feat(api-client): implement apiFetch client wrapper, 422 form error mapper, and query key factories"
@@ -357,9 +357,9 @@ Definisikan tipe data statis TypeScript untuk seluruh entitas API dan enums yang
 
 ## Exit Criteria 7b
 
-- [ ] Backend `/api/me` mengembalikan 66 permissions (role + policy) dan field `must_change_password`.
-- [ ] BFF Proxy `/api/proxy/*` mendukung GET, POST, PUT, PATCH, DELETE, multipart binary stream, dan auto-clear cookie saat 401.
-- [ ] Tipe TypeScript seluruh entitas API (Ticket, Asset, Article, Notification, AuditLog, User) lengkap tanpa `any`.
-- [ ] `src/lib/labels.ts` menerjemahkan seluruh enum ke Bahasa Indonesia.
-- [ ] `mapApiErrorsToForm` berhasil memetakan error 422 backend ke field form RHF.
-- [ ] Seluruh unit test lulus 100% dan `npm run typecheck` bebas error.
+- [x] Backend `/api/me` mengembalikan 66 permissions (role + policy) dan field `must_change_password`.
+- [x] BFF Proxy `/api/proxy/*` mendukung GET, POST, PUT, PATCH, DELETE, multipart binary stream, dan auto-clear cookie saat 401.
+- [x] Tipe TypeScript seluruh entitas API (Ticket, Asset, Article, Notification, AuditLog, User) lengkap tanpa `any`.
+- [x] `src/lib/labels.ts` menerjemahkan seluruh enum ke Bahasa Indonesia.
+- [x] `mapApiErrorsToForm` berhasil memetakan error 422 backend ke field form RHF.
+- [x] Seluruh unit test lulus 100% dan `npm run typecheck` bebas error.

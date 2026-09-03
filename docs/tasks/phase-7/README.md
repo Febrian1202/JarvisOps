@@ -182,7 +182,7 @@ apps/web/src/
 ## 6. Exit Criteria & Checklist Fase 7
 
 - [x] **Dependencies & Theme (7a):** shadcn/ui terpasang, Plus Jakarta Sans aktif, `@theme` warm-neutral di `globals.css` tanpa dark-mode leak, Vitest siap.
-- [ ] **API Client & Types (7b):** Endpoint `/me` backend mengembalikan 66 ability + `must_change_password`, BFF proxy mendukung seluruh HTTP method (termasuk PATCH & multipart), `apiFetch` me-map error 422 ke format form, tipe TypeScript entitas lengkap.
+- [x] **API Client & Types (7b):** Endpoint `/me` backend mengembalikan 66 ability + `must_change_password`, BFF proxy mendukung seluruh HTTP method (termasuk PATCH & multipart), `apiFetch` me-map error 422 ke format form, tipe TypeScript entitas lengkap.
 - [ ] **App Shell & Auth (7c):** Route groups `(auth)` dan `(app)` aktif, Sidebar dinamis menyaring menu berdasarkan `can()`, Topbar menampilkan info pengguna, Halaman `/ganti-password` menangani reset password secara aman, seluruh 15 rute memiliki halaman placeholder.
 - [ ] **Shared Components (7d):** Pustaka komponen bersama (DataTable, FilterBar, StatusBadge, SlaIndicator, FileUpload, RelativeTime, ConfirmDialog) tuntas dan teruji di Vitest. Halaman `/tickets` membuktikan integrasi DataTable nyata (pagination, sorting, filter, SLA indicator).
 - [ ] **Notification & A11y (7e):** NotificationBell melakukan polling 30 detik pada kondisi window fokus, dropdown notifikasi dapat menandai baca, halaman `/notifications` paginated berfungsi penuh, kontras warna dan keyboard focus lolos WCAG 2.2 AA.
