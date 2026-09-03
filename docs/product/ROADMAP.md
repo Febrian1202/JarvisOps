@@ -677,13 +677,13 @@ Membangun kerangka aplikasi dan komponen bersama yang dipakai seluruh fitur. Pek
 
 ### App shell
 
-- [ ] Route group `(auth)` untuk login dan `(app)` untuk halaman terproteksi
-- [ ] Sidebar + topbar, navigasi difilter berdasarkan role dari `/me`
-- [ ] `AuthProvider` — data user dari `/me`, hook `useAuth`, helper `can()`
-- [ ] **Navigasi berbasis role hanya untuk kenyamanan.** Penjaga sebenarnya tetap Policy di Laravel. Menyembunyikan menu bukan mekanisme keamanan.
-- [ ] Responsive: sidebar jadi drawer di mobile (NFR-003)
-- [ ] Error boundary + halaman 403/404
-- [ ] Toast global untuk sukses/gagal
+- [x] Route group `(auth)` untuk login dan `(app)` untuk halaman terproteksi
+- [x] Sidebar + topbar, navigasi difilter berdasarkan role dari `/me`
+- [x] `AuthProvider` — data user dari `/me`, hook `useAuth`, helper `can()`
+- [x] **Navigasi berbasis role hanya untuk kenyamanan.** Penjaga sebenarnya tetap Policy di Laravel. Menyembunyikan menu bukan mekanisme keamanan.
+- [x] Responsive: sidebar jadi drawer di mobile (NFR-003)
+- [x] Error boundary + halaman 403/404
+- [x] Toast global untuk sukses/gagal
 
 ### Komponen bersama
 

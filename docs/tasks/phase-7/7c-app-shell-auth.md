@@ -27,7 +27,7 @@
 2. Root dashboard diarahkan ke `/` (`apps/web/src/app/(app)/page.tsx`) sebagai titik temu yang nantinya bercabang per role di Fase 9.
 3. Pasang `QueryProvider` dan `AuthProvider` di `(app)/layout.tsx` agar state server dan sesi pengguna tersedia di seluruh komponen anak.
 
-- [ ] **Step 1: Buat `QueryProvider` di `apps/web/src/components/providers/query-provider.tsx`.**
+- [x] **Step 1: Buat `QueryProvider` di `apps/web/src/components/providers/query-provider.tsx`.**
   ```tsx
   'use client';
 
@@ -51,7 +51,7 @@
     return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
   }
   ```
-- [ ] **Step 2: Buat `AuthProvider` & `useAuth` hook di `apps/web/src/components/providers/auth-provider.tsx`.**
+- [x] **Step 2: Buat `AuthProvider` & `useAuth` hook di `apps/web/src/components/providers/auth-provider.tsx`.**
   ```tsx
   'use client';
 
@@ -121,7 +121,7 @@
     return context;
   }
   ```
-- [ ] **Step 3: Konfigurasi `apps/web/src/app/(auth)/layout.tsx` dan `apps/web/src/app/(app)/layout.tsx`.**
+- [x] **Step 3: Konfigurasi `apps/web/src/app/(auth)/layout.tsx` dan `apps/web/src/app/(app)/layout.tsx`.**
   `(auth)/layout.tsx`:
   ```tsx
   import React from 'react';
@@ -140,7 +140,7 @@
     );
   }
   ```
-- [ ] **Step 4: Update `apps/web/src/proxy.ts` (Next.js middleware guard).**
+- [x] **Step 4: Update `apps/web/src/proxy.ts` (Next.js middleware guard).**
   ```typescript
   import { NextRequest, NextResponse } from 'next/server';
 
@@ -171,11 +171,11 @@
     matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
   };
   ```
-- [ ] **Step 5: Verifikasi typecheck.**
+- [x] **Step 5: Verifikasi typecheck.**
   ```bash
   cd apps/web && npm run typecheck
   ```
-- [ ] **Step 6: Commit.**
+- [x] **Step 6: Commit.**
   ```bash
   git add apps/web/src/app/\(auth\)/ apps/web/src/app/\(app\)/ apps/web/src/components/providers/ apps/web/src/proxy.ts
   git commit -m "feat(shell): structure route groups and configure AuthProvider & QueryProvider"
@@ -196,7 +196,7 @@
 2. `AppSidebar`: Sidebar desktop (lebar 260px, fixed/sticky, background `#fbfaf7`, border-r `#eceae4`, font semibold, item menu aktif bernuansa warm cream `#eceae4` dengan font text `#1c1c1c`). Menyaring menu secara otomatis via `can()`.
 3. `MobileNav`: Drawer mobile (sheet Radix UI) yang memuat menu yang sama saat ukuran layar < 768px (NFR-003).
 
-- [ ] **Step 1: Tulis unit test filtering navigasi `apps/web/src/test/navigation.test.ts` (TDD RED).**
+- [x] **Step 1: Tulis unit test filtering navigasi `apps/web/src/test/navigation.test.ts` (TDD RED).**
   ```typescript
   import { describe, it, expect } from 'vitest';
   import { filterNavItems } from '@/lib/navigation';
@@ -222,16 +222,16 @@
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/navigation.test.ts
   ```
-- [ ] **Step 3: Implementasikan `navigation.ts`, `app-sidebar.tsx`, dan `mobile-nav.tsx`.**
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 3: Implementasikan `navigation.ts`, `app-sidebar.tsx`, dan `mobile-nav.tsx`.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/lib/navigation.ts apps/web/src/components/shell/app-sidebar.tsx apps/web/src/components/shell/mobile-nav.tsx apps/web/src/test/navigation.test.ts
   git commit -m "feat(nav): implement role-based sidebar and mobile navigation drawer"
@@ -251,8 +251,8 @@
 2. `NavUser`: Dropdown avatar pengguna di kanan atas menampilkan nama lengkap, email, badge role, tombol Profil (`/profile`), dan tombol Logout.
 3. `NotificationBell`: Ikon lonceng dengan badge angka unread (dihubungkan dengan query ringan di 7e).
 
-- [ ] **Step 1: Implementasikan `nav-user.tsx`, `notification-bell.tsx`, dan `app-topbar.tsx`.**
-- [ ] **Step 2: Pasang AppTopbar & AppSidebar di `apps/web/src/app/(app)/layout.tsx`.**
+- [x] **Step 1: Implementasikan `nav-user.tsx`, `notification-bell.tsx`, dan `app-topbar.tsx`.**
+- [x] **Step 2: Pasang AppTopbar & AppSidebar di `apps/web/src/app/(app)/layout.tsx`.**
   ```tsx
   import React from 'react';
   import { AppSidebar } from '@/components/shell/app-sidebar';
@@ -280,11 +280,11 @@
     );
   }
   ```
-- [ ] **Step 3: Verifikasi compile dan lint.**
+- [x] **Step 3: Verifikasi compile dan lint.**
   ```bash
   cd apps/web && npm run typecheck && npm run lint
   ```
-- [ ] **Step 4: Commit.**
+- [x] **Step 4: Commit.**
   ```bash
   git add apps/web/src/components/shell/ apps/web/src/app/\(app\)/layout.tsx
   git commit -m "feat(shell): assemble complete AppTopbar, NavUser dropdown, and AppLayout"
@@ -303,7 +303,7 @@
 1. `(auth)/login/page.tsx`: Migrasikan form login sederhana Fase 2 menjadi form standar produksi menggunakan `react-hook-form`, schema validasi `zod` berbahasa Indonesia, tombol loading state, dan pemetaan error kredensial.
 2. `(auth)/ganti-password/page.tsx`: Halaman ganti password wajib bagi user dengan `must_change_password: true`. Input `current_password`, `password`, `password_confirmation`, submit ke `PUT /api/proxy/me/password`. Setelah sukses, refresh profile dan redirect ke `/`.
 
-- [ ] **Step 1: Tulis unit test render Form Login `apps/web/src/test/login-form.test.tsx` (TDD RED).**
+- [x] **Step 1: Tulis unit test render Form Login `apps/web/src/test/login-form.test.tsx` (TDD RED).**
   ```tsx
   import React from 'react';
   import { render, screen } from '@testing-library/react';
@@ -319,16 +319,16 @@
     });
   });
   ```
-- [ ] **Step 2: Jalankan test (RED).**
+- [x] **Step 2: Jalankan test (RED).**
   ```bash
   cd apps/web && npm run test -- src/test/login-form.test.tsx
   ```
-- [ ] **Step 3: Implementasikan `(auth)/login/page.tsx` dan `(auth)/ganti-password/page.tsx`.**
-- [ ] **Step 4: Jalankan test (GREEN) & typecheck.**
+- [x] **Step 3: Implementasikan `(auth)/login/page.tsx` dan `(auth)/ganti-password/page.tsx`.**
+- [x] **Step 4: Jalankan test (GREEN) & typecheck.**
   ```bash
   cd apps/web && npm run test && npm run typecheck
   ```
-- [ ] **Step 5: Commit.**
+- [x] **Step 5: Commit.**
   ```bash
   git add apps/web/src/app/\(auth\)/login/page.tsx apps/web/src/app/\(auth\)/ganti-password/page.tsx apps/web/src/test/login-form.test.tsx
   git commit -m "feat(auth): implement production Login form and Forced Password Change flow"
@@ -359,12 +359,12 @@
 **Detail:**
 Buat komponen placeholder seragam (`<PagePlaceholder title="..." description="..." />`) untuk seluruh 15 rute yang tercantum di `PRODUCT.md` §Halaman Aplikasi. Ini membuktikan integritas seluruh navigasi, layout wrapper, dan middleware tanpa satupun link yang menghasilkan halaman 404 rusak.
 
-- [ ] **Step 1: Implementasikan `error.tsx`, `not-found.tsx`, `403/page.tsx`, dan seluruh rute placeholder.**
-- [ ] **Step 2: Verifikasi build Next.js.**
+- [x] **Step 1: Implementasikan `error.tsx`, `not-found.tsx`, `403/page.tsx`, dan seluruh rute placeholder.**
+- [x] **Step 2: Verifikasi build Next.js.**
   ```bash
   cd apps/web && npm run build
   ```
-- [ ] **Step 3: Commit.**
+- [x] **Step 3: Commit.**
   ```bash
   git add apps/web/src/app/\(app\)/ apps/web/src/app/error.tsx apps/web/src/app/not-found.tsx
   git commit -m "feat(routes): scaffold placeholder pages for all 15 app routes and error boundaries"
@@ -374,9 +374,9 @@ Buat komponen placeholder seragam (`<PagePlaceholder title="..." description="..
 
 ## Exit Criteria 7c
 
-- [ ] Route groups `(auth)` dan `(app)` terpisah bersih dengan layout masing-masing.
-- [ ] Sidebar otomatis menyaring link berdasarkan permissions role pengguna saat login.
-- [ ] Mobile drawer terbuka mulus saat ukuran layar diperkecil ke 375px (NFR-003).
-- [ ] Form login baru (RHF + Zod + shadcn) bekerja mulus memanggil `/api/auth/login`.
-- [ ] User dengan `must_change_password: true` ter-redirect paksa ke `/ganti-password` dan dapat memperbarui password.
-- [ ] Seluruh 15 rute aplikasi memiliki berkas `page.tsx` valid, `npm run build` sukses tanpa error 404.
+- [x] Route groups `(auth)` dan `(app)` terpisah bersih dengan layout masing-masing.
+- [x] Sidebar otomatis menyaring link berdasarkan permissions role pengguna saat login.
+- [x] Mobile drawer terbuka mulus saat ukuran layar diperkecil ke 375px (NFR-003).
+- [x] Form login baru (RHF + Zod + shadcn) bekerja mulus memanggil `/api/auth/login`.
+- [x] User dengan `must_change_password: true` ter-redirect paksa ke `/ganti-password` dan dapat memperbarui password.
+- [x] Seluruh 15 rute aplikasi memiliki berkas `page.tsx` valid, `npm run build` sukses tanpa error 404.

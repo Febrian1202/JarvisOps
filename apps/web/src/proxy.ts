@@ -1,19 +1,21 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+const PUBLIC_PATHS = ['/login', '/favicon.ico'];
+
 export function proxy(request: NextRequest) {
   const hasToken = request.cookies.has('auth_token');
   const { pathname } = request.nextUrl;
 
-  if (pathname === '/login') {
-    if (hasToken) {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
+  const isPublic = PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(path));
 
-    return NextResponse.next();
+  // If already authenticated and trying to access /login, redirect to /
+  if (hasToken && pathname === '/login') {
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
-  if (!hasToken) {
+  // If unauthenticated and trying to access protected routes (excluding API and public paths)
+  if (!hasToken && !isPublic && !pathname.startsWith('/api/')) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
@@ -21,5 +23,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'],
 };
