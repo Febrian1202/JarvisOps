@@ -20,11 +20,10 @@ vi.mock('@/components/providers/auth-provider', () => ({
 }));
 
 vi.mock('@/hooks/use-articles', () => ({
-  useArticles: (_: unknown, _enabled: boolean = true) => ({
-    data: { data: [], meta: undefined },
+  useArticles: () => ({
+    data: { data: [], meta: { current_page: 1, last_page: 1, per_page: 10, total: 0, from: 0, to: 0 } },
     isLoading: false,
   }),
-  useArticleCategories: () => ({ data: { data: [] } }),
 }));
 
 vi.mock('@/components/knowledge/ArticleFilters', () => ({

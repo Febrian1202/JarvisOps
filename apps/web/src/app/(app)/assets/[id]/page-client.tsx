@@ -158,7 +158,7 @@ export function AssetDetailPageClient({ assetId }: { assetId: number }) {
               : 'Terjadi kendala saat memuat rincian aset.'
           }
           actionText="Kembali ke Inventaris"
-          onAction={() => window.location.assign('/assets')}
+          onAction={() => router.push('/assets')}
         />
       </div>
     );

@@ -146,6 +146,7 @@ function TicketLoaded({ ticket }: { ticket: TicketDetail }) {
 }
 
 export function TicketDetailPageClient({ ticketId }: { ticketId: number }) {
+  const router = useRouter();
   const { data: detailResponse, isLoading, error } = useQuery({
     queryKey: ticketKeys.detail(ticketId),
     queryFn: () => apiFetch<TicketDetail>(`/tickets/${ticketId}`),
@@ -185,7 +186,7 @@ export function TicketDetailPageClient({ ticketId }: { ticketId: number }) {
                 : 'Terjadi kendala saat memuat data tiket. Silakan coba kembali.'
           }
           actionText="Kembali ke Daftar Tiket"
-          onAction={() => window.location.assign('/tickets')}
+          onAction={() => router.push('/tickets')}
         />
       </div>
     );
