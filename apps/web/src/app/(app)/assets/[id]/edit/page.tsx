@@ -1,13 +1,15 @@
 import React, { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AssetsPageClient } from './page-client';
+import { EditAssetPageClient } from './page-client';
 
 export const metadata = {
-  title: 'Inventaris Aset | JARVIS OPS',
-  description: 'Manajemen inventaris perangkat dan aset perusahaan.',
+  title: 'Ubah Aset | JARVIS OPS',
+  description: 'Perbarui informasi data aset pada inventaris IT perusahaan.',
 };
 
-export default function AssetsPage() {
+export default async function EditAssetPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+
   return (
     <Suspense
       fallback={
@@ -18,7 +20,7 @@ export default function AssetsPage() {
         </div>
       }
     >
-      <AssetsPageClient />
+      <EditAssetPageClient assetId={Number(id)} />
     </Suspense>
   );
 }

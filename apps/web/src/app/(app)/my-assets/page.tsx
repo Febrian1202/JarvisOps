@@ -1,15 +1,23 @@
-'use client';
+import React, { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { MyAssetsPageClient } from './page-client';
 
-import React from 'react';
-import { Laptop } from 'lucide-react';
-import { PagePlaceholder } from '@/components/shared/page-placeholder';
+export const metadata = {
+  title: 'Aset Saya | JARVIS OPS',
+  description: 'Daftar perangkat dan aset IT yang ditugaskan kepada Anda.',
+};
 
 export default function MyAssetsPage() {
   return (
-    <PagePlaceholder
-      title="Aset Saya"
-      description="Daftar perangkat keras dan perlengkapan IT yang sedang ditugaskan kepada Anda."
-      icon={Laptop}
-    />
+    <Suspense
+      fallback={
+        <div className="space-y-4 p-4">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-64 w-full" />
+        </div>
+      }
+    >
+      <MyAssetsPageClient />
+    </Suspense>
   );
 }

@@ -61,3 +61,9 @@ export interface TechnicianOption {
   id: number;
   full_name: string;
 }
+
+export interface AssignableUser {
+  id: number;
+  full_name: string;
+  department: DepartmentReference | null;
+}
