@@ -401,9 +401,9 @@ Implementasikan 16 komponen baseline shadcn/ui dengan penyesuaian wajib aturan `
 
 ## Exit Criteria 7a
 
-- [ ] Seluruh dependensi (shadcn, Radix, TanStack Query, RHF, Zod, Date-fns, Recharts, Vitest) terpasang di `apps/web/package.json`.
-- [ ] `vitest` berjalan lancar via `npm run test` dengan 100% test lulus.
-- [ ] Plus Jakarta Sans aktif sebagai font default pada `<html>` dan `<body>`.
-- [ ] `globals.css` memiliki seluruh token warna warm-neutral, variable `--radius: 0.375rem`, dan tidak ada blok `.dark`.
-- [ ] 16 komponen `src/components/ui/` siap pakai tanpa error TypeScript.
-- [ ] `npm run typecheck` (`tsc --noEmit`) dan `npm run lint` bersih.
+- [x] Seluruh dependensi (shadcn, Radix, TanStack Query, RHF, Zod, Date-fns, Recharts, Vitest) terpasang di `apps/web/package.json`.
+- [x] `vitest` berjalan lancar via `npm run test` dengan 100% test lulus.
+- [x] Plus Jakarta Sans aktif sebagai font default pada `<html>` dan `<body>`.
+- [x] `globals.css` memiliki seluruh token warna warm-neutral, variable `--radius: 0.375rem`, dan tidak ada blok `.dark`.
+- [x] 16 komponen `src/components/ui/` siap pakai tanpa error TypeScript.
+- [x] `npm run typecheck` (`tsc --noEmit`) dan `npm run lint` bersih.

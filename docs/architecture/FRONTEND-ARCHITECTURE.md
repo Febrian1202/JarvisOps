@@ -215,7 +215,7 @@ Route Handler → stream response ke browser
 | `src/app/api/auth/login/route.ts` | `POST` — login, simpan cookie, return user tanpa token |
 | `src/app/api/auth/logout/route.ts` | `POST` — revoke token, hapus cookie |
 | `src/app/api/proxy/[...path]/route.ts` | Catch-all — teruskan GET/POST/PUT/DELETE ke Laravel, tangani 401 (hapus cookie) |
-| `src/middleware.ts` | Cek cookie, redirect `/login` jika tidak ada, redirect `/` jika sudah login |
+| `src/proxy.ts` | Next.js 16 Proxy convention: Cek cookie, redirect `/login` jika tidak ada, redirect `/` jika sudah login |
 
 ### 4.4 Konfigurasi cookie
 
@@ -295,7 +295,7 @@ src/
 │       └── apiFetch.ts
 ├── types/                        ← TypeScript types
 │   └── api.ts
-└── middleware.ts                 ← Next.js middleware
+└── proxy.ts                      ← Next.js 16 proxy convention (substitusi middleware.ts)
 ```
 
 ### Aturan penamaan
