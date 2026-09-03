@@ -62,7 +62,7 @@ export function ArticleTable({
 
   return (
     <DataTable
-      columns={columns as ColumnDef<KnowledgeArticleListItem>[]}
+      columns={columns}
       data={articles}
       meta={meta}
       isLoading={isLoading}

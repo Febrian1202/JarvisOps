@@ -1,9 +1,10 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { KnowledgePageClient } from '@/app/(app)/knowledge/page-client';
 
 const mockReplace = vi.fn();
+let mockCan: (a: string) => boolean = vi.fn((a: string) => a === 'article.viewAny');
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ replace: mockReplace, push: vi.fn() }),
@@ -13,13 +14,16 @@ vi.mock('next/navigation', () => ({
 
 vi.mock('@/components/providers/auth-provider', () => ({
   useAuth: () => ({
-    can: (a: string) => a === 'article.viewAny',
+    can: (a: string) => mockCan(a),
     hasRole: (r: string) => r === 'employee',
   }),
 }));
 
 vi.mock('@/hooks/use-articles', () => ({
-  useArticles: () => ({ data: { data: [], meta: undefined }, isLoading: false }),
+  useArticles: (_: unknown, _enabled: boolean = true) => ({
+    data: { data: [], meta: undefined },
+    isLoading: false,
+  }),
   useArticleCategories: () => ({ data: { data: [] } }),
 }));
 
@@ -29,7 +33,19 @@ vi.mock('@/components/knowledge/ArticleFilters', () => ({
 
 vi.mock('@/components/ui/skeleton', () => ({ Skeleton: () => null }));
 
-describe('KnowledgePageClient employee', () => {
+describe('KnowledgePageClient guard', () => {
+  afterEach(() => {
+    mockCan = vi.fn((a: string) => a === 'article.viewAny');
+  });
+
+  it('redirects to /403 when user lacks article.viewAny', async () => {
+    mockCan = vi.fn(() => false);
+    render(<KnowledgePageClient />);
+    await waitFor(() => {
+      expect(mockReplace).toHaveBeenCalledWith('/403');
+    });
+  });
+
   it('shows employee empty state linking to ticket creation', async () => {
     render(<KnowledgePageClient />);
     await waitFor(() => {

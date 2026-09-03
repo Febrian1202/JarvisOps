@@ -39,11 +39,14 @@ export function KnowledgePageClient() {
     sort_dir: sortDir,
   };
 
-  const { data: response, isLoading } = useArticles(queryParams);
+  const hasActiveFilters = Boolean(search || categoryId || status);
+
+  const canView = can('article.viewAny');
+
+  const { data: response, isLoading } = useArticles(queryParams, canView);
   const articles = response?.data ?? [];
   const meta = response?.meta;
 
-  const canView = can('article.viewAny');
   useEffect(() => {
     if (!canView) router.replace('/403');
   }, [canView, router]);
@@ -102,7 +105,7 @@ export function KnowledgePageClient() {
         showStatus={showStatus}
       />
 
-      {isEmployee && articles.length === 0 && (
+      {isEmployee && articles.length === 0 && !hasActiveFilters && (
         <div className="rounded-xl border border-dashed border-border bg-card p-8 text-center">
           <p className="text-sm text-muted-foreground">
             Belum ada artikel. Silakan buat tiket untuk melaporkan masalah Anda.

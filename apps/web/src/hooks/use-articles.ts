@@ -16,7 +16,7 @@ export interface ArticleQueryParams {
   [key: string]: unknown;
 }
 
-export function useArticles(params: ArticleQueryParams = {}) {
+export function useArticles(params: ArticleQueryParams = {}, enabled: boolean = true) {
   return useQuery({
     queryKey: articleKeys.list(params),
     queryFn: async () => {
@@ -30,6 +30,7 @@ export function useArticles(params: ArticleQueryParams = {}) {
       const endpoint = queryString ? `/articles?${queryString}` : '/articles';
       return apiFetch<KnowledgeArticleListItem[]>(endpoint);
     },
+    enabled,
   });
 }
 
