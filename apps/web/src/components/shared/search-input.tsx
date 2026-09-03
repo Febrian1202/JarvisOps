@@ -22,11 +22,13 @@ export function SearchInput({
   className,
 }: SearchInputProps) {
   const [searchTerm, setSearchTerm] = useState(initialValue);
+  const [prevInitial, setPrevInitial] = useState(initialValue);
   const debouncedSearch = useDebounce(searchTerm, delay);
 
-  useEffect(() => {
+  if (initialValue !== prevInitial) {
+    setPrevInitial(initialValue);
     setSearchTerm(initialValue);
-  }, [initialValue]);
+  }
 
   useEffect(() => {
     if (debouncedSearch !== initialValue) {
