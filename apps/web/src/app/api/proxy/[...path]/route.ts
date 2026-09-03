@@ -1,75 +1,74 @@
-import { type NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { getToken, deleteToken } from '@/lib/server/session';
 
-import { laravelFetch } from '@/lib/server/api';
-import { deleteToken } from '@/lib/server/session';
+const API_BASE_URL = process.env.API_BASE_URL ?? 'http://api:8000/api';
 
-function forwardResponse(response: Response) {
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: response.headers,
-  });
-}
-
-function buildEndpoint(request: NextRequest, path: string[]) {
-  const searchParams = request.nextUrl.searchParams;
-  const query = searchParams.toString();
-  return '/' + path.join('/') + (query ? '?' + query : '');
-}
-
-async function handleRequest(
+async function handleProxy(
   request: NextRequest,
-  path: string[],
-  method: string,
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
-  const endpoint = buildEndpoint(request, path);
-  const options: RequestInit = { method };
+  const { path } = await params;
+  const token = await getToken();
+  const search = request.nextUrl.search;
+  const targetUrl = `${API_BASE_URL}/${path.join('/')}${search}`;
 
-  if (method === 'POST' || method === 'PUT') {
-    options.body = await request.text();
-    const contentType = request.headers.get('content-type');
-    if (contentType) {
-      options.headers = { 'Content-Type': contentType };
+  const headers = new Headers();
+  headers.set('Accept', 'application/json');
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+
+  const contentType = request.headers.get('content-type');
+  let body: BodyInit | undefined = undefined;
+
+  if (['POST', 'PUT', 'PATCH'].includes(request.method)) {
+    if (contentType?.includes('multipart/form-data')) {
+      body = await request.blob();
+      headers.set('Content-Type', contentType);
+    } else if (contentType?.includes('application/json')) {
+      body = await request.text();
+      headers.set('Content-Type', 'application/json');
+    } else {
+      body = await request.blob();
+      if (contentType) {
+        headers.set('Content-Type', contentType);
+      }
     }
   }
 
-  const response = await laravelFetch(endpoint, options);
+  try {
+    const response = await fetch(targetUrl, {
+      method: request.method,
+      headers,
+      body,
+      cache: 'no-store',
+    });
 
-  if (response.status === 401) {
-    await deleteToken();
+    if (response.status === 401) {
+      await deleteToken();
+    }
+
+    const responseHeaders = new Headers();
+    response.headers.forEach((val, key) => {
+      if (!['content-encoding', 'content-length'].includes(key.toLowerCase())) {
+        responseHeaders.set(key, val);
+      }
+    });
+
+    return new NextResponse(response.body, {
+      status: response.status,
+      headers: responseHeaders,
+    });
+  } catch {
+    return NextResponse.json(
+      { success: false, message: 'Backend service unreachable.', errors: null },
+      { status: 503 }
+    );
   }
-
-  return forwardResponse(response);
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> },
-) {
-  const { path } = await params;
-  return handleRequest(request, path, 'GET');
-}
-
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> },
-) {
-  const { path } = await params;
-  return handleRequest(request, path, 'POST');
-}
-
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> },
-) {
-  const { path } = await params;
-  return handleRequest(request, path, 'PUT');
-}
-
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> },
-) {
-  const { path } = await params;
-  return handleRequest(request, path, 'DELETE');
-}
+export const GET = handleProxy;
+export const POST = handleProxy;
+export const PUT = handleProxy;
+export const PATCH = handleProxy;
+export const DELETE = handleProxy;
