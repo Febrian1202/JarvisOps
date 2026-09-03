@@ -2,7 +2,9 @@
 
 import React, { useTransition } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Calendar as CalendarIcon, X } from 'lucide-react';
+import { format, parseISO } from 'date-fns';
+import { id } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -11,7 +13,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 import { SearchInput } from '@/components/shared/search-input';
 import { useReferenceData } from '@/hooks/use-reference-data';
 import { useAuth } from '@/components/providers/auth-provider';
@@ -72,26 +79,57 @@ export function TicketFilters() {
 
   const hasActiveFilters = Boolean(
     search ||
-      statusId ||
-      priorityId ||
-      categoryId ||
-      technicianId ||
-      departmentId ||
-      slaStatus ||
-      createdFrom ||
-      createdTo
+    statusId ||
+    priorityId ||
+    categoryId ||
+    technicianId ||
+    departmentId ||
+    slaStatus ||
+    createdFrom ||
+    createdTo
   );
 
+  // Priority, Category, SLA and Date are always shown; the assignment and
+  // department filters depend on the role. Keep the grid balanced so filters
+  // never collapse into a one-per-row column.
+  const visibleFilterCount =
+    4 + (isAdminOrManager || isTechnician ? 1 : 0) + (isEmployee ? 0 : 1);
+
+  // Literal class strings keep the Tailwind scanner able to see every variant.
+  const filterGridClass =
+    visibleFilterCount >= 6
+      ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6'
+      : visibleFilterCount === 5
+        ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
+        : 'grid-cols-2 md:grid-cols-4 lg:grid-cols-4';
+
   return (
-    <div className="space-y-4">
-      {/* Top row: Search and Status Chips */}
+    <div className="space-y-3">
+      {/* Top row: Search + Reset and Status Chips */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <SearchInput
-          value={search}
-          onChange={(val) => updateFilters({ search: val })}
-          placeholder="Cari nomor tiket atau judul…"
-          className="w-full sm:max-w-xs"
-        />
+        <div
+          data-testid="ticket-filters-search-row"
+          className="flex w-full items-center gap-1.5 sm:max-w-sm"
+        >
+          <SearchInput
+            value={search}
+            onChange={(val) => updateFilters({ search: val })}
+            placeholder="Cari nomor tiket atau judul…"
+            className="w-full max-w-none"
+          />
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={resetAll}
+              aria-label="Reset semua filter"
+              title="Reset semua filter"
+              className="size-9 shrink-0 rounded-lg text-muted-foreground hover:text-foreground"
+            >
+              <RotateCcw className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
 
         {/* Status Chips */}
         <div className="flex flex-wrap items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
@@ -117,14 +155,20 @@ export function TicketFilters() {
         </div>
       </div>
 
-      {/* Second row: Dropdowns */}
-      <div className="flex flex-wrap items-center gap-2">
+      {/* Second row: filter controls in a responsive grid so they never stack one-per-row */}
+      <div
+        data-testid="ticket-filters-grid"
+        className={cn('grid gap-2', filterGridClass)}
+      >
         {/* Priority Filter */}
         <Select
           value={priorityId || 'ALL'}
           onValueChange={(val) => updateFilters({ priority_id: val })}
         >
-          <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
+          <SelectTrigger
+            aria-label="Prioritas"
+            className="h-8 w-full rounded-lg text-xs bg-card border-border"
+          >
             <SelectValue placeholder="Prioritas" />
           </SelectTrigger>
           <SelectContent>
@@ -142,7 +186,10 @@ export function TicketFilters() {
           value={categoryId || 'ALL'}
           onValueChange={(val) => updateFilters({ category_id: val })}
         >
-          <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
+          <SelectTrigger
+            aria-label="Kategori"
+            className="h-8 w-full rounded-lg text-xs bg-card border-border"
+          >
             <SelectValue placeholder="Kategori" />
           </SelectTrigger>
           <SelectContent>
@@ -161,7 +208,10 @@ export function TicketFilters() {
             value={technicianId || 'ALL'}
             onValueChange={(val) => updateFilters({ technician_id: val })}
           >
-            <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
+            <SelectTrigger
+              aria-label="Teknisi"
+              className="h-8 w-full rounded-lg text-xs bg-card border-border"
+            >
               <SelectValue placeholder="Teknisi" />
             </SelectTrigger>
             <SelectContent>
@@ -182,7 +232,10 @@ export function TicketFilters() {
             value={technicianId || 'ALL'}
             onValueChange={(val) => updateFilters({ technician_id: val })}
           >
-            <SelectTrigger className="h-8 min-w-[140px] rounded-lg text-xs bg-card border-border">
+            <SelectTrigger
+              aria-label="Penugasan"
+              className="h-8 w-full rounded-lg text-xs bg-card border-border"
+            >
               <SelectValue placeholder="Penugasan" />
             </SelectTrigger>
             <SelectContent>
@@ -199,7 +252,10 @@ export function TicketFilters() {
             value={departmentId || 'ALL'}
             onValueChange={(val) => updateFilters({ department_id: val })}
           >
-            <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
+            <SelectTrigger
+              aria-label="Departemen"
+              className="h-8 w-full rounded-lg text-xs bg-card border-border"
+            >
               <SelectValue placeholder="Departemen" />
             </SelectTrigger>
             <SelectContent>
@@ -218,7 +274,10 @@ export function TicketFilters() {
           value={slaStatus || 'ALL'}
           onValueChange={(val) => updateFilters({ sla_status: val })}
         >
-          <SelectTrigger className="h-8 min-w-[120px] rounded-lg text-xs bg-card border-border">
+          <SelectTrigger
+            aria-label="Status SLA"
+            className="h-8 w-full rounded-lg text-xs bg-card border-border"
+          >
             <SelectValue placeholder="Status SLA" />
           </SelectTrigger>
           <SelectContent>
@@ -228,37 +287,61 @@ export function TicketFilters() {
           </SelectContent>
         </Select>
 
-        {/* Date From */}
-        <div className="flex items-center gap-1">
-          <Input
-            type="date"
-            value={createdFrom}
-            onChange={(e) => updateFilters({ created_from: e.target.value })}
-            className="h-8 w-32 rounded-lg text-xs bg-card border-border px-2"
-            aria-label="Dari tanggal"
-          />
-          <span className="text-xs text-muted-foreground">-</span>
-          <Input
-            type="date"
-            value={createdTo}
-            onChange={(e) => updateFilters({ created_to: e.target.value })}
-            className="h-8 w-32 rounded-lg text-xs bg-card border-border px-2"
-            aria-label="Sampai tanggal"
-          />
-        </div>
-
-        {/* Reset Filter Button */}
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={resetAll}
-            className="h-8 px-2 text-xs text-muted-foreground hover:text-foreground"
-          >
-            <RotateCcw className="mr-1 h-3 w-3" />
-            Reset
-          </Button>
-        )}
+        {/* Date Range Picker */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className={cn(
+                'h-8 w-full justify-start rounded-lg border-border bg-card px-2.5 text-xs font-normal transition-colors hover:text-foreground',
+                !createdFrom && !createdTo && 'text-muted-foreground',
+                (createdFrom || createdTo) && 'font-medium text-foreground border-primary/40'
+              )}
+            >
+              <CalendarIcon className="mr-1.5 h-3.5 w-3.5 shrink-0 opacity-70" />
+              <span className="truncate">
+                {createdFrom
+                  ? createdTo
+                    ? `${format(parseISO(createdFrom), 'd MMM yyyy', { locale: id })} - ${format(parseISO(createdTo), 'd MMM yyyy', { locale: id })}`
+                    : format(parseISO(createdFrom), 'd MMM yyyy', { locale: id })
+                  : 'Pilih Tanggal'}
+              </span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="range"
+              defaultMonth={createdFrom ? parseISO(createdFrom) : undefined}
+              selected={{
+                from: createdFrom ? parseISO(createdFrom) : undefined,
+                to: createdTo ? parseISO(createdTo) : undefined,
+              }}
+              onSelect={(range) => {
+                updateFilters({
+                  created_from: range?.from ? format(range.from, 'yyyy-MM-dd') : null,
+                  created_to: range?.to ? format(range.to, 'yyyy-MM-dd') : null,
+                });
+              }}
+              numberOfMonths={1}
+            />
+            {(createdFrom || createdTo) && (
+              <div className="flex items-center justify-end border-t border-border p-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    updateFilters({ created_from: null, created_to: null });
+                  }}
+                >
+                  <X className="mr-1 h-3 w-3" />
+                  Hapus Tanggal
+                </Button>
+              </div>
+            )}
+          </PopoverContent>
+        </Popover>
       </div>
     </div>
   );

@@ -21,7 +21,9 @@ import {
 import { FileUpload } from '@/components/shared/file-upload';
 import { useReferenceData } from '@/hooks/use-reference-data';
 import { useApiMutation } from '@/hooks/useApiMutation';
+import { useUploadWithProgress } from '@/hooks/useUploadWithProgress';
 import { apiFetch } from '@/lib/client/api';
+import { toast } from 'sonner';
 import { setFormErrors } from '@/lib/client/error-mapper';
 import { useDebounce } from '@/hooks/use-debounce';
 import { ticketSchema, type TicketFormData } from '@/schemas/ticket';
@@ -73,7 +75,14 @@ export function TicketForm() {
   // 3. Selected Priority Details for SLA Preview
   const selectedPriority = priorities.find((p) => p.id === Number(selectedPriorityId));
 
-  // 4. Create Mutation
+  // 4. File Upload with Progress
+  const {
+    upload: uploadAttachment,
+    progress: uploadProgress,
+    isUploading,
+  } = useUploadWithProgress();
+
+  // 5. Create Mutation
   const createMutation = useApiMutation({
     mutationFn: (data: TicketFormData) =>
       apiFetch<TicketDetail>('/tickets', {
@@ -87,16 +96,14 @@ export function TicketForm() {
     onSuccess: async (res) => {
       const newTicketId = res.data?.id;
       if (selectedFile && newTicketId) {
-        // Upload attachment in background
         const formData = new FormData();
         formData.append('file', selectedFile);
         try {
-          await fetch(`/api/proxy/tickets/${newTicketId}/attachments`, {
-            method: 'POST',
-            body: formData,
-          });
+          await uploadAttachment(formData, `/tickets/${newTicketId}/attachments`);
         } catch {
-          // background upload error handled silently or user can re-upload in detail page
+          toast.error(
+            'Tiket berhasil dibuat, tetapi berkas lampiran gagal diunggah. Anda dapat mengunggahnya kembali pada halaman detail.'
+          );
         }
       }
       router.push(`/tickets/${newTicketId}`);
@@ -115,7 +122,7 @@ export function TicketForm() {
           {/* Category & Priority Row */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="category_id">
+              <Label htmlFor="category_id" className="mb-2 block">
                 Kategori <span className="text-destructive">*</span>
               </Label>
               <Controller
@@ -145,7 +152,7 @@ export function TicketForm() {
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="priority_id">
+              <Label htmlFor="priority_id" className="mb-2 block">
                 Prioritas <span className="text-destructive">*</span>
               </Label>
               <Controller
@@ -177,7 +184,7 @@ export function TicketForm() {
 
           {/* Asset Picker (Optional) */}
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-2">
               <Label htmlFor="asset_id">Aset Terkait (Opsional)</Label>
               <span className="text-xs text-muted-foreground">Hanya aset yang Anda pegang</span>
             </div>
@@ -207,7 +214,7 @@ export function TicketForm() {
 
           {/* Title Field */}
           <div className="space-y-1.5">
-            <Label htmlFor="title">
+            <Label htmlFor="title" className="mb-2 block">
               Judul Permohonan <span className="text-destructive">*</span>
             </Label>
             <Input
@@ -223,7 +230,7 @@ export function TicketForm() {
 
           {/* Description Field */}
           <div className="space-y-1.5">
-            <Label htmlFor="description">
+            <Label htmlFor="description" className="mb-2 block">
               Deskripsi Detail Masalah <span className="text-destructive">*</span>
             </Label>
             <Textarea
@@ -240,25 +247,29 @@ export function TicketForm() {
 
           {/* File Upload Attachment */}
           <div className="space-y-1.5">
-            <Label>Lampiran Berkas / Dokumen Pendukung</Label>
+            <Label className="mb-2 block">Lampiran Berkas / Dokumen Pendukung</Label>
             <FileUpload
               file={selectedFile}
               onFileSelect={setSelectedFile}
-              disabled={isSubmitting || createMutation.isPending}
+              disabled={isSubmitting || createMutation.isPending || isUploading}
+              isUploading={isUploading}
+              uploadProgress={uploadProgress}
             />
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="flex items-center justify-end gap-3">
-          <Button type="button" variant="outline" asChild>
+          <Button type="button" variant="outline" asChild disabled={isSubmitting || createMutation.isPending || isUploading}>
             <Link href="/tickets">Batal</Link>
           </Button>
           <Button
             type="submit"
-            disabled={isSubmitting || createMutation.isPending}
+            disabled={isSubmitting || createMutation.isPending || isUploading}
           >
-            {isSubmitting || createMutation.isPending
+            {isUploading
+              ? `Mengunggah Lampiran… ${uploadProgress}%`
+              : isSubmitting || createMutation.isPending
               ? 'Membuat Tiket…'
               : 'Kirim Tiket (Status: OPEN)'}
           </Button>

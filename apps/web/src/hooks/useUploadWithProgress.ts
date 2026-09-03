@@ -4,7 +4,7 @@ import { useState, useCallback, useRef } from 'react';
 import type { ApiResponse } from '@/types/api';
 
 export interface UseUploadWithProgressOptions<T = unknown> {
-  url: string; // relative path, e.g. /api/proxy/tickets/5/attachments
+  url?: string; // relative path, e.g. /api/proxy/tickets/5/attachments
   method?: 'POST' | 'PUT';
   onProgress?: (percent: number) => void;
   onSuccess?: (data: ApiResponse<T>) => void;
@@ -12,12 +12,12 @@ export interface UseUploadWithProgressOptions<T = unknown> {
 }
 
 export function useUploadWithProgress<T = unknown>({
-  url,
+  url = '',
   method = 'POST',
   onProgress,
   onSuccess,
   onError,
-}: UseUploadWithProgressOptions<T>) {
+}: UseUploadWithProgressOptions<T> = {}) {
   const [progress, setProgress] = useState<number>(0);
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,8 +32,17 @@ export function useUploadWithProgress<T = unknown>({
   }, []);
 
   const upload = useCallback(
-    (formData: FormData): Promise<ApiResponse<T>> => {
+    (formData: FormData, urlOverride?: string): Promise<ApiResponse<T>> => {
       return new Promise((resolve, reject) => {
+        const targetRaw = urlOverride || url;
+        if (!targetRaw) {
+          const err = 'URL tujuan unggah tidak ditentukan.';
+          setError(err);
+          onError?.(err);
+          reject(new Error(err));
+          return;
+        }
+
         setIsUploading(true);
         setProgress(0);
         setError(null);
@@ -42,7 +51,7 @@ export function useUploadWithProgress<T = unknown>({
         xhrRef.current = xhr;
 
         // Ensure URL starts with /api/proxy
-        const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+        const cleanUrl = targetRaw.startsWith('/') ? targetRaw : `/${targetRaw}`;
         const targetUrl = cleanUrl.startsWith('/api/proxy')
           ? cleanUrl
           : `/api/proxy${cleanUrl}`;

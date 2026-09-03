@@ -56,8 +56,6 @@ export function TicketTable({
       header: (
         <DataTableColumnHeader
           title="Judul Permohonan"
-          sorted={sortBy === 'title' ? sortDir : false}
-          onSort={() => onSort('title')}
         />
       ),
       cell: ({ row }) => (

@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Paperclip, UploadCloud } from 'lucide-react';
+import { Paperclip } from 'lucide-react';
+import { FileUpload } from '@/components/shared/file-upload';
 import { useUploadWithProgress } from '@/hooks/useUploadWithProgress';
 import { useApiMutation } from '@/hooks/useApiMutation';
 import { apiFetch } from '@/lib/client/api';
@@ -10,18 +11,17 @@ import { ticketKeys } from '@/lib/query-keys';
 import { AttachmentCard } from './AttachmentCard';
 import { useAuth } from '@/components/providers/auth-provider';
 import type { TicketAttachment } from '@/types/tickets';
+import { toast } from 'sonner';
 
 interface AttachmentListProps {
   ticketId: number;
   canUpload: boolean;
 }
 
-const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
-
 export function AttachmentList({ ticketId, canUpload }: AttachmentListProps) {
   const { user, can } = useAuth();
   const queryClient = useQueryClient();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const attachmentsKey = ticketKeys.attachments(ticketId);
   const detailKey = ticketKeys.detail(ticketId);
 
@@ -34,8 +34,14 @@ export function AttachmentList({ ticketId, canUpload }: AttachmentListProps) {
   const { upload, isUploading, progress } = useUploadWithProgress<TicketAttachment>({
     url: `/tickets/${ticketId}/attachments`,
     onSuccess: () => {
+      setSelectedFile(null);
+      toast.success('Lampiran berhasil diunggah.');
       void queryClient.invalidateQueries({ queryKey: attachmentsKey });
       void queryClient.invalidateQueries({ queryKey: detailKey });
+    },
+    onError: (msg) => {
+      setSelectedFile(null);
+      toast.error(msg || 'Gagal mengunggah lampiran.');
     },
   });
 
@@ -46,19 +52,9 @@ export function AttachmentList({ ticketId, canUpload }: AttachmentListProps) {
     invalidateKeys: [attachmentsKey, detailKey],
   });
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    e.target.value = '';
+  const handleFileSelect = (file: File | null) => {
+    setSelectedFile(file);
     if (!file) return;
-
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-      alert('Format berkas harus JPG, PNG, atau PDF.');
-      return;
-    }
-    if (file.size > MAX_SIZE) {
-      alert('Ukuran berkas melebihi batas maksimal 5 MB.');
-      return;
-    }
 
     const formData = new FormData();
     formData.append('file', file);
@@ -97,16 +93,15 @@ export function AttachmentList({ ticketId, canUpload }: AttachmentListProps) {
       )}
 
       {canUpload && (
-        <label className="flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-border bg-muted/20 p-3 text-center transition-colors hover:bg-muted/40">
-          <input type="file" accept=".jpg,.jpeg,.png,.pdf" className="hidden" onChange={handleFileSelect} disabled={isUploading} />
-          <UploadCloud className="h-5 w-5 text-muted-foreground" />
-          <p className="text-xs font-medium text-foreground">
-            {isUploading ? `Mengunggah… ${progress}%` : 'Unggah lampiran'}
-          </p>
-          <p className="text-[11px] text-muted-foreground">
-            Maksimal 5 MB (JPG, PNG, PDF)
-          </p>
-        </label>
+        <div className="pt-1">
+          <FileUpload
+            file={selectedFile}
+            onFileSelect={handleFileSelect}
+            isUploading={isUploading}
+            uploadProgress={progress}
+            disabled={isUploading}
+          />
+        </div>
       )}
     </div>
   );

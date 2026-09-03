@@ -82,4 +82,25 @@ describe('TicketTable Component', () => {
     fireEvent.click(numberHeader);
     expect(onSort).toHaveBeenCalledWith('ticket_number');
   });
+
+  it('title column is not sortable', () => {
+    const onSort = vi.fn();
+    renderWithProviders(
+      <TicketTable
+        tickets={dummyTickets}
+        isLoading={false}
+        sortBy="created_at"
+        sortDir="desc"
+        onSort={onSort}
+      />
+    );
+
+    // Title header should not be a button
+    expect(screen.queryByRole('button', { name: /urutkan berdasarkan judul/i })).not.toBeInTheDocument();
+
+    // Clicking the text should not trigger sort
+    const titleHeader = screen.getByText('Judul Permohonan');
+    fireEvent.click(titleHeader);
+    expect(onSort).not.toHaveBeenCalled();
+  });
 });
