@@ -2,9 +2,10 @@
 
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import type { UseMutationResult } from '@tanstack/react-query';
 import { useApiMutation } from '@/hooks/useApiMutation';
-import { apiFetch } from '@/lib/client/api';
+import { apiFetch, ApiClientError } from '@/lib/client/api';
 import { ticketKeys } from '@/lib/query-keys';
 import type { TicketDetail, TicketAction } from '@/types/tickets';
 import type { ApiResponse } from '@/types/api';
@@ -25,10 +26,18 @@ export interface UseTicketActionsReturn {
 
 export function useTicketActions(ticket: TicketDetail): UseTicketActionsReturn {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [activeDialog, setActiveDialog] = useState<DialogType>(null);
   const [activeAction, setActiveAction] = useState<TicketAction | null>(null);
 
   const detailKey = ticketKeys.detail(ticket.id);
+
+  // 409 conflict: toast handled in useApiMutation; refetch the detail here (K4)
+  const handleConcurrencyError = useCallback((err: Error) => {
+    if (err instanceof ApiClientError && err.status === 409) {
+      void queryClient.invalidateQueries({ queryKey: detailKey });
+    }
+  }, [queryClient, detailKey]);
 
   const assignAction = useApiMutation({
     mutationFn: (data: { technician_id: number; note?: string }) =>
@@ -39,6 +48,7 @@ export function useTicketActions(ticket: TicketDetail): UseTicketActionsReturn {
     onSuccessMessage: 'Ticket berhasil ditugaskan.',
     invalidateKeys: [detailKey, ticketKeys.lists()],
     onSuccess: () => { setActiveDialog(null); },
+    onError: handleConcurrencyError,
   }) as UseTicketActionsReturn['assignAction'];
 
   const statusAction = useApiMutation({
@@ -50,6 +60,7 @@ export function useTicketActions(ticket: TicketDetail): UseTicketActionsReturn {
     onSuccessMessage: 'Status ticket berhasil diubah.',
     invalidateKeys: [detailKey, ticketKeys.lists()],
     onSuccess: () => { setActiveDialog(null); },
+    onError: handleConcurrencyError,
   }) as UseTicketActionsReturn['statusAction'];
 
   const priorityAction = useApiMutation({
