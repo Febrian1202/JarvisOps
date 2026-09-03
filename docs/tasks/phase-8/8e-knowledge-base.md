@@ -103,9 +103,9 @@ git commit -m "feat(web): add KB empty state for employees with link to create t
 
 ## Exit Criteria 8e
 
-- [ ] `/knowledge` — search, filter kategori, filter status (T/M/A), DataTable.
-- [ ] `/knowledge/[slug]` — markdown rendered, related articles, Server Component, view_count tidak menggelembung.
-- [ ] `/knowledge/new` + `/knowledge/[id]/edit` — editor, slug read-only, publish/unpublish toggle.
-- [ ] Employee tidak melihat tombol "Buat Artikel" / filter status.
-- [ ] Empty state Employee dengan link ke `/tickets/new`.
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
+- [x] `/knowledge` — search, filter kategori, filter status (T/M/A), DataTable.
+- [x] `/knowledge/[slug]` — markdown rendered, related articles, Server Component, view_count tidak menggelembung.
+- [x] `/knowledge/new` + `/knowledge/[id]/edit` — editor, slug read-only, publish/unpublish toggle.
+- [x] Employee tidak melihat tombol "Buat Artikel" / filter status.
+- [x] Empty state Employee dengan link ke `/tickets/new`.
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.

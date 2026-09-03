@@ -755,11 +755,11 @@ Menyambungkan seluruh API MVP ke antarmuka yang bisa dipakai.
 
 ### Knowledge base
 
-- [ ] `/knowledge` — daftar + search + filter kategori; Employee hanya melihat published
-- [ ] `/knowledge/[slug]` — tampilan artikel + related articles
-- [ ] `/knowledge/new`, `/knowledge/[id]/edit` — editor (textarea markdown cukup; WYSIWYG bukan prioritas MVP)
-- [ ] Toggle publish/unpublish dengan indikator status
-- [ ] Empty state yang mengarahkan Employee membaca KB sebelum membuat ticket — ini tujuan modul KB di §18 PRD
+- [x] `/knowledge` — daftar + search + filter kategori; Employee hanya melihat published
+- [x] `/knowledge/[slug]` — tampilan artikel + related articles
+- [x] `/knowledge/new`, `/knowledge/[id]/edit` — editor (textarea markdown cukup; WYSIWYG bukan prioritas MVP)
+- [x] Toggle publish/unpublish dengan indikator status
+- [x] Empty state yang mengarahkan Employee membaca KB sebelum membuat ticket — ini tujuan modul KB di §18 PRD
 
 ### Administrasi
 
