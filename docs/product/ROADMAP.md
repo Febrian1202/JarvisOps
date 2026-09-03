@@ -757,7 +757,7 @@ Menyambungkan seluruh API MVP ke antarmuka yang bisa dipakai.
 
 - [x] `/knowledge` — daftar + search + filter kategori; Employee hanya melihat published
 - [x] `/knowledge/[slug]` — tampilan artikel + related articles
-- [x] `/knowledge/new`, `/knowledge/[id]/edit` — editor (textarea markdown cukup; WYSIWYG bukan prioritas MVP)
+- [x] `/knowledge/new`, `/knowledge/[slug]/edit` — editor (textarea markdown cukup; WYSIWYG bukan prioritas MVP)
 - [x] Toggle publish/unpublish dengan indikator status
 - [x] Empty state yang mengarahkan Employee membaca KB sebelum membuat ticket — ini tujuan modul KB di §18 PRD
 

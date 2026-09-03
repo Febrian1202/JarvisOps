@@ -4,7 +4,7 @@
 > - **Untuk agentic worker:** SUB-SKILL WAJIB — gunakan `superpowers:subagent-driven-development` atau `superpowers:executing-plans`. Langkah memakai `- [ ]`.
 > - **Untuk developer manusia:** Sub-tahap ini membangun Knowledge Base: daftar artikel publik, halaman detail dengan markdown, editor untuk T/M/A, dan publish/unpublish. Employee hanya melihat published article.
 
-**Goal:** Halaman `/knowledge` (search + kategori filter), `/knowledge/[slug]` (detail + `react-markdown` + related articles), `/knowledge/new` + `/knowledge/[id]/edit` (editor), dan publish/unpublish toggle.
+**Goal:** Halaman `/knowledge` (search + kategori filter), `/knowledge/[slug]` (detail + `react-markdown` + related articles), `/knowledge/new` + `/knowledge/[slug]/edit` (editor), dan publish/unpublish toggle.
 
 **Branch:** `feat/phase-8e-knowledge-base`
 **Estimasi:** ~1,0 hari
@@ -55,13 +55,13 @@ git commit -m "feat(web): add article detail page with markdown rendering (Serve
 
 ---
 
-## Task 3: Editor artikel (`/knowledge/new`, `/knowledge/[id]/edit`)
+## Task 3: Editor artikel (`/knowledge/new`, `/knowledge/[slug]/edit`)
 
 **Files:**
 - Create: `apps/web/src/app/(app)/knowledge/new/page.tsx`
 - Create: `apps/web/src/app/(app)/knowledge/new/page-client.tsx`
-- Create: `apps/web/src/app/(app)/knowledge/[id]/edit/page.tsx`
-- Create: `apps/web/src/app/(app)/knowledge/[id]/edit/page-client.tsx`
+- Create: `apps/web/src/app/(app)/knowledge/[slug]/edit/page.tsx`
+- Create: `apps/web/src/app/(app)/knowledge/[slug]/edit/page-client.tsx`
 - Create: `apps/web/src/components/knowledge/ArticleEditor.tsx`
 - Create: `apps/web/src/schemas/article.ts`
 
@@ -105,7 +105,7 @@ git commit -m "feat(web): add KB empty state for employees with link to create t
 
 - [x] `/knowledge` — search, filter kategori, filter status (T/M/A), DataTable.
 - [x] `/knowledge/[slug]` — markdown rendered, related articles, Server Component, view_count tidak menggelembung.
-- [x] `/knowledge/new` + `/knowledge/[id]/edit` — editor, slug read-only, publish/unpublish toggle.
+- [x] `/knowledge/new` + `/knowledge/[slug]/edit` — editor, slug read-only, publish/unpublish toggle.
 - [x] Employee tidak melihat tombol "Buat Artikel" / filter status.
 - [x] Empty state Employee dengan link ke `/tickets/new`.
 - [x] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
