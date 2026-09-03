@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { ZodObject, ZodRawShape } from 'zod';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
@@ -23,13 +23,22 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export interface FormFieldDef {
   name: string;
   label: string;
-  type?: 'text' | 'number' | 'textarea';
+  type?: 'text' | 'number' | 'textarea' | 'select';
   placeholder?: string;
   required?: boolean;
+  hint?: string;
+  options?: { value: string; label: string }[];
 }
 
 export interface MasterDataConfig<T extends { id: number }> {
@@ -38,11 +47,12 @@ export interface MasterDataConfig<T extends { id: number }> {
   endpoint: string; // e.g. '/departments'
   queryKey: readonly string[];
   columns: ColumnDef<T>[];
-  formFields: FormFieldDef[];
+  formFields: FormFieldDef[] | ((items: T[], editingItem: T | null) => FormFieldDef[]);
   zodSchema: ZodObject<ZodRawShape>;
   searchField?: keyof T;
   deleteMessage?: string;
   onSuccessMessage?: string;
+  transformToForm?: (item: T) => Record<string, unknown>;
 }
 
 export function MasterDataPage<T extends { id: number }>({
@@ -55,6 +65,7 @@ export function MasterDataPage<T extends { id: number }>({
   zodSchema,
   searchField = 'name' as keyof T,
   deleteMessage = 'Apakah Anda yakin ingin menghapus data ini?',
+  transformToForm,
 }: MasterDataConfig<T>) {
   const [search, setSearch] = useState('');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -124,6 +135,7 @@ export function MasterDataPage<T extends { id: number }>({
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(zodSchema),
@@ -139,8 +151,9 @@ export function MasterDataPage<T extends { id: number }>({
 
   const handleOpenEdit = useCallback((item: T) => {
     setEditingItem(item);
-    reset(item as Record<string, unknown>);
-  }, [reset]);
+    const formData = transformToForm ? transformToForm(item) : (item as Record<string, unknown>);
+    reset(formData);
+  }, [reset, transformToForm]);
 
   const handleOpenCreate = () => {
     reset({});
@@ -236,7 +249,10 @@ export function MasterDataPage<T extends { id: number }>({
           </DialogHeader>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-2">
-            {formFields.map((field) => (
+            {(typeof formFields === 'function'
+              ? formFields(response?.data ?? [], editingItem)
+              : formFields
+            ).map((field) => (
               <div key={field.name} className="space-y-1.5">
                 <Label htmlFor={field.name} className="text-sm font-medium">
                   {field.label}
@@ -249,6 +265,38 @@ export function MasterDataPage<T extends { id: number }>({
                     {...register(field.name)}
                     aria-invalid={!!errors[field.name]}
                   />
+                ) : field.type === 'select' ? (
+                  <Controller
+                    control={control}
+                    name={field.name}
+                    render={({ field: selectField }) => (
+                      <Select
+                        value={
+                          selectField.value !== undefined && selectField.value !== null
+                            ? String(selectField.value)
+                            : ''
+                        }
+                        onValueChange={(val) =>
+                          selectField.onChange(val === '' || val === 'NONE' ? null : Number(val))
+                        }
+                      >
+                        <SelectTrigger id={field.name} aria-invalid={!!errors[field.name]}>
+                          <SelectValue
+                            placeholder={
+                              field.placeholder ?? `Pilih ${field.label.toLowerCase()}…`
+                            }
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {field.options?.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value}>
+                              {opt.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
                 ) : (
                   <Input
                     id={field.name}
@@ -259,6 +307,9 @@ export function MasterDataPage<T extends { id: number }>({
                     })}
                     aria-invalid={!!errors[field.name]}
                   />
+                )}
+                {field.hint && (
+                  <p className="text-xs text-muted-foreground">{field.hint}</p>
                 )}
                 {errors[field.name] && (
                   <p className="text-xs text-destructive">

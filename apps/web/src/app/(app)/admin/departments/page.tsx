@@ -1,15 +1,27 @@
-'use client';
+import React, { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { requireAdmin } from '@/lib/server/require-admin';
+import { DepartmentsPageClient } from './page-client';
 
-import React from 'react';
-import { Building2 } from 'lucide-react';
-import { PagePlaceholder } from '@/components/shared/page-placeholder';
+export const metadata = {
+  title: 'Departemen | JARVIS OPS',
+  description: 'Kelola unit departemen organisasi.',
+};
 
-export default function AdminDepartmentsPage() {
+export default async function DepartmentsPage() {
+  await requireAdmin();
+
   return (
-    <PagePlaceholder
-      title="Kelola Departemen"
-      description="Struktur organisasi divisi perusahaan dan pengelompokan karyawan."
-      icon={Building2}
-    />
+    <Suspense
+      fallback={
+        <div className="space-y-4 p-4">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-64 w-full" />
+        </div>
+      }
+    >
+      <DepartmentsPageClient />
+    </Suspense>
   );
 }
