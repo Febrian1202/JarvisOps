@@ -18,13 +18,33 @@ export const ticketKeys = {
     [...ticketKeys.detail(ticketId), 'attachments'] as const,
 };
 
+export const userKeys = {
+  all: ['users'] as const,
+  lists: () => [...userKeys.all, 'list'] as const,
+  list: (filters: Record<string, unknown> = {}) =>
+    [...userKeys.all, 'list', filters] as const,
+  detail: (id: number) => [...userKeys.all, 'detail', id] as const,
+  assignable: (search?: string) =>
+    [...userKeys.all, 'assignable', search] as const,
+};
+
+export const masterDataKeys = {
+  departments: ['master-data', 'departments'] as const,
+  ticketCategories: ['master-data', 'ticket-categories'] as const,
+  knowledgeCategories: ['master-data', 'knowledge-categories'] as const,
+  ticketPriorities: ['master-data', 'ticket-priorities'] as const,
+};
+
 export const assetKeys = {
   all: ['assets'] as const,
   lists: () => [...assetKeys.all, 'list'] as const,
   list: (filters: Record<string, unknown> = {}) =>
     [...assetKeys.lists(), filters] as const,
   myAssets: () => [...assetKeys.all, 'my-assets'] as const,
+  my: (filters: Record<string, unknown> = {}) =>
+    [...assetKeys.all, 'my', filters] as const,
   assignable: () => [...assetKeys.all, 'assignable'] as const,
+  categories: ['assets', 'categories'] as const,
   details: () => [...assetKeys.all, 'detail'] as const,
   detail: (id: number) => [...assetKeys.details(), id] as const,
   history: (id: number) => [...assetKeys.detail(id), 'history'] as const,
@@ -38,6 +58,8 @@ export const articleKeys = {
   details: () => [...articleKeys.all, 'detail'] as const,
   detail: (slugOrId: string | number) =>
     [...articleKeys.details(), slugOrId] as const,
+  edit: (id: number) => [...articleKeys.all, 'edit', id] as const,
+  categories: ['knowledge-categories'] as const,
 };
 
 export const notificationKeys = {
