@@ -138,11 +138,11 @@ git commit -m "feat(web): add my-assets page for employees"
 
 ## Exit Criteria 8d
 
-- [ ] `/assets` — search, filter status/kategori/pemegang, DataTable, pagination.
-- [ ] `/assets/[id]` — banner, metadata, riwayat kepemilikan timeline, tombol assign/release.
-- [ ] `/assets/new` + `/assets/[id]/edit` — form lengkap, kategori dropdown + free-text, status tanpa `assigned`.
-- [ ] Assign dialog — user picker dari `GET /api/users/assignable`, notes, tangani 422 vs 409.
-- [ ] Release dialog — konfirmasi + notes.
-- [ ] `/my-assets` — daftar aset milik user yang login.
-- [ ] Employee tidak bisa mengakses `/assets` (redirect 403).
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
+- [x] `/assets` — search, filter status/kategori/pemegang, DataTable, pagination.
+- [x] `/assets/[id]` — banner, metadata, riwayat kepemilikan timeline, tombol assign/release.
+- [x] `/assets/new` + `/assets/[id]/edit` — form lengkap, kategori dropdown + free-text, status tanpa `assigned` (dipertahankan saat edit).
+- [x] Assign dialog — user picker dari `GET /api/users/assignable`, notes, tangani 422 vs 409.
+- [x] Release dialog — konfirmasi + notes.
+- [x] `/my-assets` — daftar aset milik user yang login.
+- [x] Employee tidak bisa mengakses `/assets` (redirect 403).
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint` hijau.
