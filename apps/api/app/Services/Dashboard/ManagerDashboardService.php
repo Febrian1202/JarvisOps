@@ -26,6 +26,7 @@ class ManagerDashboardService
             'open_tickets' => $this->countsQuery->countOpenTickets(clone $tickets),
             'resolved_tickets' => $range->applyToResolved(clone $tickets)->count(),
             'closed_tickets' => $this->countsQuery->countClosed(clone $tickets),
+            'unassigned_tickets' => $this->countsQuery->countUnassigned(clone $tickets),
             'sla' => $sla,
             'ticket_trend' => $this->trendQuery->daily(clone $tickets, $range),
             'by_priority' => $this->countsQuery->countByPriority(clone $tickets, $range),

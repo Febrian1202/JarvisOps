@@ -28,6 +28,14 @@ class DashboardCountsQuery
         return (clone $query)->whereHas('status', fn ($q) => $q->where('is_closed', false))->count();
     }
 
+    public function countUnassigned(Builder $query): int
+    {
+        return (clone $query)
+            ->whereNull('technician_id')
+            ->where('status_id', 1)
+            ->count();
+    }
+
     public function countByPriority(Builder $query, DashboardDateRange $range): array
     {
         return (clone $query)
