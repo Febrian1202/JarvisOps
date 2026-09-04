@@ -40,9 +40,16 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
 - Reset → hapus kedua param (URL bersih → backend default 30 hari).
 - **Jangan menampilkan rentang pada kartu snapshot** (`open_tickets`, `closed_tickets`, `unassigned_tickets`), hanya pada kartu/chart yang ter-filter range.
 
-### Step 1 — RED (test util): `buildDashboardParams({})` → `{}`; `buildDashboardParams({ date_from: '2026-08-01', date_to: '2026-08-31' })` → keduanya; hanya salah satu → `{}`.
-### Step 2 — GREEN implementasi; verifikasi `npx tsc --noEmit && npm run lint`.
-### Step 3 — Commit.
+### Step 1 — RED (test util)
+- [x] Test `use-dashboard-params.test.ts` dibuat dan memverifikasi: param kosong → tidak ada query; keduanya tanggal → keduanya dikirim; hanya salah satu → tidak dikirim (C11); plus `toQueryString` dan `useManagerDashboard`.
+
+### Step 2 — GREEN implementasi
+- [x] Helper murni `buildDashboardParams` + `toQueryString` dan hook `useManagerDashboard(params)` dengan `dashboardKeys.manager(params)` diimplementasikan.
+- [x] Token tema `--color-cream`, `--color-cream-card`, `--color-cream-border`, `--color-charcoal-40`, `--radius-card` ditambahkan ke `@theme inline` di `globals.css` (memperbaiki styling kartu 9a/9b yang sebelumnya tanpa definisi token).
+- [x] Verifikasi test vitest, `npx tsc --noEmit`, dan lint hijau.
+
+### Step 3 — Commit
+- [x] Commit: `feat(web): add manager dashboard hook, date params helper, and cream tokens` (055c22f)
 
 ---
 
@@ -86,12 +93,16 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
 > **Jebakan — open/closed/unassigned snapshot:** bila user mengubah rentang, kartu ini tidak berubah. Untuk menghindari kebingungan, beri tooltip/keterangan kecil "Kondisi saat ini" di kartu Open/Closed/Unassigned.
 
 ### Step 1 — RED (Vitest mock data):
-- render 6 kartu benar; `sla.compliance_percentage: null` → teks "Belum ada data", bukan "0%".
-- `unassigned_tickets` tampil.
-- `avg_resolution_minutes: 195` → "3j 15m".
+- [x] Test `manager-metrics.test.tsx` dibuat dan memverifikasi: 6 kartu metrik, `compliance_percentage: null` → "—" + footer "Belum ada data tiket selesai pada rentang ini" (bukan "0%"), `avg_resolution_minutes: 195` → "3j 15m", `unassigned_tickets > 0` → tone danger, compliance < 85% → aksen danger, dan skeleton per kartu saat loading.
+
 ### Step 2 — GREEN implementasi.
-### Step 3 — verifikasi: `npm run test && npx tsc --noEmit && npm run lint`.
-### Step 4 — Commit.
+- [x] `manager-metrics.tsx` dan `sla-compliance-card.tsx` diimplementasikan di `apps/web/src/components/dashboard/manager/` (bar proporsional `within_sla / breached`, footer `within/breached`, label "Kondisi saat ini" pada kartu snapshot).
+
+### Step 3 — verifikasi
+- [x] Verifikasi test vitest, `npx tsc --noEmit`, dan lint hijau.
+
+### Step 4 — Commit
+- [x] Commit: `feat(web): add manager dashboard metrics and sla compliance card` (f11831f)
 
 ---
 
@@ -114,9 +125,14 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
 > **Jebakan — `full_name` "Unknown":** teknisi soft-delete → literal "Unknown" (dari backend). Biarkan; jangan render crash.
 
 ### Step 1 — RED (test fungsi sort + render):
-- sort by resolved; sort by compliance dengan null; toggle direction.
+- [x] Test `technician-performance-table.test.tsx` dibuat dan memverifikasi: sorting semua 6 kolom (client-side, `sortTechnicians` murni), `null` selalu di akhir untuk asc & desc, toggle arah, default `resolved DESC`, klik baris → `/tickets?technician_id={id}`, empty state, skeleton, dan `full_name` "Unknown" tidak crash.
+
 ### Step 2 — GREEN implementasi; verifikasi.
+- [x] `technician-performance-table.tsx` diimplementasikan dengan `DataTableColumnHeader` untuk semua kolom, `formatDuration` untuk rata-rata, warna danger untuk breached > 0, dan `DashboardPanel` mendapat prop `emptyTitle` (backward-compatible).
+- [x] Verifikasi test vitest, `npx tsc --noEmit`, dan lint hijau.
+
 ### Step 3 — Commit.
+- [x] Commit: `feat(web): add technician performance table component for manager dashboard` (26f50ee)
 
 ---
 
@@ -141,10 +157,17 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
 >
 > **Jebakan — double-fetch SSR:** komponen chart `ssr: false` (K4) supaya Recharts tidak SSR (hydrate mismatch). Data tetap via `useManagerDashboard`.
 
-### Step 1 — RED (render test dengan mock `ticket_trend` 3 hari): chart merender `role="img"` + ringkasan; verifikasi `aria-label`. Empty data → `EmptyState`.
+### Step 1 — RED (render test dengan mock `ticket_trend` 3 hari):
+- [x] Test `ticket-trend-chart.test.tsx` dibuat dan memverifikasi: `figure role="img"` + `aria-label`, ringkasan sr-only berisi total dibuat/selesai, empty state (array kosong & semua nilai 0), skeleton saat loading, serta helper murni `formatTrendTick` ("2026-09-04" → "4 Sep") dan `summarizeTrend`.
+
 ### Step 2 — GREEN implementasi (chart + lazy wrapper + panel).
-### Step 3 — verifikasi: `npm run test && npx tsc --noEmit && npm run lint && npm run build`.
-### Step 4 — Commit.
+- [x] `ticket-trend-chart.tsx` diimplementasikan: Recharts `BarChart` 2 seri (fill `var(--chart-1)`/`var(--chart-2)`), tooltip & legenda berlabel Indonesia ("Dibuat"/"Selesai"), `minTickGap` untuk 30–90 hari, dibungkus `lazyChart` (`ssr: false`), dan wrapper `figure`/`figcaption` a11y (Recharts 3 `accessibilityLayer` aktif default).
+
+### Step 3 — verifikasi
+- [x] Verifikasi test vitest, `npx tsc --noEmit`, dan lint hijau.
+
+### Step 4 — Commit
+- [x] Commit: `feat: add ticket trend chart to manager dashboard` (012ef87)
 
 ---
 
@@ -166,9 +189,15 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
 
 > **Jebakan — total denominator:** persentase dihitung terhadap total tiket yang ter-distribusi (sum counts), bukan `total_tickets` (yang ter-filter created range berbeda untuk resolved). Cukup `count / max(count) * 100` untuk lebar bar & `count / sum * 100` untuk label %.
 
-### Step 1 — RED: test fungsi `buildDistributionRows(reference, buckets)` (menggabungkan referensi + bucket, menghitung persen). Data contoh → label & urutan benar.
-### Step 2 — GREEN: implementasi `priority-distribution.tsx` & `category-distribution.tsx` + sisipkan ke `manager-dashboard.tsx` kolom kanan.
-### Step 3 — verifikasi + Commit.
+### Step 1 — RED:
+- [x] Test `distribution.test.tsx` dibuat dan memverifikasi: `mergePriorityDistribution` zero-fill 4 prioritas seeded + label durasi SLA (`formatDuration`) + bucket soft-delete tetap tampil di akhir; `calculateCategoryDistribution` menghitung persen terhadap total dan mengurutkan desc.
+
+### Step 2 — GREEN:
+- [x] `priority-distribution.tsx` dan `category-distribution.tsx` diimplementasikan (bar horizontal CSS, label kiri + "N ticket (P%)" kanan, a11y list) dan disisipkan ke view kolom kanan.
+
+### Step 3 — verifikasi + Commit
+- [x] Verifikasi test vitest, `npx tsc --noEmit`, dan lint hijau.
+- [x] Commit: `feat(dashboard): add priority and category distribution panels` (741a0ae)
 
 ---
 
@@ -184,8 +213,16 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
 3. Verifikasi angka UI = payload (exit criteria 9 fase, ROADMAP:828).
 
 ### Step 1 — RED/E2E minimal manual.
-### Step 2 — verifikasi: `npm run test && npx tsc --noEmit && npm run lint && npm run build`.
+- [x] `ManagerDashboardView` diekstrak sebagai komponen presentasional murni (`data`, `isLoading`, `range`, `onRangeChange` props — tanpa fetch) agar bisa di-reuse admin di 9d.
+- [x] Test `manager-dashboard.test.tsx` merender komponen asli (bukan mock SUT) dengan mock provider `useAuth`/`useReferenceData`.
+
+### Step 2 — verifikasi
+- [x] `page.tsx` (Server Component + Suspense) dan `page-client.tsx` (guard `can('dashboard.manager')` → `/403`, sinkronisasi `useSearchParams` → `useManagerDashboard`) diimplementasikan.
+- [x] Verifikasi test vitest, `npx tsc --noEmit`, lint, dan `npm run build` hijau.
+
 ### Step 3 — Commit.
+- [x] Commit: `feat(dashboard): refactor manager dashboard page and view with 403 guard and DateRangePicker` (96ee1f0)
+- [x] Commit perbaikan: `test(manager-dashboard): test real component, mock providers` (4797fc1), `chore(test): remove unused imports in manager dashboard test` (2bd289f)
 
 ---
 
