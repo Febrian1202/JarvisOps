@@ -2,35 +2,21 @@
 
 import React, { useState, useEffect, useTransition } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { AuditLogFilters } from '@/components/admin/AuditLogFilters';
 import { AuditLogTable } from '@/components/admin/AuditLogTable';
 import { AuditLogDetailDialog } from '@/components/admin/AuditLogDetailDialog';
 import { useAuditLogs, type AuditLogQueryParams } from '@/hooks/use-audit-logs';
-import { useUsers } from '@/hooks/use-users';
 import { useAuth } from '@/components/providers/auth-provider';
-import { auditActionLabels, auditModuleLabels } from '@/lib/labels';
-
-const MANAGER_MODULES = ['ticket', 'asset', 'article', 'knowledge_category'];
 
 export function AuditLogsPageClient() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { can, hasRole, isLoading: isAuthLoading } = useAuth();
+  const { can, isLoading: isAuthLoading } = useAuth();
 
   const canView = can('audit-log.viewAny');
   const canViewUsers = can('user.viewAny');
-  const isManager = hasRole('manager');
 
   useEffect(() => {
     if (!isAuthLoading && !canView) {
@@ -64,12 +50,6 @@ export function AuditLogsPageClient() {
   const items = response?.data ?? [];
   const meta = response?.meta;
 
-  const { data: usersResponse } = useUsers(
-    { per_page: 100, status: 'active' },
-    !isAuthLoading && canViewUsers
-  );
-  const usersList = usersResponse?.data ?? [];
-
   const [selectedLogId, setSelectedLogId] = useState<number | null>(null);
 
   const updateQueryParams = (updates: Record<string, string | number | null>) => {
@@ -95,20 +75,6 @@ export function AuditLogsPageClient() {
     }
   };
 
-  const resetFilters = () => {
-    startTransition(() => router.replace(pathname));
-  };
-
-  const hasActiveFilters = Boolean(
-    moduleParam || actionParam || userIdParam || dateFrom || dateTo
-  );
-
-  const availableModules = isManager
-    ? Object.entries(auditModuleLabels).filter(([key]) =>
-        MANAGER_MODULES.includes(key)
-      )
-    : Object.entries(auditModuleLabels);
-
   if (isAuthLoading) {
     return (
       <div className="space-y-4">
@@ -130,100 +96,7 @@ export function AuditLogsPageClient() {
         </p>
       </div>
 
-      {/* Filter Bar */}
-      <div className="flex flex-wrap items-center gap-2.5 rounded-xl border border-border bg-card p-3 shadow-xs">
-        {/* Module Filter */}
-        <Select
-          value={moduleParam || 'ALL'}
-          onValueChange={(val) => updateQueryParams({ module: val, page: 1 })}
-        >
-          <SelectTrigger className="h-8 min-w-[140px] rounded-lg text-xs bg-background border-border">
-            <SelectValue placeholder="Semua Modul" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL" className="text-xs">Semua Modul</SelectItem>
-            {availableModules.map(([val, label]) => (
-              <SelectItem key={val} value={val} className="text-xs">
-                {label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {/* Action Filter */}
-        <Select
-          value={actionParam || 'ALL'}
-          onValueChange={(val) => updateQueryParams({ action: val, page: 1 })}
-        >
-          <SelectTrigger className="h-8 min-w-[140px] rounded-lg text-xs bg-background border-border">
-            <SelectValue placeholder="Semua Aksi" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL" className="text-xs">Semua Aksi</SelectItem>
-            {Object.entries(auditActionLabels).map(([val, label]) => (
-              <SelectItem key={val} value={val} className="text-xs">
-                {label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {/* User Filter (Admin Only) */}
-        {canViewUsers && (
-          <Select
-            value={userIdParam || 'ALL'}
-            onValueChange={(val) => updateQueryParams({ user_id: val, page: 1 })}
-          >
-            <SelectTrigger className="h-8 min-w-[150px] rounded-lg text-xs bg-background border-border">
-              <SelectValue placeholder="Semua Pengguna" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ALL" className="text-xs">Semua Pengguna</SelectItem>
-              {usersList.map((u) => (
-                <SelectItem key={u.id} value={String(u.id)} className="text-xs">
-                  {u.full_name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        )}
-
-        {/* Date From */}
-        <div className="flex items-center gap-1">
-          <span className="text-[11px] text-muted-foreground whitespace-nowrap">Dari:</span>
-          <Input
-            type="date"
-            value={dateFrom}
-            onChange={(e) => updateQueryParams({ date_from: e.target.value || null, page: 1 })}
-            className="h-8 w-32 text-xs bg-background border-border"
-          />
-        </div>
-
-        {/* Date To */}
-        <div className="flex items-center gap-1">
-          <span className="text-[11px] text-muted-foreground whitespace-nowrap">S/d:</span>
-          <Input
-            type="date"
-            value={dateTo}
-            onChange={(e) => updateQueryParams({ date_to: e.target.value || null, page: 1 })}
-            className="h-8 w-32 text-xs bg-background border-border"
-          />
-        </div>
-
-        {/* Reset Button */}
-        {hasActiveFilters && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={resetFilters}
-            className="h-8 px-2 text-xs text-muted-foreground hover:text-foreground"
-          >
-            <RotateCcw className="mr-1 h-3 w-3" />
-            Reset
-          </Button>
-        )}
-      </div>
+      <AuditLogFilters />
 
       <AuditLogTable
         items={items}

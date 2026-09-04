@@ -29,9 +29,42 @@ describe('Ganti Password Page', () => {
     vi.clearAllMocks();
   });
 
+  it('toggles password visibility for all fields', () => {
+    render(<GantiPasswordPage />);
+
+    // Initial state: all inputs should be type="password"
+    // We use getAllByLabelText and get the first one if there are multiple elements matching the same regex
+    const currentPasswordInputs = screen.getAllByLabelText(/kata sandi saat ini/i);
+    const currentPasswordInput = currentPasswordInputs[0];
+    const newPasswordInput = screen.getByLabelText(/^kata sandi baru/i);
+    const confirmPasswordInput = screen.getByLabelText(/konfirmasi kata sandi baru/i);
+
+    expect(currentPasswordInput).toHaveAttribute('type', 'password');
+    expect(newPasswordInput).toHaveAttribute('type', 'password');
+    expect(confirmPasswordInput).toHaveAttribute('type', 'password');
+
+    // Toggle current password
+    const toggleCurrentButton = screen.getByRole('button', { name: /tampilkan kata sandi saat ini/i });
+    fireEvent.click(toggleCurrentButton);
+    expect(currentPasswordInput).toHaveAttribute('type', 'text');
+    expect(screen.getByRole('button', { name: /sembunyikan kata sandi saat ini/i })).toBeInTheDocument();
+
+    // Toggle new password
+    const toggleNewButton = screen.getByRole('button', { name: /tampilkan kata sandi baru/i });
+    fireEvent.click(toggleNewButton);
+    expect(newPasswordInput).toHaveAttribute('type', 'text');
+    expect(screen.getByRole('button', { name: /sembunyikan kata sandi baru/i })).toBeInTheDocument();
+
+    // Toggle confirm password
+    const toggleConfirmButton = screen.getByRole('button', { name: /tampilkan konfirmasi kata sandi/i });
+    fireEvent.click(toggleConfirmButton);
+    expect(confirmPasswordInput).toHaveAttribute('type', 'text');
+    expect(screen.getByRole('button', { name: /sembunyikan konfirmasi kata sandi/i })).toBeInTheDocument();
+  });
+
   it('renders current password, new password, and confirmation inputs', () => {
     render(<GantiPasswordPage />);
-    expect(screen.getByLabelText(/kata sandi saat ini/i)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(/kata sandi saat ini/i)[0]).toBeInTheDocument();
     expect(screen.getByLabelText(/^kata sandi baru/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/konfirmasi kata sandi baru/i)).toBeInTheDocument();
     expect(
@@ -45,7 +78,7 @@ describe('Ganti Password Page', () => {
   it('rejects a digits-only new password without calling the API', async () => {
     render(<GantiPasswordPage />);
 
-    fireEvent.change(screen.getByLabelText(/kata sandi saat ini/i), {
+    fireEvent.change(screen.getAllByLabelText(/kata sandi saat ini/i)[0], {
       target: { value: 'OldSecret123' },
     });
     fireEvent.change(screen.getByLabelText(/^kata sandi baru/i), {
@@ -77,7 +110,7 @@ describe('Ganti Password Page', () => {
 
     render(<GantiPasswordPage />);
 
-    fireEvent.change(screen.getByLabelText(/kata sandi saat ini/i), {
+    fireEvent.change(screen.getAllByLabelText(/kata sandi saat ini/i)[0], {
       target: { value: 'OldSecret123' },
     });
     fireEvent.change(screen.getByLabelText(/^kata sandi baru/i), {

@@ -44,10 +44,10 @@ class ReferenceDataSeeder extends Seeder
 
         // 3. Ticket Priorities (Pinned ID D-15)
         $priorities = [
-            1 => ['name' => 'Critical', 'sla_minutes' => 120, 'description' => 'Company-wide system outage (2 hours)'],
-            2 => ['name' => 'High', 'sla_minutes' => 240, 'description' => 'Employee unable to work (4 hours)'],
-            3 => ['name' => 'Medium', 'sla_minutes' => 480, 'description' => 'Non-critical application issue (8 hours)'],
-            4 => ['name' => 'Low', 'sla_minutes' => 1440, 'description' => 'General request (24 hours)'],
+            1 => ['name' => 'Critical', 'level' => 1, 'sla_minutes' => 120, 'description' => 'Company-wide system outage (2 hours)'],
+            2 => ['name' => 'High', 'level' => 2, 'sla_minutes' => 240, 'description' => 'Employee unable to work (4 hours)'],
+            3 => ['name' => 'Medium', 'level' => 3, 'sla_minutes' => 480, 'description' => 'Non-critical application issue (8 hours)'],
+            4 => ['name' => 'Low', 'level' => 4, 'sla_minutes' => 1440, 'description' => 'General request (24 hours)'],
         ];
         foreach ($priorities as $id => $data) {
             TicketPriority::updateOrCreate(['id' => $id], $data);

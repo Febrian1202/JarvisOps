@@ -19,6 +19,7 @@ class TicketPriority extends Model
      */
     protected $fillable = [
         'name',
+        'level',
         'sla_minutes',
         'description',
     ];
@@ -31,6 +32,7 @@ class TicketPriority extends Model
     protected function casts(): array
     {
         return [
+            'level' => 'integer',
             'sla_minutes' => 'integer',
         ];
     }

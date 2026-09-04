@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -85,6 +86,8 @@ export function UserFormDialog({
   onClose,
 }: UserFormDialogProps) {
   const isEdit = Boolean(user);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -103,6 +106,12 @@ export function UserFormDialog({
     isEdit && open ? user!.id : null
   );
   const detail = detailResponse?.data;
+
+  const handleClose = () => {
+    setShowPassword(false);
+    setShowConfirmPassword(false);
+    onClose();
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -143,7 +152,7 @@ export function UserFormDialog({
     onFormError: (backendErrors) => {
       setFormErrors(backendErrors, setError);
     },
-    onSuccess: () => onClose(),
+    onSuccess: () => handleClose(),
   });
 
   const onSubmit = handleSubmit((values) => {
@@ -190,7 +199,7 @@ export function UserFormDialog({
   });
 
   return (
-    <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
+    <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit Pengguna' : 'Tambah Pengguna'}</DialogTitle>
@@ -239,13 +248,32 @@ export function UserFormDialog({
                 <Label htmlFor="password">
                   Password <span className="text-destructive">*</span>
                 </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Minimal 8 karakter"
-                  {...register('password')}
-                  aria-invalid={!!errors.password}
-                />
+                <div className="relative flex items-center">
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Minimal 8 karakter"
+                    {...register('password')}
+                    aria-invalid={!!errors.password}
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    aria-label={
+                      showPassword
+                        ? 'Sembunyikan password'
+                        : 'Tampilkan password'
+                    }
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                  >
+                    {showPassword ? (
+                      <EyeOff aria-hidden="true" className="h-4 w-4" />
+                    ) : (
+                      <Eye aria-hidden="true" className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
                 {errors.password && (
                   <p className="text-xs text-destructive">
                     {errors.password.message}
@@ -256,13 +284,32 @@ export function UserFormDialog({
                 <Label htmlFor="password_confirmation">
                   Konfirmasi Password <span className="text-destructive">*</span>
                 </Label>
-                <Input
-                  id="password_confirmation"
-                  type="password"
-                  placeholder="Ulangi password"
-                  {...register('password_confirmation')}
-                  aria-invalid={!!errors.password_confirmation}
-                />
+                <div className="relative flex items-center">
+                  <Input
+                    id="password_confirmation"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    placeholder="Ulangi password"
+                    {...register('password_confirmation')}
+                    aria-invalid={!!errors.password_confirmation}
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    aria-label={
+                      showConfirmPassword
+                        ? 'Sembunyikan konfirmasi password'
+                        : 'Tampilkan konfirmasi password'
+                    }
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    className="absolute right-3 flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff aria-hidden="true" className="h-4 w-4" />
+                    ) : (
+                      <Eye aria-hidden="true" className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
                 {errors.password_confirmation && (
                   <p className="text-xs text-destructive">
                     {errors.password_confirmation.message}
@@ -433,7 +480,7 @@ export function UserFormDialog({
             <Button
               type="button"
               variant="outline"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={mutation.isPending}
             >
               Batal

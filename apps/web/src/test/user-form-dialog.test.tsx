@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderWithProviders } from '@/test/test-utils';
@@ -130,14 +130,30 @@ describe('UserFormDialog', () => {
     mockApi();
   });
 
-  it('create mode shows password, password confirmation and status fields', () => {
+  it('create mode shows password, password confirmation and status fields and can toggle visibility', () => {
     renderWithProviders(
       <UserFormDialog open user={null} roles={roles} departments={departments} onClose={vi.fn()} />
     );
 
     expect(screen.getByLabelText(/nama lengkap/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/^password/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/konfirmasi password/i)).toBeInTheDocument();
+    const passwordInput = screen.getByLabelText(/^password/i);
+    const confirmPasswordInput = screen.getByLabelText(/^konfirmasi password/i);
+
+    expect(passwordInput).toHaveAttribute('type', 'password');
+    expect(confirmPasswordInput).toHaveAttribute('type', 'password');
+
+    // Toggle password visibility
+    const togglePasswordBtn = screen.getByRole('button', { name: /tampilkan password/i });
+    fireEvent.click(togglePasswordBtn);
+    expect(passwordInput).toHaveAttribute('type', 'text');
+    expect(screen.getByRole('button', { name: /sembunyikan password/i })).toBeInTheDocument();
+
+    // Toggle confirm password visibility
+    const toggleConfirmPasswordBtn = screen.getByRole('button', { name: /tampilkan konfirmasi password/i });
+    fireEvent.click(toggleConfirmPasswordBtn);
+    expect(confirmPasswordInput).toHaveAttribute('type', 'text');
+    expect(screen.getByRole('button', { name: /sembunyikan konfirmasi password/i })).toBeInTheDocument();
+
     expect(screen.getByText(/status user/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /tambah pengguna/i })).toBeInTheDocument();
   });
@@ -173,7 +189,7 @@ describe('UserFormDialog', () => {
     await user.type(screen.getByLabelText(/nama lengkap/i), 'Budi Santoso');
     await user.type(screen.getByLabelText(/email/i), 'budi@jarvis.test');
     await user.type(screen.getByLabelText(/^password/i), 'rahasia123');
-    await user.type(screen.getByLabelText(/konfirmasi password/i), 'rahasia456');
+    await user.type(screen.getByLabelText(/^konfirmasi password/i), 'rahasia456');
 
     await user.click(screen.getByRole('button', { name: /tambah pengguna/i }));
 

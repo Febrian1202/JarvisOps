@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Lock, AlertCircle } from 'lucide-react';
+import { Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -27,6 +27,9 @@ export default function GantiPasswordPage() {
   const router = useRouter();
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const form = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordSchema),
@@ -93,14 +96,30 @@ export default function GantiPasswordPage() {
                     />
                     <FormControl>
                       <Input
-                        type="password"
+                        type={showCurrentPassword ? 'text' : 'password'}
                         placeholder="••••••••"
                         autoComplete="current-password"
                         disabled={loading}
-                        className="h-[42px] rounded-md bg-background pl-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
+                        className="h-[42px] rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
+                    <button
+                      type="button"
+                      aria-label={
+                        showCurrentPassword
+                          ? 'Sembunyikan kata sandi saat ini'
+                          : 'Tampilkan kata sandi saat ini'
+                      }
+                      onClick={() => setShowCurrentPassword((prev) => !prev)}
+                      className="absolute right-3.5 flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                    >
+                      {showCurrentPassword ? (
+                        <EyeOff aria-hidden="true" className="h-4 w-4" />
+                      ) : (
+                        <Eye aria-hidden="true" className="h-4 w-4" />
+                      )}
+                    </button>
                   </div>
                   <FormMessage />
                 </FormItem>
@@ -122,14 +141,30 @@ export default function GantiPasswordPage() {
                     />
                     <FormControl>
                       <Input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Minimal 8 karakter, kombinasi huruf & angka"
                         autoComplete="new-password"
                         disabled={loading}
-                        className="h-[42px] rounded-md bg-background pl-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
+                        className="h-[42px] rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
+                    <button
+                      type="button"
+                      aria-label={
+                        showPassword
+                          ? 'Sembunyikan kata sandi baru'
+                          : 'Tampilkan kata sandi baru'
+                      }
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-3.5 flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                    >
+                      {showPassword ? (
+                        <EyeOff aria-hidden="true" className="h-4 w-4" />
+                      ) : (
+                        <Eye aria-hidden="true" className="h-4 w-4" />
+                      )}
+                    </button>
                   </div>
                   <FormMessage />
                 </FormItem>
@@ -151,14 +186,30 @@ export default function GantiPasswordPage() {
                     />
                     <FormControl>
                       <Input
-                        type="password"
+                        type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="Ulangi kata sandi baru"
                         autoComplete="new-password"
                         disabled={loading}
-                        className="h-[42px] rounded-md bg-background pl-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
+                        className="h-[42px] rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
+                    <button
+                      type="button"
+                      aria-label={
+                        showConfirmPassword
+                          ? 'Sembunyikan konfirmasi kata sandi'
+                          : 'Tampilkan konfirmasi kata sandi'
+                      }
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      className="absolute right-3.5 flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff aria-hidden="true" className="h-4 w-4" />
+                      ) : (
+                        <Eye aria-hidden="true" className="h-4 w-4" />
+                      )}
+                    </button>
                   </div>
                   <FormMessage />
                 </FormItem>
