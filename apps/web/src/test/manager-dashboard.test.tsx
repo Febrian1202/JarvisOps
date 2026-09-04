@@ -1,11 +1,9 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import type { ManagerDashboardViewProps } from '@/components/dashboard/manager/manager-dashboard-view';
 import type { ManagerDashboardData } from '@/types/dashboard';
 
 import { ManagerDashboardView } from '@/components/dashboard/manager/manager-dashboard-view';
-import { AuthProvider } from '@/components/providers/auth-provider';
 
 // Mock useRouter
 vi.mock('next/navigation', () => ({
