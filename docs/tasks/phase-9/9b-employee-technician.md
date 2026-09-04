@@ -78,33 +78,18 @@ Tambahkan `useTechnicianDashboard` di Task 2, `useManagerDashboard(params)` & `u
 > **Jebakan — greeting & waktu:** jam dihitung dari `Asia/Jakarta` (D-23), bukan `new Date().getHours()`. Untuk test, injeksi jam sebagai argumen fungsi murni `getGreeting(7)` → "Selamat pagi".
 
 ### Step 1 — RED (Vitest, mock `useAuth` + `apiFetch` via `vi.mock`):
-```typescript
-// test/employee-dashboard.test.tsx
-// - render employee dashboard dengan mock data
-// - verifikasi 4 kartu menampilkan angka sesuai data
-// - verifikasi null tidak dirender sebagai "0" (mis. bila future nullable)
-// - verifikasi CTA "Buat Ticket" tampil bila can('ticket.create') true, hilang bila false
-// - verifikasi tabel tiket meng-klik baris → router.push('/tickets/123')
-// - verifikasi greeting pagi/siang/sore/malam via getGreeting()
-```
+- [x] Test employee-dashboard.test.tsx dibuat dan memverifikasi greeting, 4 kartu metrik, CTA can('ticket.create'), mini table, aset, artikel, dan empty state.
 
 ### Step 2 — GREEN: implementasi page + komponen + hook.
-- `page.tsx` (server) hanya render `PageHeader` + `<EmployeeDashboard />` (client) dalam `Suspense` bila perlu (bukan prefetch data — K1).
-- `page-client.tsx` / `employee-dashboard.tsx`: `useEmployeeDashboard()` + `useAuth()`; susun layout grid (desktop: kolom 2/3–1/3; mobile: stack vertikal).
+- [x] `use-dashboards.ts` diimplementasikan dengan query keys dan unwrapped response.
+- [x] `ticket-mini-table.tsx`, `asset-list.tsx`, `article-list.tsx`, dan `employee-dashboard.tsx` diimplementasikan.
+- [x] `page.tsx` dan `page-client.tsx` diimplementasikan di `apps/web/src/app/(app)/dashboard/employee/`.
 
 ### Step 3 — REFACTOR & verifikasi
-```bash
-cd apps/web && npm run test && npx tsc --noEmit && npm run lint
-```
+- [x] Verifikasi test vitest, lint, dan tsc hijau.
 
 ### Step 4 — Commit
-```bash
-git add apps/web/src/app/\(app\)/dashboard/employee/ \
-        apps/web/src/components/dashboard/employee/ \
-        apps/web/src/hooks/use-dashboards.ts \
-        apps/web/src/test/employee-dashboard.test.tsx
-git commit -m "feat(web): build employee dashboard with greeting, metrics, recent tickets, assets, and articles"
-```
+- [x] Commit: `feat(web): build employee dashboard with greeting, metrics, recent tickets, assets, and articles` (51576ef)
 
 ---
 
@@ -150,30 +135,17 @@ git commit -m "feat(web): build employee dashboard with greeting, metrics, recen
 > **Jebakan — 6 kartu di satu baris:** pada desktop penuh muat 6 (wireframe memakai 5 di 1200px); pastikan grid responsif (wrap di tablet, stack di mobile). Skeleton per kartu saat loading (K3).
 
 ### Step 1 — RED (Vitest):
-```typescript
-// test/technician-dashboard.test.tsx
-// - render dengan mock data; verifikasi 6 kartu angka benar
-// - kartu SLA Breached punya class danger bila > 0
-// - avg_resolution_minutes null → "—" (bukan "0")
-// - sla_compliance_percentage null → "—"
-// - item aktivitas dengan ticket → link search-by-number
-// - item aktivitas tanpa ticket → tidak ada link (masih render label)
-```
+- [x] Test technician-dashboard.test.tsx dibuat dan memverifikasi 6 kartu metrik, SLA breached danger tone, null handling ke "—", recent activity link ke search-by-number, dan empty state.
 
 ### Step 2 — GREEN: implementasi page + komponen.
+- [x] `activity-list.tsx` dan `technician-dashboard.tsx` diimplementasikan di `apps/web/src/components/dashboard/technician/`.
+- [x] `page.tsx` dan `page-client.tsx` diimplementasikan di `apps/web/src/app/(app)/dashboard/technician/`.
 
 ### Step 3 — REFACTOR & verifikasi
-```bash
-cd apps/web && npm run test && npx tsc --noEmit && npm run lint && npm run build
-```
+- [x] Verifikasi test vitest, lint, tsc, dan next build berhasil dan hijau.
 
 ### Step 4 — Commit
-```bash
-git add apps/web/src/app/\(app\)/dashboard/technician/ \
-        apps/web/src/components/dashboard/technician/ \
-        apps/web/src/test/technician-dashboard.test.tsx
-git commit -m "feat(web): build technician dashboard with metrics, SLA highlight, and recent activity"
-```
+- [x] Commit: `feat(web): build technician dashboard with metrics, SLA highlight, and recent activity` (308500f)
 
 ---
 
@@ -189,19 +161,21 @@ git commit -m "feat(web): build technician dashboard with metrics, SLA highlight
 4. Verifikasi responsif: 375px (stack), 768px (grid 2 kolom), 1440px (layout penuh).
 
 ### Step 1 — uji manual di browser; catat anomali sebagai isu.
+- [x] Verifikasi rute `/dashboard/employee` dan `/dashboard/technician` memuat payload data dengan benar.
+- [x] Verifikasi tab inactive tidak memicu refetch (`refetchIntervalInBackground: false`).
+- [x] Verifikasi layout responsif untuk mobile (stack), tablet (2 kolom), dan desktop.
+
 ### Step 2 — Commit perbaikan kecil (bila ada):
-```bash
-git commit -am "fix(web): dashboard polish after manual verification"
-```
+- [x] Polish code purity & TypeScript mock assertions dikomit (8474fea).
 
 ---
 
 ## Exit Criteria 9b
 
-- [ ] `/dashboard/employee`: greeting dinamis WIB, 4 kartu benar, tabel tiket terbaru (dengan sisa SLA & status badge), aset, artikel; CTA Buat Ticket sesuai `can()`.
-- [ ] `/dashboard/technician`: 6 kartu benar; "Antrean OPEN" menampilkan angka global; kartu SLA Breached ber-tone danger; `null` compliance/avg → "—".
-- [ ] Aktivitas terbaru menampilkan label Indonesia + nomor tiket; menaut ke `/tickets?search={ticket_number}` bila data tiket ada.
-- [ ] Skeleton per kartu; `EmptyState` untuk daftar kosong; error 403/500 ditangani (halaman 403 / `errorMessages`).
-- [ ] Responsif 375/768/1440 (chart belum ada di sub-tahap ini).
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
-- [ ] Commit atomik; branch `feat/phase-9b-employee-technician` siap PR.
+- [x] `/dashboard/employee`: greeting dinamis WIB, 4 kartu benar, tabel tiket terbaru (dengan sisa SLA & status badge), aset, artikel; CTA Buat Ticket sesuai `can()`.
+- [x] `/dashboard/technician`: 6 kartu benar; "Antrean OPEN" menampilkan angka global; kartu SLA Breached ber-tone danger; `null` compliance/avg → "—".
+- [x] Aktivitas terbaru menampilkan label Indonesia + nomor tiket; menaut ke `/tickets?search={ticket_number}` bila data tiket ada.
+- [x] Skeleton per kartu; `EmptyState` untuk daftar kosong; error 403/500 ditangani (halaman 403 / `errorMessages`).
+- [x] Responsif 375/768/1440 (chart belum ada di sub-tahap ini).
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
+- [x] Commit atomik; branch `feat/phase-9b-employee-technician` siap PR.
