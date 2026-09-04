@@ -673,13 +673,13 @@ git commit -m "feat(web): add dashboard activity, chart series, and empty state 
 
 ## Exit Criteria 9a
 
-- [ ] B1: `data.sla_compliance_percentage` hadir di `/api/dashboard/technician`, formula D-03, `null` saat 0 resolved; test hijau.
-- [ ] B2: `data.unassigned_tickets` hadir di `/api/dashboard/manager`, snapshot live tanpa range; test hijau.
-- [ ] B3: `recent_activity[].ticket.{ticket_number,title}` hadir; endpoint riwayat tiket lama tidak berubah; test hijau.
-- [ ] B4: `recent_articles[]` employee tanpa `content`, dengan `category` & `author`; test hijau.
-- [ ] `vendor/bin/pest tests/Feature/Dashboard` + `vendor/bin/pest tests/Feature` hijau; `vendor/bin/pint --dirty --format agent` bersih.
-- [ ] `types/dashboard.ts` & `types/tickets.ts` sinkron payload nyata (B1–B4, `technician?` opsional, `ticket?` pada history).
-- [ ] `formatters.ts` (`formatDuration`, `formatSlaRemaining`) + test hijau.
-- [ ] `MetricCard`, `DashboardPanel`, `LazyChart`, `DateRangePicker` (shadcn calendar + preset + aturan dua-param) ada, `tsc` + lint + test hijau.
-- [ ] Label dashboard di `labels.ts` + test hijau.
-- [ ] Commit atomik per task; branch `feat/phase-9a-foundation` siap PR ke `main`.
+- [x] B1: `data.sla_compliance_percentage` hadir di `/api/dashboard/technician`, formula D-03, `null` saat 0 resolved; test hijau.
+- [x] B2: `data.unassigned_tickets` hadir di `/api/dashboard/manager`, snapshot live tanpa range; test hijau.
+- [x] B3: `recent_activity[].ticket.{ticket_number,title}` hadir; endpoint riwayat tiket lama tidak berubah; test hijau.
+- [x] B4: `recent_articles[]` employee tanpa `content`, dengan `category` & `author`; test hijau.
+- [x] `vendor/bin/pest tests/Feature/Dashboard` + `vendor/bin/pest tests/Feature` hijau; `vendor/bin/pint --dirty --format agent` bersih.
+- [x] `types/dashboard.ts` & `types/tickets.ts` sinkron payload nyata (B1–B4, `technician?` opsional, `ticket?` pada history).
+- [x] `formatters.ts` (`formatDuration`, `formatSlaRemaining`) + test hijau.
+- [x] `MetricCard`, `DashboardPanel`, `LazyChart`, `DateRangePicker` (shadcn calendar + preset + aturan dua-param) ada, `tsc` + lint + test hijau.
+- [x] Label dashboard di `labels.ts` + test hijau.
+- [x] Commit atomik per task; branch `feat/phase-9a-foundation` siap PR ke `main`.

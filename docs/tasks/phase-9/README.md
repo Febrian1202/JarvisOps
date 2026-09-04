@@ -130,10 +130,10 @@ API admin adalah **superset** manager (`AdminDashboardService` = `array_merge` m
 - [x] Wireframe frames 02–05 di `docs/design/wireframe.pen` (dibaca via pencil MCP).
 
 ### Belum ada (harus dibangun)
-- [ ] `react-day-picker` + shadcn `calendar.tsx` (untuk DateRangePicker, K5).
-- [ ] `src/lib/formatters.ts` (formatDuration, formatSlaRemaining) — folder `src/lib/` tidak punya file ini.
-- [ ] Komponen `components/dashboard/*` (MetricCard, DashboardPanel, LazyChart, DateRangePicker).
-- [ ] Amandemen B1–B4 di backend.
+- [x] `react-day-picker` + shadcn `calendar.tsx` (untuk DateRangePicker, K5).
+- [x] `src/lib/formatters.ts` (formatDuration, formatSlaRemaining).
+- [x] Komponen `components/dashboard/*` (MetricCard, DashboardPanel, LazyChart, DateRangePicker).
+- [x] Amandemen B1–B4 di backend.
 
 ---
 
