@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Search } from 'lucide-react';
+import { Search, UserCheck, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -32,11 +32,13 @@ interface AssignDialogProps {
 
 export function AssignDialog({ open, onOpenChange, asset, isSubmitting, onSubmit }: AssignDialogProps) {
   const [search, setSearch] = useState('');
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [selectedUser, setSelectedUser] = useState<AssignableUser | null>(null);
   const [notes, setNotes] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const debouncedSearch = useDebounce(search, 300);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  const { data: usersResponse } = useQuery({
+  const { data: usersResponse, isLoading } = useQuery({
     queryKey: userKeys.assignable(debouncedSearch || undefined),
     queryFn: () => {
       const endpoint = debouncedSearch
@@ -44,18 +46,56 @@ export function AssignDialog({ open, onOpenChange, asset, isSubmitting, onSubmit
         : '/users/assignable';
       return apiFetch<AssignableUser[]>(endpoint);
     },
+    enabled: open,
   });
   const users = usersResponse?.data ?? [];
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      setSelectedUser(null);
+      setNotes('');
+      setSearch('');
+      setIsDropdownOpen(false);
+    }
+    onOpenChange(isOpen);
+  };
+
+  const handleSelectUser = (user: AssignableUser) => {
+    setSelectedUser(user);
+    setSearch('');
+    setIsDropdownOpen(false);
+  };
+
+  const handleClearSelectedUser = () => {
+    setSelectedUser(null);
+    setSearch('');
+    setIsDropdownOpen(true);
+  };
+
   const handleSubmit = () => {
-    if (selectedUserId) {
-      onSubmit({ user_id: selectedUserId, notes: notes || undefined });
+    if (selectedUser) {
+      onSubmit({ user_id: selectedUser.id, notes: notes.trim() || undefined });
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={(o) => { if (!o) { setSelectedUserId(null); setNotes(''); setSearch(''); } else { onOpenChange(o); } }}>
-      <DialogContent className="sm:max-w-sm">
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Tugaskan Aset</DialogTitle>
           <DialogDescription>
@@ -64,44 +104,97 @@ export function AssignDialog({ open, onOpenChange, asset, isSubmitting, onSubmit
         </DialogHeader>
 
         <div className="space-y-4 py-2">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Cari nama pengguna…"
-              className="pl-9 text-sm"
-            />
-          </div>
+          {/* User selection field */}
+          <div className="space-y-1.5" ref={searchContainerRef}>
+            <Label htmlFor="user-search">Pengguna Penerima</Label>
 
-          <ScrollArea className="max-h-48">
-            <div className="space-y-1">
-              {users.map((u) => (
-                <button
-                  key={u.id}
+            {selectedUser ? (
+              <div className="flex items-center justify-between rounded-lg border border-border bg-muted/40 p-2.5 transition-colors">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-xs">
+                    {selectedUser.full_name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-foreground">
+                      {selectedUser.full_name}
+                    </p>
+                    {selectedUser.department && (
+                      <p className="truncate text-xs text-muted-foreground">
+                        {selectedUser.department.name}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <Button
                   type="button"
-                  onClick={() => setSelectedUserId(u.id)}
-                  className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                    selectedUserId === u.id
-                      ? 'bg-primary text-primary-foreground font-medium'
-                      : 'hover:bg-muted text-foreground'
-                  }`}
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClearSelectedUser}
+                  className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
                 >
-                  <span className="block">{u.full_name}</span>
-                  {u.department && (
-                    <span className={`block text-xs ${selectedUserId === u.id ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
-                      {u.department.name}
-                    </span>
+                  <X className="h-4 w-4" />
+                  <span className="sr-only">Ganti pengguna</span>
+                </Button>
+              </div>
+            ) : (
+              <div className="relative">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    id="user-search"
+                    value={search}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                      if (!isDropdownOpen) setIsDropdownOpen(true);
+                    }}
+                    onFocus={() => setIsDropdownOpen(true)}
+                    placeholder="Cari nama pengguna…"
+                    className="pl-9 text-sm"
+                    autoComplete="off"
+                  />
+                  {isLoading && (
+                    <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
                   )}
-                </button>
-              ))}
-              {users.length === 0 && (
-                <p className="text-xs text-muted-foreground py-4 text-center">
-                  {search ? 'Tidak ada pengguna yang cocok.' : 'Ketik nama untuk mencari…'}
-                </p>
-              )}
-            </div>
-          </ScrollArea>
+                </div>
+
+                {isDropdownOpen && (
+                  <div className="absolute left-0 right-0 top-full z-20 mt-1.5 overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95">
+                    <ScrollArea className="max-h-52">
+                      <div className="p-1 space-y-0.5">
+                        {users.map((u) => (
+                          <button
+                            key={u.id}
+                            type="button"
+                            onClick={() => handleSelectUser(u)}
+                            className="flex w-full items-center justify-between rounded-md px-2.5 py-2 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                          >
+                            <div className="min-w-0">
+                              <span className="block font-medium truncate">{u.full_name}</span>
+                              {u.department && (
+                                <span className="block text-xs text-muted-foreground truncate">
+                                  {u.department.name}
+                                </span>
+                              )}
+                            </div>
+                            <UserCheck className="h-4 w-4 shrink-0 text-muted-foreground opacity-50" />
+                          </button>
+                        ))}
+                        {users.length === 0 && (
+                          <p className="text-xs text-muted-foreground py-4 text-center">
+                            {isLoading
+                              ? 'Memuat pengguna…'
+                              : search
+                              ? 'Tidak ada pengguna yang cocok.'
+                              : 'Ketik nama untuk mencari…'}
+                          </p>
+                        )}
+                      </div>
+                    </ScrollArea>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           <div className="space-y-1.5">
             <Label htmlFor="assign-notes">Catatan tugas (opsional)</Label>
@@ -110,14 +203,16 @@ export function AssignDialog({ open, onOpenChange, asset, isSubmitting, onSubmit
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Tambahkan catatan penugasan…"
-              rows={2}
+              rows={3}
             />
           </div>
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Batal</Button>
-          <Button disabled={!selectedUserId || isSubmitting} onClick={handleSubmit}>
+          <Button variant="outline" onClick={() => handleOpenChange(false)}>
+            Batal
+          </Button>
+          <Button disabled={!selectedUser || isSubmitting} onClick={handleSubmit}>
             {isSubmitting ? 'Menugaskan…' : 'Tugaskan'}
           </Button>
         </DialogFooter>

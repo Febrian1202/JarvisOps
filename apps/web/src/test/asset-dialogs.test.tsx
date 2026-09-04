@@ -59,6 +59,10 @@ describe('AssignDialog', () => {
     const submitBtn = screen.getByRole('button', { name: /^tugaskan$/i });
     expect(submitBtn).toBeDisabled();
 
+    // Focus on the search input to open the dropdown
+    const input = screen.getByPlaceholderText(/cari nama pengguna/i);
+    fireEvent.focus(input);
+
     await waitFor(() => {
       expect(screen.getByText('Andi Kusuma')).toBeInTheDocument();
     });
@@ -81,6 +85,9 @@ describe('AssignDialog', () => {
       />
     );
 
+    const input = screen.getByPlaceholderText(/cari nama pengguna/i);
+    fireEvent.focus(input);
+
     await waitFor(() => {
       expect(screen.getByText('Andi Kusuma')).toBeInTheDocument();
     });
@@ -97,6 +104,24 @@ describe('AssignDialog', () => {
         notes: 'Untuk kebutuhan project',
       });
     });
+  });
+
+  it('calls onOpenChange(false) when close button is clicked', async () => {
+    const onOpenChange = vi.fn();
+    renderWithProviders(
+      <AssignDialog
+        open
+        onOpenChange={onOpenChange}
+        asset={asset}
+        isSubmitting={false}
+        onSubmit={vi.fn()}
+      />
+    );
+
+    const closeBtn = screen.getByRole('button', { name: /tutup/i });
+    fireEvent.click(closeBtn);
+
+    expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 });
 
