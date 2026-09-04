@@ -191,11 +191,11 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
 
 ## Exit Criteria 9c
 
-- [ ] `/dashboard/manager` menampilkan seluruh metrik §20.3 + `unassigned_tickets` (B2) + tabel §21 (6 kolom) sortable penuh.
-- [ ] DateRangePicker preset 7/30/90 + kalender; URL tersinkron; **selalu kirim kedua tanggal atau tidak sama sekali**.
-- [ ] Chart tren (Recharts, dynamic import, `accessibilityLayer`, tooltip, empty state) terbaca di 375px.
-- [ ] Distribusi prioritas (label + durasi SLA) & kategori di-zip dengan reference list; empty state ada.
-- [ ] SLA compliance `null` → "Belum ada data"; `open/closed/unassigned` jelas berlabel snapshot live; breached ter-highlight.
-- [ ] Skeleton per kartu saat loading; error/403 ditangani.
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
-- [ ] Commit atomik; branch `feat/phase-9c-manager-dashboard` siap PR.
+- [x] `/dashboard/manager` menampilkan seluruh metrik §20.3 + `unassigned_tickets` (B2) + tabel §21 (6 kolom) sortable penuh.
+- [x] DateRangePicker preset 7/30/90 + kalender; URL tersinkron; **selalu kirim kedua tanggal atau tidak sama sekali**.
+- [x] Chart tren (Recharts, dynamic import, `accessibilityLayer`, tooltip, empty state) terbaca di 375px.
+- [x] Distribusi prioritas (label + durasi SLA) & kategori di-zip dengan reference list; empty state ada.
+- [x] SLA compliance `null` → "Belum ada data"; `open/closed/unassigned` jelas berlabel snapshot live; breached ter-highlight.
+- [x] Skeleton per kartu saat loading; error/403 ditangani.
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
+- [x] Commit atomik; branch `feat/phase-9c-manager-dashboard` siap PR.
