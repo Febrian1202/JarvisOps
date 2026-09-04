@@ -2,7 +2,15 @@
 
 import React from 'react';
 import { DateRangePicker } from '@/components/dashboard/date-range-picker';
+import { lazyChart } from '../lazy-chart';
 import { ManagerMetrics } from './manager-metrics';
+import type { TicketTrendItem } from '@/types/dashboard';
+import type { ComponentType } from 'react';
+
+const TicketTrendChart = lazyChart<{ trend: TicketTrendItem[]; isLoading?: boolean; range?: { from?: string; to?: string } }, ComponentType<{ trend: TicketTrendItem[]; isLoading?: boolean; range?: { from?: string; to?: string } }>>(() => 
+  import('./ticket-trend-chart').then(m => ({ default: m.TicketTrendChartPanel }))
+);
+
 import { useManagerDashboard } from '@/hooks/use-dashboards';
 
 export interface ManagerDashboardProps {
@@ -47,6 +55,14 @@ export function ManagerDashboard({
 
       {/* 6 Metric Cards */}
       <ManagerMetrics data={data} isLoading={isLoading} />
+
+      <div className="grid grid-cols-1 gap-6">
+        <TicketTrendChart 
+          trend={data?.ticket_trend ?? []} 
+          isLoading={isLoading} 
+          range={{ from: dateFrom, to: dateTo }} 
+        />
+      </div>
     </div>
   );
 }
