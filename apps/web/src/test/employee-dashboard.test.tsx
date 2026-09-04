@@ -87,7 +87,7 @@ describe('EmployeeDashboard', () => {
       data: mockData,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useEmployeeDashboard>);
 
     vi.spyOn(authProvider, 'useAuth').mockReturnValue({
       user: {
@@ -96,7 +96,7 @@ describe('EmployeeDashboard', () => {
         email: 'ahmad@example.com',
         role: { id: 1, name: 'employee' },
         permissions: ['ticket.create'],
-      } as any,
+      } as unknown as NonNullable<ReturnType<typeof authProvider.useAuth>['user']>,
       can: (perm: string) => perm === 'ticket.create',
       hasRole: () => true,
       isLoading: false,
@@ -134,7 +134,7 @@ describe('EmployeeDashboard', () => {
       data: mockData,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useEmployeeDashboard>);
 
     vi.spyOn(authProvider, 'useAuth').mockReturnValue({
       user: {
@@ -143,7 +143,7 @@ describe('EmployeeDashboard', () => {
         email: 'ahmad@example.com',
         role: { id: 1, name: 'employee' },
         permissions: [],
-      } as any,
+      } as unknown as NonNullable<ReturnType<typeof authProvider.useAuth>['user']>,
       can: () => false,
       hasRole: () => false,
       isLoading: false,
@@ -161,7 +161,7 @@ describe('EmployeeDashboard', () => {
       data: mockData,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useEmployeeDashboard>);
 
     vi.spyOn(authProvider, 'useAuth').mockReturnValue({
       user: {
@@ -170,7 +170,7 @@ describe('EmployeeDashboard', () => {
         email: 'ahmad@example.com',
         role: { id: 1, name: 'employee' },
         permissions: ['ticket.create'],
-      } as any,
+      } as unknown as NonNullable<ReturnType<typeof authProvider.useAuth>['user']>,
       can: () => true,
       hasRole: () => true,
       isLoading: false,
@@ -199,7 +199,7 @@ describe('EmployeeDashboard', () => {
       },
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useEmployeeDashboard>);
 
     vi.spyOn(authProvider, 'useAuth').mockReturnValue({
       user: {
@@ -208,7 +208,7 @@ describe('EmployeeDashboard', () => {
         email: 'ahmad@example.com',
         role: { id: 1, name: 'employee' },
         permissions: [],
-      } as any,
+      } as unknown as NonNullable<ReturnType<typeof authProvider.useAuth>['user']>,
       can: () => false,
       hasRole: () => false,
       isLoading: false,

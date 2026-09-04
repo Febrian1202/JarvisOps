@@ -15,6 +15,7 @@ interface TicketMiniTableProps {
 
 export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableProps) {
   const router = useRouter();
+  const [now] = React.useState(() => Date.now());
 
   if (isLoading) {
     return (
@@ -55,7 +56,6 @@ export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableP
 
             if (ticket.sla_deadline && !isFinished) {
               const deadline = new Date(ticket.sla_deadline).getTime();
-              const now = Date.now();
               signedRemainingMinutes = Math.round((deadline - now) / (1000 * 60));
             }
 

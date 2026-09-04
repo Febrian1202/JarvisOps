@@ -47,7 +47,7 @@ describe('TechnicianDashboard', () => {
       data: mockData,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useTechnicianDashboard>);
 
     render(<TechnicianDashboard />);
 
@@ -77,7 +77,7 @@ describe('TechnicianDashboard', () => {
       data: mockData,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useTechnicianDashboard>);
 
     render(<TechnicianDashboard />);
 
@@ -95,7 +95,7 @@ describe('TechnicianDashboard', () => {
       },
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useTechnicianDashboard>);
 
     render(<TechnicianDashboard />);
 
@@ -111,7 +111,7 @@ describe('TechnicianDashboard', () => {
       },
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof dashboardsHook.useTechnicianDashboard>);
 
     render(<TechnicianDashboard />);
 
