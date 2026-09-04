@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard;
 
-use App\Http\Resources\Article\ArticleResource;
+use App\Http\Resources\Article\ArticleListResource;
 use App\Http\Resources\Asset\AssignableAssetResource;
 use App\Http\Resources\Ticket\TicketListResource;
 use App\Models\Asset;
@@ -37,10 +37,11 @@ class EmployeeDashboardService
                     ->limit(5)
                     ->get()
             )->resolve(),
-            'recent_articles' => ArticleResource::collection(
+            'recent_articles' => ArticleListResource::collection(
                 KnowledgeArticle::query()
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
+                    ->with(['category', 'author'])
                     ->latest('published_at')
                     ->limit(5)
                     ->get()
