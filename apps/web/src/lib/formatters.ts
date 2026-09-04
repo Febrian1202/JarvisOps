@@ -46,3 +46,26 @@ export function formatSlaRemaining(
 
   return `Terlambat ${formatDuration(Math.abs(signedMinutes))}`;
 }
+
+export function getGreeting(dateOrHour?: Date | number): string {
+  let hour: number;
+
+  if (typeof dateOrHour === 'number') {
+    hour = dateOrHour;
+  } else {
+    const targetDate = dateOrHour ?? new Date();
+    const utcHours = targetDate.getUTCHours();
+    hour = (utcHours + 7) % 24;
+  }
+
+  if (hour < 11) {
+    return 'Selamat pagi';
+  }
+  if (hour < 15) {
+    return 'Selamat siang';
+  }
+  if (hour < 19) {
+    return 'Selamat sore';
+  }
+  return 'Selamat malam';
+}
