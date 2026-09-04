@@ -16,6 +16,12 @@ class SlaMetricsCalculator
             ->whereNotNull('resolved_at')
             ->whereBetween('resolved_at', [$range->fromUtc, $range->toUtc]);
 
+        return $this->complianceFor($resolved);
+    }
+
+    public function complianceFor(Builder $query): array
+    {
+        $resolved = (clone $query)->whereNotNull('resolved_at');
         $totalResolved = (clone $resolved)->count();
 
         if ($totalResolved === 0) {
@@ -31,15 +37,11 @@ class SlaMetricsCalculator
             ->whereColumn('resolved_at', '<=', 'sla_deadline')
             ->count();
 
-        $breached = $totalResolved - $withinSla;
-        $compliance = round(($withinSla / $totalResolved) * 100, 1);
-        $avg = $this->queryService->avgResolutionMinutes($resolved);
-
         return [
             'within_sla' => $withinSla,
-            'breached' => $breached,
-            'compliance_percentage' => $compliance,
-            'avg_resolution_minutes' => $avg,
+            'breached' => $totalResolved - $withinSla,
+            'compliance_percentage' => round(($withinSla / $totalResolved) * 100, 1),
+            'avg_resolution_minutes' => $this->queryService->avgResolutionMinutes($resolved),
         ];
     }
 }

@@ -11,6 +11,7 @@ class TechnicianDashboardService
 {
     public function __construct(
         protected DashboardQueryService $queryService,
+        protected SlaMetricsCalculator $slaMetrics,
     ) {}
 
     public function get(User $actor): array
@@ -35,6 +36,7 @@ class TechnicianDashboardService
             'avg_resolution_minutes' => $this->queryService->avgResolutionMinutes(
                 (clone $assigned)->whereNotNull('resolved_at')
             ),
+            'sla_compliance_percentage' => $this->slaMetrics->complianceFor((clone $assigned))['compliance_percentage'],
             'recent_activity' => TicketHistoryResource::collection(
                 TicketHistory::query()
                     ->whereIn('ticket_id', (clone $assigned)->pluck('id'))
