@@ -309,3 +309,45 @@ export const userStatusLabels: Record<string, string> = {
   active: 'Aktif',
   inactive: 'Nonaktif',
 };
+
+export const activityFieldLabels: Record<string, string> = {
+  status_id: 'Mengubah status',
+  technician_id: 'Penugasan teknisi',
+  priority_id: 'Mengubah prioritas',
+  category_id: 'Mengubah kategori',
+};
+
+export function getActivityFieldLabel(field: string): string {
+  return activityFieldLabels[field] || 'Memperbarui tiket';
+}
+
+export const chartSeriesLabels = {
+  created: 'Ticket Dibuat',
+  resolved: 'Ticket Selesai',
+};
+
+export const dashboardMetricLabels = {
+  openTickets: 'Tiket Terbuka',
+  resolvedTickets: 'Tiket Selesai',
+  slaBreached: 'SLA Terlanggar',
+  avgResolutionTime: 'Rata-rata Waktu Penyelesaian',
+  compliance: 'Kepatuhan SLA',
+  unassignedTickets: 'Tiket Belum Ditugaskan',
+  activeAssets: 'Aset Aktif',
+  totalUsers: 'Total Pengguna',
+};
+
+export const dashboardEmptyLabels = {
+  activity: 'Belum ada aktivitas.',
+  ticket: 'Belum ada tiket.',
+  article: 'Belum ada artikel.',
+  asset: 'Belum ada aset.',
+};
+
+export const emptyStateLabels = {
+  dashboardActivity: dashboardEmptyLabels.activity,
+  dashboardTicket: dashboardEmptyLabels.ticket,
+  dashboardArticle: dashboardEmptyLabels.article,
+  dashboardAsset: dashboardEmptyLabels.asset,
+};
+
