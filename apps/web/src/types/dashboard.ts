@@ -16,6 +16,7 @@ export interface TechnicianDashboardData {
   open_tickets: number;
   in_progress_tickets: number;
   sla_breached: number;
+  sla_compliance_percentage: number | null;
   avg_resolution_minutes: number | null;
   recent_activity: TicketHistoryItem[];
 }
@@ -59,6 +60,7 @@ export interface TechnicianPerformanceItem {
 export interface ManagerDashboardData {
   total_tickets: number;
   open_tickets: number;
+  unassigned_tickets: number;
   resolved_tickets: number;
   closed_tickets: number;
   sla: SlaOverview;

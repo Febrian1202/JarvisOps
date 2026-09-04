@@ -61,7 +61,7 @@ export interface TicketListItem {
   priority: TicketPriorityReference;
   category: TicketCategoryReference;
   reporter: { id: number; full_name: string };
-  technician: { id: number; full_name: string } | null;
+  technician?: { id: number; full_name: string } | null;
   sla_deadline: string | null;
   sla_breached: boolean;
   sla_status: SlaStatus;
@@ -124,6 +124,10 @@ export interface TicketHistoryItem {
   user: {
     id: number;
     full_name?: string | null;
+  } | null;
+  ticket?: {
+    ticket_number: string;
+    title: string;
   } | null;
   created_at: string;
 }
