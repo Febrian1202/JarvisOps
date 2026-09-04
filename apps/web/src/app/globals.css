@@ -2,6 +2,11 @@
 
 @theme inline {
   --font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --color-cream: #f7f4ed;
+  --color-cream-card: #fbfaf7;
+  --color-cream-border: #eceae4;
+  --color-charcoal-40: rgba(28, 28, 28, 0.4);
+  --radius-card: 12px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
