@@ -2,7 +2,7 @@
 
 ## JARVIS OPS — IT Service Management System
 
-**Document Revision:** 1.2
+**Document Revision:** 1.3
 **Status:** Derived — tidak memperkenalkan keputusan baru; mengkonsolidasikan pola yang tersebar
 **Sumber:** `docs/product/ROADMAP.md` (Fase 7–8), `docs/tasks/phase-2/2d-walking-skeleton.md`, `docs/api/API-CONTRACT.md`, `docs/product/PRD.md`, `AGENTS.md`
 **Dokumen terkait:** `docs/architecture/BACKEND-ARCHITECTURE.md`, `docs/architecture/CONTEXT-DIAGRAM.md`, `docs/architecture/DFD.md`, `docs/product/PERMISSION-MATRIX.md`, `docs/product/STATUS-TRANSITION.md`
@@ -293,6 +293,12 @@ src/
 │   │   └── api.ts
 │   └── client/                   ← hanya jalan di client
 │       └── apiFetch.ts
+├── schemas/                      ← zod schema bersama, satu file per domain (§10)
+│   ├── ticket.ts
+│   ├── asset.ts
+│   ├── article.ts
+│   ├── user.ts
+│   └── profile.ts
 ├── types/                        ← TypeScript types
 │   └── api.ts
 └── proxy.ts                      ← Next.js 16 proxy convention (substitusi middleware.ts)
@@ -304,6 +310,7 @@ src/
 - Komponen fungsi: **PascalCase** (`TicketList`, `NotificationBell`).
 - Hooks: `use` prefix (`useAuth`, `useDebounce`).
 - Fitur per domain di `features/<domain>/` — singular snake_case (`tickets`, `auth`, `notifications`, `dashboard`).
+- Schema zod di `schemas/<domain>.ts` — nama file singular (`ticket.ts`, bukan `tickets.ts`), nama export ber-suffix `Schema` (`ticketSchema`, `assetSchema`).
 
 ---
 
@@ -446,6 +453,29 @@ const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
 });
 ```
+
+### 10.1 Penempatan schema — `src/schemas/` vs colocate
+
+Aturan penentunya **jumlah consumer**, bukan ukuran schema:
+
+| Kondisi | Tempat |
+| --- | --- |
+| Dipakai ≥2 file (mis. form create *dan* edit), **atau** butuh unit test schema tersendiri, **atau** memvalidasi payload write endpoint utama | `src/schemas/<domain>.ts`, di-import via `@/schemas/<domain>` |
+| Satu consumer, tidak dipakai ulang, dan hanya bermakna bersama komponennya | colocate di file komponen sebagai `const` file-local |
+
+Contoh colocate yang sah: `loginSchema` di `(auth)/login/page.tsx`, `cancelSchema`/`statusSchema` di `components/tickets/action-dialogs.tsx`, dan empat schema master data di `components/admin/master-data-configs.ts` (schema di sana adalah **field `zodSchema` dari config object** — memisahkannya memecah unit yang dibaca bersamaan).
+
+**Larangan keras:** satu payload endpoint tidak boleh punya dua schema di dua file. Kalau dua halaman menembak endpoint yang sama, keduanya import schema yang sama dari `src/schemas/`. Pelanggaran ini sudah pernah terjadi — `changePasswordSchema` sempat diduplikasi di `(auth)/ganti-password/page.tsx` tanpa aturan huruf+angka, sehingga lebih longgar dari `Password::min(8)->letters()->numbers()` di `ChangePasswordRequest` dan lebih longgar dari janji di teks halamannya sendiri.
+
+### 10.2 Konvensi isi file `schemas/`
+
+- Satu file per domain, `export const <entity>Schema`.
+- Type diturunkan dari schema, **jangan ditulis tangan**: `z.infer<typeof s>`, atau `z.input<typeof s>` bila schema memakai `.transform()` (nilai form berbeda dari nilai terkirim — lihat `schemas/user.ts`).
+- Pesan error per field wajib **Bahasa Indonesia** (D-24) dan harus mencerminkan rule Form Request pasangannya di `apps/api/app/Http/Requests/` — `max:150` di backend, `max(150)` di zod.
+- Parameter pesan seragam pakai `{ message: '…' }`. Jangan pakai `{ required_error: … }` / `{ invalid_type_error: … }` (dua-duanya valid di zod 3, tapi tidak dipakai di sini).
+- Konstanta pendamping schema (mis. daftar status yang boleh dipilih user) boleh ikut di file schema. Satu nama per konstanta — jangan buat alias.
+- Bila nama entitas bentrok antar domain, beri prefiks domain: `schemas/profile.ts` memiliki `profileSchema` (`PUT /me`), sedangkan objek `profile` bersarang di form admin bernama `userProfileSchema` di `schemas/user.ts`.
+- Schema di `src/schemas/` **tidak** memakai `'use client'` — modul netral yang bisa di-import server maupun client.
 
 ---
 

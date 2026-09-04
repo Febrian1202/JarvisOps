@@ -4,25 +4,16 @@ import React, { useEffect, useState, useTransition } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { SearchInput } from '@/components/shared/search-input';
 import { ConfirmDialog } from '@/components/shared/confirm-dialog';
+import { UserFilters } from '@/components/admin/UserFilters';
 import { UsersTable } from '@/components/admin/UsersTable';
 import { UserFormDialog } from '@/components/admin/UserFormDialog';
 import { ResetPasswordDialog } from '@/components/admin/ResetPasswordDialog';
 import { useUsers, useUserReferences, type UserQueryParams } from '@/hooks/use-users';
 import { useApiMutation } from '@/hooks/useApiMutation';
-import { useDebounce } from '@/hooks/use-debounce';
 import { useAuth } from '@/components/providers/auth-provider';
 import { apiFetch } from '@/lib/client/api';
 import { userKeys } from '@/lib/query-keys';
-import { userStatusLabels } from '@/lib/labels';
 import type { UserAdminDetail, UserListItem } from '@/types/auth';
 
 export function UsersPageClient() {
@@ -46,16 +37,6 @@ export function UsersPageClient() {
   const status = searchParams.get('status') || '';
   const sortBy = searchParams.get('sort_by') || 'full_name';
   const sortDir = (searchParams.get('sort_dir') as 'asc' | 'desc') || 'asc';
-
-  const [searchInput, setSearchInput] = useState(search);
-  const debouncedSearch = useDebounce(searchInput, 300);
-
-  useEffect(() => {
-    if (debouncedSearch !== search) {
-      updateQueryParams({ search: debouncedSearch || null });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearch]);
 
   const { roles, departments } = useUserReferences();
 
@@ -152,72 +133,7 @@ export function UsersPageClient() {
         </Button>
       </div>
 
-      <div className="space-y-3">
-        <SearchInput
-          value={searchInput}
-          onChange={(val) => setSearchInput(val)}
-          placeholder="Cari nama atau email pengguna…"
-          className="w-full sm:max-w-xs"
-        />
-        <div className="flex flex-wrap items-center gap-2">
-          <Select
-            value={roleId || 'ALL'}
-            onValueChange={(val) => updateQueryParams({ role_id: val, page: 1 })}
-          >
-            <SelectTrigger className="h-8 min-w-[140px] rounded-lg text-xs bg-card border-border">
-              <SelectValue placeholder="Role" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ALL" className="text-xs">Semua Role</SelectItem>
-              {roles.map((role) => (
-                <SelectItem key={role.id} value={String(role.id)} className="text-xs">
-                  {role.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select
-            value={departmentId || 'ALL'}
-            onValueChange={(val) =>
-              updateQueryParams({ department_id: val, page: 1 })
-            }
-          >
-            <SelectTrigger className="h-8 min-w-[150px] rounded-lg text-xs bg-card border-border">
-              <SelectValue placeholder="Departemen" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ALL" className="text-xs">Semua Departemen</SelectItem>
-              {departments.map((department) => (
-                <SelectItem
-                  key={department.id}
-                  value={String(department.id)}
-                  className="text-xs"
-                >
-                  {department.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select
-            value={status || 'ALL'}
-            onValueChange={(val) => updateQueryParams({ status: val, page: 1 })}
-          >
-            <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ALL" className="text-xs">Semua Status</SelectItem>
-              {Object.entries(userStatusLabels).map(([value, label]) => (
-                <SelectItem key={value} value={value} className="text-xs">
-                  {label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      <UserFilters />
 
       <UsersTable
         items={users}

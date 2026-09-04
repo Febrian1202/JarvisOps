@@ -12,10 +12,7 @@ export const profileSchema = z.object({
     .or(z.literal('')),
 });
 
-export type ProfileFormData = {
-  full_name: string;
-  phone?: string;
-};
+export type ProfileFormData = z.infer<typeof profileSchema>;
 
 export const changePasswordSchema = z
   .object({

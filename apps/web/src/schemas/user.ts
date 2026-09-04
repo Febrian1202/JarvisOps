@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
-const profileSchema = z.object({
+// Nested `profile` object of the admin user forms. Distinct from
+// `profileSchema` in `@/schemas/profile`, which validates the self-service
+// profile page (`PUT /me`).
+const userProfileSchema = z.object({
   employee_code: z
     .string()
     .max(50, 'Kode karyawan maksimal 50 karakter.')
@@ -38,7 +41,7 @@ export const createUserSchema = z
     status: z.enum(['active', 'inactive'], {
       message: 'Status user tidak valid.',
     }),
-    profile: profileSchema.optional(),
+    profile: userProfileSchema.optional(),
   })
   .refine((data) => data.password === data.password_confirmation, {
     path: ['password_confirmation'],
@@ -65,7 +68,7 @@ export const updateUserSchema = z.object({
     .union([z.coerce.number().int(), z.literal('')])
     .optional()
     .transform((val) => (val === '' || val === undefined ? null : val)),
-  profile: profileSchema.optional(),
+  profile: userProfileSchema.optional(),
 });
 
 export type UpdateUserFormData = z.input<typeof updateUserSchema>;

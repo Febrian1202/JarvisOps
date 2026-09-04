@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { Lock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,28 +18,17 @@ import {
 import { AuthSplitShell } from '@/components/auth/auth-split-shell';
 import { apiFetch, ApiClientError } from '@/lib/client/api';
 import { setFormErrors } from '@/lib/client/error-mapper';
-
-const changePasswordSchema = z
-  .object({
-    current_password: z.string().min(1, 'Kata sandi saat ini wajib diisi.'),
-    password: z.string().min(8, 'Kata sandi baru minimal 8 karakter.'),
-    password_confirmation: z
-      .string()
-      .min(1, 'Konfirmasi kata sandi baru wajib diisi.'),
-  })
-  .refine((data) => data.password === data.password_confirmation, {
-    message: 'Konfirmasi kata sandi baru tidak cocok.',
-    path: ['password_confirmation'],
-  });
-
-type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
+import {
+  changePasswordSchema,
+  type ChangePasswordFormData,
+} from '@/schemas/profile';
 
 export default function GantiPasswordPage() {
   const router = useRouter();
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<ChangePasswordFormValues>({
+  const form = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
       current_password: '',
@@ -49,7 +37,7 @@ export default function GantiPasswordPage() {
     },
   });
 
-  async function onSubmit(values: ChangePasswordFormValues) {
+  async function onSubmit(values: ChangePasswordFormData) {
     setGeneralError(null);
     setLoading(true);
 
@@ -135,7 +123,7 @@ export default function GantiPasswordPage() {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Minimal 8 karakter"
+                        placeholder="Minimal 8 karakter, kombinasi huruf & angka"
                         autoComplete="new-password"
                         disabled={loading}
                         className="h-[42px] rounded-md bg-background pl-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"

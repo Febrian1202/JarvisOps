@@ -31,5 +31,3 @@ export const assetSchema = z
   });
 
 export type AssetFormData = z.infer<typeof assetSchema>;
-
-export const ASSET_FORM_STATUS_OPTIONS = ASSET_FORM_STATUSES;

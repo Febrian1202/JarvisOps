@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { assetSchema, ASSET_FORM_STATUS_OPTIONS } from '@/schemas/asset';
+import { assetSchema, ASSET_FORM_STATUSES } from '@/schemas/asset';
 
 describe('assetSchema', () => {
   const validAsset = {
@@ -52,6 +52,6 @@ describe('assetSchema', () => {
   });
 
   it('exposes form status options that never include assigned', () => {
-    expect(ASSET_FORM_STATUS_OPTIONS).toEqual(['available', 'maintenance', 'retired', 'lost']);
+    expect(ASSET_FORM_STATUSES).toEqual(['available', 'maintenance', 'retired', 'lost']);
   });
 });

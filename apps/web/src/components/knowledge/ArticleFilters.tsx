@@ -44,18 +44,19 @@ export function ArticleFilters() {
   const hasActiveFilters = Boolean(search || categoryId || status);
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <SearchInput
-          value={search}
-          onChange={(val) => updateFilters({ search: val })}
-          placeholder="Cari judul atau isi artikel…"
-          className="w-full sm:max-w-xs"
-        />
-      </div>
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex w-full flex-row items-center justify-between gap-3 overflow-x-auto pb-1">
+      {/* Search Input stays on the left */}
+      <SearchInput
+        value={search}
+        onChange={(val) => updateFilters({ search: val })}
+        placeholder="Cari judul atau isi artikel…"
+        className="w-64 max-w-none shrink-0"
+      />
+
+      {/* Filter Dropdowns & Reset — always horizontal, right-aligned */}
+      <div className="flex shrink-0 flex-row items-center justify-end gap-2">
         <Select value={categoryId || 'ALL'} onValueChange={(val) => updateFilters({ category_id: val })}>
-          <SelectTrigger className="h-8 min-w-[140px] rounded-lg text-xs bg-card border-border">
+          <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
             <SelectValue placeholder="Kategori" />
           </SelectTrigger>
           <SelectContent>

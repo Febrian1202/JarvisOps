@@ -21,7 +21,7 @@ export function AttachmentCard({ attachment, canDelete, onDelete }: AttachmentCa
       <FileText className="h-5 w-5 shrink-0 text-primary" />
 
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-medium text-foreground truncate max-w-[200px]">
+        <p className="text-xs font-medium text-foreground truncate max-w-50">
           {attachment.original_filename}
         </p>
         <p className="text-[11px] text-muted-foreground">

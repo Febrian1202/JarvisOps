@@ -73,22 +73,20 @@ export function AssetFilters() {
   const hasActiveFilters = Boolean(search || status || category || assignedUserId);
 
   return (
-    <div className="space-y-4">
-      {/* Top row: search */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <SearchInput
-          value={search}
-          onChange={(val) => updateFilters({ search: val })}
-          placeholder="Cari kode aset, nomor seri, atau nama…"
-          className="w-full sm:max-w-xs"
-        />
-      </div>
+    <div className="flex w-full flex-row items-center justify-between gap-3 overflow-x-auto pb-1">
+      {/* Search Input stays on the left */}
+      <SearchInput
+        value={search}
+        onChange={(val) => updateFilters({ search: val })}
+        placeholder="Cari kode aset, nomor seri, atau nama…"
+        className="w-64 max-w-none shrink-0"
+      />
 
-      {/* Second row: dropdowns */}
-      <div className="flex flex-wrap items-center gap-2">
+      {/* Filter Dropdowns & Reset — always horizontal, right-aligned */}
+      <div className="flex shrink-0 flex-row items-center justify-end gap-2">
         {/* Status Filter */}
         <Select value={status || 'ALL'} onValueChange={(val) => updateFilters({ status: val })}>
-          <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
+          <SelectTrigger className="h-8 min-w-32.5 rounded-lg text-xs bg-card border-border">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
@@ -103,7 +101,7 @@ export function AssetFilters() {
 
         {/* Category Filter */}
         <Select value={category || 'ALL'} onValueChange={(val) => updateFilters({ category: val })}>
-          <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
+          <SelectTrigger className="h-8 min-w-32.5 rounded-lg text-xs bg-card border-border">
             <SelectValue placeholder="Kategori" />
           </SelectTrigger>
           <SelectContent>
@@ -120,7 +118,7 @@ export function AssetFilters() {
             value={assignedUserId || 'ALL'}
             onValueChange={(val) => updateFilters({ assigned_user_id: val })}
           >
-            <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
+            <SelectTrigger className="h-8 min-w-32.5 rounded-lg text-xs bg-card border-border">
               <SelectValue placeholder="Pemegang" />
             </SelectTrigger>
             <SelectContent>

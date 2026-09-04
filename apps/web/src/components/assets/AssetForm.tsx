@@ -22,7 +22,7 @@ import { apiFetch } from '@/lib/client/api';
 import { assetKeys } from '@/lib/query-keys';
 import { setFormErrors } from '@/lib/client/error-mapper';
 import { useApiMutation } from '@/hooks/useApiMutation';
-import { assetSchema, ASSET_FORM_STATUS_OPTIONS, type AssetFormData } from '@/schemas/asset';
+import { assetSchema, ASSET_FORM_STATUSES, type AssetFormData } from '@/schemas/asset';
 import type { AssetDetail, AssetStatus } from '@/types/assets';
 
 interface AssetFormProps {
@@ -243,7 +243,7 @@ export function AssetForm({ asset }: AssetFormProps) {
                     <SelectValue placeholder="Pilih status…" />
                   </SelectTrigger>
                   <SelectContent>
-                    {ASSET_FORM_STATUS_OPTIONS.map((s) => (
+                    {ASSET_FORM_STATUSES.map((s) => (
                       <SelectItem key={s} value={s}>{statusLabels[s]}</SelectItem>
                     ))}
                   </SelectContent>
