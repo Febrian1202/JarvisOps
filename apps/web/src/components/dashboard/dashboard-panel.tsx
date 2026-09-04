@@ -12,6 +12,7 @@ export interface DashboardPanelProps {
   actionIcon?: LucideIcon;
   isLoading?: boolean;
   isEmpty?: boolean;
+  emptyTitle?: string;
   emptyMessage?: string;
   children: ReactNode;
   className?: string;
@@ -24,6 +25,7 @@ export function DashboardPanel({
   actionIcon: ActionIcon,
   isLoading = false,
   isEmpty = false,
+  emptyTitle = 'Tidak Ada Data',
   emptyMessage = 'Belum ada data untuk ditampilkan saat ini.',
   children,
   className,
@@ -59,7 +61,7 @@ export function DashboardPanel({
           </div>
         ) : isEmpty ? (
           <EmptyState
-            title="Tidak Ada Data"
+            title={emptyTitle}
             description={emptyMessage}
           />
         ) : (
