@@ -1,17 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ManagerDashboard } from '@/components/dashboard/manager';
-import { buildDashboardParams } from '@/hooks/use-dashboards';
+import { ManagerDashboardView } from '@/components/dashboard/manager';
+import { buildDashboardParams, useManagerDashboard } from '@/hooks/use-dashboards';
+import { useAuth } from '@/components/providers/auth-provider';
 
 export function ManagerDashboardPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { can, user, isLoading: isAuthLoading } = useAuth();
 
   const activeParams = React.useMemo(() => {
     return buildDashboardParams(searchParams);
   }, [searchParams]);
+
+  const { data, isLoading: isDashboardLoading } = useManagerDashboard({
+    date_from: activeParams?.date_from,
+    date_to: activeParams?.date_to,
+  });
 
   const handleDateChange = React.useCallback(
     (range: { from: string; to: string } | null) => {
@@ -32,11 +39,23 @@ export function ManagerDashboardPageClient() {
     [router, searchParams]
   );
 
+  useEffect(() => {
+    if (!isAuthLoading && !can('dashboard.manager')) {
+      router.replace('/403');
+    }
+  }, [isAuthLoading, can, router]);
+
+  if (isAuthLoading || !can('dashboard.manager')) {
+    return null; // Return null while checking auth or redirecting
+  }
+
   return (
-    <ManagerDashboard
-      dateFrom={activeParams?.date_from}
-      dateTo={activeParams?.date_to}
-      onDateChange={handleDateChange}
+    <ManagerDashboardView
+      data={data}
+      isLoading={isDashboardLoading}
+      range={{ from: activeParams?.date_from, to: activeParams?.date_to }}
+      onRangeChange={handleDateChange}
+      user={user}
     />
   );
 }
