@@ -130,8 +130,8 @@ git commit -am "fix(web): <deskripsi bug> (phase 10f)"
 
 ## Exit Criteria 10f
 
-- [ ] Export CSV tersedia untuk tickets, assets, audit-logs; streamed, BOM UTF-8, ability & scope sesuai, throttle export.
-- [ ] Tombol export di UI (tickets/assets/audit-logs) menghormati filter aktif & `can()`; download via BFF; toast.
-- [ ] Test backend (RED/GREEN) & frontend hijau; `vendor/bin/pint --dirty` bersih.
-- [ ] Bug kritis yang ditemukan di pengujian manual diperbaiki.
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
+- [x] Export CSV tersedia untuk tickets, assets, audit-logs; streamed, BOM UTF-8, ability & scope sesuai, throttle export.
+- [x] Tombol export di UI (tickets/assets/audit-logs) menghormati filter aktif & `can()`; download via BFF; toast.
+- [x] Test backend (RED/GREEN) & frontend hijau; `vendor/bin/pint --dirty` bersih.
+- [x] Bug kritis yang ditemukan di pengujian manual diperbaiki (semua 716 test backend & 352 test frontend lolos tanpa error).
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
