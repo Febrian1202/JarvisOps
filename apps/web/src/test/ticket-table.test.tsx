@@ -43,11 +43,11 @@ describe('TicketTable Component', () => {
       />
     );
 
-    expect(screen.getByText('TCK-0042')).toBeInTheDocument();
-    expect(screen.getByText('Wi-Fi lantai 3 sering putus saat meeting daring')).toBeInTheDocument();
+    expect(screen.getAllByText('TCK-0042').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Wi-Fi lantai 3 sering putus saat meeting daring').length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText('Network').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText('Andi Kusuma')).toBeInTheDocument();
-    expect(screen.getByText('Belum ditugaskan')).toBeInTheDocument();
+    expect(screen.getAllByText('Andi Kusuma').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Belum ditugaskan').length).toBeGreaterThanOrEqual(1);
   });
 
   it('navigates to detail page on row click', () => {
@@ -61,8 +61,11 @@ describe('TicketTable Component', () => {
       />
     );
 
-    const ticketNumber = screen.getByText('TCK-0042');
-    fireEvent.click(ticketNumber.closest('tr')!);
+    // We need to click the desktop row, not the mobile card.
+    // We can search for the row by role, or just pick the row that contains the text
+    const rows = screen.getAllByRole('row');
+    // The first row is the header, the second row is the data row
+    fireEvent.click(rows[1]);
     expect(mockPush).toHaveBeenCalledWith('/tickets/42');
   });
 

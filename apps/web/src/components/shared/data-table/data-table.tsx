@@ -33,6 +33,7 @@ export interface DataTableProps<TData> {
   onPageChange?: (page: number) => void;
   onPerPageChange?: (perPage: number) => void;
   renderCard?: (row: TData, index: number) => React.ReactNode;
+  onRowClick?: (row: TData) => void;
 }
 
 export function DataTable<TData>({
@@ -45,6 +46,7 @@ export function DataTable<TData>({
   onPageChange,
   onPerPageChange,
   renderCard,
+  onRowClick,
 }: DataTableProps<TData>) {
   return (
     <div className="space-y-3">
@@ -90,7 +92,11 @@ export function DataTable<TData>({
               data.map((row, rowIdx) => (
                 <TableRow
                   key={`data-row-${rowIdx}`}
-                  className="border-border transition-colors hover:bg-muted/30"
+                  className={cn(
+                    'border-border transition-colors hover:bg-muted/30',
+                    onRowClick && 'cursor-pointer'
+                  )}
+                  onClick={onRowClick ? () => onRowClick(row) : undefined}
                 >
                   {columns.map((col) => {
                     const value = col.accessorKey ? row[col.accessorKey] : undefined;
