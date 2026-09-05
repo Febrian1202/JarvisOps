@@ -131,7 +131,7 @@ Dipindah dari buffer ROADMAP ke **"Di luar cakupan"** (keputusan user: export CS
 ## Exit criteria Fase 10 (ringkas; rinci per sub-tahap)
 
 1. [x] Semua temuan audit 10a diperbaiki atau didokumentasikan sebagai known-risk; tidak ada endpoint tanpa penjaga.
-2. [ ] `docker compose -f compose.prod.yaml up` dari kondisi bersih menghasilkan aplikasi berfungsi (ROADMAP:930).
+2. [x] `docker compose -f compose.prod.yaml up` dari kondisi bersih menghasilkan aplikasi berfungsi (ROADMAP:930).
 3. [ ] CI hijau di `main` (Pint, Pest, tsc, lint, build) (ROADMAP:931).
 4. [ ] Octane worker mode aktif **atau** keputusan terdokumentasi untuk tetap classic mode (10d).
 5. [ ] `docs/ops/DEPLOYMENT.md`, `docs/ops/TESTING.md`, `docs/schema.sql` (sinkron), `API-CONTRACT.md`, `ROADMAP.md`, `README.md` lengkap & sinkron.

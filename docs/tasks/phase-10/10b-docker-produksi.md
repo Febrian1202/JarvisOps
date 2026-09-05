@@ -160,10 +160,10 @@ git commit -m "docs(ops): add deployment draft for production compose stack"
 
 ## Exit Criteria 10b
 
-- [ ] `apps/api/Dockerfile` & `apps/web/Dockerfile` multi-stage build sukses; image tidak memuat `tests/`, `.env`, `.git`.
-- [ ] `compose.prod.yaml` menjalankan mysql + api + scheduler + web dari kondisi bersih; semua healthy.
-- [ ] Attachment tersimpan di volume persisten bersama API & scheduler; data MySQL persisten setelah restart.
-- [ ] Migrasi `--force` jalan saat startup; config/route/view cache aktif di produksi.
-- [ ] `.env.production.example` ada untuk kedua app; `APP_DEBUG=false`; CORS & cookie sesuai K4.
-- [ ] Draft `docs/ops/DEPLOYMENT.md` ada.
-- [ ] `docker compose -f compose.prod.yaml config` valid.
+- [x] `apps/api/Dockerfile` & `apps/web/Dockerfile` multi-stage build sukses; image tidak memuat `tests/`, `.env`, `.git`.
+- [x] `compose.prod.yaml` menjalankan mysql + api + scheduler + web dari kondisi bersih; semua healthy.
+- [x] Attachment tersimpan di volume persisten bersama API & scheduler; data MySQL persisten setelah restart.
+- [x] Migrasi `--force` jalan saat startup; config/route/view cache aktif di produksi.
+- [x] `.env.production.example` ada untuk kedua app; `APP_DEBUG=false`; CORS & cookie sesuai K4.
+- [x] Draft `docs/ops/DEPLOYMENT.md` ada.
+- [x] `docker compose -f compose.prod.yaml config` valid.
