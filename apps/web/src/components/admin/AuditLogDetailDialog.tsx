@@ -183,10 +183,10 @@ export function AuditLogDetailDialog({
                             <td className="p-2.5 font-mono font-medium text-foreground align-top">
                               {key}
                             </td>
-                            <td className="p-2.5 font-mono text-muted-foreground align-top break-words whitespace-pre-wrap">
+                            <td className="p-2.5 font-mono text-muted-foreground align-top wrap-break-word whitespace-pre-wrap">
                               {formatValue(oldVal)}
                             </td>
-                            <td className="p-2.5 font-mono text-foreground font-medium align-top break-words whitespace-pre-wrap">
+                            <td className="p-2.5 font-mono text-foreground font-medium align-top wrap-break-word whitespace-pre-wrap">
                               {formatValue(newVal)}
                             </td>
                           </tr>

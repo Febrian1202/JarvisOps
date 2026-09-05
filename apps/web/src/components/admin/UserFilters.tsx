@@ -62,7 +62,7 @@ export function UserFilters() {
         <Select value={roleId || 'ALL'} onValueChange={(val) => updateFilters({ role_id: val })}>
           <SelectTrigger
             aria-label="Role"
-            className="h-8 min-w-[140px] rounded-lg text-xs bg-card border-border"
+            className="h-8 min-w-35 rounded-lg text-xs bg-card border-border"
           >
             <SelectValue placeholder="Role" />
           </SelectTrigger>
@@ -82,7 +82,7 @@ export function UserFilters() {
         >
           <SelectTrigger
             aria-label="Departemen"
-            className="h-8 min-w-[150px] rounded-lg text-xs bg-card border-border"
+            className="h-8 min-w-37.5 rounded-lg text-xs bg-card border-border"
           >
             <SelectValue placeholder="Departemen" />
           </SelectTrigger>
@@ -99,7 +99,7 @@ export function UserFilters() {
         <Select value={status || 'ALL'} onValueChange={(val) => updateFilters({ status: val })}>
           <SelectTrigger
             aria-label="Status"
-            className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border"
+            className="h-8 min-w-32.5 rounded-lg text-xs bg-card border-border"
           >
             <SelectValue placeholder="Status" />
           </SelectTrigger>

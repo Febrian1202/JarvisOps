@@ -74,7 +74,7 @@ export default function GantiPasswordPage() {
       noticeBody="Minimal 8 karakter, kombinasi huruf dan angka. Jangan gunakan kata sandi lama."
       cardWidthClass="max-w-[420px]"
     >
-      <div className="rounded-[10px] border border-border bg-card p-8 shadow-xs">
+      <div className="rounded-xl border border-border bg-card p-8 shadow-xs">
         <h2 className="text-[20px] font-semibold tracking-tight text-foreground">
           Buat Kata Sandi Baru
         </h2>
@@ -100,7 +100,7 @@ export default function GantiPasswordPage() {
                         placeholder="••••••••"
                         autoComplete="current-password"
                         disabled={loading}
-                        className="h-[42px] rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
+                        className="h-10.5 rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
@@ -145,7 +145,7 @@ export default function GantiPasswordPage() {
                         placeholder="Minimal 8 karakter, kombinasi huruf & angka"
                         autoComplete="new-password"
                         disabled={loading}
-                        className="h-[42px] rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
+                        className="h-10.5 rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
@@ -190,7 +190,7 @@ export default function GantiPasswordPage() {
                         placeholder="Ulangi kata sandi baru"
                         autoComplete="new-password"
                         disabled={loading}
-                        className="h-[42px] rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
+                        className="h-10.5 rounded-md bg-background pl-10 pr-10 text-sm placeholder:text-muted-foreground focus-visible:ring-ring focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
