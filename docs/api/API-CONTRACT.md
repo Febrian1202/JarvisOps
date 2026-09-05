@@ -895,3 +895,10 @@ Untuk mendukung form filter, assign aset, dan editor artikel KB di UI frontend, 
 }
 ```
 
+---
+
+## 15. Catatan Sinkronisasi Endpoint Final (Fase 9 & 10)
+
+Seluruh perubahan respon pada dashboard analitik (Amandemen B1–B4) dan modul administrasi pengguna (penambahan field `must_change_password` dan endpoint `POST /api/me/password`) telah diimplementasikan penuh di backend dan divalidasi oleh suite pengujian otomatis (`apps/api/tests/Feature/Dashboard/*` dan `apps/api/tests/Feature/Auth/*`). Kontrak API ini mencerminkan keadaan implementasi final.
+
+

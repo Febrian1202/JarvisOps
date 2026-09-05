@@ -848,16 +848,16 @@ Mengubah aplikasi yang berfungsi menjadi aplikasi yang bisa dipertahankan di dep
 
 ### Docker produksi
 
-- [ ] `compose.prod.yaml`: api (FrankenPHP), scheduler, mysql, web (Next.js standalone)
-- [ ] `docker/api/Dockerfile` multi-stage: composer install `--no-dev --optimize-autoloader`, tanpa source test
-- [ ] `docker/web/Dockerfile` multi-stage dengan `output: 'standalone'` di `next.config.ts`
-- [ ] Migrasi dijalankan saat startup dengan `--force`
-- [ ] Volume persisten untuk `storage/app` (attachment) dan data MySQL
-- [ ] HTTPS: manfaatkan Caddy di dalam FrankenPHP, atau reverse proxy di depan jika deploy ke VPS
-- [ ] Healthcheck untuk seluruh service
-- [ ] Batas resource dan kebijakan restart
-- [ ] `.env.production.example` untuk kedua app
-- [ ] Uji `docker compose -f compose.prod.yaml up` dari kondisi bersih
+- [x] `compose.prod.yaml`: api (FrankenPHP), scheduler, mysql, web (Next.js standalone)
+- [x] `docker/api/Dockerfile` multi-stage: composer install `--no-dev --optimize-autoloader`, tanpa source test
+- [x] `docker/web/Dockerfile` multi-stage dengan `output: 'standalone'` di `next.config.ts`
+- [x] Migrasi dijalankan saat startup dengan `--force`
+- [x] Volume persisten untuk `storage/app` (attachment) dan data MySQL
+- [x] HTTPS: manfaatkan Caddy di dalam FrankenPHP, atau reverse proxy di depan jika deploy ke VPS
+- [x] Healthcheck untuk seluruh service
+- [x] Batas resource dan kebijakan restart
+- [x] `.env.production.example` untuk kedua app
+- [x] Uji `docker compose -f compose.prod.yaml up` dari kondisi bersih
 
 ### Octane worker mode (opsional)
 
@@ -872,18 +872,18 @@ Kerjakan **hanya jika** test suite lengkap dan hijau, dan waktu di minggu 8 masi
 
 ### CI
 
-- [ ] GitHub Actions: Pint `--test`, Pest (dengan paratest), `tsc --noEmit`, `next lint`, `next build`
-- [ ] Jalan di setiap push dan PR ke `main`
-- [ ] Cache dependency composer dan npm
+- [x] GitHub Actions: Pint `--test`, Pest (dengan paratest), `tsc --noEmit`, `next lint`, `next build`
+- [x] Jalan di setiap push dan PR ke `main`
+- [x] Cache dependency composer dan npm
 
 ### Dokumentasi
 
-- [ ] `README.md`: gambaran produk, arsitektur, cara setup, kredensial demo, ringkasan struktur folder
-- [ ] `docs/ops/DEPLOYMENT.md`: langkah deploy, variabel environment, setup scheduler, backup DB
-- [ ] `docs/ops/TESTING.md`: cara menjalankan test, cakupan yang diuji, pemetaan test ke business rule
-- [ ] **Sinkronkan `docs/schema.sql` dengan migration final** — dokumen ini jadi lampiran laporan, jadi harus mencerminkan skema sebenarnya
-- [ ] Perbarui `docs/api/API-CONTRACT.md` jika ada endpoint yang berubah selama implementasi
-- [ ] Catatan arsitektur untuk presentasi: mengapa BFF proxy, mengapa snapshot SLA, mengapa audit log eksplisit, mengapa attachment lewat controller
+- [x] `README.md`: gambaran produk, arsitektur, cara setup, kredensial demo, ringkasan struktur folder
+- [x] `docs/ops/DEPLOYMENT.md`: langkah deploy, variabel environment, setup scheduler, backup DB
+- [x] `docs/ops/TESTING.md`: cara menjalankan test, cakupan yang diuji, pemetaan test ke business rule
+- [x] **Sinkronkan `docs/schema.sql` dengan migration final** — dokumen ini jadi lampiran laporan, jadi harus mencerminkan skema sebenarnya
+- [x] Perbarui `docs/api/API-CONTRACT.md` jika ada endpoint yang berubah selama implementasi
+- [x] Catatan arsitektur untuk presentasi: mengapa BFF proxy, mengapa snapshot SLA, mengapa audit log eksplisit, mengapa attachment lewat controller
 
 ### Persiapan demo
 
