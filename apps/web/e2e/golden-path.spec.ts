@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test.describe.serial('Golden Path (PRD §38) — Employee → Manager → Technician → Employee', () => {
+const goldenPathStart = Date.now();
+
+test.describe.serial('Golden Path (PRD §38) — Employee → Manager → Technician → Employee → Manager Analytics', () => {
   let ticketUrl: string;
   let ticketNumber: string;
   const uniqueTitle = `Kendala Laptop Mati Total — ${Date.now()}`;
@@ -170,5 +172,54 @@ test.describe.serial('Golden Path (PRD §38) — Employee → Manager → Techni
 
     // 4. Status should be Ditutup / CLOSED
     await expect(page.locator('div').filter({ hasText: /^Ditutup$/ }).first()).toBeVisible({ timeout: 10000 });
+  });
+
+  test('Step 5: Manager sees updated SLA and technician analytics (PRD §38 steps 12-13)', async ({ page, context }) => {
+    // Clear cookies for fresh session
+    await context.clearCookies();
+
+    // 1. Login as Manager (PRD §38 step 12)
+    await page.goto('/login');
+    await page.fill('input[name="email"]', 'manager@jarvisops.test');
+    await page.fill('input[name="password"]', 'Password123!');
+    await page.click('button[type="submit"]');
+    await page.waitForURL(url => !url.pathname.includes('/login'), { timeout: 15000 });
+
+    // 2. Navigate to manager analytics dashboard (PRD §38 step 13)
+    const dashboardResponsePromise = page.waitForResponse(
+      response => response.url().includes('/api/proxy/dashboard/manager') && response.status() === 200,
+      { timeout: 15000 }
+    );
+    await page.goto('/dashboard/manager');
+
+    const response = await dashboardResponsePromise;
+    const json = await response.json();
+    const sla = json.data.sla;
+    const technicians = json.data.technician_performance as Array<{
+      technician: { full_name: string };
+      resolved: number;
+      sla_compliance_percentage: number | null;
+    }>;
+
+    // 3. Dashboard shows the freshly closed ticket: total tickets increased beyond demo baseline
+    const totalTicketCard = page.locator('div.rounded-card', { has: page.getByText('Total Ticket', { exact: true }) });
+    await expect(totalTicketCard.locator('.text-2xl')).toHaveText(String(json.data.total_tickets));
+    expect(json.data.total_tickets).toBeGreaterThanOrEqual(44);
+
+    // 4. SLA compliance section is visible with a percentage in a sane range
+    await expect(page.getByText(/Kepatuhan SLA|SLA Compliance/i).first()).toBeVisible();
+    expect(sla.compliance_percentage).toBeGreaterThanOrEqual(80);
+    expect(sla.compliance_percentage).toBeLessThanOrEqual(95);
+
+    // 5. Technician performance table renders with at least one technician holding resolved tickets
+    await expect(page.getByText(/Performa Technician|Technician Performance/i).first()).toBeVisible();
+    expect(technicians.length).toBeGreaterThanOrEqual(1);
+    const topTechnician = page.getByText(technicians[0].technician.full_name, { exact: false }).first();
+    await expect(topTechnician).toBeVisible();
+
+    // 6. Duration guard: the whole 13-step golden path stays under 3 minutes
+    const elapsedSeconds = (Date.now() - goldenPathStart) / 1000;
+    console.log(`[golden-path] total duration: ${elapsedSeconds.toFixed(1)}s`);
+    expect(elapsedSeconds).toBeLessThan(180);
   });
 });
