@@ -144,7 +144,7 @@ export function DateRangePicker({
             variant="outline"
             size="sm"
             className={cn(
-              'h-9 justify-start text-left font-normal',
+              'h-9 justify-start text-left font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
               !from && !to && 'text-muted-foreground'
             )}
             aria-label="Rentang Tanggal"
@@ -163,7 +163,7 @@ export function DateRangePicker({
               <Button
                 variant="ghost"
                 size="sm"
-                className="justify-start text-xs font-normal"
+                className="justify-start text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                 onClick={() => handlePreset('7d')}
               >
                 7 hari
@@ -171,7 +171,7 @@ export function DateRangePicker({
               <Button
                 variant="ghost"
                 size="sm"
-                className="justify-start text-xs font-normal"
+                className="justify-start text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                 onClick={() => handlePreset('30d')}
               >
                 30 hari
@@ -179,7 +179,7 @@ export function DateRangePicker({
               <Button
                 variant="ghost"
                 size="sm"
-                className="justify-start text-xs font-normal"
+                className="justify-start text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                 onClick={() => handlePreset('90d')}
               >
                 90 hari
@@ -188,7 +188,7 @@ export function DateRangePicker({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="mt-2 justify-start text-xs font-normal text-destructive hover:text-destructive hover:bg-destructive/10"
+                  className="mt-2 justify-start text-xs font-normal text-destructive hover:text-destructive hover:bg-destructive/10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                   onClick={handleReset}
                 >
                   <RotateCcw className="mr-1.5 h-3 w-3" />

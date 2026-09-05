@@ -24,7 +24,7 @@ export function DataTableColumnHeader({
       type="button"
       onClick={onSort}
       className={cn(
-        'group inline-flex items-center gap-1.5 font-semibold text-xs text-muted-foreground hover:text-foreground focus:outline-none',
+        'group inline-flex items-center gap-1.5 font-semibold text-xs text-muted-foreground hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 rounded-sm',
         sorted && 'text-foreground font-bold',
         className
       )}

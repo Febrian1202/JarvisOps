@@ -98,7 +98,7 @@ export function AppSidebar() {
       <div className="border-border border-t p-3">
         <div className="rounded-lg bg-muted/50 p-2 text-center">
           <p className="text-[11px] text-muted-foreground">
-            JARVIS OPS v0.7.0
+            JARVIS OPS v0.8.0
           </p>
         </div>
       </div>

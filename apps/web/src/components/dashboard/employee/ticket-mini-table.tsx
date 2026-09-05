@@ -39,6 +39,9 @@ export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableP
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-sm border-collapse">
+        <caption className="sr-only">
+          Daftar ringkasan tiket aktif terbaru milik karyawan
+        </caption>
         <thead>
           <tr className="border-b border-cream-border text-xs text-muted-foreground">
             <th scope="col" className="pb-3 pt-1 font-medium">NOMOR</th>
