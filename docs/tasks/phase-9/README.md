@@ -228,16 +228,16 @@ curl -H "Accept: application/json" http://localhost:8000/api/dashboard/manager #
 
 ## Exit criteria Fase 9
 
-1. [ ] Keempat dashboard menampilkan **setiap** metrik yang disebut PRD §20.1–§20.4 pada role yang tepat (verifikasi checklist di 9b/9c/9d).
-2. [ ] Golden path §38 langkah 12–13 didemokan: Manager login → dashboard menampilkan SLA compliance & performa technician yang akurat.
-3. [ ] Router `/` mengarahkan sesuai role; akses dashboard role lain → halaman 403 (dibuktikan Playwright di 9e).
-4. [ ] **Angka di UI sama dengan respons API** (ROADMAP:828; dibuktikan Playwright assert di 9e).
-5. [ ] Chart terbaca di layar mobile 375px; semua halaman punya state loading (skeleton per kartu), empty, dan error.
-6. [ ] Aksesibilitas WCAG 2.2 AA per layar: kontras ≥ 3:1 (badge/SLA bar), `:focus-visible` 2px, `aria-label` ikon, `scope="col"` tabel, `aria-describedby` error, chart punya ringkasan teks (PRODUCT.md:214-220).
-7. [ ] `npm run typecheck`, `npm run lint`, `npm run test`, `npm run test:e2e`, `npm run build` semuanya hijau.
-8. [ ] `vendor/bin/pest` hijau setelah amandemen B1–B4 (631 + test baru).
-9. [ ] `docs/api/API-CONTRACT.md` §10 diperbarui (B1–B4), `docs/product/ROADMAP.md` Fase 9 tercentang, `README.md` + `AGENTS.md` status sinkron. `PERMISSION-MATRIX.md` hanya diverifikasi (tidak ada ability baru).
-10. [ ] Tag `v0.9.0` dibuat di `main` (D-30).
+1. [x] Keempat dashboard menampilkan **setiap** metrik yang disebut PRD §20.1–§20.4 pada role yang tepat (verifikasi checklist di 9b/9c/9d).
+2. [x] Golden path §38 langkah 12–13 didemokan: Manager login → dashboard menampilkan SLA compliance & performa technician yang akurat.
+3. [x] Router `/` mengarahkan sesuai role; akses dashboard role lain → halaman 403 (dibuktikan Playwright di 9e).
+4. [x] **Angka di UI sama dengan respons API** (ROADMAP:828; dibuktikan Playwright assert di 9e).
+5. [x] Chart terbaca di layar mobile 375px; semua halaman punya state loading (skeleton per kartu), empty, dan error.
+6. [x] Aksesibilitas WCAG 2.2 AA per layar: kontras ≥ 3:1 (badge/SLA bar), `:focus-visible` 2px, `aria-label` ikon, `scope="col"` tabel, `aria-describedby` error, chart punya ringkasan teks (PRODUCT.md:214-220).
+7. [x] `npm run typecheck`, `npm run lint`, `npm run test`, `npm run test:e2e`, `npm run build` semuanya hijau.
+8. [x] `vendor/bin/pest` hijau setelah amandemen B1–B4 (631 + test baru).
+9. [x] `docs/api/API-CONTRACT.md` §10 diperbarui (B1–B4), `docs/product/ROADMAP.md` Fase 9 tercentang, `README.md` + `AGENTS.md` status sinkron. `PERMISSION-MATRIX.md` hanya diverifikasi (tidak ada ability baru).
+10. [x] Tag `v0.9.0` dibuat di `main` (D-30).
 
 ## Di luar cakupan (sadar, jangan dikerjakan)
 

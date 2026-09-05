@@ -151,10 +151,10 @@ cd apps/web && npm run test && npm run test:e2e && npm run typecheck && npm run 
 
 ## Exit Criteria 9e
 
-- [ ] Playwright: 4 role login → URL dashboard benar (`/dashboard/{role}`); admin akses employee OK; employee/technician/manager akses dashboard lebih tinggi → 403.
-- [ ] Angka di UI sama dengan respons API (assert salah satu metrik manager).
-- [ ] Audit a11y dashboard lolos: kontras, `:focus-visible`, `aria-label`, chart ringkasan, `scope="col"`.
-- [ ] Seluruh dashboard punya loading (skeleton per kartu), empty, error yang layak; refetch saat tab fokus.
-- [ ] `docs/api/API-CONTRACT.md` §10, `docs/product/ROADMAP.md`, `README.md`, `AGENTS.md` disinkronkan; `PERMISSION-MATRIX.md` terverifikasi.
-- [ ] `vendor/bin/pest`, `npm run test`, `npm run test:e2e`, `npm run typecheck`, `npm run lint`, `npm run build` hijau.
-- [ ] Tag `v0.9.0` dibuat di `main` (D-30).
+- [x] Playwright: 4 role login → URL dashboard benar (`/dashboard/{role}`); admin akses employee OK; employee/technician/manager akses dashboard lebih tinggi → 403.
+- [x] Angka di UI sama dengan respons API (assert salah satu metrik manager).
+- [x] Audit a11y dashboard lolos: kontras, `:focus-visible`, `aria-label`, chart ringkasan, `scope="col"`.
+- [x] Seluruh dashboard punya loading (skeleton per kartu), empty, error yang layak; refetch saat tab fokus.
+- [x] `docs/api/API-CONTRACT.md` §10, `docs/product/ROADMAP.md`, `README.md`, `AGENTS.md` disinkronkan; `PERMISSION-MATRIX.md` terverifikasi.
+- [x] `vendor/bin/pest`, `npm run test`, `npm run test:e2e`, `npm run typecheck`, `npm run lint`, `npm run build` hijau.
+- [x] Tag `v0.9.0` dibuat di `main` (D-30).
