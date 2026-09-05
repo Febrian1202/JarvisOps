@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: Fase 10 Sedang Berjalan (Fase 9 Selesai — Tag `v0.9.0`, Sub-tahap 10a, 10b, 10c aktif).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 24 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil — Fase 8 Selesai, Tag `v0.8.0`), Dashboard UI & Visual Analytics per role dengan visualisasi Recharts, E2E testing Playwright komprehensif, dan audit aksesibilitas WCAG 2.2 AA (Fase 9 Selesai — Tag `v0.9.0`), serta Docker stack produksi multi-stage (`compose.prod.yaml`) dan CI otomatis GitHub Actions (Fase 10). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: Fase 10 Selesai — Rilis Penuh `v1.0.0` (Tag `v1.0.0`).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 24 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil — Fase 8 Selesai, Tag `v0.8.0`), Dashboard UI & Visual Analytics per role dengan visualisasi Recharts, E2E testing Playwright komprehensif, dan audit aksesibilitas WCAG 2.2 AA (Fase 9 Selesai — Tag `v0.9.0`), serta Docker stack produksi multi-stage (`compose.prod.yaml`), CI otomatis GitHub Actions, evaluasi Octane, demo seeder terkalibrasi, streamed CSV export, dan verifikasi akhir DoD & Technical Success (Fase 10 Selesai — Tag `v1.0.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah ada.
 
 ---
 
@@ -178,15 +178,16 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
   - **10a (Security Audit & Hardening)**: Verifikasi 65 route rows, rate limiting login/upload/search/api, proteksi mass assignment audit, exception handling tanpa stack trace di production.
   - **10b (Docker Produksi)**: Multi-stage Dockerfile untuk API (FrankenPHP classic) dan Web (Next.js standalone), isolated scheduler container, persistent volume data MySQL & shared attachment, stack `compose.prod.yaml` terverifikasi.
   - **10c (CI & Dokumentasi)**: GitHub Actions CI pipeline (`.github/workflows/ci.yml`), panduan deployment produksi final (`docs/ops/DEPLOYMENT.md`), panduan testing & pemetaan business rules (`docs/ops/TESTING.md`), sinkronisasi skema ERD (`docs/schema.sql`), catatan arsitektur presentasi (`docs/ops/ARCHITECTURE-NOTES.md`).
-- `apps/api` — Laravel 13.29 + Sanctum 4, 24 migration, 18 model, 37 routes (53 operations), 699 test passing (2975 assertions, 0 failures), Pint bersih
-- `apps/web` — Next.js 16.3 + React 19 + Tailwind v4, 33 app routes, 347 passing unit/component tests, Playwright E2E test suite
+  - **10d (Octane Worker Mode)**: Evaluasi performa Octane, audit state leak, benchmark FrankenPHP worker mode vs classic mode (`docs/ops/OCTANE-AUDIT.md`).
+  - **10e (Demo Data & Golden Path)**: Kalibrasi `DemoDataSeeder` (SLA compliance ~87,5%, multi-holder asset history), 21 E2E Playwright tests passing, demo runbook & reviewer answers (`docs/ops/DEMO-RUNBOOK.md`, `docs/ops/REVIEWER-ANSWERS.md`).
+  - **10f (Buffer & CSV Export)**: Streamed CSV Export (tickets, assets, audit-logs) dengan UTF-8 BOM, chunking memory-safe, export rate limiter, dan tombol UI terintegrasi.
+  - **10g (Final Check & Tag v1.0.0)**: Verifikasi 11 poin Definition of Technical Success (`DefinitionOfTechnicalSuccessTest.php`), verifikasi 10 poin Definition of Done (§37 PRD), full suite test hijau di semua lapis, rilis final `v1.0.0`.
+- `apps/api` — Laravel 13.29 + Sanctum 4, 24 migration, 18 model, 40 routes (56 operations), 727 test passing (3300+ assertions, 0 failures), Pint bersih
+- `apps/web` — Next.js 16.3 + React 19 + Tailwind v4, 33 app routes, 352 passing unit/component tests, Playwright E2E test suite
 
-### Dalam Pengerjaan (Fase 10)
+### Rilis Penuh (Tag `v1.0.0`)
 
-- 10d (Octane Worker Mode evaluation & benchmarking)
-- 10e (Demo Data & Golden Path scenario)
-- 10f (Buffer, CSV Export, final polish)
-- 10g (Final verification & Tag `v1.0.0`)
+Seluruh 10 fase telah selesai dikerjakan dan diverifikasi secara menyeluruh. Repositori berada dalam kondisi siap produksi dan siap dievaluasi.
 
 Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md).
 

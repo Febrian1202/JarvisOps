@@ -1,9 +1,9 @@
 # JARVIS OPS — DEVELOPMENT ROADMAP
 
-**Document Revision:** 1.9 (Phase 9 Complete — Tag `v0.9.0`, Phase 10 Next)
+**Document Revision:** 2.0 (Phase 10 Complete — Full Release Tag `v1.0.0`)
 **Basis:** PRD v1.0 + Addendum v1.1, `docs/adr/DECISIONS.md`, ERD v1.2 (`docs/schema.sql`), `docs/architecture/ERD.md`, `docs/architecture/DFD.md`, `docs/architecture/CONTEXT-DIAGRAM.md`
 **Durasi:** 7 minggu kerja + 1 minggu buffer (full-time)
-**Status:** Fase 9 Selesai (v0.9.0) — Menuju Fase 10 (Quality, Deployment, Demo)
+**Status:** Fase 10 Selesai — Rilis Penuh v1.0.0 (v1.0.0)
 
 ---
 
@@ -841,10 +841,10 @@ Mengubah aplikasi yang berfungsi menjadi aplikasi yang bisa dipertahankan di dep
 
 ### Performa
 
-- [ ] Audit N+1 pada seluruh endpoint list dan detail
-- [ ] Verifikasi index terpakai lewat `EXPLAIN` pada query terberat
-- [ ] Cek ukuran bundle frontend, dynamic import untuk chart yang berat
-- [ ] `php artisan config:cache route:cache view:cache` di image produksi
+- [x] Audit N+1 pada seluruh endpoint list dan detail
+- [x] Verifikasi index terpakai lewat `EXPLAIN` pada query terberat
+- [x] Cek ukuran bundle frontend, dynamic import untuk chart yang berat
+- [x] `php artisan config:cache route:cache view:cache` di image produksi
 
 ### Docker produksi
 
@@ -887,16 +887,16 @@ Kerjakan **hanya jika** test suite lengkap dan hijau, dan waktu di minggu 8 masi
 
 ### Persiapan demo
 
-- [ ] `DemoDataSeeder` yang menghasilkan data realistis: cukup ticket menyebar di semua status, sebagian breached sehingga compliance mendekati contoh 87% di §14 PRD, riwayat asset dengan beberapa pemegang, beberapa artikel KB
-- [ ] Latih golden path §38 PRD dari awal sampai akhir, ukur waktunya
-- [ ] Siapkan jawaban untuk enam pertanyaan reviewer di §33 PRD: masalah yang diselesaikan, cara sistem bekerja, alasan pilihan arsitektur, desain database, penerapan security, cara business logic bekerja
-- [ ] Siapkan skenario cadangan jika demo live bermasalah (screenshot atau rekaman)
+- [x] `DemoDataSeeder` yang menghasilkan data realistis: cukup ticket menyebar di semua status, sebagian breached sehingga compliance mendekati contoh 87% di §14 PRD, riwayat asset dengan beberapa pemegang, beberapa artikel KB
+- [x] Latih golden path §38 PRD dari awal sampai akhir, ukur waktunya
+- [x] Siapkan jawaban untuk enam pertanyaan reviewer di §33 PRD: masalah yang diselesaikan, cara sistem bekerja, alasan pilihan arsitektur, desain database, penerapan security, cara business logic bekerja
+- [x] Siapkan skenario cadangan jika demo live bermasalah (screenshot atau rekaman)
 
 ### Buffer minggu 8
 
 Prioritas saat ada waktu sisa, berurutan:
 
-- [ ] Bug fixing dari hasil pengujian manual menyeluruh
+- [x] Bug fixing dari hasil pengujian manual menyeluruh
 - [x] Export report ke CSV/PDF (Fase 10f: Streamed CSV Export untuk Tickets, Assets, dan Audit Logs)
 - [ ] Advanced filtering (kombinasi filter tersimpan) [di luar cakupan Fase 10 - K10]
 - [ ] Dark mode [di luar cakupan Fase 10 - K10]
@@ -908,16 +908,13 @@ Aplikasi yang berjalan di container produksi, CI hijau, dokumentasi lengkap, dem
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
-
-
-
-- [ ] `docker compose -f compose.prod.yaml up` dari kondisi bersih menghasilkan aplikasi yang berfungsi
-- [ ] CI hijau di `main`
-- [ ] Seluruh 11 poin "Definition of Technical Success" (Addendum §12) terverifikasi
-- [ ] Seluruh 10 poin "Definition of Done" (§37 PRD) terpenuhi untuk setiap fitur
-- [ ] Tidak ada bug kritis yang diketahui
-- [ ] Golden path §38 PRD berhasil dijalankan tanpa kesalahan dalam latihan
+- [x] Git tag SemVer ditambahkan saat fase selesai (`v1.0.0`)
+- [x] `docker compose -f compose.prod.yaml up` dari kondisi bersih menghasilkan aplikasi yang berfungsi
+- [x] CI hijau di `main`
+- [x] Seluruh 11 poin "Definition of Technical Success" (Addendum §12) terverifikasi
+- [x] Seluruh 10 poin "Definition of Done" (§37 PRD) terpenuhi untuk setiap fitur
+- [x] Tidak ada bug kritis yang diketahui
+- [x] Golden path §38 PRD berhasil dijalankan tanpa kesalahan dalam latihan
 
 ---
 
