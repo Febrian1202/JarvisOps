@@ -618,6 +618,8 @@ Empat endpoint, masing-masing dijaga role sesuai `docs/product/PERMISSION-MATRIX
 }
 ```
 
+> **Amandemen B4:** `recent_articles[]` disajikan menggunakan `ArticleListResource` dengan eager load `category,author`. Payload ringkas (tanpa field `content` penuh) dan menyertakan objek relasi `{ id, name }` untuk kategori serta `{ id, full_name }` untuk author.
+
 ### `GET /api/dashboard/technician`
 
 ```json
@@ -627,9 +629,24 @@ Empat endpoint, masing-masing dijaga role sesuai `docs/product/PERMISSION-MATRIX
   "in_progress_tickets": 3,
   "sla_breached": 1,
   "avg_resolution_minutes": 195,
-  "recent_activity": []
+  "sla_compliance_percentage": 93.0,
+  "recent_activity": [
+    {
+      "id": 12,
+      "field_changed": "status_id",
+      "old_value": "2",
+      "new_value": "3",
+      "user": { "id": 3, "full_name": "Budi" },
+      "ticket": { "ticket_number": "TIC-20260901-0001", "title": "Printer Rusak" },
+      "created_at": "2026-09-01T08:00:00.000000Z"
+    }
+  ]
 }
 ```
+
+> **Amandemen B1:** Ditambahkan metrik `sla_compliance_percentage` untuk tiket resolved teknisi yang sedang login. Menggunakan formula D-03 (`resolved within SLA / total resolved × 100`), dan bernilai `null` bila belum ada tiket yang terselesaikan (`total resolved = 0`).
+>
+> **Amandemen B3:** Elemen `recent_activity[]` menyertakan relasi `ticket: { ticket_number, title }` saat relasi ter-load (`whenLoaded('ticket')`) agar item aktivitas dapat ditautkan langsung ke detail tiket di antarmuka.
 
 ### `GET /api/dashboard/manager`
 
@@ -639,6 +656,7 @@ Empat endpoint, masing-masing dijaga role sesuai `docs/product/PERMISSION-MATRIX
   "open_tickets": 18,
   "resolved_tickets": 100,
   "closed_tickets": 92,
+  "unassigned_tickets": 4,
   "sla": {
     "within_sla": 87,
     "breached": 13,
@@ -661,6 +679,8 @@ Empat endpoint, masing-masing dijaga role sesuai `docs/product/PERMISSION-MATRIX
   ]
 }
 ```
+
+> **Amandemen B2:** Ditambahkan metrik `unassigned_tickets` yang menghitung snapshot live tiket berstatus OPEN dan belum ditugaskan (`technician_id IS NULL`). Nilai ini bersifat live dan tidak dipengaruhi filter rentang tanggal (`date_from` / `date_to`).
 
 `compliance_percentage` memakai formula §14 PRD persis: `resolved within SLA / total resolved × 100`. Bila `total resolved = 0`, kembalikan `null` — bukan `0` dan bukan `100`. Keduanya akan salah dibaca sebagai fakta, padahal yang benar adalah "belum ada data".
 

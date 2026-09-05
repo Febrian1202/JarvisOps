@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 8 Selesai — Tag `v0.8.0`, Fase 9 selanjutnya).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), serta seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil, E2E testing Playwright & a11y WCAG 2.2 AA — Fase 8 Selesai, Tag `v0.8.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: desain selesai, implementasi berjalan (Fase 9 Selesai — Tag `v0.9.0`, Fase 10 selanjutnya).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil — Fase 8 Selesai, Tag `v0.8.0`), serta Dashboard UI & Visual Analytics per role dengan visualisasi Recharts, E2E testing Playwright komprehensif, dan audit aksesibilitas WCAG 2.2 AA (Fase 9 Selesai — Tag `v0.9.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -164,14 +164,24 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
   - **6b (Employee & Technician Dashboards) — SELESAI**: `GET /api/dashboard/employee` & `GET /api/dashboard/technician` dengan scoping ketat.
   - **6c (Manager Dashboard) — SELESAI**: `GET /api/dashboard/manager` dengan SLA metrics (D-03), daily trend WIB, distribusi priority & category, serta performa teknisi.
   - **6d (Admin Dashboard & Finalisasi) — SELESAI**: `GET /api/dashboard/admin` memperluas metrik manager dengan sistem totals (user, technician, department, asset), status asset breakdown, recent system audit logs, serta verifikasi N+1/performa (<500ms).
-- `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 37 routes (53 operations), 629 test passing (2605 assertions, 0 failures), Pint bersih
-- `apps/web` — login page + protected dashboard, BFF route handler, full ticket list + detail + create, asset management, knowledge base, admin users/master data/audit logs, profile, 33 app routes, 149 passing unit/component tests
+- **Fase 7 (Frontend Foundation, App Shell, & Shared Components) — SELESAI (Tag: `v0.7.0`)**:
+  - App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik.
+- **Fase 8 (Fitur Frontend Lengkap) — SELESAI (Tag: `v0.8.0`)**:
+  - Seluruh halaman modul operasional: tiket, aset, knowledge base, administrasi master data/user, profil, audit logs, serta unit testing frontend komprehensif.
+- **Fase 9 (Dashboard UI & Visual Analytics) — SELESAI (Tag: `v0.9.0`)**:
+  - **9a (Amandemen Backend & Komponen Bersama)**: Amandemen API B1 (`sla_compliance_percentage` technician), B2 (`unassigned_tickets` manager), B3 (`ticket` referensi pada recent activity), dan B4 (`ArticleListResource` recent articles employee); komponen `MetricCard`, `DashboardPanel`, `LazyChart`, `DateRangePicker`.
+  - **9b (Dashboard Employee & Technician)**: Metrik ringkasan, tiket aktif/assigned, highlight pelanggaran SLA, kartu aset & artikel terbaru, serta tautan cepat.
+  - **9c (Dashboard Manager)**: Kartu operasional & tiket unassigned, SLA compliance gauge/ring, tren tiket harian responsif Recharts (Area/Bar) dengan date range picker, pie/donut charts breakdown, serta tabel performa teknisi yang dapat diurutkan.
+  - **9d (Dashboard Admin)**: Gabungan metrik analitik manager + total sistem pengguna/teknisi/departemen/aset, status aset breakdown chart, audit log aktivitas sistem real-time, dan router dashboard otomatis sesuai role di `/`.
+  - **9e (E2E Testing & Accessibility)**: Playwright automated test suite mencakup keempat tampilan dashboard role, interaksi filter date range, pengurutan tabel, verifikasi empty state akun baru, dan audit kepatuhan aksesibilitas WCAG 2.2 AA (axe-core 0 violation).
+- `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 37 routes (53 operations), 649 test passing (2687 assertions, 0 failures), Pint bersih
+- `apps/web` — Next.js 16.3 + React 19 + Tailwind v4, 33 app routes, 318 passing unit/component tests, Playwright E2E test suite
 
 ### Belum ada
 
-- Finalisasi frontend & E2E (Fase 8g — Tag `v0.8.0` Selesai), Fase 9 (Dashboard & Optimization), serta integrasi & deployment (Fase 10).
+- Fase 10 (Quality, Security Audit, Docker Produksi, Deployment, Demo).
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 9 — Dashboard UI & Visual Analytics**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 10 — Quality, Deployment, Demo**.
 
 ---
 

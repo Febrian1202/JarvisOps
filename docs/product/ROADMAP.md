@@ -799,16 +799,16 @@ Memvisualisasikan analytics — bagian yang paling terlihat saat presentasi.
 
 ## Task
 
-- [ ] Dashboard Employee (§20.1): kartu ringkasan, ticket terbaru, asset saya, artikel terbaru
-- [ ] Dashboard Technician (§20.2): assigned, open, in progress, SLA breached, rata-rata penyelesaian, aktivitas terbaru
-- [ ] Dashboard Manager (§20.3): kartu total/open/resolved, gauge SLA compliance, line chart tren, pie/bar distribusi priority & category, tabel performa technician
-- [ ] Dashboard Admin (§20.4): metrik Manager + total user/asset/technician/department + aktivitas sistem
-- [ ] Router dashboard yang mengarahkan sesuai role saat mengakses `/`
-- [ ] Chart Recharts: responsif, punya tooltip, dan empty state saat data kosong
-- [ ] Pemilih rentang tanggal untuk chart tren
-- [ ] Tabel performa technician bisa diurutkan (§21 PRD)
-- [ ] Highlight visual untuk SLA breached
-- [ ] Skeleton loading per kartu, bukan satu spinner untuk seluruh halaman
+- [x] Dashboard Employee (§20.1): kartu ringkasan, ticket terbaru, asset saya, artikel terbaru
+- [x] Dashboard Technician (§20.2): assigned, open, in progress, SLA breached, rata-rata penyelesaian, aktivitas terbaru
+- [x] Dashboard Manager (§20.3): kartu total/open/resolved, gauge SLA compliance, line chart tren, pie/bar distribusi priority & category, tabel performa technician
+- [x] Dashboard Admin (§20.4): metrik Manager + total user/asset/technician/department + aktivitas sistem
+- [x] Router dashboard yang mengarahkan sesuai role saat mengakses `/`
+- [x] Chart Recharts: responsif, punya tooltip, dan empty state saat data kosong
+- [x] Pemilih rentang tanggal untuk chart tren
+- [x] Tabel performa technician bisa diurutkan (§21 PRD)
+- [x] Highlight visual untuk SLA breached
+- [x] Skeleton loading per kartu, bukan satu spinner untuk seluruh halaman
 
 ## Deliverable
 
@@ -816,14 +816,11 @@ Empat dashboard sesuai §20 PRD.
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
-
-
-
-- [ ] Setiap metrik yang disebut §20 PRD tampil di dashboard role yang tepat
-- [ ] Chart terbaca di layar mobile
-- [ ] Angka di UI sama dengan respons API
-- [ ] Dashboard tetap rapi saat data kosong (akun baru)
+- [x] Git tag SemVer ditambahkan saat fase selesai (v0.9.0)
+- [x] Setiap metrik yang disebut §20 PRD tampil di dashboard role yang tepat
+- [x] Chart terbaca di layar mobile
+- [x] Angka di UI sama dengan respons API
+- [x] Dashboard tetap rapi saat data kosong (akun baru)
 
 ---
 
