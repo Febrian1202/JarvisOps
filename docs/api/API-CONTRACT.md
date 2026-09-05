@@ -901,4 +901,32 @@ Untuk mendukung form filter, assign aset, dan editor artikel KB di UI frontend, 
 
 Seluruh perubahan respon pada dashboard analitik (Amandemen B1–B4) dan modul administrasi pengguna (penambahan field `must_change_password` dan endpoint `POST /api/me/password`) telah diimplementasikan penuh di backend dan divalidasi oleh suite pengujian otomatis (`apps/api/tests/Feature/Dashboard/*` dan `apps/api/tests/Feature/Auth/*`). Kontrak API ini mencerminkan keadaan implementasi final.
 
+---
+
+## 16. Endpoint Ekspor CSV (Fase 10f — Non-JSON Envelope Exception)
+
+Sesuai spesifikasi Fase 10f (K9), endpoint berikut merupakan **pengecualian dari format envelope JSON standar** (`{ success, message, data }`). Endpoint ini mengembalikan raw binary/text stream berformat `text/csv; charset=UTF-8` dengan header `Content-Disposition: attachment` dan byte UTF-8 BOM (`\xEF\xBB\xBF`) di awal stream untuk kompatibilitas aplikasi spreadsheet (Microsoft Excel Indonesia).
+
+Semua endpoint ekspor dilindungi oleh rate limiter khusus `throttle:export` (10 request/menit/user) dan otorisasi role berbasis token Sanctum (`auth:sanctum`).
+
+### 16.1 Ekspor Tiket Layanan
+- **Route:** `GET /api/export/tickets`
+- **Ability:** `ticket.viewAny` (Khusus Technician, Manager, dan Admin. Employee ditolak dengan status `403 Forbidden`).
+- **Query Params:** Mendukung filter yang sama persis dengan `GET /api/tickets` (`search`, `status_id`, `priority_id`, `category_id`, `technician_id`, `reporter_id`, `department_id`, `asset_id`, `sla_status`, `created_from`, `created_to`, `sort_by`, `sort_dir`).
+- **Kolom CSV:** `ticket_number,title,status,priority,category,reporter,technician,sla_deadline,sla_status,created_at,resolved_at`.
+
+### 16.2 Ekspor Aset Inventaris
+- **Route:** `GET /api/export/assets`
+- **Ability:** `asset.viewAny` (Technician, Manager, Admin).
+- **Query Params:** Mendukung filter yang sama dengan `GET /api/assets` (`search`, `status`, `category`, `assigned_user_id`, `sort_by`, `sort_dir`).
+- **Kolom CSV:** `asset_tag,name,category,brand,model,serial_number,status,assigned_to,purchase_date,created_at`.
+
+### 16.3 Ekspor Log Audit
+- **Route:** `GET /api/export/audit-logs`
+- **Ability:** `audit-log.viewAny` (Manager & Admin).
+- **Scoping:** Role Manager dibatasi secara otomatis di sisi server hanya untuk modul `ticket`, `asset`, dan `article`.
+- **Query Params:** Mendukung filter yang sama dengan `GET /api/audit-logs` (`user_id`, `module`, `action`, `module_id`, `date_from`, `date_to`, `sort_by`, `sort_dir`).
+- **Kolom CSV:** `id,created_at,user,action,module,module_id,ip_address,description`.
+
+
 

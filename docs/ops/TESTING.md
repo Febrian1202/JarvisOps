@@ -141,6 +141,7 @@ Berikut adalah pemetaan formal antara Business Rules (Lampiran A ROADMAP / PRD),
 | **D-16** | Admin `Gate::before` bypass dengan 2 proteksi keras (isolasi notifikasi & cegah self-lockout). | `tests/Feature/Auth/GateRegistrationTest.php`<br>`tests/Feature/Security/CrossUserLeakTest.php`<br>`tests/Feature/Notification/NotificationApiTest.php` |
 | **D-21** | Concurrency guard: Optimistic locking status tiket via `expected_status_id` (409 Conflict). | `tests/Feature/Ticket/StatusTransitionTest.php` |
 | **D-24** | Bahasa respon terpisah: API envelope Inggris, pesan validasi & deskripsi Indonesia. | `tests/Feature/AppLayer/ExceptionHandlerTest.php`<br>`tests/Feature/Ticket/TicketRequestTest.php` |
+| **K9 (10f)** | Streamed CSV Export (BOM UTF-8, rate limiter, role scoping). | `tests/Feature/Export/CsvExportTest.php`<br>`apps/web/src/test/csv-export-button.test.tsx` |
 | **Golden Path** | Alur lengkap siklus hidup tiket dari create, assign, comment, resolve, closed. | `tests/Feature/Ticket/GoldenPathTest.php`<br>`e2e/golden-path.spec.ts` |
 
 ---

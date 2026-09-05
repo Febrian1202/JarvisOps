@@ -137,8 +137,8 @@ Dipindah dari buffer ROADMAP ke **"Di luar cakupan"** (keputusan user: export CS
 5. [x] `docs/ops/DEPLOYMENT.md`, `docs/ops/TESTING.md`, `docs/schema.sql` (sinkron), `API-CONTRACT.md`, `ROADMAP.md`, `README.md` lengkap & sinkron.
 6. [x] DemoDataSeeder menghasilkan data realistis (compliance ±87%, breached, asset history); golden path §38 dijalankan tanpa kesalahan dalam latihan (ROADMAP:935); 6 jawaban reviewer siap.
 7. [ ] 11 poin Definition of Technical Success (§12 PRD) & 10 poin Definition of Done (§37 PRD) terverifikasi.
-8. [ ] Export CSV (prioritas buffer) selesai bila waktu memungkinkan.
-9. [ ] Tidak ada bug kritis yang diketahui (ROADMAP:934).
+8. [x] Export CSV (prioritas buffer) selesai bila waktu memungkinkan (10f selesai).
+9. [x] Tidak ada bug kritis yang diketahui (ROADMAP:934).
 10. [ ] Tag `v1.0.0` dibuat di `main` (D-30).
 
 ## Di luar cakupan Fase 10

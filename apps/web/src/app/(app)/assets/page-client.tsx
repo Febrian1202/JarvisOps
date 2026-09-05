@@ -7,6 +7,7 @@ import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AssetFilters } from '@/components/assets/AssetFilters';
 import { AssetTable } from '@/components/assets/AssetTable';
+import { CsvExportButton } from '@/components/shared/CsvExportButton';
 import { useAssets, type AssetQueryParams } from '@/hooks/use-assets';
 import { useAuth } from '@/components/providers/auth-provider';
 
@@ -89,14 +90,18 @@ export function AssetsPageClient() {
           </p>
         </div>
 
-        {can('asset.create') && (
-          <Button asChild size="sm" className="gap-1.5 self-start sm:self-auto">
-            <Link href="/assets/new">
-              <Plus className="h-4 w-4" />
-              <span>Tambah Aset Baru</span>
-            </Link>
-          </Button>
-        )}
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <CsvExportButton entity="assets" />
+
+          {can('asset.create') && (
+            <Button asChild size="sm" className="gap-1.5">
+              <Link href="/assets/new">
+                <Plus className="h-4 w-4" />
+                <span>Tambah Aset Baru</span>
+              </Link>
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Filters */}

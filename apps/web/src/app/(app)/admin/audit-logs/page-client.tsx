@@ -5,6 +5,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { AuditLogFilters } from '@/components/admin/AuditLogFilters';
 import { AuditLogTable } from '@/components/admin/AuditLogTable';
 import { AuditLogDetailDialog } from '@/components/admin/AuditLogDetailDialog';
+import { CsvExportButton } from '@/components/shared/CsvExportButton';
 import { useAuditLogs, type AuditLogQueryParams } from '@/hooks/use-audit-logs';
 import { useAuth } from '@/components/providers/auth-provider';
 
@@ -89,11 +90,17 @@ export function AuditLogsPageClient() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-bold text-xl text-foreground tracking-tight">Log Audit</h1>
-        <p className="text-muted-foreground text-xs sm:text-sm">
-          Jejak rekaman seluruh aktivitas penting, mutasi data, dan peristiwa keamanan sistem.
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="font-bold text-xl text-foreground tracking-tight">Log Audit</h1>
+          <p className="text-muted-foreground text-xs sm:text-sm">
+            Jejak rekaman seluruh aktivitas penting, mutasi data, dan peristiwa keamanan sistem.
+          </p>
+        </div>
+
+        <div className="self-start sm:self-auto">
+          <CsvExportButton entity="audit-logs" />
+        </div>
       </div>
 
       <AuditLogFilters />

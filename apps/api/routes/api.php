@@ -13,6 +13,7 @@ use App\Http\Controllers\Audit\AuditLogController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Export\ExportController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\ReferenceController;
@@ -117,6 +118,12 @@ Route::middleware(['auth:sanctum', 'password.changed'])->group(function () {
         Route::get('/unread-count', [NotificationController::class, 'unreadCount'])->name('unread-count');
         Route::post('/{notification}/read', [NotificationController::class, 'read'])->name('read');
         Route::post('/read-all', [NotificationController::class, 'readAll'])->name('read-all');
+    });
+
+    Route::prefix('export')->name('export.')->middleware('throttle:export')->group(function () {
+        Route::get('/tickets', [ExportController::class, 'tickets'])->name('tickets');
+        Route::get('/assets', [ExportController::class, 'assets'])->name('assets');
+        Route::get('/audit-logs', [ExportController::class, 'auditLogs'])->name('audit-logs');
     });
 
     Route::prefix('audit-logs')->name('audit-logs.')->group(function () {

@@ -897,10 +897,10 @@ Kerjakan **hanya jika** test suite lengkap dan hijau, dan waktu di minggu 8 masi
 Prioritas saat ada waktu sisa, berurutan:
 
 - [ ] Bug fixing dari hasil pengujian manual menyeluruh
-- [ ] Export report ke CSV/PDF
-- [ ] Advanced filtering (kombinasi filter tersimpan)
-- [ ] Dark mode
-- [ ] Peningkatan aksesibilitas: label ARIA, navigasi keyboard, kontras warna
+- [x] Export report ke CSV/PDF (Fase 10f: Streamed CSV Export untuk Tickets, Assets, dan Audit Logs)
+- [ ] Advanced filtering (kombinasi filter tersimpan) [di luar cakupan Fase 10 - K10]
+- [ ] Dark mode [di luar cakupan Fase 10 - K10]
+- [x] Peningkatan aksesibilitas: label ARIA, navigasi keyboard, kontras warna (audit WCAG 2.2 AA selesai di Fase 8g)
 
 ## Deliverable
 
