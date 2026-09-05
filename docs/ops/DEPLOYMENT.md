@@ -110,37 +110,115 @@ Uji endpoint kesehatan secara manual:
 ## 5. Prosedur Maintenance & Operasional
 
 ### Menjalankan Migrasi Database Manual
-Entrypoint API secara otomatis menjalankan migrasi saat startup. Namun jika ingin menjalankan secara terpisah:
+Entrypoint API secara otomatis menjalankan migrasi saat startup. Namun jika ingin menjalankan secara terpisah atau memeriksa status migrasi:
 ```bash
+docker compose -f compose.prod.yaml exec api php artisan migrate:status
 docker compose -f compose.prod.yaml exec api php artisan migrate --force
 ```
 
-### Pembersihan Cache Framework
-Jika ada pembaruan konfigurasi di file `.env.production`:
+### Pembersihan & Pemanasan Ulang Cache Framework
+Jika ada pembaruan konfigurasi di file `.env.production` atau kode sumber aplikasi:
 ```bash
+docker compose -f compose.prod.yaml exec api php artisan optimize:clear
 docker compose -f compose.prod.yaml exec api php artisan config:cache
 docker compose -f compose.prod.yaml exec api php artisan route:cache
 docker compose -f compose.prod.yaml exec api php artisan view:cache
 ```
 
+### Setup & Verifikasi Background Scheduler
+Layanan `scheduler` berjalan sebagai proses terpisah yang menjalankan perintah `php artisan schedule:work`. Pemisahan ini merupakan **keharusan arsitektural**, bukan opsional:
+1. **Kenapa terpisah:** FrankenPHP berjalan dalam mode HTTP server dan tidak menjalankan Laravel Task Scheduler internal. Tanpa container terpisah, pekerjaan krusial seperti pengecekan pelanggaran SLA (`tickets:check-sla`), pembersihan token kedaluwarsa, dan aktivitas periodik tidak akan pernah dieksekusi.
+2. **Verifikasi aktivitas scheduler:**
+   ```bash
+   docker compose -f compose.prod.yaml logs scheduler -f --tail=50
+   ```
+   Pastikan setiap 5 menit terdapat output eksekusi perintah `tickets:check-sla`.
+3. **Trigger manual untuk pengujian:**
+   ```bash
+   docker compose -f compose.prod.yaml exec api php artisan tickets:check-sla
+   ```
+
 ### Prosedur Backup Database
+Jadwalkan backup MySQL berkala (misalnya menggunakan cron pada host VM):
 ```bash
-docker compose -f compose.prod.yaml exec mysql mysqldump -u jarvisops -psecret_prod JarvisOps > backup_$(date +%Y%m%d_%H%M%S).sql
+docker compose -f compose.prod.yaml exec mysql mysqldump \
+  -u jarvisops \
+  -psecret_prod \
+  --single-transaction \
+  --quick \
+  JarvisOps > backup_jarvisops_$(date +%Y%m%d_%H%M%S).sql
+```
+Untuk memulihkan database dari file backup SQL:
+```bash
+docker compose -f compose.prod.yaml exec -T mysql mysql -u jarvisops -psecret_prod JarvisOps < backup_jarvisops_YYYYMMDD_HHMMSS.sql
 ```
 
 ### Prosedur Backup Lampiran Tiket (Storage)
-File attachment disimpan secara persisten di volume Docker `app-storage` (`/app/storage/app`). Lakukan backup dengan container utilitas:
+File attachment disimpan secara persisten di volume Docker `app-storage` (`/app/storage/app`). Lakukan backup volume menggunakan container utilitas tar:
 ```bash
-docker run --rm -v jarvisops_app-storage:/data -v $(pwd):/backup alpine tar czf /backup/attachments_$(date +%Y%m%d).tar.gz /data
+docker run --rm \
+  -v jarvisops_app-storage:/data:ro \
+  -v $(pwd):/backup \
+  alpine tar czf /backup/attachments_$(date +%Y%m%d_%H%M%S).tar.gz -C /data .
+```
+Untuk merestorasi data lampiran ke volume Docker:
+```bash
+docker run --rm \
+  -v jarvisops_app-storage:/data \
+  -v $(pwd):/backup \
+  alpine sh -c "tar xzf /backup/attachments_YYYYMMDD_HHMMSS.tar.gz -C /data"
 ```
 
 ---
 
-## 6. Known Risks & Rekomendasi Scale-Out
+## 6. Hardening Keamanan Produksi
+
+Sebelum membuka akses ke publik atau jaringan korporat, pastikan checklist pengamanan berikut telah dipenuhi:
+
+1. **Ganti Kata Sandi Akun Demo Awal**:
+   Akun seeder bawaan (`admin@jarvisops.test`, `manager@jarvisops.test`, dst.) menggunakan password bawaan `Password123!`. Segera ganti password melalui antarmuka Profil atau perintah Artisan:
+   ```bash
+   docker compose -f compose.prod.yaml exec api php artisan tinker --execute '
+     \App\Models\User::where("email", "admin@jarvisops.test")->update([
+       "password" => \Illuminate\Support\Facades\Hash::make("GANTI_DENGAN_PASSWORD_KUAT_DAN_UNIK"),
+       "must_change_password" => false
+     ]);
+   '
+   ```
+2. **Pastikan `APP_DEBUG=false`**:
+   Di file `apps/api/.env.production`, verifikasi bahwa `APP_DEBUG=false`. Nilai `false` mencegah kebocoran database credentials, stack trace, dan query SQL pada respons error 500 JSON.
+3. **Batasi CORS (Cross-Origin Resource Sharing)**:
+   Konfigurasikan `FRONTEND_URL` hanya ke domain publik frontend yang valid (contoh: `FRONTEND_URL=https://itops.perusahaan.co.id`).
+4. **Cookie Security (httpOnly, Secure, SameSite)**:
+   Karena autentikasi menggunakan pola BFF proxy dengan httpOnly cookie, pastikan cookie `auth_token` di Next.js Route Handler memiliki atribut:
+   - `httpOnly: true` (mencegah pencurian token melalui skrip JavaScript/XSS).
+   - `secure: true` saat diakses via protokol HTTPS.
+   - `sameSite: 'lax'` (mencegah eksploitasi CSRF).
+
+---
+
+## 7. Konfigurasi HTTPS & Reverse Proxy
+
+Dalam produksi nyata, terdapat dua opsi konfigurasi HTTPS:
+
+### Opsi A: Automatic HTTPS via Caddy (Built-in FrankenPHP)
+FrankenPHP menyertakan Caddy web server dengan kapabilitas otomatisasi sertifikat TLS (Let's Encrypt / ZeroSSL).
+1. Pastikan port 80 dan 443 terbuka ke internet publik.
+2. Ubah `SERVER_NAME` pada konfigurasi FrankenPHP ke domain resmi (contoh: `itops-api.perusahaan.co.id`).
+3. Caddy akan otomatis me-request dan memperbarui sertifikat TLS.
+
+### Opsi B: Reverse Proxy di Depan Stack (Direkomendasikan untuk Enterprise)
+Letakkan Nginx, Traefik, atau Cloudflare Ingress Controller di depan kontainer Docker:
+- Teruskan `Host`, `X-Forwarded-For`, `X-Forwarded-Proto`, dan `X-Forwarded-Host` ke port Web (`3000`) dan API (`8000`).
+- Di Laravel `apps/api/.env.production`, aktifkan trusted proxy jika diperlukan untuk membaca IP klien asli pada rate limiter.
+
+---
+
+## 8. Known Risks & Rekomendasi Scale-Out
 
 1. **Shared Storage untuk Attachment**:
    Saat ini penyimpanan attachment menggunakan volume Docker local `app-storage` yang di-mount bersama oleh `api` dan `scheduler`. Jika kontainer API di-scale menjadi multi-replica di beberapa host berbeda, volume tersebut harus digantikan dengan Network File System (NFS) atau S3 Object Storage (`FILESYSTEM_DISK=s3`).
 2. **Database Concurrency Lock**:
    Migrasi database dijalankan saat startup container API menggunakan `--force`. Dalam deployment multi-replica, gunakan migration job terpisah atau flag `--isolated` untuk menghindari race condition skema.
 3. **Octane Worker Mode**:
-   Secara default, kontainer produksi menggunakan FrankenPHP Classic Mode (1 request per worker process). Mode Octane worker akan dibahas dan diuji pada sub-tahap 10d.
+   Secara default, kontainer produksi menggunakan FrankenPHP Classic Mode (1 request per worker process) yang stabil dan bebas kebocoran memori. Evaluasi performa dan worker mode dilakukan pada sub-tahap 10d.
