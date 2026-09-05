@@ -42,6 +42,8 @@ class TicketController extends Controller
 
     public function store(StoreTicketRequest $request): JsonResponse
     {
+        $this->authorize('create', Ticket::class);
+
         $ticket = $this->ticketService->create(CreateTicketData::fromArray($request->validated()), $request->user());
 
         return ApiResponse::success(new TicketResource($ticket), 'Ticket created successfully.', 201);
