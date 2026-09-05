@@ -35,7 +35,7 @@ export function MetricCard({
       <div className="flex items-center justify-between gap-2">
         <span
           className={cn(
-            'text-xs font-medium line-clamp-1',
+            'text-xs font-medium',
             isDanger ? 'text-destructive dark:text-red-300' : 'text-muted-foreground'
           )}
         >
