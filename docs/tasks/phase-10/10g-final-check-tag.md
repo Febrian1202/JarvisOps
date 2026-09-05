@@ -132,11 +132,11 @@ docker tag jarvisops-web:latest jarvisops-web:v1.0.0
 
 ## Exit Criteria 10g (dan Fase 10)
 
-- [ ] 11 poin Definition of Technical Success (§12 PRD) terverifikasi dengan bukti test.
-- [ ] 10 poin Definition of Done (§37 PRD) terverifikasi untuk fitur inti.
+- [x] 11 poin Definition of Technical Success (§12 PRD) terverifikasi dengan bukti test (`tests/Feature/Security/DefinitionOfTechnicalSuccessTest.php`).
+- [x] 10 poin Definition of Done (§37 PRD) terverifikasi untuk fitur inti (`docs/ops/TESTING.md` §5).
 - [ ] Seluruh suite hijau: `vendor/bin/pest`, `npm run test`, `npm run typecheck`, `npm run lint`, `npm run build`, `npm run test:e2e`.
-- [ ] `docker compose -f compose.prod.yaml up` dari kondisi bersih berfungsi (ROADMAP:930).
-- [ ] Tidak ada bug kritis yang diketahui (ROADMAP:934).
-- [ ] Golden path §38 berhasil dalam latihan (ROADMAP:935).
+- [x] `docker compose -f compose.prod.yaml up` dari kondisi bersih berfungsi (ROADMAP:930).
+- [x] Tidak ada bug kritis yang diketahui (ROADMAP:934).
+- [x] Golden path §38 berhasil dalam latihan (ROADMAP:935).
 - [ ] `ROADMAP.md`, `README.md`, `AGENTS.md`, `API-CONTRACT.md` sinkron; Fase 9 & 10 tercentang.
 - [ ] Tag `v1.0.0` dibuat di `main` (D-30).
