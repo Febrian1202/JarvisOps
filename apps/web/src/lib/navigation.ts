@@ -23,6 +23,13 @@ export interface NavItem {
   section?: 'main' | 'admin';
 }
 
+export const ROLE_HOME: Record<string, string> = {
+  administrator: '/dashboard/admin',
+  manager: '/dashboard/manager',
+  technician: '/dashboard/technician',
+  employee: '/dashboard/employee',
+};
+
 export const NAV_ITEMS: NavItem[] = [
   // Main Section
   {
