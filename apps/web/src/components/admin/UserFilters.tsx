@@ -12,6 +12,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { SearchInput } from '@/components/shared/search-input';
+import { MobileFilterSheet } from '@/components/shared/mobile-filter-sheet';
+import type { FilterField } from '@/components/shared/filter-bar';
 import { useUserReferences } from '@/hooks/use-users';
 import { userStatusLabels } from '@/lib/labels';
 
@@ -47,18 +49,74 @@ export function UserFilters() {
 
   const hasActiveFilters = Boolean(search || roleId || departmentId || status);
 
-  return (
-    <div className="flex w-full flex-row items-center justify-between gap-3 overflow-x-auto pb-1">
-      {/* Search Input stays on the left */}
-      <SearchInput
-        value={search}
-        onChange={(val) => updateFilters({ search: val })}
-        placeholder="Cari nama atau email pengguna…"
-        className="w-64 max-w-none shrink-0"
-      />
+  const mobileFilters: FilterField[] = [
+    {
+      id: 'role_id',
+      label: 'Role',
+      value: roleId,
+      options: roles.map((role) => ({
+        label: role.name,
+        value: String(role.id),
+      })),
+    },
+    {
+      id: 'department_id',
+      label: 'Departemen',
+      value: departmentId,
+      options: departments.map((dept) => ({
+        label: dept.name,
+        value: String(dept.id),
+      })),
+    },
+    {
+      id: 'status',
+      label: 'Status',
+      value: status,
+      options: Object.entries(userStatusLabels).map(([val, label]) => ({
+        label,
+        value: val,
+      })),
+    },
+  ];
 
-      {/* Filter Dropdowns & Reset — always horizontal, right-aligned */}
-      <div className="flex shrink-0 flex-row items-center justify-end gap-2">
+  return (
+    <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      {/* Search Input and Mobile Filter Button row */}
+      <div className="flex w-full items-center gap-2 sm:w-auto">
+        <div className="flex-1 sm:flex-initial">
+          <SearchInput
+            value={search}
+            onChange={(val) => updateFilters({ search: val })}
+            placeholder="Cari nama atau email pengguna…"
+            className="w-full sm:w-64 max-w-none"
+          />
+        </div>
+
+        <div className="sm:hidden shrink-0">
+          <MobileFilterSheet
+            filters={mobileFilters}
+            onFilterChange={(id, val) => updateFilters({ [id]: val })}
+            onResetFilters={resetAll}
+            hasActiveFilters={hasActiveFilters}
+          />
+        </div>
+
+        {hasActiveFilters && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={resetAll}
+            aria-label="Reset semua filter"
+            title="Reset semua filter"
+            className="sm:hidden size-11 min-h-[44px] min-w-[44px] shrink-0 rounded-lg text-muted-foreground hover:text-foreground"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+
+      {/* Filter Dropdowns & Reset for Desktop/Tablet */}
+      <div className="hidden sm:flex shrink-0 flex-row items-center justify-end gap-2">
         <Select value={roleId || 'ALL'} onValueChange={(val) => updateFilters({ role_id: val })}>
           <SelectTrigger
             aria-label="Role"

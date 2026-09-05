@@ -99,8 +99,9 @@ describe('UserFilters', () => {
 
     renderWithProviders(<UserFilters />);
 
-    const resetButton = screen.getByRole('button', { name: /reset/i });
-    fireEvent.click(resetButton);
+    const resetButtons = screen.getAllByRole('button', { name: /reset/i });
+    expect(resetButtons.length).toBeGreaterThanOrEqual(1);
+    fireEvent.click(resetButtons[0]);
 
     expect(mockReplace).toHaveBeenCalledWith('/admin/users');
   });

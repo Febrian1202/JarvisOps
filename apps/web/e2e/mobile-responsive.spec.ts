@@ -190,4 +190,39 @@ test.describe.serial('Mobile Responsive & Touch Ergonomics (Phase 11)', () => {
       await assertNoHorizontalOverflow(page, route);
     }
   });
+
+  test('Test 6: Mobile /admin/users renders card view and filter bottom sheet updates URL', async ({
+    page,
+    context,
+  }) => {
+    await context.clearCookies();
+    await loginAs(page, 'admin@jarvisops.test');
+
+    await page.goto('/admin/users');
+    await page.waitForLoadState('networkidle');
+
+    // 1. Tabel desktop harus tersembunyi di mobile
+    await expect(page.locator('table')).toBeHidden();
+
+    // 2. User card harus terlihat di mobile
+    const userCards = page.locator('[data-testid="user-card-item"]');
+    await expect(userCards.first()).toBeVisible({ timeout: 10000 });
+
+    // 3. Tombol filter mobile membuka sheet dan memperbarui URL
+    const filterBtn = page.getByRole('button', { name: /filter/i }).first();
+    await expect(filterBtn).toBeVisible();
+    await filterBtn.click();
+    const filterSheet = page.locator('[role="dialog"]');
+    await expect(filterSheet).toBeVisible();
+
+    const roleSelect = filterSheet.locator('button[role="combobox"]').first();
+    await roleSelect.click();
+    await page.locator('[role="option"]').nth(1).click();
+
+    const closeBtn = filterSheet.getByRole('button', { name: 'Tutup', exact: true }).first();
+    await closeBtn.click();
+    await expect(filterSheet).toBeHidden();
+    await page.waitForURL(/[?&]role_id=/, { timeout: 10000 });
+    expect(page.url()).toMatch(/[?&]role_id=/);
+  });
 });

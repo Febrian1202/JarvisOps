@@ -210,14 +210,17 @@ export function UsersTable({
             data-testid="user-card-item"
             className="rounded-xl border border-border bg-card p-4 space-y-3"
           >
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0 flex-1">
-                <h4 className="text-sm font-semibold text-foreground truncate">
-                  {user.full_name}
-                </h4>
-                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+            <div className="space-y-1.5">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-sm font-semibold text-foreground break-words">
+                    {user.full_name}
+                  </h4>
+                  <p className="text-xs text-muted-foreground break-all">{user.email}</p>
+                </div>
               </div>
-              <div className="flex flex-wrap items-center gap-1.5 shrink-0 justify-end">
+
+              <div className="flex flex-wrap items-center gap-1.5 pt-1">
                 <Badge
                   variant="outline"
                   className="rounded-full font-medium text-[11px] shadow-none border-border bg-muted/50 text-foreground"
@@ -238,14 +241,14 @@ export function UsersTable({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-border/60">
-              <div>
+            <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-border/60">
+              <div className="min-w-0">
                 <span className="text-muted-foreground block text-[11px]">Departemen</span>
                 <span className="font-medium text-foreground truncate block">
                   {user.department?.name ?? '—'}
                 </span>
               </div>
-              <div>
+              <div className="min-w-0">
                 <span className="text-muted-foreground block text-[11px]">Kode Karyawan</span>
                 <span className="font-mono text-foreground truncate block">
                   {user.employee_code ?? '—'}
@@ -253,12 +256,12 @@ export function UsersTable({
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-1.5 pt-2 border-t border-border/60">
+            <div className="grid grid-cols-4 gap-2 pt-2 border-t border-border/60">
               <Button
                 type="button"
                 variant="outline"
                 size="icon"
-                className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg text-muted-foreground hover:text-foreground"
+                className="min-h-[44px] min-w-[44px] h-11 w-full rounded-lg text-muted-foreground hover:text-foreground"
                 data-testid={`user-card-edit-${user.id}`}
                 aria-label={`Edit pengguna ${user.full_name}`}
                 onClick={() => onEdit(user)}
@@ -269,7 +272,7 @@ export function UsersTable({
                 type="button"
                 variant="outline"
                 size="icon"
-                className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg text-muted-foreground hover:text-foreground"
+                className="min-h-[44px] min-w-[44px] h-11 w-full rounded-lg text-muted-foreground hover:text-foreground"
                 data-testid={`user-card-reset-${user.id}`}
                 aria-label={`Reset password pengguna ${user.full_name}`}
                 onClick={() => onResetPassword(user)}
@@ -281,7 +284,7 @@ export function UsersTable({
                 variant="outline"
                 size="icon"
                 className={cn(
-                  'min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg hover:text-foreground',
+                  'min-h-[44px] min-w-[44px] h-11 w-full rounded-lg hover:text-foreground',
                   isActive ? 'text-muted-foreground' : 'text-emerald-700'
                 )}
                 data-testid={`user-card-toggle-${user.id}`}
@@ -298,7 +301,7 @@ export function UsersTable({
                 type="button"
                 variant="outline"
                 size="icon"
-                className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg text-muted-foreground hover:text-destructive"
+                className="min-h-[44px] min-w-[44px] h-11 w-full rounded-lg text-muted-foreground hover:text-destructive"
                 data-testid={`user-card-delete-${user.id}`}
                 aria-label={`Hapus pengguna ${user.full_name}`}
                 onClick={() => onDelete(user)}
