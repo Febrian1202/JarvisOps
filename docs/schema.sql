@@ -1,7 +1,7 @@
 -- =========================================================
 -- JARVIS OPS
 -- IT SERVICE MANAGEMENT SYSTEM
--- ERD v1.2
+-- ERD v1.3 (Final Report Attachment)
 -- Target: MySQL / DrawDB
 -- =========================================================
 -- =========================================================
@@ -42,6 +42,7 @@ CREATE TABLE
         password VARCHAR(255) NOT NULL,
         full_name VARCHAR(150) NOT NULL,
         status VARCHAR(20) NOT NULL DEFAULT 'active',
+        must_change_password BOOLEAN NOT NULL DEFAULT FALSE,
         last_login_at TIMESTAMP NULL,
         created_at TIMESTAMP NULL,
         updated_at TIMESTAMP NULL,
@@ -145,6 +146,7 @@ CREATE TABLE
     ticket_priorities (
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(50) NOT NULL UNIQUE,
+        level INT UNSIGNED NULL UNIQUE,
         -- SLA target in minutes
         sla_minutes INT UNSIGNED NOT NULL,
         description VARCHAR(255),
@@ -325,6 +327,7 @@ CREATE TABLE
         action VARCHAR(100) NOT NULL,
         module VARCHAR(100) NOT NULL,
         module_id BIGINT UNSIGNED NULL,
+        description VARCHAR(500) NULL,
         old_data JSON NULL,
         new_data JSON NULL,
         ip_address VARCHAR(45),
@@ -340,7 +343,11 @@ CREATE INDEX idx_users_role ON users (role_id);
 
 CREATE INDEX idx_users_department ON users (department_id);
 
+CREATE INDEX idx_users_status ON users (status);
+
 CREATE INDEX idx_assets_status ON assets (status);
+
+CREATE INDEX idx_assets_name ON assets (name);
 
 CREATE INDEX idx_asset_assignments_user ON asset_assignments (user_id);
 
@@ -360,10 +367,18 @@ CREATE INDEX idx_tickets_department ON tickets (department_id);
 
 CREATE INDEX idx_tickets_asset ON tickets (asset_id);
 
+CREATE INDEX idx_tickets_title ON tickets (title);
+
+CREATE INDEX idx_tickets_sla_deadline ON tickets (sla_deadline);
+
+CREATE INDEX idx_tickets_status_technician ON tickets (status_id, technician_id);
+
 CREATE INDEX idx_tickets_sla ON tickets (sla_breached, sla_deadline);
 
 CREATE INDEX idx_notifications_user_read ON notifications (user_id, is_read);
 
 CREATE INDEX idx_audit_logs_module ON audit_logs (module, module_id);
+
+CREATE INDEX idx_knowledge_articles_title ON knowledge_articles (title);
 
 CREATE INDEX idx_knowledge_articles_status ON knowledge_articles (status);
