@@ -21,13 +21,15 @@ export function UsersPageClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { can } = useAuth();
+  const { can, isLoading: isAuthLoading } = useAuth();
 
   const canView = can('user.viewAny');
 
   useEffect(() => {
-    if (!canView) router.replace('/403');
-  }, [canView, router]);
+    if (!isAuthLoading && !canView) {
+      router.replace('/403');
+    }
+  }, [canView, isAuthLoading, router]);
 
   const page = Number(searchParams.get('page')) || 1;
   const perPage = Number(searchParams.get('per_page')) || 10;
