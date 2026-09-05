@@ -27,7 +27,7 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        'rounded-card border border-border bg-card p-4 flex flex-col justify-between shadow-xs',
+        'rounded-card border border-border bg-card p-3 sm:p-4 flex flex-col justify-between shadow-xs',
         isDanger && 'border-[#fae8e8]/80 dark:border-destructive/40 bg-[#fdf2f2]/60 dark:bg-card dark:border-red-900/50',
         className
       )}
@@ -35,7 +35,7 @@ export function MetricCard({
       <div className="flex items-center justify-between gap-2">
         <span
           className={cn(
-            'text-xs font-medium',
+            'text-xs font-medium truncate',
             isDanger ? 'text-destructive dark:text-red-300' : 'text-muted-foreground'
           )}
         >
@@ -44,24 +44,24 @@ export function MetricCard({
         {Icon && (
           <div
             className={cn(
-              'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
+              'flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full',
               isDanger
                 ? 'bg-[#fae8e8] text-[#991b1b] dark:bg-red-950/70 dark:text-red-400 dark:border dark:border-red-800/40'
                 : 'bg-muted/60 text-muted-foreground'
             )}
           >
-            <Icon className="h-4 w-4" strokeWidth={1.5} />
+            <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={1.5} />
           </div>
         )}
       </div>
 
       <div className="mt-3">
         {isLoading ? (
-          <Skeleton className="h-8 w-16" />
+          <Skeleton className="h-6 sm:h-8 w-16" />
         ) : (
           <div
             className={cn(
-              'text-2xl font-semibold tracking-tight',
+              'text-lg sm:text-2xl font-semibold tracking-tight',
               isDanger ? 'text-[#991b1b] dark:text-red-400' : 'text-foreground'
             )}
           >
@@ -73,7 +73,7 @@ export function MetricCard({
       {footer && !isLoading && (
         <div
           className={cn(
-            'mt-2 text-xs',
+            'mt-1.5 sm:mt-2 text-[11px] sm:text-xs leading-tight',
             isDanger ? 'text-destructive/90 dark:text-red-300/90 font-medium' : 'text-muted-foreground'
           )}
         >

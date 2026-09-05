@@ -28,15 +28,15 @@
 - Recharts: bungkus dengan `ResponsiveContainer` tinggi `h-56 sm:h-72`, margin kanan minimal, `tick={{ fontSize: 11 }}`, interval label X dirapatkan di mobile. Tooltip tetap bisa disentuh (default Recharts sudah touch-aware; jangan matikan).
 - Tabel `technician-performance-table` di mobile: sembunyikan kolom sekunder via `hidden md:table-cell` (pola yang sudah dipakai `AuditLogTable`/`UsersTable`).
 
-- [ ] **Step 1 — Audit:** buka `/` sebagai manager di viewport 360px, catat elemen yang overflow/terpotong.
-- [ ] **Step 2 — Implementasikan:** ubah grid + chart height/margin/tick sesuai detail di atas.
-- [ ] **Step 3 — Verifikasi:**
+- [x] **Step 1 — Audit:** buka `/` sebagai manager di viewport 360px, catat elemen yang overflow/terpotong.
+- [x] **Step 2 — Implementasikan:** ubah grid + chart height/margin/tick sesuai detail di atas.
+- [x] **Step 3 — Verifikasi:**
   ```bash
   npm run test --prefix apps/web
   npm run lint --prefix apps/web
   ```
   Cek manual 360px: tidak ada horizontal scroll body, label chart terbaca.
-- [ ] **Step 4 — Commit:**
+- [x] **Step 4 — Commit:**
   ```bash
   git commit -am "feat(web): compact dashboard metrics and charts for mobile"
   ```
@@ -47,15 +47,15 @@
 
 **Files:**
 - Modify: `apps/web/src/components/dashboard/date-range-picker.tsx`
-- Test: `apps/web/src/components/dashboard/date-range-picker.test.tsx`
+- Test: `apps/web/src/test/date-range-picker.test.tsx`
 
 **Detail:** Di mobile (`< 640px`) popover kalender mudah terpotong. Gunakan pola: trigger ringkas (`h-11`, label tanggal pendek) + konten kalender dalam Dialog/Sheet modal fullscreen-ish di mobile, popover biasa di desktop. Manfaatkan `useIsMobile` dari 11a.
 
-- [ ] **Step 1 — RED:** test trigger mudah disentuh dan konten terbuka sebagai dialog di mobile.
-- [ ] **Step 2 — Jalankan test, pastikan gagal.**
-- [ ] **Step 3 — GREEN:** implementasikan branch mobile/desktop.
-- [ ] **Step 4 — Verifikasi:** test lulus.
-- [ ] **Step 5 — Commit:**
+- [x] **Step 1 — RED:** test trigger mudah disentuh dan konten terbuka sebagai dialog di mobile.
+- [x] **Step 2 — Jalankan test, pastikan gagal.**
+- [x] **Step 3 — GREEN:** implementasikan branch mobile/desktop.
+- [x] **Step 4 — Verifikasi:** test lulus.
+- [x] **Step 5 — Commit:**
   ```bash
   git commit -am "feat(web): make DateRangePicker mobile-safe via dialog"
   ```

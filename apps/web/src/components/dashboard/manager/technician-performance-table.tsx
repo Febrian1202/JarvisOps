@@ -143,7 +143,7 @@ export function TechnicianPerformanceTable({
                   />
                 </div>
               </TableHead>
-              <TableHead scope="col" className="py-3 text-right font-semibold text-xs text-muted-foreground">
+              <TableHead scope="col" className="py-3 text-right font-semibold text-xs text-muted-foreground hidden sm:table-cell">
                 <div className="flex justify-end">
                   <DataTableColumnHeader
                     title="COMPLIANCE"
@@ -152,7 +152,7 @@ export function TechnicianPerformanceTable({
                   />
                 </div>
               </TableHead>
-              <TableHead scope="col" className="py-3 text-right font-semibold text-xs text-muted-foreground">
+              <TableHead scope="col" className="py-3 text-right font-semibold text-xs text-muted-foreground hidden md:table-cell">
                 <div className="flex justify-end">
                   <DataTableColumnHeader
                     title="RATA-RATA"
@@ -161,7 +161,7 @@ export function TechnicianPerformanceTable({
                   />
                 </div>
               </TableHead>
-              <TableHead scope="col" className="py-3 text-right font-semibold text-xs text-muted-foreground">
+              <TableHead scope="col" className="py-3 text-right font-semibold text-xs text-muted-foreground hidden sm:table-cell">
                 <div className="flex justify-end">
                   <DataTableColumnHeader
                     title="AKTIF"
@@ -204,13 +204,13 @@ export function TechnicianPerformanceTable({
                   <TableCell className="text-right text-xs font-semibold py-2.5">
                     {item.resolved}
                   </TableCell>
-                  <TableCell className="text-right text-xs py-2.5 text-muted-foreground">
+                  <TableCell className="text-right text-xs py-2.5 text-muted-foreground hidden sm:table-cell">
                     {complianceDisplay}
                   </TableCell>
-                  <TableCell className="text-right text-xs py-2.5 text-muted-foreground">
+                  <TableCell className="text-right text-xs py-2.5 text-muted-foreground hidden md:table-cell">
                     {avgDisplay}
                   </TableCell>
-                  <TableCell className="text-right text-xs py-2.5">
+                  <TableCell className="text-right text-xs py-2.5 hidden sm:table-cell">
                     {item.open}
                   </TableCell>
                   <TableCell

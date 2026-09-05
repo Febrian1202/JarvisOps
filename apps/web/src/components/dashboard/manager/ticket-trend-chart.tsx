@@ -38,23 +38,27 @@ export function TicketTrendChartPanel({ trend, isLoading }: TicketTrendChartPane
       isEmpty={isEmpty}
       emptyMessage="Belum ada data tren pada rentang ini."
     >
-      <figure role="img" aria-label="Grafik tren tiket" className="w-full h-[280px]">
+      <figure role="img" aria-label="Grafik tren tiket" className="w-full h-56 sm:h-72">
         <figcaption className="sr-only">
           {`Total ${totalCreated} ticket dibuat, ${totalResolved} selesai.`}
         </figcaption>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={trend} accessibilityLayer>
+          <BarChart data={trend} accessibilityLayer margin={{ top: 10, right: 8, left: -20, bottom: 0 }}>
             <XAxis 
               dataKey="date" 
               tickFormatter={formatTrendTick} 
-              minTickGap={28}
+              minTickGap={16}
+              tick={{ fontSize: 11 }}
             />
-            <YAxis allowDecimals={false} width={32} />
+            <YAxis allowDecimals={false} width={28} tick={{ fontSize: 11 }} />
             <Tooltip 
               labelFormatter={(label) => formatTrendTick(label as string)}
               formatter={(value, name) => [value, name === 'created' ? 'Dibuat' : 'Selesai']}
             />
-            <Legend formatter={(value) => value === 'created' ? 'Ticket Dibuat' : 'Ticket Selesai'} />
+            <Legend 
+              formatter={(value) => value === 'created' ? 'Ticket Dibuat' : 'Ticket Selesai'} 
+              wrapperStyle={{ fontSize: 12, paddingTop: 4 }}
+            />
             <Bar 
               dataKey="created" 
               fill="var(--chart-1)" 

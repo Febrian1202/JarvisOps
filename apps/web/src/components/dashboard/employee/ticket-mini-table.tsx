@@ -47,9 +47,9 @@ export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableP
             <th scope="col" className="pb-3 pt-1 font-medium">NOMOR</th>
             <th scope="col" className="pb-3 pt-1 font-medium">JUDUL</th>
             <th scope="col" className="pb-3 pt-1 font-medium">STATUS</th>
-            <th scope="col" className="pb-3 pt-1 font-medium">PRIORITAS</th>
-            <th scope="col" className="pb-3 pt-1 font-medium">SISA SLA</th>
-            <th scope="col" className="pb-3 pt-1 font-medium">DIBUAT</th>
+            <th scope="col" className="pb-3 pt-1 font-medium hidden sm:table-cell">PRIORITAS</th>
+            <th scope="col" className="pb-3 pt-1 font-medium hidden md:table-cell">SISA SLA</th>
+            <th scope="col" className="pb-3 pt-1 font-medium hidden sm:table-cell">DIBUAT</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
@@ -77,13 +77,13 @@ export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableP
                 <td className="py-3">
                   <StatusBadge status={ticket.status.name} />
                 </td>
-                <td className="py-3">
+                <td className="py-3 hidden sm:table-cell">
                   <PriorityBadge priority={ticket.priority.name} />
                 </td>
-                <td className="py-3 text-xs text-muted-foreground whitespace-nowrap">
+                <td className="py-3 text-xs text-muted-foreground whitespace-nowrap hidden md:table-cell">
                   {formatSlaRemaining(signedRemainingMinutes, isFinished)}
                 </td>
-                <td className="py-3 text-xs text-muted-foreground whitespace-nowrap">
+                <td className="py-3 text-xs text-muted-foreground whitespace-nowrap hidden sm:table-cell">
                   <RelativeTime date={ticket.created_at} />
                 </td>
               </tr>

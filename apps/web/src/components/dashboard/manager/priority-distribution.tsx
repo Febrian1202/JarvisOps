@@ -76,12 +76,12 @@ export function PriorityDistributionPanel({
       isEmpty={!hasData}
       emptyMessage="Belum ada data distribusi."
     >
-      <div className="space-y-4" role="list" aria-label="Distribusi prioritas">
+      <div className="space-y-3 sm:space-y-4" role="list" aria-label="Distribusi prioritas">
         {merged.map((item, i) => (
           <div key={i} className="space-y-1" role="listitem">
-            <div className="flex justify-between items-end text-sm">
+            <div className="flex justify-between items-end text-xs sm:text-sm">
               <span className="font-medium text-foreground">{item.label}</span>
-              <span className="text-muted-foreground text-xs">
+              <span className="text-muted-foreground text-[11px] sm:text-xs shrink-0 ml-2">
                 {item.count} tiket ({item.percentage.toFixed(0)}%)
               </span>
             </div>

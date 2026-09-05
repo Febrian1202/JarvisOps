@@ -7,6 +7,7 @@ import { Calendar as CalendarIcon, RotateCcw } from 'lucide-react';
 import type { DateRange } from 'react-day-picker';
 
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -14,6 +15,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 /**
  * Returns YYYY-MM-DD in Asia/Jakarta (WIB) timezone for a given Date or now.
@@ -71,6 +79,7 @@ export function DateRangePicker({
   className,
 }: DateRangePickerProps) {
   const [open, setOpen] = React.useState(false);
+  const isMobile = useIsMobile();
 
   // Derive active range directly from props and in-flight selection
   const [selectedStart, setSelectedStart] = React.useState<Date | undefined>(undefined);
@@ -124,11 +133,12 @@ export function DateRangePicker({
 
   const labelText = React.useMemo(() => {
     if (from && to) {
-      return `${format(parseISO(from), 'd MMM yyyy', { locale: id })} - ${format(
-        parseISO(to),
-        'd MMM yyyy',
-        { locale: id }
-      )}`;
+      const fromDate = parseISO(from);
+      const toDate = parseISO(to);
+      if (fromDate.getFullYear() === toDate.getFullYear()) {
+        return `${format(fromDate, 'd MMM', { locale: id })} - ${format(toDate, 'd MMM yyyy', { locale: id })}`;
+      }
+      return `${format(fromDate, 'd MMM yyyy', { locale: id })} - ${format(toDate, 'd MMM yyyy', { locale: id })}`;
     }
     if (from) {
       return format(parseISO(from), 'd MMM yyyy', { locale: id });
@@ -136,77 +146,124 @@ export function DateRangePicker({
     return 'Pilih rentang tanggal';
   }, [from, to]);
 
+  const triggerButton = (
+    <Button
+      variant="outline"
+      size="sm"
+      className={cn(
+        'min-h-[44px] h-11 sm:h-9 sm:min-h-[36px] text-xs sm:text-sm px-3.5 py-2 justify-start text-left font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+        !from && !to && 'text-muted-foreground'
+      )}
+      aria-label="Rentang Tanggal"
+    >
+      <CalendarIcon className="mr-2 h-4 w-4" />
+      <span>{labelText}</span>
+    </Button>
+  );
+
+  const presetsContent = (
+    <div
+      className={cn(
+        'flex gap-1.5 p-3',
+        isMobile
+          ? 'flex-wrap items-center border-b border-border'
+          : 'flex-col border-b border-border sm:w-36 sm:border-b-0 sm:border-r'
+      )}
+    >
+      {!isMobile && (
+        <span className="text-xs font-semibold text-muted-foreground px-2 py-1">
+          Preset
+        </span>
+      )}
+      <Button
+        variant="ghost"
+        size="sm"
+        className={cn(
+          'text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+          isMobile ? 'h-9 px-3 border border-border sm:border-0' : 'justify-start'
+        )}
+        onClick={() => handlePreset('7d')}
+      >
+        7 hari
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        className={cn(
+          'text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+          isMobile ? 'h-9 px-3 border border-border sm:border-0' : 'justify-start'
+        )}
+        onClick={() => handlePreset('30d')}
+      >
+        30 hari
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        className={cn(
+          'text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+          isMobile ? 'h-9 px-3 border border-border sm:border-0' : 'justify-start'
+        )}
+        onClick={() => handlePreset('90d')}
+      >
+        90 hari
+      </Button>
+      {(from || to) && (
+        <Button
+          variant="ghost"
+          size="sm"
+          className={cn(
+            'text-xs font-normal text-destructive hover:text-destructive hover:bg-destructive/10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+            isMobile ? 'h-9 px-3 ml-auto' : 'mt-2 justify-start'
+          )}
+          onClick={handleReset}
+        >
+          <RotateCcw className="mr-1.5 h-3 w-3" />
+          Reset
+        </Button>
+      )}
+    </div>
+  );
+
+  const calendarContent = (
+    <div className={cn('p-2', isMobile && 'flex justify-center')}>
+      <Calendar
+        mode="range"
+        defaultMonth={selectedRange?.from}
+        selected={selectedRange}
+        onSelect={handleCalendarSelect}
+        numberOfMonths={1}
+      />
+    </div>
+  );
+
+  if (isMobile) {
+    return (
+      <div className={cn('relative inline-block', className)}>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>{triggerButton}</DialogTrigger>
+          <DialogContent className="max-w-[calc(100vw-2rem)] p-4 sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Pilih Rentang Tanggal</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col">
+              {presetsContent}
+              {calendarContent}
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  }
+
   return (
     <div className={cn('relative inline-block', className)}>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            size="sm"
-            className={cn(
-              'h-9 justify-start text-left font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
-              !from && !to && 'text-muted-foreground'
-            )}
-            aria-label="Rentang Tanggal"
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            <span>{labelText}</span>
-          </Button>
-        </PopoverTrigger>
+        <PopoverTrigger asChild>{triggerButton}</PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
           <div className="flex flex-col sm:flex-row">
-            {/* Quick Presets */}
-            <div className="flex flex-col gap-1 border-b border-border p-3 sm:w-36 sm:border-b-0 sm:border-r">
-              <span className="text-xs font-semibold text-muted-foreground px-2 py-1">
-                Preset
-              </span>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="justify-start text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-                onClick={() => handlePreset('7d')}
-              >
-                7 hari
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="justify-start text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-                onClick={() => handlePreset('30d')}
-              >
-                30 hari
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="justify-start text-xs font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-                onClick={() => handlePreset('90d')}
-              >
-                90 hari
-              </Button>
-              {(from || to) && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-2 justify-start text-xs font-normal text-destructive hover:text-destructive hover:bg-destructive/10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
-                  onClick={handleReset}
-                >
-                  <RotateCcw className="mr-1.5 h-3 w-3" />
-                  Reset
-                </Button>
-              )}
-            </div>
-
-            {/* Calendar View */}
-            <div className="p-2">
-              <Calendar
-                mode="range"
-                defaultMonth={selectedRange?.from}
-                selected={selectedRange}
-                onSelect={handleCalendarSelect}
-                numberOfMonths={1}
-              />
-            </div>
+            {presetsContent}
+            {calendarContent}
           </div>
         </PopoverContent>
       </Popover>

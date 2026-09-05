@@ -50,7 +50,7 @@ export function EmployeeDashboard() {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <MetricCard
           label="Ticket Terbuka"
           value={data ? data.my_open_tickets : null}
