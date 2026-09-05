@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ArticleFilters } from '@/components/knowledge/ArticleFilters';
-import { ArticleTable } from '@/components/knowledge/ArticleTable';
+import { ArticleCardGrid } from '@/components/knowledge/ArticleCardGrid';
 import { useArticles, type ArticleQueryParams } from '@/hooks/use-articles';
 import { useAuth } from '@/components/providers/auth-provider';
 
@@ -27,6 +27,7 @@ export function KnowledgePageClient() {
 
   const canFilterStatus = can('article.create');
   const showStatus = canFilterStatus;
+  const canEdit = can('article.update');
   const isEmployee = hasRole('employee');
 
   const queryParams: ArticleQueryParams = {
@@ -64,14 +65,6 @@ export function KnowledgePageClient() {
     startTransition(() => router.replace(`${pathname}?${params.toString()}`));
   };
 
-  const handleSort = (field: string) => {
-    if (sortBy === field) {
-      updateQueryParams({ sort_dir: sortDir === 'asc' ? 'desc' : 'asc', page: 1 });
-    } else {
-      updateQueryParams({ sort_by: field, sort_dir: 'asc', page: 1 });
-    }
-  };
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -93,16 +86,14 @@ export function KnowledgePageClient() {
 
       <ArticleFilters />
 
-      <ArticleTable
+      <ArticleCardGrid
         articles={articles}
         meta={meta}
         isLoading={isLoading}
-        sortBy={sortBy}
-        sortDir={sortDir}
-        onSort={handleSort}
         onPageChange={(p) => updateQueryParams({ page: p })}
         onPerPageChange={(pp) => updateQueryParams({ per_page: pp, page: 1 })}
         showStatus={showStatus}
+        canEdit={canEdit}
       />
 
       {isEmployee && articles.length === 0 && !hasActiveFilters && (

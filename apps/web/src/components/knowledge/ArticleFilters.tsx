@@ -23,6 +23,9 @@ export function ArticleFilters() {
   const search = searchParams.get('search') || '';
   const categoryId = searchParams.get('category_id') || '';
   const status = searchParams.get('status') || '';
+  const sortBy = searchParams.get('sort_by') || 'created_at';
+  const sortDir = searchParams.get('sort_dir') || 'desc';
+  const currentSort = `${sortBy}:${sortDir}`;
 
   const { data: categoriesResponse } = useArticleCategories();
   const categories = categoriesResponse?.data ?? [];
@@ -80,6 +83,20 @@ export function ArticleFilters() {
             </SelectContent>
           </Select>
         )}
+
+        <Select value={currentSort} onValueChange={(val) => {
+          const [by, dir] = val.split(':');
+          updateFilters({ sort_by: by, sort_dir: dir });
+        }}>
+          <SelectTrigger className="h-8 min-w-[140px] rounded-lg text-xs bg-card border-border">
+            <SelectValue placeholder="Urutkan" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="created_at:desc" className="text-xs">Terbaru</SelectItem>
+            <SelectItem value="view_count:desc" className="text-xs">Terpopuler</SelectItem>
+            <SelectItem value="title:asc" className="text-xs">Judul A-Z</SelectItem>
+          </SelectContent>
+        </Select>
 
         {hasActiveFilters && (
           <Button variant="ghost" size="sm" onClick={resetAll} className="h-8 px-2 text-xs text-muted-foreground hover:text-foreground">

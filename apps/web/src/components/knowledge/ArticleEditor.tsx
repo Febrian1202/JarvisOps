@@ -9,7 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { MarkdownEditor } from '@/components/shared/markdown-editor';
+import { ArticleDeleteButton } from '@/components/knowledge/ArticleDeleteButton';
 import {
   Select,
   SelectContent,
@@ -31,7 +32,9 @@ interface ArticleEditorProps {
 
 export function ArticleEditor({ article }: ArticleEditorProps) {
   const router = useRouter();
+  const { can } = useAuth();
   const isEdit = Boolean(article);
+  const canPublish = can('article.publish');
 
   const {
     register,
@@ -118,8 +121,24 @@ export function ArticleEditor({ article }: ArticleEditorProps) {
 
           <div className="space-y-1.5">
             <Label htmlFor="content">Konten (Markdown) <span className="text-destructive">*</span></Label>
-            <Textarea id="content" rows={14} className="font-mono text-sm" placeholder="Tulis isi artikel dalam format Markdown…" {...register('content')} aria-invalid={!!errors.content} />
-            {errors.content && <p className="text-xs text-destructive">{errors.content.message}</p>}
+            <Controller
+              control={control}
+              name="content"
+              render={({ field }) => (
+                <MarkdownEditor
+                  id="content"
+                  name={field.name}
+                  ref={field.ref}
+                  value={field.value ?? ''}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  placeholder="Tulis isi artikel dalam format Markdown…"
+                  aria-invalid={!!errors.content}
+                  aria-describedby={errors.content ? 'content-error' : undefined}
+                />
+              )}
+            />
+            {errors.content && <p id="content-error" className="text-xs text-destructive">{errors.content.message}</p>}
           </div>
         </div>
 
@@ -127,15 +146,42 @@ export function ArticleEditor({ article }: ArticleEditorProps) {
           <Button type="button" variant="outline" asChild>
             <Link href="/knowledge">Batal</Link>
           </Button>
-          <Button type="submit" disabled={mutation.isPending}>
-            {mutation.isPending ? 'Menyimpan…' : isEdit ? 'Simpan Perubahan' : 'Buat Artikel'}
-          </Button>
+          {isEdit ? (
+            <Button type="submit" disabled={mutation.isPending}>
+              {mutation.isPending ? 'Menyimpan…' : 'Simpan Perubahan'}
+            </Button>
+          ) : (
+            <>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleSubmit((data) => mutation.mutate({ ...data, status: 'draft' }))}
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? 'Menyimpan…' : 'Simpan sebagai Draf'}
+              </Button>
+              {canPublish && (
+                <Button
+                  type="button"
+                  onClick={handleSubmit((data) => mutation.mutate({ ...data, status: 'published' }))}
+                  disabled={mutation.isPending}
+                >
+                  {mutation.isPending ? 'Menyimpan…' : 'Terbitkan'}
+                </Button>
+              )}
+            </>
+          )}
         </div>
       </div>
 
       {isEdit && article ? (
         <div className="space-y-6 lg:col-span-4">
           <PublishPanel article={article} />
+          <ArticleDeleteButton
+            articleId={article.id}
+            authorId={article.author?.id ?? null}
+            className="w-full justify-center"
+          />
         </div>
       ) : null}
     </form>
