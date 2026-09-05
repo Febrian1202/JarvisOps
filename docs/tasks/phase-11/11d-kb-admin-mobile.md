@@ -26,12 +26,12 @@
 - `ArticleFilters`: gunakan kembali `MobileFilterSheet` dari 11a untuk filter kategori di HP.
 - `markdown-editor`: mode tab Tulis/Pratinjau di mobile (satu panel penuh per tab), berdampingan di desktop.
 
-- [ ] **Step 1 — Implementasikan** sesuai detail (RED→GREEN per komponen bila ada test).
-- [ ] **Step 2 — Verifikasi:**
+- [x] **Step 1 — Implementasikan** sesuai detail (RED→GREEN per komponen bila ada test).
+- [x] **Step 2 — Verifikasi:**
   ```bash
   npm run test --prefix apps/web
   ```
-- [ ] **Step 3 — Commit:**
+- [x] **Step 3 — Commit:**
   ```bash
   git commit -am "feat(web): mobile-friendly KB reader and editor tabs"
   ```
@@ -53,9 +53,9 @@
 - Dialog form (`UserFormDialog`, master data): di mobile jadi sheet hampir fullscreen, scrollable, tombol submit `h-11 sticky bottom`.
 - Audit touch target: tombol icon `size-11` hit-box di mobile, input/select `h-11`, pagination mudah disentuh. Tidak ada `body` horizontal overflow di 360px.
 
-- [ ] **Step 1 — Implementasikan** tabel ringkas + dialog mobile + audit touch target.
-- [ ] **Step 2 — Verifikasi:** test + lint lulus, cek manual 360px untuk `/admin/users`, `/admin/audit-logs`, `/profile`.
-- [ ] **Step 3 — Commit:**
+- [x] **Step 1 — Implementasikan** tabel ringkas + dialog mobile + audit touch target.
+- [x] **Step 2 — Verifikasi:** test + lint lulus, cek manual 360px untuk `/admin/users`, `/admin/audit-logs`, `/profile`.
+- [x] **Step 3 — Commit:**
   ```bash
   git commit -am "feat(web): responsive admin tables and touch target hardening"
   ```
