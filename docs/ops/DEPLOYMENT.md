@@ -221,4 +221,54 @@ Letakkan Nginx, Traefik, atau Cloudflare Ingress Controller di depan kontainer D
 2. **Database Concurrency Lock**:
    Migrasi database dijalankan saat startup container API menggunakan `--force`. Dalam deployment multi-replica, gunakan migration job terpisah atau flag `--isolated` untuk menghindari race condition skema.
 3. **Octane Worker Mode**:
-   Secara default, kontainer produksi menggunakan FrankenPHP Classic Mode (1 request per worker process) yang stabil dan bebas kebocoran memori. Evaluasi performa dan worker mode dilakukan pada sub-tahap 10d.
+   Secara default, kontainer produksi menggunakan FrankenPHP Classic Mode (1 request per worker process) yang stabil dan bebas kebocoran memori. Evaluasi performa, audit state leak, dan panduan aktivasi Octane Worker Mode dijelaskan secara rinci pada [Bagian 9: Pilihan Runtime: Classic Mode vs Octane Worker Mode](#9-pilihan-runtime-classic-mode-vs-octane-worker-mode) serta laporan audit formal di [`docs/ops/OCTANE-AUDIT.md`](./OCTANE-AUDIT.md).
+
+---
+
+## 9. Pilihan Runtime: Classic Mode vs Octane Worker Mode
+
+JarvisOps mendukung dua mode eksekusi server PHP pada lapisan kontainer API:
+
+### 9.1 Keputusan Teknis: Default Produksi Tetap Classic Mode
+
+**Keputusan Arsitektur:**  
+FrankenPHP **Classic Mode** (1 request per worker process) tetap dipertahankan sebagai **default standar lingkungan produksi** JarvisOps.
+
+**Alasan & Pertimbangan:**
+1. **Determinisme & Isolasi Memori Mutlak:**  
+   Sebagai sistem IT Service Management (ITSM) yang mengelola hak akses berbasis role yang ketat, data per-tiket, audit log, dan kepatuhan SLA, keselamatan integritas data pengguna adalah prioritas utama. Classic mode menjamin siklus hidup request dimulai dari kondisi memori murni (*clean slate*), mengeliminasi risiko kebocoran konteks antar-request secara inheren.
+2. **Kestabilan Jangka Panjang:**  
+   Tidak ada risiko akumulasi memori (*memory fragmentation* / *slow memory creep*) dari pustaka pihak ketiga atau pemrosesan payload file berukuran besar.
+3. **Pemisahan Peran Scheduler yang Alami:**  
+   Task scheduler background (`php artisan schedule:work`) tetap berjalan pada kontainer independen tanpa terpengaruh lifecycle worker HTTP.
+
+### 9.2 Opsi High-Throughput: Octane Worker Mode
+
+Bagi lingkungan dengan beban volume traffic tinggi (*high-concurrency/throughput*), Octane Worker Mode telah diinstalasi (`laravel/octane:^2.19`), diaudit secara menyeluruh, dan diverifikasi aman. Laporan audit kode dan pengujian otomatis dapat dilihat pada [`docs/ops/OCTANE-AUDIT.md`](./OCTANE-AUDIT.md).
+
+Pengujian menunjukkan:
+- **Zero State Leak:** Seluruh service layer, controller, middleware, model observer, dan helper bersifat stateless murni. Pengujian bolak-balik antar pengguna (`OctaneStateLeakTest`) terbukti 100% lulus.
+- **Efisiensi Memori:** Framework Laravel dimuat satu kali ke dalam memori RAM, memangkas latensi bootstrap PHP pada setiap request.
+
+### 9.3 Cara Mengaktifkan Octane Worker Mode
+
+Untuk menjalankan stack produksi dengan Octane Worker Mode, gunakan Docker Compose override `compose.prod.octane.yaml`:
+
+```bash
+docker compose -f compose.prod.yaml -f compose.prod.octane.yaml up -d
+```
+
+Override tersebut mengonfigurasi service `api` dengan:
+```yaml
+services:
+  api:
+    command: ["php", "artisan", "octane:start", "--server=frankenphp", "--host=0.0.0.0", "--port=8000", "--workers=2", "--max-requests=1000"]
+    environment:
+      OCTANE_SERVER: frankenphp
+```
+
+**Parameter Mitigasi dan Rekomendasi Operasional:**
+- `--workers=2`: Menyesuaikan jumlah worker proses dengan core CPU yang dialokasikan pada kontainer API.
+- `--max-requests=1000`: Me-recycle worker secara berkala setelah melayani 1000 request untuk membersihkan akumulasi memori secara otomatis dan transparan tanpa downtime.
+- **Service Scheduler Tetap Berjalan:** Kontainer `scheduler` pada `compose.prod.yaml` tetap menjalankan `php artisan schedule:work` secara independen, memastikan evaluasi SLA tiket 24/7 tetap berjalan terjadwal.
+

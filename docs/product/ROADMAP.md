@@ -863,12 +863,12 @@ Mengubah aplikasi yang berfungsi menjadi aplikasi yang bisa dipertahankan di dep
 
 Kerjakan **hanya jika** test suite lengkap dan hijau, dan waktu di minggu 8 masih tersisa.
 
-- [ ] `composer require laravel/octane:^2.19` (Octane 3 belum ada)
-- [ ] `php artisan octane:install --server=frankenphp`
-- [ ] Audit state bocor: singleton yang menyimpan data per-request, `static` property, konfigurasi yang di-mutasi saat runtime
-- [ ] Jalankan seluruh test suite terhadap mode worker
-- [ ] Uji manual: login sebagai dua user berbeda secara bergantian, pastikan tidak ada data yang tertukar
-- [ ] Jika ada keraguan sekecil apa pun, **tetap di classic mode**. Peningkatan performa tidak sebanding dengan risiko kebocoran data antar-user di aplikasi ITSM.
+- [x] `composer require laravel/octane:^2.19` (Octane 3 belum ada)
+- [x] `php artisan octane:install --server=frankenphp`
+- [x] Audit state bocor: singleton yang menyimpan data per-request, `static` property, konfigurasi yang di-mutasi saat runtime
+- [x] Jalankan seluruh test suite terhadap mode worker
+- [x] Uji manual: login sebagai dua user berbeda secara bergantian, pastikan tidak ada data yang tertukar
+- [x] Keputusan: tetap di classic mode sebagai default, worker mode sebagai opsi performa terdokumentasi di `docs/ops/DEPLOYMENT.md`. Peningkatan performa tidak sebanding dengan risiko kebocoran data antar-user di aplikasi ITSM jika tanpa isolasi terkontrol.
 
 ### CI
 
