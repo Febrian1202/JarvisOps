@@ -144,8 +144,8 @@ git commit -m "docs(ops): add demo backup screenshots and fallback scenario"
 
 ## Exit Criteria 10e
 
-- [ ] `DemoDataSeeder` menghasilkan: ticket di semua status, compliance manager ±87%, beberapa SLA breach aktif, ≥2 technician berperforma berbeda, riwayat asset multi-pemegang, asset status lengkap.
-- [ ] Test seeder hijau & deterministik; test lama tidak rusak.
-- [ ] Golden path §38 E2E hijau terhadap data demo; durasi tercatat (< 3 menit).
-- [ ] `docs/ops/DEMO-RUNBOOK.md` ada (langkah + backup scenario + screenshot).
-- [ ] `docs/ops/REVIEWER-ANSWERS.md` ada (6 jawaban §33, masing-masing dengan bukti kode/test).
+- [x] `DemoDataSeeder` menghasilkan: ticket di semua status, compliance manager ±87% (87,5% — 28/32 resolved dalam SLA), beberapa SLA breach aktif (8 tiket), ≥2 technician berperforma berbeda (3 teknisi: 87,5% / 90% / 75%), riwayat asset multi-pemegang (AST-00002, 4 entri), asset status lengkap (available/assigned/maintenance/retired).
+- [x] Test seeder hijau & deterministik (`DemoDataSeederTest`, 7 test); test lama tidak rusak (709 test backend hijau, 3260 assertions).
+- [x] Golden path §38 E2E hijau terhadap data demo; durasi tercatat (< 3 menit — otomasi ±11 detik, dengan narasi < 2 menit).
+- [x] `docs/ops/DEMO-RUNBOOK.md` ada (langkah + backup scenario + screenshot; katalog di `docs/ops/demo-screenshots/README.md`).
+- [x] `docs/ops/REVIEWER-ANSWERS.md` ada (6 jawaban §33, masing-masing dengan bukti kode/test).

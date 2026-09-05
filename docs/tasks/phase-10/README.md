@@ -26,7 +26,7 @@
 | 10b | Docker Produksi | `10b-docker-produksi.md` | ~1,0 hari | `feat/phase-10b-docker-prod` |
 | 10c | CI & Dokumentasi | `10c-ci-dokumentasi.md` | ~1,0 hari | `feat/phase-10c-ci-docs` |
 | 10d | Octane Worker Mode | `10d-octane-worker-mode.md` | ~0,75 hari | `feat/phase-10d-octane` |
-| 10e | Demo Data & Golden Path | `10e-demo-data-golden-path.md` | ~0,75 hari | `feat/phase-10e-demo` |
+| 10e | Demo Data & Golden Path | `10e-demo-data-golden-path.md` | ~0,75 hari | `feat/phase-10e-demo` — **selesai** |
 | 10f | Buffer + Export CSV + Bug Fixing | `10f-buffer-export-csv.md` | ~1,0 hari | `feat/phase-10f-buffer` |
 | 10g | Final Check & Tag v1.0.0 | `10g-final-check-tag.md` | ~0,5 hari | `feat/phase-10g-final` |
 
@@ -116,10 +116,10 @@ Dipindah dari buffer ROADMAP ke **"Di luar cakupan"** (keputusan user: export CS
 - [x] Test suite: ±98 file, ±475 test case backend; frontend Vitest; Playwright login smoke.
 - [x] Playwright config (`apps/web/playwright.config.ts`), `e2e/login.spec.ts`.
 - [x] Wireframe & API untuk dashboard (Fase 9 selesai) → demo step 12–13 §38 bisa didemokan.
-- [ ] DemoDataSeeder belum menghasilkan compliance ±87% / breached / asset history multi-pemegang.
-- [ ] Golden path §38 belum dijalankan end-to-end dari browser & diukur.
-- [ ] 6 jawaban reviewer §33 belum ditulis.
-- [ ] Backup skenario demo (screenshot/rekaman) belum disiapkan.
+- [x] DemoDataSeeder menghasilkan compliance ±87% (87,5%) / breached aktif / asset history multi-pemegang; test deterministik.
+- [x] Golden path §38 dijalankan end-to-end (21 test E2E hijau, termasuk langkah 12–13 analytics) & durasi terukur < 3 menit.
+- [x] 6 jawaban reviewer §33 ditulis (`docs/ops/REVIEWER-ANSWERS.md`).
+- [x] Backup skenario demo disiapkan (`docs/ops/DEMO-RUNBOOK.md` + `docs/ops/demo-screenshots/README.md`).
 
 ### Octane
 - [ ] `laravel/octane` belum ter-install (`composer.json` require tidak memuatnya).
@@ -135,7 +135,7 @@ Dipindah dari buffer ROADMAP ke **"Di luar cakupan"** (keputusan user: export CS
 3. [x] CI hijau di `main` (Pint, Pest, tsc, lint, build) (ROADMAP:931).
 4. [ ] Octane worker mode aktif **atau** keputusan terdokumentasi untuk tetap classic mode (10d).
 5. [x] `docs/ops/DEPLOYMENT.md`, `docs/ops/TESTING.md`, `docs/schema.sql` (sinkron), `API-CONTRACT.md`, `ROADMAP.md`, `README.md` lengkap & sinkron.
-6. [ ] DemoDataSeeder menghasilkan data realistis (compliance ±87%, breached, asset history); golden path §38 dijalankan tanpa kesalahan dalam latihan (ROADMAP:935); 6 jawaban reviewer siap.
+6. [x] DemoDataSeeder menghasilkan data realistis (compliance ±87%, breached, asset history); golden path §38 dijalankan tanpa kesalahan dalam latihan (ROADMAP:935); 6 jawaban reviewer siap.
 7. [ ] 11 poin Definition of Technical Success (§12 PRD) & 10 poin Definition of Done (§37 PRD) terverifikasi.
 8. [ ] Export CSV (prioritas buffer) selesai bila waktu memungkinkan.
 9. [ ] Tidak ada bug kritis yang diketahui (ROADMAP:934).
