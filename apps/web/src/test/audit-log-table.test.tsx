@@ -55,23 +55,23 @@ describe('AuditLogTable', () => {
     );
 
     // User name & system fallback
-    expect(screen.getByText('Super Administrator')).toBeInTheDocument();
-    expect(screen.getByText('Sistem')).toBeInTheDocument();
+    expect(screen.getAllByText('Super Administrator').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Sistem').length).toBeGreaterThanOrEqual(1);
 
     // Module labels & module IDs
     expect(screen.getAllByText('Tiket').length).toBeGreaterThan(0);
-    expect(screen.getByText('#12')).toBeInTheDocument();
-    expect(screen.getByText('#15')).toBeInTheDocument();
+    expect(screen.getAllByText('#12').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('#15').length).toBeGreaterThanOrEqual(1);
 
     // Action labels
-    expect(screen.getByText('Mengubah Status')).toBeInTheDocument();
-    expect(screen.getByText('Pelanggaran SLA')).toBeInTheDocument();
+    expect(screen.getAllByText('Mengubah Status').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Pelanggaran SLA').length).toBeGreaterThanOrEqual(1);
 
     // Descriptions & IP
     expect(
-      screen.getByText('Status tiket diubah menjadi IN_PROGRESS')
-    ).toBeInTheDocument();
-    expect(screen.getByText('192.168.1.10')).toBeInTheDocument();
+      screen.getAllByText('Status tiket diubah menjadi IN_PROGRESS').length
+    ).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/192\.168\.1\.10/).length).toBeGreaterThanOrEqual(1);
   });
 
   it('calls onViewDetail when clicking detail button', () => {
@@ -91,7 +91,7 @@ describe('AuditLogTable', () => {
     const detailButtons = screen.getAllByRole('button', {
       name: /lihat rincian log/i,
     });
-    expect(detailButtons).toHaveLength(2);
+    expect(detailButtons.length).toBeGreaterThanOrEqual(2);
 
     fireEvent.click(detailButtons[0]);
     expect(onViewDetail).toHaveBeenCalledWith(mockLogs[0]);
@@ -111,7 +111,32 @@ describe('AuditLogTable', () => {
     );
 
     expect(
-      screen.getByText(/tidak ada log audit ditemukan/i)
-    ).toBeInTheDocument();
+      screen.getAllByText(/tidak ada log audit ditemukan/i).length
+    ).toBeGreaterThanOrEqual(1);
+  });
+
+  it('renders mobile audit log cards with detail button min-h-[44px] and triggers detail callback', () => {
+    const onViewDetail = vi.fn();
+    renderWithProviders(
+      <AuditLogTable
+        items={mockLogs}
+        meta={mockMeta}
+        isLoading={false}
+        sortBy="created_at"
+        sortDir="desc"
+        onSort={vi.fn()}
+        onViewDetail={onViewDetail}
+      />
+    );
+
+    const mobileCards = screen.getAllByTestId('audit-log-card-item');
+    expect(mobileCards).toHaveLength(2);
+
+    const detailBtn = screen.getByTestId(`audit-log-card-detail-${mockLogs[0].id}`);
+    expect(detailBtn).toHaveClass('min-h-[44px]');
+    expect(detailBtn).toHaveTextContent(/lihat rincian/i);
+
+    fireEvent.click(detailBtn);
+    expect(onViewDetail).toHaveBeenCalledWith(mockLogs[0]);
   });
 });

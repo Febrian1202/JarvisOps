@@ -113,6 +113,7 @@ export function AuditLogTable({
     {
       id: 'description',
       header: 'Keterangan',
+      className: 'hidden md:table-cell',
       cell: ({ row }) => (
         <span className="text-xs text-muted-foreground line-clamp-1">
           {row.description ?? '—'}
@@ -158,6 +159,75 @@ export function AuditLogTable({
       emptyDescription="Belum ada catatan aktivitas sistem yang cocok dengan kriteria filter Anda."
       onPageChange={onPageChange}
       onPerPageChange={onPerPageChange}
+      renderCard={(log) => (
+        <div
+          key={log.id}
+          data-testid="audit-log-card-item"
+          className="rounded-xl border border-border bg-card p-4 space-y-3"
+        >
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                <span>{getAuditModuleLabel(log.module)}</span>
+                {log.module_id && (
+                  <span className="font-mono text-[11px] text-muted-foreground">
+                    #{log.module_id}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground mt-0.5">
+                <RelativeTime date={log.created_at} />
+                <span>•</span>
+                <span>
+                  {new Date(log.created_at).toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                  })}
+                </span>
+              </div>
+            </div>
+            <Badge
+              variant="outline"
+              className="text-[11px] font-medium px-2 py-0.5 rounded-full border-border bg-muted/40 text-foreground shrink-0"
+            >
+              {getAuditActionLabel(log.action)}
+            </Badge>
+          </div>
+
+          <div className="space-y-1 text-xs pt-1 border-t border-border/60">
+            <div className="flex items-center gap-1">
+              <span className="text-muted-foreground text-[11px]">Pelaku:</span>
+              <span className="font-medium text-foreground truncate">
+                {log.user?.full_name ?? 'Sistem'}
+              </span>
+            </div>
+            {log.description && (
+              <p className="text-xs text-muted-foreground line-clamp-2">
+                {log.description}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-border/60">
+            <div className="text-[11px] font-mono text-muted-foreground truncate">
+              {log.ip_address ? `IP: ${log.ip_address}` : 'IP: —'}
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="default"
+              className="min-h-[44px] h-11 w-full sm:w-auto px-4 text-xs font-medium text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-center gap-2"
+              data-testid={`audit-log-card-detail-${log.id}`}
+              aria-label={`Lihat rincian log #${log.id}`}
+              onClick={() => onViewDetail(log)}
+            >
+              <Eye className="h-4 w-4" />
+              <span>Lihat Rincian</span>
+            </Button>
+          </div>
+        </div>
+      )}
     />
   );
 }

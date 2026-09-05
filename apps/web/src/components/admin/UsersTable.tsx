@@ -87,7 +87,7 @@ export function UsersTable({
     {
       id: 'department',
       header: 'Departemen',
-      className: 'w-32 hidden sm:table-cell',
+      className: 'w-32 hidden md:table-cell',
       cell: ({ row }) => (
         <span className="text-xs text-muted-foreground">
           {row.department?.name ?? '—'}
@@ -97,7 +97,7 @@ export function UsersTable({
     {
       id: 'employee_code',
       header: 'Kode Karyawan',
-      className: 'w-28 hidden lg:table-cell',
+      className: 'w-28 hidden md:table-cell',
       cell: ({ row }) => (
         <span className="font-mono text-xs text-muted-foreground">
           {row.employee_code ?? '—'}
@@ -202,6 +202,113 @@ export function UsersTable({
       emptyDescription="Belum ada pengguna yang cocok dengan kriteria pencarian atau filter Anda."
       onPageChange={onPageChange}
       onPerPageChange={onPerPageChange}
+      renderCard={(user) => {
+        const isActive = user.status === 'active';
+        return (
+          <div
+            key={user.id}
+            data-testid="user-card-item"
+            className="rounded-xl border border-border bg-card p-4 space-y-3"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <h4 className="text-sm font-semibold text-foreground truncate">
+                  {user.full_name}
+                </h4>
+                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5 shrink-0 justify-end">
+                <Badge
+                  variant="outline"
+                  className="rounded-full font-medium text-[11px] shadow-none border-border bg-muted/50 text-foreground"
+                >
+                  {getRoleLabel(user.role?.name ?? '')}
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    'rounded-full font-medium text-[11px] shadow-none border-transparent',
+                    isActive
+                      ? 'bg-[#eaf0e6] text-[#4d663e] border-[#d9e5d4]'
+                      : 'bg-muted text-muted-foreground'
+                  )}
+                >
+                  {userStatusLabels[user.status] ?? user.status}
+                </Badge>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-border/60">
+              <div>
+                <span className="text-muted-foreground block text-[11px]">Departemen</span>
+                <span className="font-medium text-foreground truncate block">
+                  {user.department?.name ?? '—'}
+                </span>
+              </div>
+              <div>
+                <span className="text-muted-foreground block text-[11px]">Kode Karyawan</span>
+                <span className="font-mono text-foreground truncate block">
+                  {user.employee_code ?? '—'}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-1.5 pt-2 border-t border-border/60">
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg text-muted-foreground hover:text-foreground"
+                data-testid={`user-card-edit-${user.id}`}
+                aria-label={`Edit pengguna ${user.full_name}`}
+                onClick={() => onEdit(user)}
+              >
+                <Pencil className="h-4 w-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg text-muted-foreground hover:text-foreground"
+                data-testid={`user-card-reset-${user.id}`}
+                aria-label={`Reset password pengguna ${user.full_name}`}
+                onClick={() => onResetPassword(user)}
+              >
+                <KeyRound className="h-4 w-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className={cn(
+                  'min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg hover:text-foreground',
+                  isActive ? 'text-muted-foreground' : 'text-emerald-700'
+                )}
+                data-testid={`user-card-toggle-${user.id}`}
+                aria-label={
+                  isActive
+                    ? `Nonaktifkan pengguna ${user.full_name}`
+                    : `Aktifkan pengguna ${user.full_name}`
+                }
+                onClick={() => onToggleStatus(user)}
+              >
+                <Power className="h-4 w-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg text-muted-foreground hover:text-destructive"
+                data-testid={`user-card-delete-${user.id}`}
+                aria-label={`Hapus pengguna ${user.full_name}`}
+                onClick={() => onDelete(user)}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        );
+      }}
     />
   );
 }

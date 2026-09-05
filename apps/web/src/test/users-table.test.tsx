@@ -62,37 +62,37 @@ describe('UsersTable', () => {
   it('renders user rows with name, email, role badge, department, status and employee_code', () => {
     renderTable();
 
-    expect(screen.getByText('Andi Kusuma')).toBeInTheDocument();
+    expect(screen.getAllByText('Andi Kusuma').length).toBeGreaterThan(0);
     expect(screen.getAllByText('andi@jarvis.test').length).toBeGreaterThan(0);
-    expect(screen.getByText('Budi Santoso')).toBeInTheDocument();
+    expect(screen.getAllByText('Budi Santoso').length).toBeGreaterThan(0);
     expect(screen.getAllByText('budi@jarvis.test').length).toBeGreaterThan(0);
 
-    expect(screen.getByText('Administrator')).toBeInTheDocument();
-    expect(screen.getByText('Teknisi')).toBeInTheDocument();
-    expect(screen.getByText('IT')).toBeInTheDocument();
-    expect(screen.getByText('Aktif')).toBeInTheDocument();
-    expect(screen.getByText('Nonaktif')).toBeInTheDocument();
-    expect(screen.getByText('EMP-001')).toBeInTheDocument();
+    expect(screen.getAllByText('Administrator').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Teknisi').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('IT').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Aktif').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Nonaktif').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('EMP-001').length).toBeGreaterThan(0);
   });
 
   it('renders action buttons with accessible labels', () => {
     renderTable();
 
     expect(
-      screen.getAllByRole('button', { name: /edit pengguna/i })
-    ).toHaveLength(2);
+      screen.getAllByRole('button', { name: /edit pengguna/i }).length
+    ).toBeGreaterThanOrEqual(2);
     expect(
-      screen.getAllByRole('button', { name: /reset password/i })
-    ).toHaveLength(2);
+      screen.getAllByRole('button', { name: /reset password/i }).length
+    ).toBeGreaterThanOrEqual(2);
     expect(
-      screen.getAllByRole('button', { name: /nonaktifkan pengguna/i })
-    ).toHaveLength(1);
+      screen.getAllByRole('button', { name: /nonaktifkan pengguna/i }).length
+    ).toBeGreaterThanOrEqual(1);
     expect(
-      screen.getAllByRole('button', { name: /^aktifkan pengguna/i })
-    ).toHaveLength(1);
+      screen.getAllByRole('button', { name: /^aktifkan pengguna/i }).length
+    ).toBeGreaterThanOrEqual(1);
     expect(
-      screen.getAllByRole('button', { name: /hapus pengguna/i })
-    ).toHaveLength(2);
+      screen.getAllByRole('button', { name: /hapus pengguna/i }).length
+    ).toBeGreaterThanOrEqual(2);
   });
 
   it('calls onEdit with the row user when edit button clicked', () => {
@@ -134,6 +134,49 @@ describe('UsersTable', () => {
   it('shows empty state text when there are no users', () => {
     renderTable({ items: [], meta: { ...meta, total: 0, from: null, to: null } });
 
-    expect(screen.getByText(/tidak ada pengguna ditemukan/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/tidak ada pengguna ditemukan/i).length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('renders mobile user cards with 44px min touch targets and triggers actions', () => {
+    const onEdit = vi.fn();
+    const onResetPassword = vi.fn();
+    const onToggleStatus = vi.fn();
+    const onDelete = vi.fn();
+
+    renderTable({
+      onEdit,
+      onResetPassword,
+      onToggleStatus,
+      onDelete,
+    });
+
+    const mobileCards = screen.getAllByTestId('user-card-item');
+    expect(mobileCards).toHaveLength(2);
+
+    const editBtn = screen.getByTestId(`user-card-edit-${users[0].id}`);
+    const resetBtn = screen.getByTestId(`user-card-reset-${users[0].id}`);
+    const toggleBtn = screen.getByTestId(`user-card-toggle-${users[0].id}`);
+    const deleteBtn = screen.getByTestId(`user-card-delete-${users[0].id}`);
+
+    expect(editBtn).toHaveClass('min-h-[44px]');
+    expect(editBtn).toHaveClass('min-w-[44px]');
+    expect(resetBtn).toHaveClass('min-h-[44px]');
+    expect(resetBtn).toHaveClass('min-w-[44px]');
+    expect(toggleBtn).toHaveClass('min-h-[44px]');
+    expect(toggleBtn).toHaveClass('min-w-[44px]');
+    expect(deleteBtn).toHaveClass('min-h-[44px]');
+    expect(deleteBtn).toHaveClass('min-w-[44px]');
+
+    fireEvent.click(editBtn);
+    expect(onEdit).toHaveBeenCalledWith(users[0]);
+
+    fireEvent.click(resetBtn);
+    expect(onResetPassword).toHaveBeenCalledWith(users[0]);
+
+    fireEvent.click(toggleBtn);
+    expect(onToggleStatus).toHaveBeenCalledWith(users[0]);
+
+    fireEvent.click(deleteBtn);
+    expect(onDelete).toHaveBeenCalledWith(users[0]);
   });
 });
