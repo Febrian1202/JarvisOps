@@ -899,7 +899,7 @@ Prioritas saat ada waktu sisa, berurutan:
 - [x] Bug fixing dari hasil pengujian manual menyeluruh
 - [x] Export report ke CSV/PDF (Fase 10f: Streamed CSV Export untuk Tickets, Assets, dan Audit Logs)
 - [ ] Advanced filtering (kombinasi filter tersimpan) [di luar cakupan Fase 10 - K10]
-- [ ] Dark mode [di luar cakupan Fase 10 - K10]
+- [x] Dark mode (warm charcoal theme berbasis DESIGN.md via next-themes)
 - [x] Peningkatan aksesibilitas: label ARIA, navigasi keyboard, kontras warna (audit WCAG 2.2 AA selesai di Fase 8g)
 
 ## Deliverable
@@ -974,7 +974,3 @@ Gunakan tabel ini saat audit di Fase 10 untuk memastikan tidak ada rule yang ter
 | Bump PHPUnit 13 untuk Pest merusak paket lain | Test suite tidak jalan | Sudah diverifikasi: Laravel 13 dan Collision 8.9 kompatibel dengan PHPUnit 13 |
 | Migration tidak cocok dengan `docs/schema.sql` | ERD di laporan tidak akurat | Sinkronisasi dijadikan task eksplisit di Fase 10 |
 | Waktu habis sebelum polish | Presentasi terasa mentah | Minggu 8 sengaja dikosongkan sebagai buffer |
-
-- [ ] **Backend MVP selesai** — mulai sini fokus berpindah ke frontend
-
-

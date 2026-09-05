@@ -68,6 +68,36 @@
   --chart-5: #6d5b7b;
 }
 
+.dark {
+  /* Warm Charcoal Dark Theme inspired by DESIGN.md warmth & restraint */
+  --background: #141413;
+  --foreground: #f7f4ed;
+  --card: #1c1c1a;
+  --card-foreground: #f7f4ed;
+  --popover: #1c1c1a;
+  --popover-foreground: #f7f4ed;
+  --primary: #f7f4ed;
+  --primary-foreground: #141413;
+  --secondary: #262521;
+  --secondary-foreground: #f7f4ed;
+  --muted: #22211e;
+  --muted-foreground: #a6a39a;
+  --accent: #262521;
+  --accent-foreground: #f7f4ed;
+  --destructive: #ef4444;
+  --destructive-foreground: #fcfbf8;
+  --border: #2c2b27;
+  --input: rgba(247, 244, 237, 0.2);
+  --ring: rgba(96, 165, 250, 0.5);
+
+  /* Chart colors tuned for dark background with high readability */
+  --chart-1: #b8a99f;
+  --chart-2: #8aa3bf;
+  --chart-3: #a4b895;
+  --chart-4: #d9a980;
+  --chart-5: #9c84ae;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

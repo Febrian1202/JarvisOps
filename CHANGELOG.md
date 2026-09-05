@@ -15,6 +15,10 @@ Rilis penuh (**Full Release**) sistem JARVIS OPS. Menyelesaikan seluruh cakupan 
   - Endpoint export backend-driven dengan UTF-8 BOM dan cursor memory-safe (`GET /api/export/tickets`, `GET /api/export/assets`, `GET /api/export/audit-logs`).
   - Rate limiting khusus `throttle:export` (10 request/menit/user) dan pemisahan logika ke `ExportService`.
   - Komponen frontend `CsvExportButton` terintegrasi pada tabel Ticket, Asset, dan Audit Logs.
+- **Dark Mode (Warm Charcoal Theme)**:
+  - Implementasi tema gelap berbasis `next-themes` yang setia pada prinsip *warmth & restraint* di `DESIGN.md` (warm charcoal `#141413`, bukan pure black atau cold slate).
+  - Komponen `ThemeToggle` di Topbar dengan pilihan Terang, Gelap, dan Sistem.
+  - Penyesuaian variabel warna antarmuka dan palet Recharts di `globals.css` untuk rasio kontras optimal.
 - **Verifikasi Kepatuhan Menyeluruh**:
   - Test suite `DefinitionOfTechnicalSuccessTest` yang memverifikasi secara tegas 11 poin *Definition of Technical Success* (§12 PRD).
   - Matriks kepatuhan 10 poin *Definition of Done* (§37 PRD) di `docs/ops/TESTING.md`.

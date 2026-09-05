@@ -6,6 +6,7 @@ import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MobileNav } from '@/components/shell/mobile-nav';
 import { NotificationBell } from '@/components/shell/notification-bell';
+import { ThemeToggle } from '@/components/shell/theme-toggle';
 import { NavUser } from '@/components/shell/nav-user';
 
 function getPageTitle(pathname: string): string {
@@ -51,8 +52,9 @@ export function AppTopbar() {
           </h1>
         </div>
 
-        {/* Right: Notification & User Menu */}
+        {/* Right: Notification, Theme Toggle & User Menu */}
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <NotificationBell />
           <NavUser />
         </div>
