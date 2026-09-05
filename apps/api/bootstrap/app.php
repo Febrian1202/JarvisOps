@@ -54,11 +54,14 @@ return Application::configure(basePath: dirname(__DIR__))
                     : ApiResponse::error($e->getMessage() ?: 'Forbidden.', status: 403),
                 $e instanceof NotFoundHttpException, $e instanceof ModelNotFoundException => ApiResponse::error('Resource not found.', status: 404),
                 $e instanceof MethodNotAllowedHttpException => ApiResponse::error('Method not allowed.', status: 405),
-                $e instanceof HttpException && $e->getStatusCode() === 404 => ApiResponse::error('Resource not found.', status: 404),
                 $e instanceof ValidationException => ApiResponse::error('The given data was invalid.', errors: $e->errors(), status: 422),
                 $e instanceof TooManyRequestsHttpException => tap(ApiResponse::error('Too many requests.', status: 429), function (JsonResponse $response) use ($e): void {
                     $response->header('Retry-After', $e->getHeaders()['Retry-After'] ?? 60);
                 }),
+                $e instanceof HttpException => ApiResponse::error(
+                    $e->getStatusCode() === 404 ? 'Resource not found.' : ($e->getMessage() ?: 'Error.'),
+                    status: $e->getStatusCode()
+                ),
                 $e instanceof IllegalStatusTransitionException => ApiResponse::error(
                     'The given data was invalid.',
                     errors: ['status_id' => [$e->getMessage()]],
