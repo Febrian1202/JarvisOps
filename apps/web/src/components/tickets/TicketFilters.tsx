@@ -20,6 +20,8 @@ import {
 } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { SearchInput } from '@/components/shared/search-input';
+import { MobileFilterSheet } from '@/components/shared/mobile-filter-sheet';
+import type { FilterField } from '@/components/shared/filter-bar';
 import { useReferenceData } from '@/hooks/use-reference-data';
 import { useAuth } from '@/components/providers/auth-provider';
 import { cn } from '@/lib/utils';
@@ -103,6 +105,65 @@ export function TicketFilters() {
         ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
         : 'grid-cols-2 md:grid-cols-4 lg:grid-cols-4';
 
+  const mobileFilters: FilterField[] = [
+    {
+      id: 'priority_id',
+      label: 'Prioritas',
+      value: priorityId,
+      options: priorities.map((p) => ({ label: p.name, value: String(p.id) })),
+    },
+    {
+      id: 'category_id',
+      label: 'Kategori',
+      value: categoryId,
+      options: categories.map((c) => ({ label: c.name, value: String(c.id) })),
+    },
+    {
+      id: 'sla_status',
+      label: 'Status SLA',
+      value: slaStatus,
+      options: [
+        { label: 'Aman (On Track)', value: 'on_track' },
+        { label: 'Terlambat (Breached)', value: 'breached' },
+      ],
+    },
+    ...(isAdminOrManager
+      ? [
+          {
+            id: 'technician_id',
+            label: 'Teknisi',
+            value: technicianId,
+            options: [
+              { label: 'Belum Ditugaskan', value: 'unassigned' },
+              ...technicians.map((t) => ({ label: t.full_name, value: String(t.id) })),
+            ],
+          },
+        ]
+      : isTechnician
+        ? [
+            {
+              id: 'technician_id',
+              label: 'Penugasan',
+              value: technicianId,
+              options: [
+                { label: 'Tiket Saya', value: String(user?.id) },
+                { label: 'Belum Ditugaskan', value: 'unassigned' },
+              ],
+            },
+          ]
+        : []),
+    ...(!isEmployee
+      ? [
+          {
+            id: 'department_id',
+            label: 'Departemen',
+            value: departmentId,
+            options: departments.map((d) => ({ label: d.name, value: String(d.id) })),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <div className="space-y-3">
       {/* Top row: Search + Reset and Status Chips */}
@@ -117,6 +178,14 @@ export function TicketFilters() {
             placeholder="Cari nomor tiket atau judul…"
             className="w-full max-w-none"
           />
+          <div className="sm:hidden shrink-0">
+            <MobileFilterSheet
+              filters={mobileFilters}
+              onFilterChange={(id, val) => updateFilters({ [id]: val })}
+              onResetFilters={resetAll}
+              hasActiveFilters={hasActiveFilters}
+            />
+          </div>
           {hasActiveFilters && (
             <Button
               variant="ghost"
@@ -158,7 +227,7 @@ export function TicketFilters() {
       {/* Second row: filter controls in a responsive grid so they never stack one-per-row */}
       <div
         data-testid="ticket-filters-grid"
-        className={cn('grid gap-2', filterGridClass)}
+        className={cn('hidden sm:grid gap-2', filterGridClass)}
       >
         {/* Priority Filter */}
         <Select

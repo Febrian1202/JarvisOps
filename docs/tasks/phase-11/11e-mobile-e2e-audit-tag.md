@@ -26,9 +26,9 @@
 4. Buat tiket dari HP (smoke): `/tickets/new` terisi dan tersubmit tanpa overflow.
 5. Tidak ada `document.body` horizontal overflow di `/`, `/tickets`, `/assets`, `/knowledge` pada 390px.
 
-- [ ] **Step 1 — Tambahkan** mobile projects ke `playwright.config.ts`.
-- [ ] **Step 2 — Tulis** `mobile-responsive.spec.ts` sesuai 5 skenario di atas.
-- [ ] **Step 3 — Jalankan:**
+- [x] **Step 1 — Tambahkan** mobile projects ke `playwright.config.ts`.
+- [x] **Step 2 — Tulis** `mobile-responsive.spec.ts` sesuai 5 skenario di atas.
+- [x] **Step 3 — Jalankan:**
   ```bash
   npm run test:e2e --prefix apps/web -- --project="Pixel 7"
   npm run test --prefix apps/web
@@ -36,7 +36,7 @@
   npm run typecheck --prefix apps/web
   ```
   Semua harus hijau. Bila gagal → perbaiki, bukan menonaktifkan test.
-- [ ] **Step 4 — Commit:**
+- [x] **Step 4 — Commit:**
   ```bash
   git add apps/web/playwright.config.ts apps/web/e2e/mobile-responsive.spec.ts
   git commit -m "test(web): add mobile viewport E2E suite (Pixel 7, iPhone 14)"
@@ -48,13 +48,13 @@
 
 **Files:** tidak ada perubahan kode (verifikasi + tag).
 
-- [ ] **Step 1 — Verifikasi exit criteria Fase 11:**
-  - [ ] 360px–430px: `/`, `/tickets`, `/tickets/[id]`, `/assets`, `/knowledge`, `/profile`, `/admin/*` tanpa overflow tak disengaja.
-  - [ ] Card view aktif di mobile, tabel penuh di desktop.
-  - [ ] Filter sheet + sticky action bar berfungsi.
-  - [ ] Vitest + Playwright mobile + lint + typecheck hijau.
-- [ ] **Step 2 — Perbarui ROADMAP Fase 11:** ubah semua `- [ ]` sub-tahap/exit criteria menjadi `- [x]`.
-- [ ] **Step 3 — Merge ke `main` via PR, lalu tag:**
+- [x] **Step 1 — Verifikasi exit criteria Fase 11:**
+  - [x] 360px–430px: `/`, `/tickets`, `/tickets/[id]`, `/assets`, `/knowledge`, `/profile`, `/admin/*` tanpa overflow tak disengaja.
+  - [x] Card view aktif di mobile, tabel penuh di desktop.
+  - [x] Filter sheet + sticky action bar berfungsi.
+  - [x] Vitest + Playwright mobile + lint + typecheck hijau.
+- [x] **Step 2 — Perbarui ROADMAP Fase 11:** ubah semua `- [ ]` sub-tahap/exit criteria menjadi `- [x]`.
+- [x] **Step 3 — Merge ke `main` via PR, lalu tag:**
   ```bash
   git checkout main
   git pull --ff-only

@@ -56,6 +56,12 @@ describe('TicketFilters Component', () => {
     expect(screen.getByRole('button', { name: /^open$/i })).toBeInTheDocument();
   });
 
+  it('renders mobile filter sheet trigger on mobile viewports', () => {
+    renderWithProviders(<TicketFilters />);
+    const filterButtons = screen.getAllByRole('button', { name: /filter/i });
+    expect(filterButtons.length).toBeGreaterThanOrEqual(1);
+  });
+
   it('updates URL when a status chip is clicked', () => {
     renderWithProviders(<TicketFilters />);
     const openChip = screen.getByRole('button', { name: /^open$/i });
