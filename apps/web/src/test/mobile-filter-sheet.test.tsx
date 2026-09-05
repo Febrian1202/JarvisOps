@@ -34,7 +34,7 @@ describe('MobileFilterSheet Component', () => {
 
     const trigger = screen.getByRole('button', { name: /filter/i });
     expect(trigger).toBeInTheDocument();
-    expect(screen.getByText('1')).toBeInTheDocument(); // 1 active filter
+    expect(screen.getByText('1')).toBeInTheDocument();
   });
 
   it('opens sheet and handles reset filters callback', async () => {

@@ -48,7 +48,6 @@ export function FilterBar({
 }: FilterBarProps) {
   return (
     <div className="flex flex-col gap-3 py-2 sm:flex-row sm:items-center sm:justify-between">
-      {/* Left Section: Search & Filters */}
       <div className="flex flex-wrap items-center gap-2">
         {onSearchChange && (
           <div className="flex-1 min-w-[200px] sm:flex-initial">
@@ -60,7 +59,6 @@ export function FilterBar({
           </div>
         )}
 
-        {/* Desktop Filter Dropdowns */}
         {filters.length > 0 && (
           <div className="hidden sm:flex sm:flex-wrap items-center gap-2">
             {filters.map((filter) => (
@@ -104,7 +102,6 @@ export function FilterBar({
           </div>
         )}
 
-        {/* Mobile Bottom Sheet Filter */}
         {filters.length > 0 && (
           <div className="sm:hidden">
             <MobileFilterSheet
@@ -117,7 +114,6 @@ export function FilterBar({
         )}
       </div>
 
-      {/* Right Section: Children / Extra Actions */}
       {children && <div className="flex items-center gap-2">{children}</div>}
     </div>
   );

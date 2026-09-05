@@ -14,8 +14,8 @@ describe('useMediaQuery & useIsMobile', () => {
       matches: matchesValue,
       media: query,
       onchange: null,
-      addListener: vi.fn(), // deprecated
-      removeListener: vi.fn(), // deprecated
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
       addEventListener: vi.fn((event: string, cb: (e: MediaQueryListEvent) => void) => {
         if (event === 'change') listeners.push(cb);
       }),
