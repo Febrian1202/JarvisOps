@@ -20,8 +20,8 @@
 
 > **Jebakan — jangan duplikasi kode:** Admin dashboard **tidak boleh** menyalin kode komponen manager. Ekstrak di 9c, import di 9d.
 
-### Step 1 — Verifikasi di `components/dashboard/manager/` ada `ManagerDashboardView` (atau `manager-dashboard-content.tsx`). Bila tidak, ekstrak di 9c.
-### Step 2 — Commit di 9c (bila refactor) atau verifikasi saja.
+### Step 1 — Verifikasi di `components/dashboard/manager/` ada `ManagerDashboardView` (atau `manager-dashboard-content.tsx`). Bila tidak, ekstrak di 9c. (Sudah diverifikasi dan di-reuse)
+### Step 2 — Selesai.
 
 ---
 
@@ -73,21 +73,21 @@ Masing-masing dengan ikon lucide. Tampilkan dengan `DashboardPanel` (actionLabel
 >
 > **Jebakan — `recent_system_activity` user null:** `user: null` = event sistem (D-31) → render "Sistem". Jangan render `null` atau crash.
 
-### Step 1 — RED (Vitest mock data):
+### Step 1 — RED (Vitest mock data): [x] Selesai
 - render 4 kartu admin; `total_users` 42 → "42"; `assets_by_status` di-zip dengan 5 status&zero-fill.
 - audit log: user null → "Sistem"; `description` panjang terpotong → render apa adanya.
 - `ManagerDashboardView` menerima props range & onRangeChange.
 
-### Step 2 — GREEN: implementasi.
+### Step 2 — GREEN: implementasi. [x] Selesai
 - `page.tsx` server shell + `page-client.tsx` client.
 - `AdminDashboardData` extend `ManagerDashboardData` (tipe sudah benar di `types/dashboard.ts`).
 
-### Step 3 — verifikasi
+### Step 3 — verifikasi [x] Selesai
 ```bash
 cd apps/web && npm run test && npx tsc --noEmit && npm run lint && npm run build
 ```
 
-### Step 4 — Commit
+### Step 4 — Commit [x] Selesai
 ```bash
 git add apps/web/src/app/\(app\)/dashboard/admin/ \
         apps/web/src/components/dashboard/admin/ \
@@ -143,7 +143,7 @@ export const ROLE_HOME: Record<string, string> = {
 >
 > **Jebakan — fallback role:** role `null`/undefined → fallback `/dashboard/employee` (semua role punya akses). Jangan crash.
 
-### Step 1 — RED (test unit `ROLE_HOME` mapping):
+### Step 1 — RED (test unit `ROLE_HOME` mapping): [x] Selesai
 ```typescript
 test('ROLE_HOME maps all role names', () => {
   expect(ROLE_HOME.administrator).toBe('/dashboard/admin');
@@ -153,19 +153,19 @@ test('ROLE_HOME maps all role names', () => {
 });
 ```
 
-### Step 2 — GREEN: implementasi router + constant.
+### Step 2 — GREEN: implementasi router + constant. [x] Selesai
 
-### Step 3 — verifikasi
+### Step 3 — verifikasi [x] Selesai
 ```bash
 cd apps/web && npm run test && npx tsc --noEmit && npm run lint && npm run build
 ```
 
-### Step 4 — Uji manual:
+### Step 4 — Uji manual: [x] Selesai
 - Login `employee@…` → `/` → mendarat `/dashboard/employee`.
 - Login `admin@…` → `/` → mendarat `/dashboard/admin`.
 - Logout → `/` → `/login`.
 
-### Step 5 — Commit
+### Step 5 — Commit [x] Selesai
 ```bash
 git add apps/web/src/app/\(app\)/page.tsx apps/web/src/lib/navigation.ts
 git commit -m "feat(web): add role-based dashboard router at /"
@@ -175,9 +175,9 @@ git commit -m "feat(web): add role-based dashboard router at /"
 
 ## Exit Criteria 9d
 
-- [ ] `/dashboard/admin` menampilkan 4 kartu admin + seluruh konten manager (date range, 6 kartu, performa, tren, distribusi) + audit log terbaru + pintasan master data.
-- [ ] `ManagerDashboardView` diekstrak & di-reuse (dari 9c), tidak ada duplikasi kode dashboard admin.
-- [ ] `assets_by_status` di-zip dengan 5 status; audit log user null → "Sistem"; pintasan 5 link navigable.
-- [ ] `/` mengarahkan ke dashboard sesuai role (employee → `/dashboard/employee`, admin → `/dashboard/admin`, dll) dengan fallback employee; 401 → `/login`.
-- [ ] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
-- [ ] Commit atomik; branch `feat/phase-9d-admin-router` siap PR.
+- [x] `/dashboard/admin` menampilkan 4 kartu admin + seluruh konten manager (date range, 6 kartu, performa, tren, distribusi) + audit log terbaru + pintasan master data.
+- [x] `ManagerDashboardView` diekstrak & di-reuse (dari 9c), tidak ada duplikasi kode dashboard admin.
+- [x] `assets_by_status` di-zip dengan 5 status; audit log user null → "Sistem"; pintasan 5 link navigable.
+- [x] `/` mengarahkan ke dashboard sesuai role (employee → `/dashboard/employee`, admin → `/dashboard/admin`, dll) dengan fallback employee; 401 → `/login`.
+- [x] `npm run test`, `npx tsc --noEmit`, `npm run lint`, `npm run build` hijau.
+- [x] Commit atomik; branch `feat/phase-9d-admin-router` siap PR.
