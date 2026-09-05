@@ -28,12 +28,17 @@ export function MetricCard({
     <div
       className={cn(
         'rounded-card border border-border bg-card p-4 flex flex-col justify-between shadow-xs',
-        isDanger && 'border-[#fae8e8]/80 dark:border-destructive/40 bg-[#fdf2f2]/60 dark:bg-destructive/10',
+        isDanger && 'border-[#fae8e8]/80 dark:border-destructive/40 bg-[#fdf2f2]/60 dark:bg-card dark:border-red-900/50',
         className
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-xs font-medium text-muted-foreground line-clamp-1">
+        <span
+          className={cn(
+            'text-xs font-medium line-clamp-1',
+            isDanger ? 'text-destructive dark:text-red-300' : 'text-muted-foreground'
+          )}
+        >
           {label}
         </span>
         {Icon && (
@@ -41,7 +46,7 @@ export function MetricCard({
             className={cn(
               'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
               isDanger
-                ? 'bg-[#fae8e8] text-[#991b1b] dark:bg-destructive/20 dark:text-destructive'
+                ? 'bg-[#fae8e8] text-[#991b1b] dark:bg-red-950/70 dark:text-red-400 dark:border dark:border-red-800/40'
                 : 'bg-muted/60 text-muted-foreground'
             )}
           >
@@ -57,7 +62,7 @@ export function MetricCard({
           <div
             className={cn(
               'text-2xl font-semibold tracking-tight',
-              isDanger ? 'text-[#991b1b] dark:text-destructive' : 'text-foreground'
+              isDanger ? 'text-[#991b1b] dark:text-red-400' : 'text-foreground'
             )}
           >
             {value === null || value === undefined ? '—' : value}
@@ -66,7 +71,12 @@ export function MetricCard({
       </div>
 
       {footer && !isLoading && (
-        <div className="mt-2 text-xs text-muted-foreground">
+        <div
+          className={cn(
+            'mt-2 text-xs',
+            isDanger ? 'text-destructive/90 dark:text-red-300/90 font-medium' : 'text-muted-foreground'
+          )}
+        >
           {footer}
         </div>
       )}
