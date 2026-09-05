@@ -66,7 +66,30 @@ Buka `apps/api/.env.production` dan pastikan kredensial berikut diubah:
 Buka `apps/web/.env.production` dan sesuaikan:
 - `API_BASE_URL`: Tetap arahkan ke internal network Docker (`http://api:8000/api`) atau internal ingress.
 
-### Langkah 4: Build dan Jalankan Kontainer
+### Langkah 4: Menjalankan Kontainer
+
+Terdapat dua cara menjalankan kontainer produksi:
+
+#### Opsi A: Pull Image Siap Pakai dari GitHub Packages (Direkomendasikan untuk VPS / Server)
+Menghemat CPU, RAM, dan waktu karena tidak memerlukan build dari source code di VPS:
+
+1. **Login ke GitHub Container Registry (GHCR)** (Hanya diperlukan jika repository/package masih private):
+   Buat GitHub Personal Access Token (PAT classic) dengan scope `read:packages`, lalu jalankan:
+   ```bash
+   echo $CR_PAT | docker login ghcr.io -u USERNAME_GITHUB --password-stdin
+   ```
+   *(Jika package sudah diubah menjadi Public, langkah login ini bisa dilewati).*
+
+2. **Tarik Image dan Nyalakan Kontainer**:
+   ```bash
+   # Gunakan versi spesifik tag atau latest
+   export APP_VERSION=v1.0.0
+   docker compose -f compose.prod.yaml pull
+   docker compose -f compose.prod.yaml up -d
+   ```
+
+#### Opsi B: Build Manual dari Source Code Lokal
+Jika ingin mengompilasi langsung di mesin:
 ```bash
 docker compose -f compose.prod.yaml up --build -d
 ```
