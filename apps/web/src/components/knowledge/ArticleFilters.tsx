@@ -8,9 +8,11 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import { SearchInput } from '@/components/shared/search-input';
+import { MobileFilterSheet } from '@/components/shared/mobile-filter-sheet';
 import { useArticleCategories } from '@/hooks/use-articles';
 import { useAuth } from '@/components/providers/auth-provider';
 import { articleStatusLabels } from '@/lib/labels';
+import type { FilterField } from '@/components/shared/filter-bar';
 
 export function ArticleFilters() {
   const router = useRouter();
@@ -46,18 +48,68 @@ export function ArticleFilters() {
   const resetAll = () => startTransition(() => router.replace(pathname));
   const hasActiveFilters = Boolean(search || categoryId || status);
 
-  return (
-    <div className="flex w-full flex-row items-center justify-between gap-3 overflow-x-auto pb-1">
-      {/* Search Input stays on the left */}
-      <SearchInput
-        value={search}
-        onChange={(val) => updateFilters({ search: val })}
-        placeholder="Cari judul atau isi artikel…"
-        className="w-64 max-w-none shrink-0"
-      />
+  const mobileFilters: FilterField[] = [
+    {
+      id: 'category_id',
+      label: 'Kategori',
+      value: categoryId || 'ALL',
+      options: categories.map((c) => ({ label: c.name, value: String(c.id) })),
+    },
+    ...(canFilterStatus
+      ? [
+          {
+            id: 'status',
+            label: 'Status',
+            value: status || 'ALL',
+            options: Object.entries(articleStatusLabels).map(([value, label]) => ({
+              label,
+              value,
+            })),
+          },
+        ]
+      : []),
+    {
+      id: 'sort',
+      label: 'Urutkan',
+      value: currentSort,
+      options: [
+        { label: 'Terbaru', value: 'created_at:desc' },
+        { label: 'Terpopuler', value: 'view_count:desc' },
+        { label: 'Judul A-Z', value: 'title:asc' },
+      ],
+    },
+  ];
 
-      {/* Filter Dropdowns & Reset — always horizontal, right-aligned */}
-      <div className="flex shrink-0 flex-row items-center justify-end gap-2">
+  const handleMobileFilterChange = (filterId: string, val: string) => {
+    if (filterId === 'sort') {
+      const [by, dir] = (val || 'created_at:desc').split(':');
+      updateFilters({ sort_by: by, sort_dir: dir });
+    } else {
+      updateFilters({ [filterId]: val });
+    }
+  };
+
+  return (
+    <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex items-center gap-2 w-full sm:w-auto">
+        <SearchInput
+          value={search}
+          onChange={(val) => updateFilters({ search: val })}
+          placeholder="Cari judul atau isi artikel…"
+          className="w-full sm:w-64 max-w-none shrink-0"
+        />
+
+        <div className="sm:hidden shrink-0">
+          <MobileFilterSheet
+            filters={mobileFilters}
+            onFilterChange={handleMobileFilterChange}
+            onResetFilters={resetAll}
+            hasActiveFilters={hasActiveFilters}
+          />
+        </div>
+      </div>
+
+      <div className="hidden sm:flex shrink-0 flex-row items-center justify-end gap-2">
         <Select value={categoryId || 'ALL'} onValueChange={(val) => updateFilters({ category_id: val })}>
           <SelectTrigger className="h-8 min-w-[130px] rounded-lg text-xs bg-card border-border">
             <SelectValue placeholder="Kategori" />

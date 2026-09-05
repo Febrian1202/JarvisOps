@@ -33,4 +33,14 @@ describe('ArticleDetail', () => {
     render(<ArticleDetail article={detail} />);
     expect(screen.getByRole('link', { name: /lupa password vpn/i })).toBeInTheDocument();
   });
+
+  it('renders responsive padding and break-words classes for mobile readability', () => {
+    const { container } = render(<ArticleDetail article={detail} />);
+    const heading = screen.getByRole('heading', { level: 1, name: /cara reset password/i });
+    expect(heading).toHaveClass('break-words');
+
+    const firstCard = container.querySelector('article > div');
+    expect(firstCard).toHaveClass('p-4');
+    expect(firstCard).toHaveClass('sm:p-6');
+  });
 });

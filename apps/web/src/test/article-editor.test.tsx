@@ -292,4 +292,15 @@ describe('ArticleEditor markdown toolbar', () => {
 
     expect(await screen.findByRole('heading', { name: 'Halo' })).toBeInTheDocument();
   });
+
+  it('renders mobile-friendly tabs and buttons with touch target classes', () => {
+    mockCategories();
+    renderWithProviders(<ArticleEditor />);
+
+    const writeTab = screen.getByRole('tab', { name: /tulis/i });
+    expect(writeTab.closest('[role="tablist"]')).toHaveClass('h-11');
+
+    const boldBtn = screen.getByRole('button', { name: /tebal/i });
+    expect(boldBtn).toHaveClass('min-w-[36px]');
+  });
 });

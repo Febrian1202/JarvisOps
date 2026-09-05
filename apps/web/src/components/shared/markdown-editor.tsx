@@ -140,20 +140,20 @@ export const MarkdownEditor = React.forwardRef<HTMLTextAreaElement, MarkdownEdit
         )}
       >
         <Tabs value={tab} onValueChange={(next) => setTab(next as 'write' | 'preview')}>
-          <div className="flex flex-wrap items-center gap-2 border-b border-border bg-muted/40 px-2 py-1.5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-border bg-muted/40 px-2 py-1.5">
             <div
               role="toolbar"
               aria-label="Format markdown"
               aria-controls={id}
               className={cn(
-                'flex flex-wrap items-center gap-0.5',
+                'flex items-center gap-0.5 overflow-x-auto py-1 sm:py-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]',
                 inPreview && 'pointer-events-none opacity-40'
               )}
             >
               {COMMAND_GROUPS.map((group, groupIndex) => (
                 <React.Fragment key={group[0].key}>
                   {groupIndex > 0 && (
-                    <span aria-hidden="true" className="mx-1 h-5 w-px bg-border" />
+                    <span aria-hidden="true" className="mx-1 h-5 w-px shrink-0 bg-border" />
                   )}
                   {group.map((command) => {
                     const Icon = command.icon;
@@ -166,11 +166,11 @@ export const MarkdownEditor = React.forwardRef<HTMLTextAreaElement, MarkdownEdit
                         tabIndex={inPreview ? -1 : 0}
                         aria-label={command.label}
                         title={command.shortcut ? `${command.label} (${command.shortcut})` : command.label}
-                        className="text-muted-foreground hover:text-foreground"
+                        className="text-muted-foreground hover:text-foreground h-9 w-9 min-w-[36px] sm:h-8 sm:w-8 shrink-0"
                         onMouseDown={(event) => event.preventDefault()}
                         onClick={() => runCommand(command)}
                       >
-                        <Icon aria-hidden="true" />
+                        <Icon className="h-4 w-4" aria-hidden="true" />
                       </Button>
                     );
                   })}
@@ -178,11 +178,11 @@ export const MarkdownEditor = React.forwardRef<HTMLTextAreaElement, MarkdownEdit
               ))}
             </div>
 
-            <TabsList className="ml-auto h-8">
-              <TabsTrigger value="write" className="text-xs">
+            <TabsList className="h-11 sm:h-8 self-end sm:self-auto shrink-0">
+              <TabsTrigger value="write" className="text-xs h-full px-3">
                 Tulis
               </TabsTrigger>
-              <TabsTrigger value="preview" className="text-xs">
+              <TabsTrigger value="preview" className="text-xs h-full px-3">
                 Pratinjau
               </TabsTrigger>
             </TabsList>
@@ -201,13 +201,13 @@ export const MarkdownEditor = React.forwardRef<HTMLTextAreaElement, MarkdownEdit
               onKeyDown={handleKeyDown}
               aria-invalid={invalid}
               aria-describedby={aria['aria-describedby']}
-              className="min-h-72 resize-y rounded-none border-0 bg-transparent font-mono text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="min-h-60 sm:min-h-72 p-3 sm:p-4 resize-y rounded-none border-0 bg-transparent font-mono text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </TabsContent>
 
           <TabsContent
             value="preview"
-            className="mt-0 min-h-72 overflow-auto px-4 py-3 focus-visible:ring-0"
+            className="mt-0 min-h-60 sm:min-h-72 overflow-auto p-3 sm:p-4 focus-visible:ring-0"
           >
             {value.trim() ? (
               <MarkdownRenderer content={value} className="text-sm" />

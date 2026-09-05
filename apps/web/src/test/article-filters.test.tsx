@@ -56,4 +56,10 @@ describe('ArticleFilters', () => {
     renderWithProviders(<ArticleFilters />);
     expect(screen.getByText('Semua Status')).toBeInTheDocument();
   });
+
+  it('renders mobile filter trigger on small viewports', () => {
+    mockCan = () => false;
+    renderWithProviders(<ArticleFilters />);
+    expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument();
+  });
 });
