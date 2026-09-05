@@ -179,7 +179,7 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 
 ### Belum ada
 
-- Fase 10 (Quality, Security Audit, Docker Produksi, Deployment, Demo).
+- Fase 10 (Quality, Security Audit, Docker Produksi, CI/CD, Deployment, Demo).
 
 Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 10 — Quality, Deployment, Demo**.
 

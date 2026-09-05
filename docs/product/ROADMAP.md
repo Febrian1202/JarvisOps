@@ -1,9 +1,9 @@
 # JARVIS OPS — DEVELOPMENT ROADMAP
 
-**Document Revision:** 1.0
+**Document Revision:** 1.9 (Phase 9 Complete — Tag `v0.9.0`, Phase 10 Next)
 **Basis:** PRD v1.0 + Addendum v1.1, `docs/adr/DECISIONS.md`, ERD v1.2 (`docs/schema.sql`), `docs/architecture/ERD.md`, `docs/architecture/DFD.md`, `docs/architecture/CONTEXT-DIAGRAM.md`
 **Durasi:** 7 minggu kerja + 1 minggu buffer (full-time)
-**Status:** Approved — siap dieksekusi
+**Status:** Fase 9 Selesai (v0.9.0) — Menuju Fase 10 (Quality, Deployment, Demo)
 
 ---
 
@@ -140,16 +140,13 @@ FrankenPHP dipakai dalam **classic mode** (satu request satu proses, seperti PHP
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
-
-
-
+- [x] Git tag SemVer ditambahkan saat fase selesai (v0.0.1)
 - [x] `make up` menyalakan seluruh service tanpa error
 - [x] `GET http://localhost:8000/up` → `200` dengan body JSON (atau HTML OK untuk Fase 0)
 - [x] `http://localhost:3000` menampilkan halaman Next.js
 - [x] `make migrate` berhasil terhadap MySQL di container
 - [x] `make test` menjalankan Pest dan hijau
-- [ ] Repo bersih: `git status` tidak menampilkan file yang seharusnya di-ignore
+- [x] Repo bersih: `git status` tidak menampilkan file yang seharusnya di-ignore
 
 ---
 
@@ -201,10 +198,7 @@ Tiga dokumen di atas, di-commit.
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
-
-
-
+- [x] Git tag SemVer ditambahkan saat fase selesai (v0.1.0)
 - [x] Setiap endpoint di API contract punya baris di permission matrix
 - [x] Setiap transisi status punya jawaban legal/ilegal yang eksplisit — tidak ada sel kosong
 - [x] Tidak ada "TBD" tersisa di ketiga dokumen
@@ -322,10 +316,7 @@ Migration + model + factory + seeder lengkap, auth API, RBAC, BFF proxy, halaman
 
 ## Exit criteria
 
-- [ ] Git tag SemVer ditambahkan saat fase selesai (misal: v0.0.1, v0.2.0)
-
-
-
+- [x] Git tag SemVer ditambahkan saat fase selesai (v0.2.0)
 - [x] `migrate:fresh --seed` sukses, 18 tabel terisi data referensi
 - [x] Login dari browser berhasil, cookie httpOnly terpasang, halaman terproteksi menampilkan nama user
 - [x] Token tidak terlihat di `document.cookie` maupun di response body yang diterima browser
@@ -660,9 +651,9 @@ Membangun kerangka aplikasi dan komponen bersama yang dipakai seluruh fitur. Pek
 
 - [x] Inisialisasi shadcn/ui di atas Tailwind v4 yang sudah ada
 - [x] Pasang komponen dasar: button, input, select, textarea, table, dialog, dropdown-menu, badge, card, tabs, toast, skeleton, pagination, form, avatar, popover, calendar
-- [ ] TanStack Query provider di root layout, atur `staleTime` dan retry default
+- [x] TanStack Query provider di root layout, atur `staleTime` dan retry default
 - [x] Recharts, react-hook-form, zod, `date-fns`
-- [ ] Struktur folder: `src/lib/api/`, `src/components/ui/`, `src/components/shared/`, `src/features/<domain>/`, `src/hooks/`, `src/types/` — detail pola arsitektur di `docs/architecture/FRONTEND-ARCHITECTURE.md`
+- [x] Struktur folder: `src/lib/api/`, `src/components/ui/`, `src/components/shared/`, `src/features/<domain>/`, `src/hooks/`, `src/types/` — detail pola arsitektur di `docs/architecture/FRONTEND-ARCHITECTURE.md`
 - [x] Path alias `@/*`
 - [x] Pastikan `tsc --noEmit` dan `next lint` bersih sejak awal
 
