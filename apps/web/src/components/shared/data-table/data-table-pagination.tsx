@@ -56,7 +56,7 @@ export function DataTablePagination({
               value={String(per_page)}
               onValueChange={(val) => onPerPageChange(Number(val))}
             >
-              <SelectTrigger className="h-8 w-[70px] rounded-lg text-xs">
+              <SelectTrigger className="h-11 sm:h-8 min-h-[44px] sm:min-h-0 w-[78px] sm:w-[70px] rounded-lg text-xs">
                 <SelectValue placeholder={String(per_page)} />
               </SelectTrigger>
               <SelectContent side="top">
@@ -75,7 +75,7 @@ export function DataTablePagination({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-lg"
+            className="h-11 w-11 sm:h-8 sm:w-8 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 rounded-lg"
             onClick={() => onPageChange(1)}
             disabled={current_page <= 1}
             aria-label="Ke halaman pertama"
@@ -85,7 +85,7 @@ export function DataTablePagination({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-lg"
+            className="h-11 w-11 sm:h-8 sm:w-8 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 rounded-lg"
             onClick={() => onPageChange(current_page - 1)}
             disabled={current_page <= 1}
             aria-label="Ke halaman sebelumnya"
@@ -100,7 +100,7 @@ export function DataTablePagination({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-lg"
+            className="h-11 w-11 sm:h-8 sm:w-8 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 rounded-lg"
             onClick={() => onPageChange(current_page + 1)}
             disabled={current_page >= last_page}
             aria-label="Ke halaman selanjutnya"
@@ -110,7 +110,7 @@ export function DataTablePagination({
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 rounded-lg"
+            className="h-11 w-11 sm:h-8 sm:w-8 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 rounded-lg"
             onClick={() => onPageChange(last_page)}
             disabled={current_page >= last_page}
             aria-label="Ke halaman terakhir"

@@ -155,4 +155,14 @@ describe('AuditLogFilters Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /reset semua filter/i }));
     expect(mockReplace).toHaveBeenCalledWith('/admin/audit-logs');
   });
+
+  it('verifies touch target size on filter triggers', () => {
+    renderWithProviders(<AuditLogFilters />);
+
+    const moduleTrigger = screen.getByRole('combobox', { name: 'Modul' });
+    expect(moduleTrigger.className).toMatch(/h-11|min-h-\[44px\]/);
+
+    const dateBtn = screen.getByRole('button', { name: /pilih tanggal/i });
+    expect(dateBtn.className).toMatch(/h-11|min-h-\[44px\]/);
+  });
 });

@@ -70,7 +70,7 @@ export function ResetPasswordDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="max-h-[92vh] sm:max-h-[85vh] w-[95vw] sm:max-w-md p-4 sm:p-6 overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Reset Password Pengguna</DialogTitle>
           <DialogDescription>
@@ -104,7 +104,7 @@ export function ResetPasswordDialog({
                   variant="outline"
                   size="sm"
                   onClick={handleCopy}
-                  className="gap-1.5 shrink-0"
+                  className="gap-1.5 shrink-0 h-11 sm:h-8 min-h-[44px] sm:min-h-0 px-3"
                 >
                   {copied ? (
                     <>
@@ -131,8 +131,13 @@ export function ResetPasswordDialog({
           )}
         </div>
 
-        <DialogFooter>
-          <Button type="button" onClick={onClose} disabled={mutation.isPending}>
+        <DialogFooter className="sticky bottom-0 bg-card pt-2 pb-1 border-t border-border sm:static sm:border-0">
+          <Button
+            type="button"
+            onClick={onClose}
+            disabled={mutation.isPending}
+            className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 w-full sm:w-auto"
+          >
             Tutup
           </Button>
         </DialogFooter>

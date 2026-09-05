@@ -200,4 +200,19 @@ describe('UserFormDialog', () => {
     );
     expect(onClose).not.toHaveBeenCalled();
   });
+
+  it('verifies mobile touch targets for inputs, password toggle, and submit button', () => {
+    renderWithProviders(
+      <UserFormDialog open user={null} roles={roles} departments={departments} onClose={vi.fn()} />
+    );
+
+    const nameInput = screen.getByLabelText(/nama lengkap/i);
+    expect(nameInput.className).toMatch(/h-11|min-h-\[44px\]/);
+
+    const togglePasswordBtn = screen.getByRole('button', { name: /tampilkan password/i });
+    expect(togglePasswordBtn.className).toMatch(/size-11|min-h-\[44px\]|h-11/);
+
+    const submitBtn = screen.getByRole('button', { name: /tambah pengguna/i });
+    expect(submitBtn.className).toMatch(/h-11|min-h-\[44px\]/);
+  });
 });

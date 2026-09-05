@@ -200,7 +200,7 @@ export function UserFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[92vh] sm:max-h-[85vh] w-[95vw] sm:max-w-lg p-4 sm:p-6 overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit Pengguna' : 'Tambah Pengguna'}</DialogTitle>
           <DialogDescription>
@@ -220,6 +220,7 @@ export function UserFormDialog({
               placeholder="Contoh: Andi Kusuma"
               {...register('full_name')}
               aria-invalid={!!errors.full_name}
+              className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
             />
             {errors.full_name && (
               <p className="text-xs text-destructive">{errors.full_name.message}</p>
@@ -236,6 +237,7 @@ export function UserFormDialog({
               placeholder="nama@perusahaan.co.id"
               {...register('email')}
               aria-invalid={!!errors.email}
+              className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
             />
             {errors.email && (
               <p className="text-xs text-destructive">{errors.email.message}</p>
@@ -255,7 +257,7 @@ export function UserFormDialog({
                     placeholder="Minimal 8 karakter"
                     {...register('password')}
                     aria-invalid={!!errors.password}
-                    className="pr-10"
+                    className="pr-12 h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                   />
                   <button
                     type="button"
@@ -265,7 +267,7 @@ export function UserFormDialog({
                         : 'Tampilkan password'
                     }
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-3 flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                    className="absolute right-1 flex size-11 sm:size-9 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                   >
                     {showPassword ? (
                       <EyeOff aria-hidden="true" className="h-4 w-4" />
@@ -291,7 +293,7 @@ export function UserFormDialog({
                     placeholder="Ulangi password"
                     {...register('password_confirmation')}
                     aria-invalid={!!errors.password_confirmation}
-                    className="pr-10"
+                    className="pr-12 h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                   />
                   <button
                     type="button"
@@ -301,7 +303,7 @@ export function UserFormDialog({
                         : 'Tampilkan konfirmasi password'
                     }
                     onClick={() => setShowConfirmPassword((prev) => !prev)}
-                    className="absolute right-3 flex h-5 w-5 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                    className="absolute right-1 flex size-11 sm:size-9 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
                   >
                     {showConfirmPassword ? (
                       <EyeOff aria-hidden="true" className="h-4 w-4" />
@@ -335,7 +337,7 @@ export function UserFormDialog({
                     <SelectTrigger
                       id="role_id"
                       aria-invalid={!!errors.role_id}
-                      className="w-full"
+                      className="w-full h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                     >
                       <SelectValue placeholder="Pilih role…" />
                     </SelectTrigger>
@@ -364,7 +366,7 @@ export function UserFormDialog({
                     value={field.value || undefined}
                     onValueChange={field.onChange}
                   >
-                    <SelectTrigger id="department_id" className="w-full">
+                    <SelectTrigger id="department_id" className="w-full h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm">
                       <SelectValue placeholder="Pilih departemen…" />
                     </SelectTrigger>
                     <SelectContent>
@@ -393,7 +395,7 @@ export function UserFormDialog({
                 name="status"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger id="status" className="w-full">
+                    <SelectTrigger id="status" className="w-full h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm">
                       <SelectValue placeholder="Pilih status…" />
                     </SelectTrigger>
                     <SelectContent>
@@ -424,6 +426,7 @@ export function UserFormDialog({
                   placeholder="Contoh: EMP-0001"
                   {...register('profile.employee_code')}
                   aria-invalid={!!errors.profile?.employee_code}
+                  className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                 />
                 {errors.profile?.employee_code && (
                   <p className="text-xs text-destructive">
@@ -438,6 +441,7 @@ export function UserFormDialog({
                   placeholder="Contoh: 081234567890"
                   {...register('profile.phone')}
                   aria-invalid={!!errors.profile?.phone}
+                  className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                 />
                 {errors.profile?.phone && (
                   <p className="text-xs text-destructive">
@@ -452,6 +456,7 @@ export function UserFormDialog({
                   placeholder="Contoh: Staf IT"
                   {...register('profile.position')}
                   aria-invalid={!!errors.profile?.position}
+                  className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                 />
                 {errors.profile?.position && (
                   <p className="text-xs text-destructive">
@@ -466,6 +471,7 @@ export function UserFormDialog({
                   type="date"
                   {...register('profile.hire_date')}
                   aria-invalid={!!errors.profile?.hire_date}
+                  className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                 />
                 {errors.profile?.hire_date && (
                   <p className="text-xs text-destructive">
@@ -476,16 +482,21 @@ export function UserFormDialog({
             </div>
           </div>
 
-          <DialogFooter className="gap-2 sm:gap-0">
+          <DialogFooter className="gap-2 sm:gap-0 sticky bottom-0 bg-card pt-2 pb-1 border-t border-border sm:static sm:border-0">
             <Button
               type="button"
               variant="outline"
               onClick={handleClose}
               disabled={mutation.isPending}
+              className="h-11 min-h-[44px] w-full sm:h-9 sm:min-h-0 sm:w-auto"
             >
               Batal
             </Button>
-            <Button type="submit" disabled={mutation.isPending}>
+            <Button
+              type="submit"
+              disabled={mutation.isPending}
+              className="h-11 min-h-[44px] w-full sm:h-9 sm:min-h-0 sm:w-auto"
+            >
               {mutation.isPending
                 ? 'Menyimpan…'
                 : isEdit

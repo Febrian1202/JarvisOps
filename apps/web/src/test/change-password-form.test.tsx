@@ -112,4 +112,14 @@ describe('ChangePasswordForm', () => {
       ).toBeInTheDocument();
     });
   });
+
+  it('verifies touch target size on inputs and submit button', () => {
+    renderWithProviders(<ChangePasswordForm />);
+
+    const currentPasswordInput = screen.getByLabelText(/password saat ini/i);
+    expect(currentPasswordInput.className).toMatch(/h-11|min-h-\[44px\]/);
+
+    const submitBtn = screen.getByRole('button', { name: /perbarui password/i });
+    expect(submitBtn.className).toMatch(/h-11|min-h-\[44px\]/);
+  });
 });

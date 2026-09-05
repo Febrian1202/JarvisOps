@@ -238,7 +238,7 @@ export function MasterDataPage<T extends { id: number }>({
           }
         }}
       >
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="max-h-[92vh] sm:max-h-[85vh] w-[95vw] sm:max-w-md p-4 sm:p-6 overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
               {editingItem ? `Ubah ${title}` : `Tambah ${title}`}
@@ -264,6 +264,7 @@ export function MasterDataPage<T extends { id: number }>({
                     placeholder={field.placeholder}
                     {...register(field.name)}
                     aria-invalid={!!errors[field.name]}
+                    className="min-h-[88px] text-sm"
                   />
                 ) : field.type === 'select' ? (
                   <Controller
@@ -280,7 +281,11 @@ export function MasterDataPage<T extends { id: number }>({
                           selectField.onChange(val === '' || val === 'NONE' ? null : Number(val))
                         }
                       >
-                        <SelectTrigger id={field.name} aria-invalid={!!errors[field.name]}>
+                        <SelectTrigger
+                          id={field.name}
+                          aria-invalid={!!errors[field.name]}
+                          className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
+                        >
                           <SelectValue
                             placeholder={
                               field.placeholder ?? `Pilih ${field.label.toLowerCase()}…`
@@ -306,6 +311,7 @@ export function MasterDataPage<T extends { id: number }>({
                       valueAsNumber: field.type === 'number',
                     })}
                     aria-invalid={!!errors[field.name]}
+                    className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
                   />
                 )}
                 {field.hint && (
@@ -319,7 +325,7 @@ export function MasterDataPage<T extends { id: number }>({
               </div>
             ))}
 
-            <DialogFooter className="pt-4">
+            <DialogFooter className="pt-4 gap-2 sm:gap-0 sticky bottom-0 bg-card pt-2 pb-1 border-t border-border sm:static sm:border-0">
               <Button
                 type="button"
                 variant="outline"
@@ -327,12 +333,14 @@ export function MasterDataPage<T extends { id: number }>({
                   setIsCreateOpen(false);
                   setEditingItem(null);
                 }}
+                className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 w-full sm:w-auto"
               >
                 Batal
               </Button>
               <Button
                 type="submit"
                 disabled={createMutation.isPending || updateMutation.isPending}
+                className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 w-full sm:w-auto"
               >
                 {createMutation.isPending || updateMutation.isPending
                   ? 'Menyimpan...'

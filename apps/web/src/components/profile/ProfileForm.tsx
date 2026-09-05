@@ -65,6 +65,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
             placeholder="Nama lengkap Anda"
             {...register('full_name')}
             aria-invalid={!!errors.full_name}
+            className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
           />
           {errors.full_name && (
             <p className="text-xs text-destructive">{errors.full_name.message}</p>
@@ -81,7 +82,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
             value={user.email}
             readOnly
             disabled
-            className="bg-muted/50 text-muted-foreground cursor-not-allowed"
+            className="bg-muted/50 text-muted-foreground cursor-not-allowed h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
           />
         </div>
 
@@ -93,6 +94,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
             placeholder="Contoh: 081234567890"
             {...register('phone')}
             aria-invalid={!!errors.phone}
+            className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
           />
           {errors.phone && (
             <p className="text-xs text-destructive">{errors.phone.message}</p>
@@ -141,7 +143,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
         <Button
           type="submit"
           disabled={mutation.isPending || !isDirty}
-          className="min-w-[120px]"
+          className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 w-full sm:w-auto min-w-[120px]"
         >
           {mutation.isPending ? 'Menyimpan…' : 'Simpan Profil'}
         </Button>

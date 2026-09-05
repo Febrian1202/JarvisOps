@@ -79,7 +79,7 @@ export function AuditLogFilters() {
   return (
     <div
       data-testid="audit-log-filters"
-      className="flex w-full flex-row items-center gap-2.5 overflow-x-auto rounded-xl border border-border bg-card p-3 shadow-xs"
+      className="flex w-full flex-row items-center gap-2.5 overflow-x-auto rounded-xl border border-border bg-card p-2.5 sm:p-3 shadow-xs"
     >
       {/* Module Filter */}
       <Select
@@ -88,7 +88,7 @@ export function AuditLogFilters() {
       >
         <SelectTrigger
           aria-label="Modul"
-          className="h-8 min-w-35 rounded-lg text-xs bg-background border-border"
+          className="h-11 sm:h-8 min-h-[44px] sm:min-h-0 min-w-35 rounded-lg text-xs bg-background border-border"
         >
           <SelectValue placeholder="Semua Modul" />
         </SelectTrigger>
@@ -109,7 +109,7 @@ export function AuditLogFilters() {
       >
         <SelectTrigger
           aria-label="Aksi"
-          className="h-8 min-w-35 rounded-lg text-xs bg-background border-border"
+          className="h-11 sm:h-8 min-h-[44px] sm:min-h-0 min-w-35 rounded-lg text-xs bg-background border-border"
         >
           <SelectValue placeholder="Semua Aksi" />
         </SelectTrigger>
@@ -131,7 +131,7 @@ export function AuditLogFilters() {
         >
           <SelectTrigger
             aria-label="Pengguna"
-            className="h-8 min-w-37.5 rounded-lg text-xs bg-background border-border"
+            className="h-11 sm:h-8 min-h-[44px] sm:min-h-0 min-w-37.5 rounded-lg text-xs bg-background border-border"
           >
             <SelectValue placeholder="Semua Pengguna" />
           </SelectTrigger>
@@ -153,7 +153,7 @@ export function AuditLogFilters() {
             variant="outline"
             size="sm"
             className={cn(
-              'h-8 min-w-42.5 justify-start rounded-lg border-border bg-background px-2.5 text-xs font-normal transition-colors hover:text-foreground',
+              'h-11 sm:h-8 min-h-[44px] sm:min-h-0 min-w-42.5 justify-start rounded-lg border-border bg-background px-2.5 text-xs font-normal transition-colors hover:text-foreground',
               !dateFrom && !dateTo && 'text-muted-foreground',
               (dateFrom || dateTo) && 'border-primary/40 font-medium text-foreground'
             )}
@@ -209,7 +209,7 @@ export function AuditLogFilters() {
           size="sm"
           onClick={resetAll}
           aria-label="Reset semua filter"
-          className="h-8 px-2 text-xs text-muted-foreground hover:text-foreground"
+          className="h-11 sm:h-8 min-h-[44px] sm:min-h-0 px-2 text-xs text-muted-foreground hover:text-foreground"
         >
           <RotateCcw className="mr-1 h-3 w-3" />
           Reset

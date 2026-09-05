@@ -85,4 +85,14 @@ describe('ProfileForm', () => {
       );
     });
   });
+
+  it('verifies touch target size on inputs and submit button', () => {
+    renderWithProviders(<ProfileForm user={mockUser} />);
+
+    const nameInput = screen.getByLabelText(/nama lengkap/i);
+    expect(nameInput.className).toMatch(/h-11|min-h-\[44px\]/);
+
+    const submitBtn = screen.getByRole('button', { name: /simpan profil/i });
+    expect(submitBtn.className).toMatch(/h-11|min-h-\[44px\]/);
+  });
 });

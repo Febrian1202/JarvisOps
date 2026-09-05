@@ -111,6 +111,7 @@ export function ChangePasswordForm() {
           placeholder="Masukkan password saat ini"
           {...register('current_password')}
           aria-invalid={!!errors.current_password}
+          className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
         />
         {errors.current_password && (
           <p className="text-xs text-destructive">
@@ -130,6 +131,7 @@ export function ChangePasswordForm() {
           placeholder="Minimal 8 karakter, kombinasi huruf & angka"
           {...register('password')}
           aria-invalid={!!errors.password}
+          className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
         />
         {errors.password && (
           <p className="text-xs text-destructive">{errors.password.message}</p>
@@ -147,6 +149,7 @@ export function ChangePasswordForm() {
           placeholder="Ulangi password baru Anda"
           {...register('password_confirmation')}
           aria-invalid={!!errors.password_confirmation}
+          className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 text-sm"
         />
         {errors.password_confirmation && (
           <p className="text-xs text-destructive">
@@ -159,7 +162,7 @@ export function ChangePasswordForm() {
         <Button
           type="submit"
           disabled={mutation.isPending}
-          className="min-w-[140px]"
+          className="h-11 sm:h-9 min-h-[44px] sm:min-h-0 w-full sm:w-auto min-w-[140px]"
         >
           {mutation.isPending ? 'Memperbarui…' : 'Perbarui Password'}
         </Button>
