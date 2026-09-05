@@ -94,10 +94,10 @@ Dipindah dari buffer ROADMAP ke **"Di luar cakupan"** (keputusan user: export CS
 - [x] PERMISSION-MATRIX 65 route rows sebagai checklist audit.
 - [x] Validasi attachment (ukuran 5MB, MIME + ekstensi) + otorisasi download via `AttachmentPolicy` (test `AttachmentSecurityTest`, `AttachmentValidationTest`).
 - [x] `.env` di-gitignore; `APP_DEBUG` default `true` hanya di `.env.example` (dev).
-- [ ] `config/cors.php` **belum ada** (pakai default Laravel) → perlu K4.
-- [ ] `throttle:search` **didefinisikan tapi tidak diterapkan** ke endpoint search mana pun → temuan audit nyata (10a).
-- [ ] Cross-user leak test (akses resource milik user lain lewat manipulasi ID) belum otomatis terpusat.
-- [ ] Audit `$fillable` semua model belum menjadi test otomatis.
+- [x] `config/cors.php` dibatasi ke origin frontend (K4).
+- [x] `throttle:search` diterapkan ke endpoint search tickets, articles, dan assets.
+- [x] Cross-user leak test terpusat di `CrossUserLeakTest.php`.
+- [x] Audit `$fillable` semua model otomatis di `MassAssignmentAuditTest.php`.
 
 ### Docker / CI / dokumentasi (hampir semuanya belum)
 - [x] `compose.yaml` (dev), `docker/api/Dockerfile.dev`, `docker/web/Dockerfile.dev`, `docker/mysql/init/*`.
@@ -130,7 +130,7 @@ Dipindah dari buffer ROADMAP ke **"Di luar cakupan"** (keputusan user: export CS
 
 ## Exit criteria Fase 10 (ringkas; rinci per sub-tahap)
 
-1. [ ] Semua temuan audit 10a diperbaiki atau didokumentasikan sebagai known-risk; tidak ada endpoint tanpa penjaga.
+1. [x] Semua temuan audit 10a diperbaiki atau didokumentasikan sebagai known-risk; tidak ada endpoint tanpa penjaga.
 2. [ ] `docker compose -f compose.prod.yaml up` dari kondisi bersih menghasilkan aplikasi berfungsi (ROADMAP:930).
 3. [ ] CI hijau di `main` (Pint, Pest, tsc, lint, build) (ROADMAP:931).
 4. [ ] Octane worker mode aktif **atau** keputusan terdokumentasi untuk tetap classic mode (10d).

@@ -827,17 +827,17 @@ Mengubah aplikasi yang berfungsi menjadi aplikasi yang bisa dipertahankan di dep
 
 ### Audit security
 
-- [ ] Telusuri `docs/product/PERMISSION-MATRIX.md` baris demi baris terhadap route nyata — pastikan tidak ada endpoint tanpa penjaga
-- [ ] Verifikasi `$fillable` di semua model
-- [ ] Rate limit: login, upload, endpoint search
-- [ ] Ulangi verifikasi validasi file (ukuran, MIME, ekstensi, MIME vs ekstensi cocok)
-- [ ] Ulangi verifikasi otorisasi download attachment
-- [ ] Uji kebocoran data lintas user: coba akses ticket, asset, notifikasi, attachment milik orang lain lewat manipulasi ID
-- [ ] Pastikan respons error produksi tidak membocorkan stack trace
-- [ ] CORS dibatasi ke origin frontend saja
-- [ ] Konfirmasi `.env` tidak pernah masuk git; `APP_DEBUG=false` di produksi
-- [ ] Ganti password akun seeder demo untuk deployment publik (Addendum §2.3)
-- [ ] Cookie: `httpOnly`, `secure`, `sameSite` sesuai domain produksi
+- [x] Telusuri `docs/product/PERMISSION-MATRIX.md` baris demi baris terhadap route nyata — pastikan tidak ada endpoint tanpa penjaga
+- [x] Verifikasi `$fillable` di semua model
+- [x] Rate limit: login, upload, endpoint search
+- [x] Ulangi verifikasi validasi file (ukuran, MIME, ekstensi, MIME vs ekstensi cocok)
+- [x] Ulangi verifikasi otorisasi download attachment
+- [x] Uji kebocoran data lintas user: coba akses ticket, asset, notifikasi, attachment milik orang lain lewat manipulasi ID
+- [x] Pastikan respons error produksi tidak membocorkan stack trace
+- [x] CORS dibatasi ke origin frontend saja
+- [x] Konfirmasi `.env` tidak pernah masuk git; `APP_DEBUG=false` di produksi
+- [x] Ganti password akun seeder demo untuk deployment publik (Addendum §2.3)
+- [x] Cookie: `httpOnly`, `secure`, `sameSite` sesuai domain produksi
 
 ### Performa
 

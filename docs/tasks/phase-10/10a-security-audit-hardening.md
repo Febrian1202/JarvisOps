@@ -166,10 +166,10 @@ git commit -m "docs(ops): add security audit report (phase 10a)"
 
 ## Exit Criteria 10a
 
-- [ ] Tidak ada route tanpa penjaga (verifikasi checklist PERMISSION-MATRIX vs route nyata).
-- [ ] `$fillable` semua model user-input tidak memuat kolom server-set (test otomatis).
-- [ ] `throttle:search` diterapkan & 429 teruji.
-- [ ] Cross-user leak protection terkonsolidasi dalam satu test suite.
-- [ ] Error produksi tidak memuat stack trace; CORS terbatas origin frontend; cookie httpOnly/secure/sameSite terverifikasi; `.env` tidak ter-track; password demo produksi terdokumentasi.
-- [ ] `docs/ops/SECURITY-AUDIT.md` ada; known-risk tercatat.
-- [ ] `vendor/bin/pest`, `vendor/bin/pint --dirty --format agent` hijau.
+- [x] Tidak ada route tanpa penjaga (verifikasi checklist PERMISSION-MATRIX vs route nyata).
+- [x] `$fillable` semua model user-input tidak memuat kolom server-set (test otomatis).
+- [x] `throttle:search` diterapkan & 429 teruji.
+- [x] Cross-user leak protection terkonsolidasi dalam satu test suite.
+- [x] Error produksi tidak memuat stack trace; CORS terbatas origin frontend; cookie httpOnly/secure/sameSite terverifikasi; `.env` tidak ter-track; password demo produksi terdokumentasi.
+- [x] `docs/ops/SECURITY-AUDIT.md` ada; known-risk tercatat.
+- [x] `vendor/bin/pest`, `vendor/bin/pint --dirty --format agent` hijau.
