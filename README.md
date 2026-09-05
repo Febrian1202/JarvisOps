@@ -4,8 +4,8 @@
 
 Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
 
-> **Status: desain selesai, implementasi berjalan (Fase 9 Selesai — Tag `v0.9.0`, Fase 10 selanjutnya).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 23 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil — Fase 8 Selesai, Tag `v0.8.0`), serta Dashboard UI & Visual Analytics per role dengan visualisasi Recharts, E2E testing Playwright komprehensif, dan audit aksesibilitas WCAG 2.2 AA (Fase 9 Selesai — Tag `v0.9.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
+> **Status: Fase 10 Sedang Berjalan (Fase 9 Selesai — Tag `v0.9.0`, Sub-tahap 10a, 10b, 10c aktif).**
+> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 24 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil — Fase 8 Selesai, Tag `v0.8.0`), Dashboard UI & Visual Analytics per role dengan visualisasi Recharts, E2E testing Playwright komprehensif, dan audit aksesibilitas WCAG 2.2 AA (Fase 9 Selesai — Tag `v0.9.0`), serta Docker stack produksi multi-stage (`compose.prod.yaml`) dan CI otomatis GitHub Actions (Fase 10). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah dan belum ada.
 
 ---
 
@@ -174,14 +174,21 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
   - **9c (Dashboard Manager)**: Kartu operasional & tiket unassigned, SLA compliance gauge/ring, tren tiket harian responsif Recharts (Area/Bar) dengan date range picker, pie/donut charts breakdown, serta tabel performa teknisi yang dapat diurutkan.
   - **9d (Dashboard Admin)**: Gabungan metrik analitik manager + total sistem pengguna/teknisi/departemen/aset, status aset breakdown chart, audit log aktivitas sistem real-time, dan router dashboard otomatis sesuai role di `/`.
   - **9e (E2E Testing & Accessibility)**: Playwright automated test suite mencakup keempat tampilan dashboard role, interaksi filter date range, pengurutan tabel, verifikasi empty state akun baru, dan audit kepatuhan aksesibilitas WCAG 2.2 AA (axe-core 0 violation).
-- `apps/api` — Laravel 13.29 + Sanctum 4, 23 migration, 18 model, 37 routes (53 operations), 649 test passing (2687 assertions, 0 failures), Pint bersih
-- `apps/web` — Next.js 16.3 + React 19 + Tailwind v4, 33 app routes, 318 passing unit/component tests, Playwright E2E test suite
+- **Fase 10 (Quality, Deployment, Demo — Berjalan)**:
+  - **10a (Security Audit & Hardening)**: Verifikasi 65 route rows, rate limiting login/upload/search/api, proteksi mass assignment audit, exception handling tanpa stack trace di production.
+  - **10b (Docker Produksi)**: Multi-stage Dockerfile untuk API (FrankenPHP classic) dan Web (Next.js standalone), isolated scheduler container, persistent volume data MySQL & shared attachment, stack `compose.prod.yaml` terverifikasi.
+  - **10c (CI & Dokumentasi)**: GitHub Actions CI pipeline (`.github/workflows/ci.yml`), panduan deployment produksi final (`docs/ops/DEPLOYMENT.md`), panduan testing & pemetaan business rules (`docs/ops/TESTING.md`), sinkronisasi skema ERD (`docs/schema.sql`), catatan arsitektur presentasi (`docs/ops/ARCHITECTURE-NOTES.md`).
+- `apps/api` — Laravel 13.29 + Sanctum 4, 24 migration, 18 model, 37 routes (53 operations), 699 test passing (2975 assertions, 0 failures), Pint bersih
+- `apps/web` — Next.js 16.3 + React 19 + Tailwind v4, 33 app routes, 347 passing unit/component tests, Playwright E2E test suite
 
-### Belum ada
+### Dalam Pengerjaan (Fase 10)
 
-- Fase 10 (Quality, Security Audit, Docker Produksi, CI/CD, Deployment, Demo).
+- 10d (Octane Worker Mode evaluation & benchmarking)
+- 10e (Demo Data & Golden Path scenario)
+- 10f (Buffer, CSV Export, final polish)
+- 10g (Final verification & Tag `v1.0.0`)
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md). Fase berikutnya adalah **Fase 10 — Quality, Deployment, Demo**.
+Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md).
 
 ---
 
@@ -259,16 +266,16 @@ make logs                    # ikuti log seluruh service
 
 ## Akun Demo
 
-Dibuat oleh seeder. **Untuk pengembangan dan demo saja** — ganti seluruh password sebelum deployment yang bisa diakses publik.
+Dibuat oleh seeder. **Untuk pengembangan dan demo lokal saja** — dilarang keras menggunakan kredensial default ini pada deployment publik atau server produksi (lihat panduan pengamanan di [`docs/ops/DEPLOYMENT.md`](docs/ops/DEPLOYMENT.md)).
 
-| Email | Role |
-| --- | --- |
-| `admin@jarvisops.test` | Administrator |
-| `manager@jarvisops.test` | Manager |
-| `technician@jarvisops.test` | Technician |
-| `employee@jarvisops.test` | Employee |
+| Email | Role | Password Dev |
+| --- | --- | --- |
+| `admin@jarvisops.test` | Administrator | `Password123!` |
+| `manager@jarvisops.test` | Manager | `Password123!` |
+| `technician@jarvisops.test` | Technician | `Password123!` |
+| `employee@jarvisops.test` | Employee | `Password123!` |
 
-Tidak ada registrasi publik. Akun hanya dibuat oleh Administrator atau seeder — JARVIS OPS adalah sistem internal perusahaan.
+Tidak ada registrasi publik. Akun hanya dibuat oleh Administrator atau seeder — JARVIS OPS adalah sistem internal perusahaan. Prosedur penggantian kata sandi wajib (`must_change_password`) aktif secara otomatis untuk akun yang baru di-reset oleh administrator.
 
 ---
 
