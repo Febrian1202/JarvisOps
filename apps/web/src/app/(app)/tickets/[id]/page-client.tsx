@@ -10,6 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { TicketDetailBanner } from '@/components/tickets/TicketDetailBanner';
 import { SlaTracker } from '@/components/tickets/SlaTracker';
 import { TicketTimeline, TimelineHeader } from '@/components/tickets/TicketTimeline';
+import { TicketMobileActionBar } from '@/components/tickets/TicketMobileActionBar';
 import { CommentForm } from '@/components/tickets/CommentForm';
 import { AttachmentList, AttachmentSectionTitle } from '@/components/tickets/AttachmentList';
 import { ActionDialogs } from '@/components/tickets/action-dialogs';
@@ -42,7 +43,7 @@ function TicketLoaded({ ticket }: { ticket: TicketDetail }) {
   const canAttach = ticket.available_actions.includes('attach' as TicketAction);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-20 sm:pb-0">
       {/* Back link */}
       <div>
         <Button variant="ghost" size="sm" asChild className="gap-1 text-muted-foreground">
@@ -65,7 +66,7 @@ function TicketLoaded({ ticket }: { ticket: TicketDetail }) {
               <TimelineHeader />
             </div>
             <TicketTimeline entries={entries} />
-            <div className="mt-4 border-t border-border pt-4">
+            <div id="ticket-comment-section" className="mt-4 border-t border-border pt-4">
               <CommentForm ticketId={ticket.id} enabled={canComment} />
             </div>
           </div>
@@ -141,6 +142,15 @@ function TicketLoaded({ ticket }: { ticket: TicketDetail }) {
         isEditPending={actions.editAction.isPending}
         isStatusPending={actions.statusAction.isPending}
         isAssignPending={actions.assignAction.isPending}
+      />
+
+      <TicketMobileActionBar
+        ticket={ticket}
+        onAction={(action) => actions.openDialog(action)}
+        onCommentClick={() => {
+          document.getElementById('ticket-comment-section')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('comment-body')?.focus();
+        }}
       />
     </div>
   );

@@ -103,4 +103,12 @@ describe('FileUpload Component', () => {
     // Clear button should be disabled or hidden during upload
     expect(screen.queryByRole('button', { name: /hapus berkas/i })).toBeDisabled();
   });
+
+  it('supports capture attribute for camera support', () => {
+    renderWithProviders(
+      <FileUpload file={null} onFileSelect={vi.fn()} capture="environment" />
+    );
+    const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+    expect(input.getAttribute('capture')).toBe('environment');
+  });
 });

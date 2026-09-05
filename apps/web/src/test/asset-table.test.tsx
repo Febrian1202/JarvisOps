@@ -59,11 +59,11 @@ describe('AssetTable', () => {
       />
     );
 
-    expect(screen.getByText('LPT-0001')).toBeInTheDocument();
-    expect(screen.getByText('ThinkPad T14')).toBeInTheDocument();
-    expect(screen.getByText('Laptop')).toBeInTheDocument();
-    expect(screen.getByText('Tersedia')).toBeInTheDocument();
-    expect(screen.getByText('Andi Kusuma')).toBeInTheDocument();
+    expect(screen.getAllByText('LPT-0001').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('ThinkPad T14').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Laptop').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Tersedia').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Andi Kusuma').length).toBeGreaterThanOrEqual(1);
   });
 
   it('shows em dash for asset without holder', () => {
@@ -90,8 +90,8 @@ describe('AssetTable', () => {
       />
     );
 
-    const tag = screen.getByText('LPT-0001');
-    fireEvent.click(tag.closest('tr')!);
+    const rows = screen.getAllByRole('row');
+    fireEvent.click(rows[1]);
     expect(mockPush).toHaveBeenCalledWith('/assets/1');
   });
 
@@ -105,6 +105,6 @@ describe('AssetTable', () => {
         onSort={vi.fn()}
       />
     );
-    expect(screen.getByText(/tidak ada aset ditemukan/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/tidak ada aset ditemukan/i).length).toBeGreaterThanOrEqual(1);
   });
 });

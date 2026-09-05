@@ -107,6 +107,7 @@ export function AssetForm({ asset }: AssetFormProps) {
               <Input
                 id="asset_tag"
                 placeholder="Contoh: LPT-0001"
+                className="h-11 sm:h-9 text-base sm:text-sm"
                 {...register('asset_tag')}
                 aria-invalid={!!errors.asset_tag}
               />
@@ -119,6 +120,7 @@ export function AssetForm({ asset }: AssetFormProps) {
               <Input
                 id="name"
                 placeholder="Contoh: ThinkPad T14"
+                className="h-11 sm:h-9 text-base sm:text-sm"
                 {...register('name')}
                 aria-invalid={!!errors.name}
               />
@@ -144,7 +146,7 @@ export function AssetForm({ asset }: AssetFormProps) {
                         setSelectedCategory(v);
                       }}
                     >
-                      <SelectTrigger className="flex-1" aria-invalid={!!errors.category}>
+                      <SelectTrigger className="flex-1 h-11 sm:h-9 text-base sm:text-sm" aria-invalid={!!errors.category}>
                         <SelectValue placeholder="Pilih kategori…" />
                       </SelectTrigger>
                       <SelectContent>
@@ -171,7 +173,7 @@ export function AssetForm({ asset }: AssetFormProps) {
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   placeholder="Ketik kategori baru…"
-                  className="flex-1"
+                  className="flex-1 h-11 sm:h-9 text-base sm:text-sm"
                 />
                 <Button
                   type="button"
@@ -193,14 +195,26 @@ export function AssetForm({ asset }: AssetFormProps) {
               <Label htmlFor="brand">
                 Merek <span className="text-destructive">*</span>
               </Label>
-              <Input id="brand" placeholder="Contoh: Lenovo" {...register('brand')} aria-invalid={!!errors.brand} />
+              <Input
+                id="brand"
+                placeholder="Contoh: Lenovo"
+                className="h-11 sm:h-9 text-base sm:text-sm"
+                {...register('brand')}
+                aria-invalid={!!errors.brand}
+              />
               {errors.brand && <p className="text-xs text-destructive">{errors.brand.message}</p>}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="model">
                 Model <span className="text-destructive">*</span>
               </Label>
-              <Input id="model" placeholder="Contoh: T14 Gen 3" {...register('model')} aria-invalid={!!errors.model} />
+              <Input
+                id="model"
+                placeholder="Contoh: T14 Gen 3"
+                className="h-11 sm:h-9 text-base sm:text-sm"
+                {...register('model')}
+                aria-invalid={!!errors.model}
+              />
               {errors.model && <p className="text-xs text-destructive">{errors.model.message}</p>}
             </div>
           </div>
@@ -211,7 +225,13 @@ export function AssetForm({ asset }: AssetFormProps) {
               <Label htmlFor="serial_number">
                 Nomor Seri <span className="text-destructive">*</span>
               </Label>
-              <Input id="serial_number" placeholder="Contoh: PF3ABCDE" {...register('serial_number')} aria-invalid={!!errors.serial_number} />
+              <Input
+                id="serial_number"
+                placeholder="Contoh: PF3ABCDE"
+                className="h-11 sm:h-9 text-base sm:text-sm"
+                {...register('serial_number')}
+                aria-invalid={!!errors.serial_number}
+              />
               {errors.serial_number && <p className="text-xs text-destructive">{errors.serial_number.message}</p>}
             </div>
             <div className="space-y-1.5">
@@ -222,6 +242,7 @@ export function AssetForm({ asset }: AssetFormProps) {
                 id="purchase_date"
                 type="date"
                 max={new Date().toISOString().slice(0, 10)}
+                className="h-11 sm:h-9 text-base sm:text-sm"
                 {...register('purchase_date')}
                 aria-invalid={!!errors.purchase_date}
               />
@@ -239,7 +260,7 @@ export function AssetForm({ asset }: AssetFormProps) {
               name="status"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger id="status" aria-invalid={!!errors.status}>
+                  <SelectTrigger id="status" className="h-11 sm:h-9 text-base sm:text-sm" aria-invalid={!!errors.status}>
                     <SelectValue placeholder="Pilih status…" />
                   </SelectTrigger>
                   <SelectContent>
