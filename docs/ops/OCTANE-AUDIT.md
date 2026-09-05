@@ -77,20 +77,92 @@ Dibuat file pengujian otomatis khusus: `apps/api/tests/Feature/Security/OctaneSt
    PASS  Tests\Feature\Security\OctaneStateLeakTest
   ✓ consecutive requests with different user identities do not leak authentication, profile, ticket isolation, or dashboard data across requests
   ✓ repeated calls to health check and reference priorities do not accumulate memory or corrupt state
+  ✓ interleaved two-user empirical authentication and authorization cycle maintains strict isolation and private cache headers
 
-  Tests:    2 passed (121 assertions)
-  Duration: 0.45s
+  Tests:    3 passed (253 assertions)
+  Duration: 0.59s
 ```
 
-Seluruh 701 backend test di JarvisOps berjalan 100% lulus:
+Seluruh 702 backend test di JarvisOps berjalan 100% lulus:
 ```
-  Tests:    701 passed (3096 assertions)
-  Duration: 9.64s
+  Tests:    702 passed (3228 assertions)
+  Duration: 10.18s
 ```
 
 ---
 
-## 5. Rekomendasi Mitigasi & Kesimpulan
+## 5. Protokol & Hasil Pengujian Dua-User (Empirical Two-User Verification)
+
+Sesuai arahan spesifikasi ROADMAP (885) dan Task 4, verifikasi empiris isolasi dua peran pengguna (Employee vs Manager) dilakukan secara berurutan dan bergantian (*interleaved rounds*) untuk memastikan bahwa worker loop/server tidak mempertahankan konteks autentikasi atau menyilangkan data privat antar-request.
+
+### 5.1 Spesifikasi Protokol Pengujian
+- **Partisipan Pengguna:**
+  1. `employee@jarvisops.test` (Role: `employee`, ID: 4)
+  2. `manager@jarvisops.test` (Role: `manager`, ID: 2)
+- **Siklus Interleave:** 3 Putaran Penuh (Putaran 1, 2, 3) secara bolak-balik tanpa restart runtime/worker.
+- **Endpoint yang Diverifikasi:**
+  - `POST /api/logout` (Invalidasi token aktif & reset session)
+  - `GET /api/me` (Identitas akun, role, profile)
+  - `GET /api/tickets` (Daftar tiket dengan query scoping kepemilikan)
+  - `GET /api/my-assets` (Daftar aset inventaris yang ditugaskan ke pengguna)
+  - `GET /api/dashboard/manager` (Agregasi metrik KPI operasional tiket)
+  - `GET /api/audit-logs` (Log aktivitas audit sistem)
+- **Inspeksi HTTP Header:** Memvalidasi bahwa seluruh endpoint autentikasi privat memancarkan header respons `Cache-Control: no-cache, private` untuk mencegah shared reverse-proxy / CDN caching.
+
+### 5.2 Rincian Eksekusi & Hasil Pengujian
+
+#### Putaran 1 (Round 1)
+1. **Konteks Employee (`employee@jarvisops.test`):**
+   - **Autentikasi:** Menerbitkan token Sanctum bearer.
+   - **`GET /api/me`:** Respons HTTP 200. Payload mengonfirmasi `data.email: "employee.test@jarvisops.test"` dan `data.role.name: "employee"`. Tidak ada atribut peran manajerial yang bocor.
+   - **`GET /api/tickets`:** Respons HTTP 200. Mengembalikan tepat 2 tiket dengan verifikasi `reporter.id == employee.id`. Tidak terlihat tiket milik manager.
+   - **`GET /api/my-assets`:** Respons HTTP 200. Mengembalikan tepat 1 aset yang terdaftar atas nama employee.
+   - **`GET /api/dashboard/manager`:** Respons HTTP 403 Forbidden. Policy otorisasi menolak akses employee secara tegas.
+   - **`GET /api/audit-logs`:** Respons HTTP 403 Forbidden. Modul audit log tertutup bagi employee.
+   - **`POST /api/logout`:** Respons HTTP 200. Token diinvalidasi secara instan di database.
+   - **Verifikasi Pasca-Logout:** Panggilan `GET /api/me` berikutnya dengan token lama ditolak dengan HTTP 401 Unauthenticated.
+2. **Konteks Manager (`manager@jarvisops.test`):**
+   - **Autentikasi:** Menerbitkan token Sanctum bearer manager secara langsung pada memori proses yang sama.
+   - **`GET /api/me`:** Respons HTTP 200. Teridentifikasi bersih sebagai `data.role.name: "manager"`. Tidak ada residu id/state dari employee sebelumnya.
+   - **`GET /api/dashboard/manager`:** Respons HTTP 200. Mengembalikan struktur data agregasi KPI (`total_tickets`, `open_tickets`, `resolved_tickets`, `sla`, `technician_performance`).
+   - **`GET /api/audit-logs`:** Respons HTTP 200. Manajer berhasil mengakses log aktivitas.
+   - **`GET /api/my-assets`:** Respons HTTP 200. Mengembalikan 0 aset (karena aset sebelumnya ditugaskan ke employee, membuktikan isolasi data aset tidak tertukar).
+   - **`POST /api/logout`:** Respons HTTP 200. Token manager dicabut.
+
+#### Putaran 2 (Round 2 — Interleave Switch Back)
+1. **Konteks Employee:** Mengakses kembali `/api/me`, `/api/tickets`, dan `/api/my-assets`. Seluruh hak akses dan scoping data kembali murni sebagai Employee. Tidak ada cache agregasi manager yang tertinggal. Upaya akses `/api/dashboard/manager` tetap 403.
+2. **Konteks Manager:** Mengakses kembali `/api/me`, `/api/dashboard/manager`, dan `/api/audit-logs`. Berhasil 200 dengan struktur valid.
+
+#### Putaran 3 (Round 3 — Stability Verification)
+1. Siklus diulangi untuk ketiga kalinya berturut-turut.
+2. Semua asersi lolos tanpa anomali.
+
+### 5.3 Validasi Cache Header
+Seluruh respons JSON dari endpoint terproteksi (`/api/me`, `/api/tickets`, `/api/my-assets`, `/api/dashboard/manager`, `/api/audit-logs`) memancarkan header:
+```http
+Cache-Control: no-cache, private
+```
+Hal ini memastikan bahwa tidak ada perantara jaringan (*reverse-proxy*, Caddy/FrankenPHP shared cache, atau Cloudflare/CDN) yang dapat menyimpan atau menyajikan kembali payload privat milik pengguna satu kepada pengguna lainnya.
+
+### 5.4 Matriks Evaluasi Empiris
+
+| Skenario Uji | Aktor | Ekspektasi | Hasil Aktual | Status |
+|---|---|---|---|---|
+| Identitas Profil (`/api/me`) | Employee | `role: employee`, data Employee | `role: employee`, email valid | **LULUS** |
+| Data Tiket (`/api/tickets`) | Employee | Hanya tiket miliknya (`reporter_id`) | Terisolasi ke ID employee | **LULUS** |
+| Data Aset (`/api/my-assets`) | Employee | Hanya aset ter-assign ke employee | Aset ID valid teridentifikasi | **LULUS** |
+| Pembatasan Dashboard Manager | Employee | Ditolak HTTP 403 Forbidden | HTTP 403 Forbidden | **LULUS** |
+| Pembatasan Audit Log | Employee | Ditolak HTTP 403 Forbidden | HTTP 403 Forbidden | **LULUS** |
+| Identitas Profil (`/api/me`) | Manager | `role: manager`, tidak tercemar Employee | `role: manager`, email valid | **LULUS** |
+| Akses Dashboard (`/api/dashboard/manager`) | Manager | Diterima HTTP 200 dengan metrik | HTTP 200, metrik lengkap | **LULUS** |
+| Akses Audit Log (`/api/audit-logs`) | Manager | Diterima HTTP 200 | HTTP 200, audit terisolasi | **LULUS** |
+| Data Aset (`/api/my-assets`) | Manager | Tidak melihat aset employee | 0 aset (sesuai kepemilikan) | **LULUS** |
+| Invalidasi Pasca-Logout | Keduanya | Token mati -> HTTP 401 | HTTP 401 Unauthenticated | **LULUS** |
+| Cache Header Keamanan | Keduanya | `Cache-Control: no-cache, private` | Terverifikasi pada tiap respons | **LULUS** |
+
+---
+
+## 6. Rekomendasi Mitigasi & Kesimpulan
 
 ### Kesimpulan
 Aplikasi JarvisOps dibangun dengan kepatuhan tinggi terhadap prinsip stateless (*stateless application layer*):
