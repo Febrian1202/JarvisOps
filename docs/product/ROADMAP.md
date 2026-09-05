@@ -918,6 +918,32 @@ Aplikasi yang berjalan di container produksi, CI hijau, dokumentasi lengkap, dem
 
 ---
 
+# FASE 11 — Mobile Responsive Layout & Touch Ergonomics
+
+**Pasca v1.0.0**
+
+## Tujuan
+
+Mengoptimalkan pengalaman pengguna di layar ponsel/smartphone (< 640px) untuk seluruh pengguna lapangan (terutama Karyawan yang membuat tiket dan Teknisi yang memproses tiket di lokasi). Mengubah tabel desktop lebar menjadi format Card View touch-friendly, menyediakan Bottom Sheet Filter, sticky action bar pada detail tiket, dan memastikan target sentuh (touch target) mematuhi standar WCAG 2.2 AA (min 44×44px).
+
+## Sub-tahap
+
+- [ ] **11a — Shared Mobile Components & View Adapter** (`docs/tasks/phase-11/11a-shared-mobile-components.md`): `useMediaQuery` hook, `DataTable` responsive card adapter, `MobileFilterSheet`.
+- [ ] **11b — Ticket & Asset Mobile Optimization** (`docs/tasks/phase-11/11b-ticket-asset-mobile.md`): `TicketCard`, `AssetCard`, sticky mobile action bar di `/tickets/[id]`, optimasi touch field form dan upload kamera HP.
+- [ ] **11c — Dashboard & Charts Mobile Ergonomics** (`docs/tasks/phase-11/11c-dashboard-charts-mobile.md`): Compact 2-column KPI metric cards, Recharts touch-tooltip & responsive aspect ratio, mobile-safe DateRangePicker modal.
+- [ ] **11d — Knowledge Base, Admin & Touch Hardening** (`docs/tasks/phase-11/11d-kb-admin-mobile.md`): KB reading view drawer, Markdown editor write/preview tabs, Admin responsive tables & full-screen mobile dialogs.
+- [ ] **11e — Mobile E2E Testing & Release Tag v1.1.0** (`docs/tasks/phase-11/11e-mobile-e2e-audit-tag.md`): Playwright Mobile Projects (`Pixel 7`, `iPhone 14`), WCAG touch target audit, tagging `v1.1.0`.
+
+## Exit criteria
+
+- [ ] Seluruh halaman utama (`/`, `/tickets`, `/tickets/[id]`, `/assets`, `/knowledge`, `/profile`, `/admin/*`) bebas dari horizontal overflow yang tidak disengaja di viewport 360px - 430px.
+- [ ] Tabel data otomatis beralih ke Card View di layar ponsel dengan aksi klik baris yang tetap berfungsi.
+- [ ] Filter di mobile dapat dibuka melalui Bottom Sheet/Drawer tanpa menutupi konten daftar secara permanen.
+- [ ] Suite pengujian Playwright mobile (`test:e2e`) dan Vitest (`npm run test`) lulus 100%.
+- [ ] Git tag SemVer `v1.1.0` ditambahkan.
+
+---
+
 # Lampiran A — Pemetaan Business Rule ke Fase
 
 Gunakan tabel ini saat audit di Fase 10 untuk memastikan tidak ada rule yang terlewat.
