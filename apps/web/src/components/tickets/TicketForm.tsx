@@ -133,7 +133,7 @@ export function TicketForm() {
                     value={field.value ? String(field.value) : ''}
                     onValueChange={(val) => field.onChange(Number(val))}
                   >
-                    <SelectTrigger id="category_id" aria-invalid={!!errors.category_id}>
+                    <SelectTrigger id="category_id" className="h-11 sm:h-9 text-base sm:text-sm" aria-invalid={!!errors.category_id}>
                       <SelectValue placeholder="Pilih kategori tiket…" />
                     </SelectTrigger>
                     <SelectContent>
@@ -163,7 +163,7 @@ export function TicketForm() {
                     value={field.value ? String(field.value) : ''}
                     onValueChange={(val) => field.onChange(Number(val))}
                   >
-                    <SelectTrigger id="priority_id" aria-invalid={!!errors.priority_id}>
+                    <SelectTrigger id="priority_id" className="h-11 sm:h-9 text-base sm:text-sm" aria-invalid={!!errors.priority_id}>
                       <SelectValue placeholder="Pilih tingkat urgensi…" />
                     </SelectTrigger>
                     <SelectContent>
@@ -196,7 +196,7 @@ export function TicketForm() {
                   value={field.value ? String(field.value) : 'NONE'}
                   onValueChange={(val) => field.onChange(val === 'NONE' ? null : Number(val))}
                 >
-                  <SelectTrigger id="asset_id">
+                  <SelectTrigger id="asset_id" className="h-11 sm:h-9 text-base sm:text-sm">
                     <SelectValue placeholder="Pilih perangkat aset jika ada…" />
                   </SelectTrigger>
                   <SelectContent>

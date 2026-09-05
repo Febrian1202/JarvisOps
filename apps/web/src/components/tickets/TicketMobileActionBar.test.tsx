@@ -45,7 +45,7 @@ describe('TicketMobileActionBar', () => {
     );
 
     expect(screen.getByRole('button', { name: /tulis komentar/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /start/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /mulai kerjakan/i })).toBeInTheDocument();
   });
 
   it('calls onCommentClick when comment button is clicked', () => {
@@ -76,7 +76,7 @@ describe('TicketMobileActionBar', () => {
       />
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /start/i }));
+    fireEvent.click(screen.getByRole('button', { name: /mulai kerjakan/i }));
     expect(handleAction).toHaveBeenCalledWith('start');
   });
 });

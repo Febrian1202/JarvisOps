@@ -19,6 +19,7 @@ export function TicketCard({ ticket }: TicketCardProps) {
     <div
       role="button"
       tabIndex={0}
+      aria-label={`Tiket ${ticket.ticket_number}: ${ticket.title}`}
       onClick={() => router.push(`/tickets/${ticket.id}`)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {

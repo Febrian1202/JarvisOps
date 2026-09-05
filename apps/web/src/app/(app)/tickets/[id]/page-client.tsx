@@ -149,7 +149,7 @@ function TicketLoaded({ ticket }: { ticket: TicketDetail }) {
         onAction={(action) => actions.openDialog(action)}
         onCommentClick={() => {
           document.getElementById('ticket-comment-section')?.scrollIntoView({ behavior: 'smooth' });
-          document.getElementById('content')?.focus();
+          document.getElementById('comment-body')?.focus();
         }}
       />
     </div>

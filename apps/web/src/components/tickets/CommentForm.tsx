@@ -101,6 +101,7 @@ export function CommentForm({ ticketId, enabled = true, onCommented }: CommentFo
       }}
     >
       <Textarea
+        id="comment-body"
         value={body}
         onChange={(e) => setBody(e.target.value)}
         placeholder="Tulis komentar atau pembaruan penanganan…"
