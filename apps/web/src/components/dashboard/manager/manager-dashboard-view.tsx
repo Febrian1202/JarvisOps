@@ -22,6 +22,7 @@ export interface ManagerDashboardViewProps {
   range?: { from?: string; to?: string };
   onRangeChange?: (range: { from: string; to: string } | null) => void;
   user?: User | null;
+  hideHeader?: boolean;
 }
 
 export function ManagerDashboardView({
@@ -30,32 +31,35 @@ export function ManagerDashboardView({
   range,
   onRangeChange,
   user,
+  hideHeader = false,
 }: ManagerDashboardViewProps) {
   const greeting = getGreeting();
   
   return (
     <div className="space-y-6">
       {/* Header & Date Range Picker */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-            {greeting}, {user?.full_name || 'Manager'}
-          </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-            Pantau metrik SLA operasional, tren tiket layanan, dan distribusi kerja teknisi.
-          </p>
-        </div>
-
-        {onRangeChange && (
-          <div className="self-start sm:self-auto">
-            <DateRangePicker
-              from={range?.from}
-              to={range?.to}
-              onChange={onRangeChange}
-            />
+      {!hideHeader && (
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+              {greeting}, {user?.full_name || 'Manager'}
+            </h1>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+              Pantau metrik SLA operasional, tren tiket layanan, dan distribusi kerja teknisi.
+            </p>
           </div>
-        )}
-      </div>
+
+          {onRangeChange && (
+            <div className="self-start sm:self-auto">
+              <DateRangePicker
+                from={range?.from}
+                to={range?.to}
+                onChange={onRangeChange}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* 6 Metric Cards */}
       <ManagerMetrics data={data} isLoading={isLoading} />

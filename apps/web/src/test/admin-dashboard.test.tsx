@@ -4,12 +4,50 @@ import { render, screen } from '@testing-library/react';
 import { AdminMetrics } from '@/components/dashboard/admin/admin-metrics';
 import { ConfigShortcutsPanel } from '@/components/dashboard/admin/config-shortcuts';
 import { AuditLogPanel } from '@/components/dashboard/admin/audit-log-panel';
+import { AdminDashboardView } from '@/components/dashboard/admin/admin-dashboard-view';
 import type { AdminDashboardData } from '@/types/dashboard';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({
     push: vi.fn(),
     replace: vi.fn(),
+  }),
+}));
+
+// Mock ResizeObserver
+window.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
+// Mock lazy chart to avoid suspense issues in simple tests
+vi.mock('@/components/dashboard/lazy-chart', () => ({
+  lazyChart: () => () => <div data-testid="mock-chart">Mock Chart</div>,
+}));
+
+// Mock useAuth & AuthProvider
+vi.mock('@/components/providers/auth-provider', () => ({
+  useAuth: () => ({
+    user: { id: 1, full_name: 'Super Admin', email: 'admin@example.com', role: { id: 1, name: 'Admin' }, status: 'active' },
+    isAuthenticated: true,
+    can: () => true,
+  }),
+  AuthProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+// Mock useReferenceData
+vi.mock('@/hooks/use-reference-data', () => ({
+  useReferenceData: () => ({
+    priorities: [
+      { id: 1, name: 'Low', color: '#ccc' },
+      { id: 2, name: 'High', color: '#f00' },
+    ],
+    categories: [
+      { id: 1, name: 'Hardware' },
+      { id: 2, name: 'Software' },
+    ],
+    isLoading: false,
   }),
 }));
 
@@ -149,5 +187,104 @@ describe('AuditLogPanel', () => {
     expect(screen.getByText('Audit Log Terbaru')).toBeInTheDocument();
     const skeletons = container.querySelectorAll('.animate-pulse');
     expect(skeletons.length).toBeGreaterThanOrEqual(4);
+  });
+});
+
+describe('AdminDashboardView', () => {
+  const mockAdminDashboardData: AdminDashboardData = {
+    total_users: 42,
+    total_assets: 120,
+    total_technicians: 8,
+    total_departments: 5,
+    assets_by_status: [{ status: 'in_use', count: 90 }],
+    recent_system_activity: [
+      {
+        id: 1,
+        user: { id: 10, full_name: 'Budi Santoso' },
+        action: 'create',
+        module: 'ticket',
+        description: 'Membuat tiket #TICK-101',
+        created_at: new Date().toISOString(),
+      },
+    ],
+    total_tickets: 50,
+    open_tickets: 10,
+    unassigned_tickets: 4,
+    resolved_tickets: 35,
+    closed_tickets: 5,
+    sla: {
+      within_sla: 30,
+      breached: 5,
+      compliance_percentage: 85.7,
+      avg_resolution_minutes: 195,
+    },
+    ticket_trend: [],
+    by_priority: [],
+    by_category: [],
+    technician_performance: [],
+  };
+
+  it('renders admin greeting, subtitle, date range picker and 4 admin cards', () => {
+    const onRangeChange = vi.fn();
+
+    render(
+      <AdminDashboardView
+        data={mockAdminDashboardData}
+        user={{ id: 1, full_name: 'Super Admin', email: 'admin@example.com', role: { id: 1, name: 'Admin' }, status: 'active' }}
+        onRangeChange={onRangeChange}
+      />
+    );
+
+    // Header greeting and subtitle
+    expect(screen.getByText(/Super Admin/i)).toBeInTheDocument();
+    expect(
+      screen.getByText('Ringkasan metrik sistem, status operasional, log audit, dan performa layanan.')
+    ).toBeInTheDocument();
+
+    // 4 admin metric cards
+    expect(screen.getByText('Total Pengguna')).toBeInTheDocument();
+    expect(screen.getByText('42')).toBeInTheDocument();
+    expect(screen.getByText('Total Aset IT')).toBeInTheDocument();
+    expect(screen.getByText('120')).toBeInTheDocument();
+    expect(screen.getByText('Technician')).toBeInTheDocument();
+    expect(screen.getByText('8')).toBeInTheDocument();
+    // "Departemen" also exists in ConfigShortcutsPanel
+    expect(screen.getAllByText('Departemen').length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText('5')).toBeInTheDocument();
+  });
+
+  it('renders default Administrator greeting when user is null', () => {
+    render(<AdminDashboardView data={mockAdminDashboardData} user={null} />);
+
+    expect(screen.getByText(/Administrator/i)).toBeInTheDocument();
+  });
+
+  it('renders manager dashboard view section with hideHeader=true', () => {
+    render(
+      <AdminDashboardView
+        data={mockAdminDashboardData}
+        user={{ id: 1, full_name: 'Super Admin', email: 'admin@example.com', role: { id: 1, name: 'Admin' }, status: 'active' }}
+      />
+    );
+
+    // Manager metrics should be present
+    expect(screen.getByText('Total Ticket')).toBeInTheDocument();
+    expect(screen.getByText('50')).toBeInTheDocument();
+    expect(screen.getByText('Total Ticket Aktif')).toBeInTheDocument();
+    expect(screen.getByText('Ticket Selesai')).toBeInTheDocument();
+    expect(screen.getByText('SLA Compliance')).toBeInTheDocument();
+
+    // Manager greeting header shouldn't be duplicated (Manager subtitle should NOT exist)
+    expect(
+      screen.queryByText('Pantau metrik SLA operasional, tren tiket layanan, dan distribusi kerja teknisi.')
+    ).not.toBeInTheDocument();
+  });
+
+  it('renders audit log panel and config shortcuts in bottom grid', () => {
+    render(<AdminDashboardView data={mockAdminDashboardData} />);
+
+    expect(screen.getByText('Audit Log Terbaru')).toBeInTheDocument();
+    expect(screen.getByText('Membuat tiket #TICK-101')).toBeInTheDocument();
+    expect(screen.getByText('Pintasan Konfigurasi')).toBeInTheDocument();
   });
 });
