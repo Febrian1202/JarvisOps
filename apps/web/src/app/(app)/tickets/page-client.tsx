@@ -7,6 +7,7 @@ import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { TicketFilters } from '@/components/tickets/TicketFilters';
 import { TicketTable } from '@/components/tickets/TicketTable';
+import { CsvExportButton } from '@/components/shared/CsvExportButton';
 import { useTickets, type TicketQueryParams } from '@/hooks/use-tickets';
 import { useAuth } from '@/components/providers/auth-provider';
 
@@ -98,14 +99,18 @@ export function TicketsPageClient() {
           </p>
         </div>
 
-        {can('ticket.create') && (
-          <Button asChild size="sm" className="gap-1.5 self-start sm:self-auto">
-            <Link href="/tickets/new">
-              <Plus className="h-4 w-4" />
-              <span>Buat Tiket Baru</span>
-            </Link>
-          </Button>
-        )}
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <CsvExportButton entity="tickets" />
+
+          {can('ticket.create') && (
+            <Button asChild size="sm" className="gap-1.5">
+              <Link href="/tickets/new">
+                <Plus className="h-4 w-4" />
+                <span>Buat Tiket Baru</span>
+              </Link>
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* 11 Filters toolbar */}

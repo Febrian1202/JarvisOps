@@ -13,7 +13,8 @@ async function handleProxy(
   const targetUrl = `${API_BASE_URL}/${path.join('/')}${search}`;
 
   const headers = new Headers();
-  headers.set('Accept', 'application/json');
+  const incomingAccept = request.headers.get('accept');
+  headers.set('Accept', incomingAccept || 'application/json');
   if (token) {
     headers.set('Authorization', `Bearer ${token}`);
   }
