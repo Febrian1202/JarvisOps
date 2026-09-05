@@ -107,6 +107,7 @@ export function AssetForm({ asset }: AssetFormProps) {
               <Input
                 id="asset_tag"
                 placeholder="Contoh: LPT-0001"
+                className="h-11 sm:h-9 text-base sm:text-sm"
                 {...register('asset_tag')}
                 aria-invalid={!!errors.asset_tag}
               />
@@ -119,6 +120,7 @@ export function AssetForm({ asset }: AssetFormProps) {
               <Input
                 id="name"
                 placeholder="Contoh: ThinkPad T14"
+                className="h-11 sm:h-9 text-base sm:text-sm"
                 {...register('name')}
                 aria-invalid={!!errors.name}
               />

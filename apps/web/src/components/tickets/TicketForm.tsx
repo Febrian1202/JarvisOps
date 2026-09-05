@@ -220,6 +220,7 @@ export function TicketForm() {
             <Input
               id="title"
               placeholder="Contoh: Wi-Fi lantai 3 sering putus saat meeting daring"
+              className="h-11 sm:h-9 text-base sm:text-sm"
               {...register('title')}
               aria-invalid={!!errors.title}
             />

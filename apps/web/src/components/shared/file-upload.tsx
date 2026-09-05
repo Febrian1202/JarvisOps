@@ -22,6 +22,7 @@ interface FileUploadProps {
   disabled?: boolean;
   isUploading?: boolean;
   uploadProgress?: number;
+  capture?: boolean | 'user' | 'environment';
 }
 
 export function FileUpload({
@@ -31,6 +32,7 @@ export function FileUpload({
   disabled = false,
   isUploading = false,
   uploadProgress = 0,
+  capture,
 }: FileUploadProps) {
   const [error, setError] = useState<string | null>(null);
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
@@ -101,7 +103,8 @@ export function FileUpload({
       <input
         ref={inputRef}
         type="file"
-        accept=".jpg,.jpeg,.png,.pdf"
+        accept=".jpg,.jpeg,.png,.pdf,image/*"
+        capture={capture ? (typeof capture === 'string' ? capture : 'environment') : undefined}
         onChange={handleFileChange}
         className="hidden"
         disabled={disabled || isUploading}

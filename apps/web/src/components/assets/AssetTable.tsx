@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { DataTable, type ColumnDef } from '@/components/shared/data-table/data-table';
 import { DataTableColumnHeader } from '@/components/shared/data-table/data-table-column-header';
 import { AssetStatusBadge } from './AssetStatusBadge';
+import { AssetCard } from './AssetCard';
 import type { AssetListItem } from '@/types/assets';
 import type { PaginationMeta } from '@/types/api';
 
@@ -120,17 +121,7 @@ export function AssetTable({
     : columns.filter((col) => col.id !== 'holder');
 
   return (
-    <div
-      onClick={(e) => {
-        const tr = (e.target as HTMLElement).closest('tbody tr');
-        if (tr) {
-          const index = Array.from(tr.parentElement?.children || []).indexOf(tr);
-          const asset = assets[index];
-          if (asset) router.push(`/assets/${asset.id}`);
-        }
-      }}
-      className="cursor-pointer"
-    >
+    <div className="w-full">
       <DataTable
         columns={visibleColumns}
         data={assets}
@@ -140,6 +131,14 @@ export function AssetTable({
         emptyDescription="Belum ada aset yang cocok dengan kriteria pencarian atau filter Anda."
         onPageChange={onPageChange}
         onPerPageChange={onPerPageChange}
+        onRowClick={(row) => router.push(`/assets/${row.id}`)}
+        renderCard={(row) => (
+          <AssetCard
+            asset={row}
+            showHolder={showHolder}
+            onClick={(a) => router.push(`/assets/${a.id}`)}
+          />
+        )}
       />
     </div>
   );
