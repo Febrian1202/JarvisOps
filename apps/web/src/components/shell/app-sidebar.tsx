@@ -98,7 +98,10 @@ export function AppSidebar() {
       <div className="border-border border-t p-3">
         <div className="rounded-lg bg-muted/50 p-2 text-center">
           <p className="text-[11px] text-muted-foreground">
-            JARVIS OPS v0.8.0
+            JARVIS OPS {(() => {
+              const rawVersion = process.env.NEXT_PUBLIC_APP_VERSION || 'v1.0.0';
+              return rawVersion.startsWith('v') ? rawVersion : `v${rawVersion}`;
+            })()}
           </p>
         </div>
       </div>
