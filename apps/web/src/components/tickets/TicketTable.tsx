@@ -8,6 +8,7 @@ import { StatusBadge } from '@/components/shared/status-badge';
 import { PriorityBadge } from '@/components/shared/priority-badge';
 import { SlaIndicator } from '@/components/shared/sla-indicator';
 import { RelativeTime } from '@/components/shared/relative-time';
+import { TicketCard } from './TicketCard';
 import type { TicketListItem } from '@/types/tickets';
 import type { PaginationMeta } from '@/types/api';
 
@@ -160,20 +161,7 @@ export function TicketTable({
   ];
 
   return (
-    <div
-      onClick={(e) => {
-        // Find closest tr element that has an onclick target
-        const tr = (e.target as HTMLElement).closest('tbody tr');
-        if (tr) {
-          const index = Array.from(tr.parentElement?.children || []).indexOf(tr);
-          const ticket = tickets[index];
-          if (ticket) {
-            router.push(`/tickets/${ticket.id}`);
-          }
-        }
-      }}
-      className="cursor-pointer"
-    >
+    <div className="w-full">
       <DataTable
         columns={columns}
         data={tickets}
@@ -183,6 +171,8 @@ export function TicketTable({
         emptyDescription="Belum ada permohonan tiket bantuan teknis yang cocok dengan kriteria pencarian Anda."
         onPageChange={onPageChange}
         onPerPageChange={onPerPageChange}
+        onRowClick={(row) => router.push(`/tickets/${row.id}`)}
+        renderCard={(row) => <TicketCard ticket={row} />}
       />
     </div>
   );
