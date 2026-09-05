@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
@@ -81,10 +81,17 @@ describe('DateRangePicker Component', () => {
 
   it('renders trigger with formatted dates when from and to are provided', () => {
     const onChange = vi.fn();
+    // Same year: compact format "1 Sep - 4 Sep 2026"
     render(<DateRangePicker from="2026-09-01" to="2026-09-04" onChange={onChange} />);
 
-    expect(screen.getByText(/1 Sep 2026/)).toBeInTheDocument();
-    expect(screen.getByText(/4 Sep 2026/)).toBeInTheDocument();
+    expect(screen.getByText('1 Sep - 4 Sep 2026')).toBeInTheDocument();
+  });
+
+  it('renders trigger with full years when from and to span different years', () => {
+    const onChange = vi.fn();
+    render(<DateRangePicker from="2025-12-25" to="2026-01-05" onChange={onChange} />);
+
+    expect(screen.getByText('25 Des 2025 - 5 Jan 2026')).toBeInTheDocument();
   });
 
   it('emits preset range when preset button is clicked (Rule C11: both from & to)', async () => {
@@ -139,5 +146,62 @@ describe('DateRangePicker Component', () => {
     const range = presetRangeWib('7d');
     expect(range.from).toBeDefined();
     expect(range.to).toBeDefined();
+  });
+
+  describe('Mobile Viewport (< 640px)', () => {
+    let listeners: Array<(e: MediaQueryListEvent) => void> = [];
+
+    beforeEach(() => {
+      listeners = [];
+      vi.stubGlobal(
+        'matchMedia',
+        vi.fn().mockImplementation((query: string) => ({
+          matches: query.includes('max-width: 639px'),
+          media: query,
+          onchange: null,
+          addListener: vi.fn(),
+          removeListener: vi.fn(),
+          addEventListener: vi.fn((event: string, cb: (e: MediaQueryListEvent) => void) => {
+            if (event === 'change') listeners.push(cb);
+          }),
+          removeEventListener: vi.fn((event: string, cb: (e: MediaQueryListEvent) => void) => {
+            listeners = listeners.filter((l) => l !== cb);
+          }),
+          dispatchEvent: vi.fn(),
+        }))
+      );
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    it('renders with 44px touch target on mobile and opens dialog with title "Pilih Rentang Tanggal"', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      render(<DateRangePicker onChange={onChange} />);
+
+      const trigger = screen.getByRole('button', { name: /rentang tanggal/i });
+      expect(trigger).toHaveClass('min-h-[44px]');
+      expect(trigger).toHaveClass('h-11');
+
+      // Click trigger to open Dialog modal on mobile
+      await user.click(trigger);
+
+      // Verify Dialog role and title
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toBeInTheDocument();
+      expect(screen.getByText('Pilih Rentang Tanggal')).toBeInTheDocument();
+
+      // Click preset 7 hari inside dialog
+      const preset7 = screen.getByRole('button', { name: '7 hari' });
+      expect(preset7).toBeInTheDocument();
+      await user.click(preset7);
+
+      expect(onChange).toHaveBeenCalledTimes(1);
+      const emitted = onChange.mock.calls[0][0];
+      expect(emitted).toHaveProperty('from');
+      expect(emitted).toHaveProperty('to');
+    });
   });
 });
