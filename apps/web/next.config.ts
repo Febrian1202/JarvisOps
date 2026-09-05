@@ -14,6 +14,7 @@ const devOrigins = (process.env.NEXT_DEV_ALLOWED_ORIGINS ?? "")
   .filter(Boolean);
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   ...(devOrigins.length > 0 ? { allowedDevOrigins: devOrigins } : {}),
 };
 
