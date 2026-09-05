@@ -3,10 +3,10 @@ import { renderHook, waitFor } from '@testing-library/react';
 import React, { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { buildDashboardParams, toQueryString } from '@/lib/dashboard-params';
-import { useManagerDashboard } from '@/hooks/use-dashboards';
+import { useManagerDashboard, useAdminDashboard } from '@/hooks/use-dashboards';
 import * as apiModule from '@/lib/client/api';
 import { dashboardKeys } from '@/lib/query-keys';
-import type { ManagerDashboardData } from '@/types/dashboard';
+import type { ManagerDashboardData, AdminDashboardData } from '@/types/dashboard';
 import type { ApiResponse } from '@/types/api';
 
 const mockManagerData: ManagerDashboardData = {
@@ -25,6 +25,16 @@ const mockManagerData: ManagerDashboardData = {
   by_priority: [],
   by_category: [],
   technician_performance: [],
+};
+
+const mockAdminData: AdminDashboardData = {
+  ...mockManagerData,
+  total_users: 25,
+  total_technicians: 5,
+  total_departments: 4,
+  total_assets: 40,
+  assets_by_status: [{ status: 'in_use', count: 30 }],
+  recent_system_activity: [],
 };
 
 describe('buildDashboardParams & toQueryString (Rule C11)', () => {
@@ -192,4 +202,85 @@ describe('useManagerDashboard hook', () => {
     expect(result.current.data).toEqual(mockManagerData);
   });
 });
+
+describe('useAdminDashboard hook', () => {
+  let queryClient: QueryClient;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+          gcTime: Infinity,
+        },
+      },
+    });
+  });
+
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+
+  it('queries without query string when no params given and uses correct queryKey', async () => {
+    const apiFetchSpy = vi
+      .spyOn(apiModule, 'apiFetch')
+      .mockResolvedValueOnce({
+        success: true,
+        message: 'OK',
+        data: mockAdminData,
+      } as ApiResponse<AdminDashboardData>);
+
+    const { result } = renderHook(() => useAdminDashboard(), { wrapper });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    expect(apiFetchSpy).toHaveBeenCalledWith('/dashboard/admin');
+    expect(result.current.data).toEqual(mockAdminData);
+    expect(dashboardKeys.admin({})).toEqual(['dashboard', 'admin', {}]);
+  });
+
+  it('queries with query string when both date_from and date_to are provided', async () => {
+    const apiFetchSpy = vi
+      .spyOn(apiModule, 'apiFetch')
+      .mockResolvedValueOnce({
+        success: true,
+        message: 'OK',
+        data: mockAdminData,
+      } as ApiResponse<AdminDashboardData>);
+
+    const params = { date_from: '2026-09-01', date_to: '2026-09-04' };
+    const { result } = renderHook(() => useAdminDashboard(params), {
+      wrapper,
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    expect(apiFetchSpy).toHaveBeenCalledWith(
+      '/dashboard/admin?date_from=2026-09-01&date_to=2026-09-04'
+    );
+    expect(result.current.data).toEqual(mockAdminData);
+  });
+
+  it('omits query string when only one date param is provided', async () => {
+    const apiFetchSpy = vi
+      .spyOn(apiModule, 'apiFetch')
+      .mockResolvedValueOnce({
+        success: true,
+        message: 'OK',
+        data: mockAdminData,
+      } as ApiResponse<AdminDashboardData>);
+
+    const params = { date_from: '2026-09-01' };
+    const { result } = renderHook(() => useAdminDashboard(params), {
+      wrapper,
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    expect(apiFetchSpy).toHaveBeenCalledWith('/dashboard/admin');
+    expect(result.current.data).toEqual(mockAdminData);
+  });
+});
+
 

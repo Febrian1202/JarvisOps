@@ -6,6 +6,7 @@ import type {
   EmployeeDashboardData,
   TechnicianDashboardData,
   ManagerDashboardData,
+  AdminDashboardData,
 } from '@/types/dashboard';
 
 export { buildDashboardParams, toQueryString } from '@/lib/dashboard-params';
@@ -45,4 +46,17 @@ export function useManagerDashboard(params: { date_from?: string; date_to?: stri
     refetchIntervalInBackground: false,
   });
 }
+
+export function useAdminDashboard(params: { date_from?: string; date_to?: string } = {}) {
+  const qs = toQueryString(params);
+
+  return useQuery({
+    queryKey: dashboardKeys.admin(params),
+    queryFn: () => apiFetch<AdminDashboardData>(`/dashboard/admin${qs}`),
+    select: (res) => res.data,
+    staleTime: 60_000,
+    refetchIntervalInBackground: false,
+  });
+}
+
 
