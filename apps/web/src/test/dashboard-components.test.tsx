@@ -29,6 +29,24 @@ describe('MetricCard Component', () => {
     expect(screen.getByTestId('metric-footer')).toBeInTheDocument();
   });
 
+  it('has compact padding and responsive typography', () => {
+    const { container } = render(
+      <MetricCard
+        label="Total Tiket"
+        value={128}
+        icon={Activity}
+      />
+    );
+
+    const card = container.firstChild as HTMLElement;
+    expect(card.className).toContain('p-3');
+    expect(card.className).toContain('sm:p-4');
+
+    const valueEl = screen.getByText('128');
+    expect(valueEl.className).toContain('text-lg');
+    expect(valueEl.className).toContain('sm:text-2xl');
+  });
+
   it('renders "—" when value is null (K6 requirement)', () => {
     render(
       <MetricCard
