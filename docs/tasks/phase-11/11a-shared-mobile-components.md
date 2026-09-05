@@ -21,14 +21,14 @@
 **Interfaces:**
 - Produces: `useMediaQuery(query: string): boolean`, `useIsMobile(): boolean` (shortcut `(max-width: 639px)`)
 
-- [ ] **Step 1: Tulis test Vitest untuk `useMediaQuery`**
+- [x] **Step 1: Tulis test Vitest untuk `useMediaQuery`**
   Menguji fallback default saat SSR dan responsivitas saat `window.matchMedia` berubah.
-- [ ] **Step 2: Jalankan test dan pastikan gagal (RED)**
+- [x] **Step 2: Jalankan test dan pastikan gagal (RED)**
   `npm run test apps/web/src/hooks/use-media-query.test.ts`
-- [ ] **Step 3: Implementasikan `useMediaQuery` & `useIsMobile`**
+- [x] **Step 3: Implementasikan `useMediaQuery` & `useIsMobile`**
   Menggunakan `useSyncExternalStore` atau `useEffect` yang ramah React 19 SSR.
-- [ ] **Step 4: Jalankan test dan pastikan lulus (GREEN)**
-- [ ] **Step 5: Commit:**
+- [x] **Step 4: Jalankan test dan pastikan lulus (GREEN)**
+- [x] **Step 5: Commit:**
   `git commit -m "feat(web): add SSR-safe useMediaQuery and useIsMobile hooks"`
 
 ---
@@ -43,13 +43,13 @@
 - Consumes: `ColumnDef<TData>`, `PaginationMeta`
 - Produces: Tambahan prop opsional `renderCard?: (row: TData, index: number) => React.ReactNode` pada `DataTableProps<TData>`
 
-- [ ] **Step 1: Tulis test untuk render kartu di mobile viewport**
+- [x] **Step 1: Tulis test untuk render kartu di mobile viewport**
   Memastikan jika `renderCard` disediakan, container mobile merender kartu, sedangkan desktop tetap menampilkan `<table>`.
-- [ ] **Step 2: Jalankan test dan pastikan gagal (RED)**
-- [ ] **Step 3: Implementasikan tampilan ganda di `DataTable`**
+- [x] **Step 2: Jalankan test dan pastikan gagal (RED)**
+- [x] **Step 3: Implementasikan tampilan ganda di `DataTable`**
   Gunakan kelas utilitas CSS Tailwind `hidden sm:block` untuk tabel desktop dan `block sm:hidden space-y-3` untuk mobile list. Ini mencegah hydration flicker.
-- [ ] **Step 4: Jalankan test dan pastikan lulus (GREEN)**
-- [ ] **Step 5: Commit:**
+- [x] **Step 4: Jalankan test dan pastikan lulus (GREEN)**
+- [x] **Step 5: Commit:**
   `git commit -m "feat(web): add responsive mobile card adapter to DataTable"`
 
 ---
@@ -65,13 +65,13 @@
 - Consumes: `FilterField[]`, Radix Dialog / Sheet UI
 - Produces: `<MobileFilterSheet filters={...} activeCount={...} onApply={...} onReset={...} />`
 
-- [ ] **Step 1: Tulis test untuk `MobileFilterSheet`**
+- [x] **Step 1: Tulis test untuk `MobileFilterSheet`**
   Menampilkan trigger button dengan badge active filter count, membuka sheet dialog saat disentuh, serta tombol reset & terapkan.
-- [ ] **Step 2: Jalankan test dan pastikan gagal (RED)**
-- [ ] **Step 3: Implementasikan `MobileFilterSheet`**
+- [x] **Step 2: Jalankan test dan pastikan gagal (RED)**
+- [x] **Step 3: Implementasikan `MobileFilterSheet`**
   Komponen drawer bottom sheet dengan tombol bersihkan dan terapkan filter.
-- [ ] **Step 4: Integrasikan ke `FilterBar`**
+- [x] **Step 4: Integrasikan ke `FilterBar`**
   Tampilkan baris select lengkap di tablet/desktop (`hidden sm:flex`), dan gantikan dengan `MobileFilterSheet` di layar kecil (`sm:hidden`).
-- [ ] **Step 5: Jalankan test unit dan pastikan lulus (GREEN)**
-- [ ] **Step 6: Commit:**
+- [x] **Step 5: Jalankan test unit dan pastikan lulus (GREEN)**
+- [x] **Step 6: Commit:**
   `git commit -m "feat(web): introduce MobileFilterSheet and integrate into FilterBar"`
