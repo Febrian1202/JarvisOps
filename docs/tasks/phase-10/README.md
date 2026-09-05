@@ -132,9 +132,9 @@ Dipindah dari buffer ROADMAP ke **"Di luar cakupan"** (keputusan user: export CS
 
 1. [x] Semua temuan audit 10a diperbaiki atau didokumentasikan sebagai known-risk; tidak ada endpoint tanpa penjaga.
 2. [x] `docker compose -f compose.prod.yaml up` dari kondisi bersih menghasilkan aplikasi berfungsi (ROADMAP:930).
-3. [ ] CI hijau di `main` (Pint, Pest, tsc, lint, build) (ROADMAP:931).
+3. [x] CI hijau di `main` (Pint, Pest, tsc, lint, build) (ROADMAP:931).
 4. [ ] Octane worker mode aktif **atau** keputusan terdokumentasi untuk tetap classic mode (10d).
-5. [ ] `docs/ops/DEPLOYMENT.md`, `docs/ops/TESTING.md`, `docs/schema.sql` (sinkron), `API-CONTRACT.md`, `ROADMAP.md`, `README.md` lengkap & sinkron.
+5. [x] `docs/ops/DEPLOYMENT.md`, `docs/ops/TESTING.md`, `docs/schema.sql` (sinkron), `API-CONTRACT.md`, `ROADMAP.md`, `README.md` lengkap & sinkron.
 6. [ ] DemoDataSeeder menghasilkan data realistis (compliance ±87%, breached, asset history); golden path §38 dijalankan tanpa kesalahan dalam latihan (ROADMAP:935); 6 jawaban reviewer siap.
 7. [ ] 11 poin Definition of Technical Success (§12 PRD) & 10 poin Definition of Done (§37 PRD) terverifikasi.
 8. [ ] Export CSV (prioritas buffer) selesai bila waktu memungkinkan.

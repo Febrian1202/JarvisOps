@@ -178,10 +178,10 @@ git commit -m "docs: add architecture notes for capstone presentation"
 
 ## Exit Criteria 10c
 
-- [ ] `.github/workflows/ci.yml` hijau di push/PR ke `main` (Pint --test, Pest, tsc, lint, build; cache dependency).
-- [ ] `README.md` memuat gambaran produk, struktur, setup dev, kredensial demo, status fase.
-- [ ] `docs/ops/DEPLOYMENT.md` final (deploy, env, scheduler, backup, keamanan, HTTPS, troubleshooting).
-- [ ] `docs/ops/TESTING.md` ada (cara test + pemetaan test → business rule).
-- [ ] `docs/schema.sql` sinkron dengan migration final.
-- [ ] `API-CONTRACT.md` sinkron; `PERMISSION-MATRIX.md` terverifikasi; `ROADMAP.md` status terkini.
-- [ ] `docs/ops/ARCHITECTURE-NOTES.md` ada.
+- [x] `.github/workflows/ci.yml` hijau di push/PR ke `main` (Pint --test, Pest, tsc, lint, build; cache dependency).
+- [x] `README.md` memuat gambaran produk, struktur, setup dev, kredensial demo, status fase.
+- [x] `docs/ops/DEPLOYMENT.md` final (deploy, env, scheduler, backup, keamanan, HTTPS, troubleshooting).
+- [x] `docs/ops/TESTING.md` ada (cara test + pemetaan test → business rule).
+- [x] `docs/schema.sql` sinkron dengan migration final.
+- [x] `API-CONTRACT.md` sinkron; `PERMISSION-MATRIX.md` terverifikasi; `ROADMAP.md` status terkini.
+- [x] `docs/ops/ARCHITECTURE-NOTES.md` ada.
