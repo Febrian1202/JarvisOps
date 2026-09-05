@@ -1,6 +1,8 @@
-import { renderHook, act } from '@testing-library/react';
+import React from 'react';
+import { renderHook, act, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { useDebounce } from '@/hooks/use-debounce';
+import { FilterBar } from '@/components/shared/filter-bar';
 
 describe('useDebounce Hook', () => {
   it('debounces value updates after specified delay', () => {
@@ -23,3 +25,17 @@ describe('useDebounce Hook', () => {
     vi.useRealTimers();
   });
 });
+
+describe('FilterBar Component', () => {
+  it('renders filter trigger button on mobile', () => {
+    render(
+      <FilterBar
+        filters={[
+          { id: 'status', label: 'Status', options: [{ label: 'Open', value: 'OPEN' }] },
+        ]}
+      />
+    );
+    expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument();
+  });
+});
+

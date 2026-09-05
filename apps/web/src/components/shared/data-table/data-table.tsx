@@ -12,6 +12,7 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/shared/empty-state';
 import { DataTablePagination } from '@/components/shared/data-table/data-table-pagination';
+import { cn } from '@/lib/utils';
 import type { PaginationMeta } from '@/types/api';
 
 export interface ColumnDef<TData> {
@@ -22,7 +23,7 @@ export interface ColumnDef<TData> {
   className?: string;
 }
 
-interface DataTableProps<TData> {
+export interface DataTableProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   meta?: PaginationMeta;
@@ -31,6 +32,7 @@ interface DataTableProps<TData> {
   emptyDescription?: string;
   onPageChange?: (page: number) => void;
   onPerPageChange?: (perPage: number) => void;
+  renderCard?: (row: TData, index: number) => React.ReactNode;
 }
 
 export function DataTable<TData>({
@@ -42,10 +44,16 @@ export function DataTable<TData>({
   emptyDescription,
   onPageChange,
   onPerPageChange,
+  renderCard,
 }: DataTableProps<TData>) {
   return (
     <div className="space-y-3">
-      <div className="rounded-xl border border-border bg-card overflow-hidden">
+      <div
+        className={cn(
+          'rounded-xl border border-border bg-card overflow-hidden',
+          renderCard && 'hidden sm:block'
+        )}
+      >
         <Table>
           <TableHeader className="bg-muted/40">
             <TableRow className="border-border hover:bg-transparent">
@@ -98,6 +106,34 @@ export function DataTable<TData>({
           </TableBody>
         </Table>
       </div>
+
+      {renderCard && (
+        <div className="block sm:hidden space-y-3">
+          {isLoading ? (
+            Array.from({ length: 3 }).map((_, idx) => (
+              <div
+                key={`card-skeleton-${idx}`}
+                data-testid="table-card-skeleton"
+                className="rounded-xl border border-border bg-card p-4 space-y-3"
+              >
+                <Skeleton className="h-5 w-1/3 rounded-sm" />
+                <Skeleton className="h-4 w-full rounded-sm" />
+                <Skeleton className="h-4 w-2/3 rounded-sm" />
+              </div>
+            ))
+          ) : data.length === 0 ? (
+            <div className="rounded-xl border border-border bg-card p-8 text-center">
+              <EmptyState title={emptyTitle} description={emptyDescription} />
+            </div>
+          ) : (
+            data.map((row, idx) => (
+              <React.Fragment key={`mobile-card-row-${idx}`}>
+                {renderCard(row, idx)}
+              </React.Fragment>
+            ))
+          )}
+        </div>
+      )}
 
       {meta && onPageChange && (
         <DataTablePagination
