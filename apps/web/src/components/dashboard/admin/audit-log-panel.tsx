@@ -53,13 +53,13 @@ export function AuditLogPanel({ items, isLoading = false }: AuditLogPanelProps) 
             description="Belum ada catatan log aktivitas yang terekam pada sistem."
           />
         ) : (
-          <div className="rounded-md border border-cream-border overflow-hidden">
+          <div className="rounded-md border border-border overflow-hidden">
             <Table>
               <caption className="sr-only">
                 Daftar aktivitas log sistem terbaru
               </caption>
               <TableHeader className="bg-muted/30">
-                <TableRow className="border-cream-border hover:bg-transparent text-xs">
+                <TableRow className="border-border hover:bg-transparent text-xs">
                   <TableHead scope="col" className="py-2.5 font-semibold text-muted-foreground">
                     WAKTU
                   </TableHead>
@@ -74,7 +74,7 @@ export function AuditLogPanel({ items, isLoading = false }: AuditLogPanelProps) 
                   </TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody className="divide-y divide-cream-border/60">
+              <TableBody className="divide-y divide-border">
                 {displayItems.map((item) => {
                   const userName = item.user?.full_name ?? 'Sistem';
                   const actionLabel = getAuditActionLabel(item.action);
@@ -91,7 +91,7 @@ export function AuditLogPanel({ items, isLoading = false }: AuditLogPanelProps) 
                           router.push('/admin/audit-logs');
                         }
                       }}
-                      className="cursor-pointer hover:bg-muted/40 focus-visible:outline-none focus-visible:bg-muted/40 transition-colors border-cream-border text-xs"
+                      className="cursor-pointer hover:bg-muted/40 focus-visible:outline-none focus-visible:bg-muted/40 transition-colors border-border text-xs"
                     >
                       <TableCell className="py-2.5 whitespace-nowrap text-muted-foreground">
                         <RelativeTime date={item.created_at} />

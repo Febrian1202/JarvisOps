@@ -57,7 +57,7 @@ export function TechnicianActivityList({
   }
 
   return (
-    <div className="divide-y divide-cream-border/60">
+    <div className="divide-y divide-border">
       {activities.map((item) => {
         const Icon = getActivityIcon(item.field_changed);
         const actionLabel = getActivityFieldLabel(item.field_changed);
@@ -65,7 +65,7 @@ export function TechnicianActivityList({
         return (
           <div
             key={item.id}
-            className="flex items-center justify-between py-3.5 px-1 hover:bg-cream-card/50 rounded-sm transition-colors"
+            className="flex items-center justify-between py-3.5 px-1 hover:bg-muted/50 rounded-sm transition-colors"
           >
             <div className="flex items-center gap-3 min-w-0">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground">

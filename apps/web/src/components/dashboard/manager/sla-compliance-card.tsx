@@ -28,8 +28,8 @@ export function SlaComplianceCard({
   return (
     <div
       className={cn(
-        'rounded-card border border-cream-border bg-cream p-4 flex flex-col justify-between',
-        isDanger && 'border-[#fae8e8]/80 bg-[#fdf2f2]/60',
+        'rounded-card border border-border bg-card p-4 flex flex-col justify-between shadow-xs',
+        isDanger && 'border-[#fae8e8]/80 dark:border-destructive/40 bg-[#fdf2f2]/60 dark:bg-destructive/10',
         className
       )}
     >
@@ -41,8 +41,8 @@ export function SlaComplianceCard({
           className={cn(
             'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
             isDanger
-              ? 'bg-[#fae8e8] text-[#991b1b]'
-              : 'bg-muted/50 text-muted-foreground'
+              ? 'bg-[#fae8e8] text-[#991b1b] dark:bg-destructive/20 dark:text-destructive'
+              : 'bg-muted/60 text-muted-foreground'
           )}
         >
           <CheckCheck className="h-4 w-4" strokeWidth={1.5} />
@@ -56,7 +56,7 @@ export function SlaComplianceCard({
           <div
             className={cn(
               'text-2xl font-semibold tracking-tight',
-              isDanger ? 'text-[#991b1b]' : 'text-foreground'
+              isDanger ? 'text-[#991b1b] dark:text-destructive' : 'text-foreground'
             )}
           >
             {hasData ? `${compliancePercentage}%` : '—'}

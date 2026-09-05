@@ -43,7 +43,7 @@ export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableP
           Daftar ringkasan tiket aktif terbaru milik karyawan
         </caption>
         <thead>
-          <tr className="border-b border-cream-border text-xs text-muted-foreground">
+          <tr className="border-b border-border text-xs text-muted-foreground">
             <th scope="col" className="pb-3 pt-1 font-medium">NOMOR</th>
             <th scope="col" className="pb-3 pt-1 font-medium">JUDUL</th>
             <th scope="col" className="pb-3 pt-1 font-medium">STATUS</th>
@@ -52,7 +52,7 @@ export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableP
             <th scope="col" className="pb-3 pt-1 font-medium">DIBUAT</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-cream-border/60">
+        <tbody className="divide-y divide-border">
           {tickets.map((ticket) => {
             const isFinished = ticket.status.name === 'RESOLVED' || ticket.status.name === 'CLOSED';
             let signedRemainingMinutes: number | null = null;
@@ -66,7 +66,7 @@ export function TicketMiniTable({ tickets, isLoading = false }: TicketMiniTableP
               <tr
                 key={ticket.id}
                 onClick={() => router.push(`/tickets/${ticket.id}`)}
-                className="group cursor-pointer hover:bg-cream-card/50 transition-colors"
+                className="group cursor-pointer hover:bg-muted/50 transition-colors"
               >
                 <td className="py-3 font-mono text-xs font-medium text-foreground group-hover:underline">
                   {ticket.ticket_number}

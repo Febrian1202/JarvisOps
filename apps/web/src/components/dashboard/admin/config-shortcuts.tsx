@@ -63,7 +63,7 @@ export function ConfigShortcutsPanel() {
               <Link
                 key={shortcut.href}
                 href={shortcut.href}
-                className="group flex items-center gap-3.5 p-3.5 rounded-card border border-cream-border bg-cream hover:bg-cream-card hover:border-cream-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors"
+                className="group flex items-center gap-3.5 p-3.5 rounded-card border border-border bg-card hover:bg-muted/50 hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors shadow-xs"
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                   <Icon className="h-4.5 w-4.5" strokeWidth={1.5} />

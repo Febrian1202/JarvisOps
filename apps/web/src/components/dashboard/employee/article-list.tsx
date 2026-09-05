@@ -30,12 +30,12 @@ export function EmployeeArticleList({ articles, isLoading = false }: EmployeeArt
   }
 
   return (
-    <div className="divide-y divide-cream-border/60">
+    <div className="divide-y divide-border">
       {articles.map((article) => (
         <Link
           key={article.id}
           href={`/knowledge/${article.slug}`}
-          className="flex items-center justify-between py-3 group hover:bg-cream-card/50 px-1 rounded-sm transition-colors"
+          className="flex items-center justify-between py-3 group hover:bg-muted/50 px-1 rounded-sm transition-colors"
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/50 text-muted-foreground group-hover:text-foreground transition-colors">

@@ -33,11 +33,11 @@ export function DashboardPanel({
   return (
     <div
       className={cn(
-        'rounded-card border border-cream-border bg-cream p-5 flex flex-col',
+        'rounded-card border border-border bg-card p-5 flex flex-col shadow-xs',
         className
       )}
     >
-      <div className="flex items-center justify-between gap-4 pb-4 border-b border-cream-border mb-4">
+      <div className="flex items-center justify-between gap-4 pb-4 border-b border-border mb-4">
         <h3 className="font-semibold text-foreground text-sm sm:text-base tracking-tight">
           {title}
         </h3>

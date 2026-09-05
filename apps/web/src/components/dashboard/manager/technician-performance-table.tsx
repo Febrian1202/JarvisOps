@@ -120,13 +120,13 @@ export function TechnicianPerformanceTable({
       emptyMessage="Belum ada teknisi yang menangani tiket pada rentang tanggal ini."
       className={className}
     >
-      <div className="rounded-md border border-cream-border overflow-hidden">
+      <div className="rounded-md border border-border overflow-hidden">
         <Table>
           <caption className="sr-only">
             Daftar ringkasan performa dan beban kerja teknisi
           </caption>
           <TableHeader className="bg-muted/30">
-            <TableRow className="border-cream-border hover:bg-transparent">
+            <TableRow className="border-border hover:bg-transparent">
               <TableHead scope="col" className="py-3 font-semibold text-xs text-muted-foreground">
                 <DataTableColumnHeader
                   title="TECHNICIAN"
@@ -196,7 +196,7 @@ export function TechnicianPerformanceTable({
                   tabIndex={0}
                   onClick={() => handleRowClick(item.technician.id)}
                   onKeyDown={(e) => handleKeyDown(e, item.technician.id)}
-                  className="cursor-pointer hover:bg-muted/40 focus-visible:outline-none focus-visible:bg-muted/40 transition-colors border-cream-border"
+                  className="cursor-pointer hover:bg-muted/40 focus-visible:outline-none focus-visible:bg-muted/40 transition-colors border-border"
                 >
                   <TableCell className="font-medium text-foreground text-sm py-2.5">
                     {item.technician.full_name}
