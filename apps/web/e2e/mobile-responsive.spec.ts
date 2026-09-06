@@ -48,7 +48,7 @@ test.describe.serial('Mobile Responsive & Touch Ergonomics (Phase 11)', () => {
     await hamburgerBtn.click();
     const mobileNavDrawer = page.locator('[role="dialog"]');
     await expect(mobileNavDrawer).toBeVisible();
-    await expect(mobileNavDrawer.getByText('JARVIS OPS')).toBeVisible();
+    await expect(mobileNavDrawer.getByText('JARVIS OPS', { exact: true })).toBeVisible();
     await expect(mobileNavDrawer.getByText('Menu Utama')).toBeVisible();
 
     // 4. Klik link Tiket Layanan menutup drawer dan bernavigasi
