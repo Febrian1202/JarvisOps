@@ -31,9 +31,9 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="fixed top-0 bottom-0 left-0 right-auto z-50 h-full w-72 max-w-none translate-x-0 translate-y-0 rounded-none border-r border-border bg-card p-0 shadow-xl data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left">
-        <DialogHeader className="border-b border-border p-4 text-left">
-          <DialogTitle className="flex items-center gap-2">
+      <DialogContent className="fixed top-0 bottom-0 left-0 right-auto z-50 flex h-full w-72 max-w-none flex-col gap-0 translate-x-0 translate-y-0 rounded-none border-r border-border bg-card p-0 shadow-xl data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left">
+        <DialogHeader className="flex h-14 shrink-0 flex-row items-center space-y-0 border-b border-border px-4 text-left">
+          <DialogTitle className="flex items-center gap-2 pr-8">
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-xs shadow-sm">
               JO
             </span>
@@ -43,7 +43,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+        <div className="flex-1 overflow-y-auto px-3 py-3 space-y-5">
           <div>
             <p className="mb-2 px-3 font-medium text-muted-foreground text-xs uppercase tracking-wider">
               Menu Utama
@@ -62,7 +62,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
                     href={item.href}
                     onClick={() => onOpenChange(false)}
                     className={cn(
-                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                      'flex min-h-[44px] items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-secondary text-foreground font-semibold'
                         : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
@@ -92,7 +92,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
                       href={item.href}
                       onClick={() => onOpenChange(false)}
                       className={cn(
-                        'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                        'flex min-h-[44px] items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                         isActive
                           ? 'bg-secondary text-foreground font-semibold'
                           : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
@@ -106,6 +106,17 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
               </nav>
             </div>
           )}
+        </div>
+
+        <div className="shrink-0 border-t border-border p-3">
+          <div className="rounded-lg bg-muted/50 p-2 text-center">
+            <p className="text-[11px] text-muted-foreground">
+              JARVIS OPS {(() => {
+                const rawVersion = process.env.NEXT_PUBLIC_APP_VERSION || 'v1.0.0';
+                return rawVersion.startsWith('v') ? rawVersion : `v${rawVersion}`;
+              })()}
+            </p>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
