@@ -38,6 +38,183 @@
   --radius-2xl: calc(var(--radius) + 10px);
 }
 
+/* Motion language (Operate mode): fast feedback, expo-out arrivals, exit faster than entrance. */
+@theme {
+  --animate-overlay-in: overlay-in 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-overlay-out: overlay-out 160ms cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-dialog-in: dialog-in 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-dialog-out: dialog-out 180ms cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-sheet-in-top: sheet-in-top 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-sheet-out-top: sheet-out-top 240ms cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-sheet-in-bottom: sheet-in-bottom 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-sheet-out-bottom: sheet-out-bottom 240ms cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-sheet-in-left: sheet-in-left 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-sheet-out-left: sheet-out-left 240ms cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-sheet-in-right: sheet-in-right 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-sheet-out-right: sheet-out-right 240ms cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-popover-in: popover-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-popover-out: popover-out 120ms cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-form-message-in: form-message-in 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-empty-in: empty-in 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes overlay-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes overlay-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      scale: 0.96;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+  @keyframes dialog-out {
+    from {
+      opacity: 1;
+      scale: 1;
+    }
+    to {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+  @keyframes sheet-in-top {
+    from {
+      opacity: 0.5;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes sheet-out-top {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0.5;
+      transform: translateY(-100%);
+    }
+  }
+  @keyframes sheet-in-bottom {
+    from {
+      opacity: 0.5;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes sheet-out-bottom {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0.5;
+      transform: translateY(100%);
+    }
+  }
+  @keyframes sheet-in-left {
+    from {
+      opacity: 0.5;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes sheet-out-left {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0.5;
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes sheet-in-right {
+    from {
+      opacity: 0.5;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes sheet-out-right {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0.5;
+      transform: translateX(100%);
+    }
+  }
+  @keyframes popover-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  @keyframes popover-out {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.96) translateY(4px);
+    }
+  }
+  @keyframes form-message-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes empty-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 :root {
   --background: #f7f4ed;
   --foreground: #1c1c1c;
@@ -109,5 +286,26 @@
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
+  }
+}
+
+/* Mobile drawer reuses Dialog primitives but slides from the left edge.
+   Unlayered rules win over the layered dialog utilities deterministically. */
+.mobile-drawer[data-state='open'] {
+  animation: sheet-in-left 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.mobile-drawer[data-state='closed'] {
+  animation: sheet-out-left 240ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+/* prefers-reduced-motion: keep state changes legible, remove spatial movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

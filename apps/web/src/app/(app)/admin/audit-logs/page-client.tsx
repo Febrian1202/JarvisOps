@@ -14,16 +14,16 @@ export function AuditLogsPageClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { can, isLoading: isAuthLoading } = useAuth();
+  const { user, can, isLoading: isAuthLoading } = useAuth();
 
   const canView = can('audit-log.viewAny');
   const canViewUsers = can('user.viewAny');
 
   useEffect(() => {
-    if (!isAuthLoading && !canView) {
+    if (!isAuthLoading && user && !canView) {
       router.replace('/403');
     }
-  }, [canView, isAuthLoading, router]);
+  }, [canView, isAuthLoading, user, router]);
 
   const page = Number(searchParams.get('page')) || 1;
   const perPage = Number(searchParams.get('per_page')) || 15;
@@ -76,7 +76,7 @@ export function AuditLogsPageClient() {
     }
   };
 
-  if (isAuthLoading) {
+  if (isAuthLoading || !user) {
     return (
       <div className="space-y-4">
         <div className="h-8 w-48 bg-muted animate-pulse rounded" />

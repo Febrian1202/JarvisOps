@@ -31,7 +31,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="fixed top-0 bottom-0 left-0 right-auto z-50 flex h-full w-72 max-w-none flex-col gap-0 translate-x-0 translate-y-0 rounded-none border-r border-border bg-card p-0 shadow-xl data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left">
+      <DialogContent className="fixed top-0 bottom-0 left-0 right-auto z-50 flex h-full w-72 max-w-none flex-col gap-0 translate-x-0 translate-y-0 rounded-none border-r border-border bg-card p-0 shadow-xl data-[state=open]:animate-sheet-in-left data-[state=closed]:animate-sheet-out-left">
         <DialogHeader className="flex h-14 shrink-0 flex-row items-center space-y-0 border-b border-border px-4 text-left">
           <DialogTitle className="flex items-center gap-2 pr-8">
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-xs shadow-sm">

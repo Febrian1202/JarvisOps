@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 
 async function loginAs(page: Page, email: string) {
+  await page.context().clearCookies();
   await page.goto('/login');
   await page.fill('input[name="email"]', email);
   await page.fill('input[name="password"]', 'Password123!');
@@ -187,18 +188,15 @@ test.describe.serial('Mobile Responsive & Touch Ergonomics (Phase 11)', () => {
 
     for (const route of routesToTest) {
       await page.goto(route);
-      await page.waitForLoadState('domcontentloaded');
+      await page.waitForLoadState('load');
       await assertNoHorizontalOverflow(page, route);
     }
   });
 
   test('Test 6: Mobile /admin/users renders card view and filter bottom sheet updates URL', async ({
     page,
-    context,
   }) => {
-    await context.clearCookies();
     await loginAs(page, 'admin@jarvisops.test');
-
     await page.goto('/admin/users');
     await page.waitForLoadState('networkidle');
 
@@ -229,11 +227,8 @@ test.describe.serial('Mobile Responsive & Touch Ergonomics (Phase 11)', () => {
 
   test('Test 7: Mobile /admin/audit-logs renders card view and filter bottom sheet updates URL', async ({
     page,
-    context,
   }) => {
-    await context.clearCookies();
     await loginAs(page, 'admin@jarvisops.test');
-
     await page.goto('/admin/audit-logs');
     await page.waitForLoadState('networkidle');
 
@@ -263,5 +258,46 @@ test.describe.serial('Mobile Responsive & Touch Ergonomics (Phase 11)', () => {
     await expect(filterSheet).toBeHidden();
     await page.waitForURL(/[?&]module=/, { timeout: 10000 });
     expect(page.url()).toMatch(/[?&]module=/);
+  });
+
+  test('Test 8: Dialog modal on mobile viewports is centered and does not clip off-screen', async ({
+    page,
+  }) => {
+    await loginAs(page, 'admin@jarvisops.test');
+    await page.goto('/admin/users');
+    await page.waitForLoadState('networkidle');
+
+    // Buka modal Tambah Pengguna
+    const addBtn = page.getByRole('button', { name: /tambah pengguna/i });
+    await expect(addBtn).toBeVisible();
+    await addBtn.click();
+
+    const dialog = page.locator('[role="dialog"]');
+    await expect(dialog).toBeVisible();
+
+    // Verifikasi posisi bounding rect modal berada di tengah layar tanpa terpotong
+    const rect = await dialog.evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      return {
+        left: r.left,
+        right: r.right,
+        width: r.width,
+        viewportWidth,
+        isClippedLeft: r.left < 0,
+        isClippedRight: r.right > viewportWidth + 1,
+      };
+    });
+
+    expect(rect.isClippedLeft, `Modal dialog clipped to the left: left=${rect.left}`).toBe(false);
+    expect(
+      rect.isClippedRight,
+      `Modal dialog clipped to the right: right=${rect.right}, viewport=${rect.viewportWidth}`
+    ).toBe(false);
+
+    // Tombol Batal menutup dialog
+    const cancelBtn = dialog.getByRole('button', { name: 'Batal' });
+    await cancelBtn.click();
+    await expect(dialog).toBeHidden();
   });
 });
