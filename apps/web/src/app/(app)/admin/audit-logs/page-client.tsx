@@ -98,8 +98,11 @@ export function AuditLogsPageClient() {
           </p>
         </div>
 
-        <div className="self-start sm:self-auto">
-          <CsvExportButton entity="audit-logs" />
+        <div className="w-full sm:w-auto">
+          <CsvExportButton
+            entity="audit-logs"
+            className="w-full sm:w-auto min-h-[44px] sm:min-h-0 h-11 sm:h-8"
+          />
         </div>
       </div>
 

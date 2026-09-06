@@ -198,12 +198,12 @@ export function AuditLogTable({
           <div className="space-y-1 text-xs pt-1 border-t border-border/60">
             <div className="flex items-center gap-1">
               <span className="text-muted-foreground text-[11px]">Pelaku:</span>
-              <span className="font-medium text-foreground truncate">
+              <span className="font-medium text-foreground break-words truncate">
                 {log.user?.full_name ?? 'Sistem'}
               </span>
             </div>
             {log.description && (
-              <p className="text-xs text-muted-foreground line-clamp-2">
+              <p className="text-xs text-muted-foreground line-clamp-2 break-words">
                 {log.description}
               </p>
             )}
