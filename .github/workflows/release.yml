@@ -76,6 +76,16 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # --- Prepare Release Assets (Avoid Filename Collisions) ---
+      - name: Prepare release assets
+        run: |
+          mkdir -p dist-assets
+          cp compose.prod.yaml dist-assets/
+          cp compose.prod.octane.yaml dist-assets/
+          cp apps/api/.env.production.example dist-assets/api.env.production.example
+          cp apps/web/.env.production.example dist-assets/web.env.production.example
+          cp docker/mysql/init/* dist-assets/
+
       # --- Create GitHub Release with compose.prod.yaml asset ---
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -85,9 +95,4 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-          files: |
-            compose.prod.yaml
-            compose.prod.octane.yaml
-            apps/api/.env.production.example
-            apps/web/.env.production.example
-            docker/mysql/init/*
+          files: dist-assets/*
