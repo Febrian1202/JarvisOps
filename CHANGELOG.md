@@ -6,6 +6,54 @@ Format berkas ini mengacu pada [Keep a Changelog](https://keepachangelog.com/id-
 
 ---
 
+## [1.1.1] - 2026-09-06
+
+Rilis perbaikan pasca-Fase 11: perbaikan overflow mobile pada halaman Knowledge Base dan Assets, serta penggantian input tanggal pembelian aset dengan kalender shadcn.
+
+### Fixed
+- **Overflow Mobile Knowledge Base & Assets**:
+  - Tombol aksi ubah artikel pada `ArticleCard` tidak lagi memicu scroll horizontal di viewport mobile (margin negatif terkontrol, target sentuh 44px tetap terjaga).
+  - Guard otorisasi halaman Assets & Knowledge tidak lagi me-redirect ke `/403` sebelum state autentikasi selesai dimuat (`isAuthLoading` + `user` ditunggu sebelum redirect).
+
+### Changed
+- **Mobile Filter Sheet pada Halaman Assets**: filter status, kategori, dan pemegang aset kini tampil dalam `MobileFilterSheet` (bottom sheet) di viewport mobile, menggantikan baris dropdown horizontal yang memicu overflow.
+- **Pemilih Tanggal Kalender pada Form Aset**: input `purchase_date` bawaan browser diganti komponen kalender shadcn (`Calendar` + `Popover`) dengan format tanggal berbahasa Indonesia (date-fns locale `id`), batas maksimal hari ini, dan navigasi bulan/tahun dropdown.
+
+### Added
+- Test unit baru: `asset-filters.test.tsx`, `asset-form-date.test.tsx`, `article-card.test.tsx`; pembaruan guard test halaman assets & knowledge.
+
+---
+
+## [1.1.0] - 2026-09-06
+
+Rilis Fase 11 (**Mobile Responsive Layout & Touch Ergonomics**). Seluruh antarmuka kini aman dan nyaman dipakai pada perangkat mobile.
+
+### Added
+- **Komponen Mobile Bersama (11a)**:
+  - Hook SSR-safe `useMediaQuery` / `useIsMobile`.
+  - Primitif UI `Sheet` dengan varian sisi untuk bottom sheet.
+  - Adapter kartu mobile responsif pada `DataTable` dan integrasi `MobileFilterSheet` ke `FilterBar`.
+- **Mobile Ticket & Asset (11b)**:
+  - `TicketCard` — tampilan kartu daftar tiket di mobile.
+  - Sticky mobile action bar pada detail tiket.
+  - `AssetCard` — tampilan kartu aset dengan unggah siap-kamera.
+- **Dashboard & Grafik Mobile (11c)**:
+  - Metric card ringkas dengan grid 2 kolom responsif.
+  - Ukuran chart responsif dan penyembunyian kolom tabel sekunder di mobile.
+  - `DateRangePicker` aman-mobile via dialog.
+- **KB, Admin & Touch Hardening (11d)**:
+  - Pembaca & editor Knowledge Base ramah-mobile dengan filter sheet.
+  - Tabel admin users & audit logs responsif dengan tampilan kartu mobile.
+  - Penguatan target sentuh 44px pada dialog admin, form profil, dan nav drawer mobile yang ringkas.
+- **Playwright Mobile Projects (11e)**:
+  - Proyek mobile otomatis Pixel 7 & iPhone 14 beserta suite E2E viewport mobile.
+- **CI Docker**: workflow build & push image produksi ke GitHub Container Registry (GHCR).
+
+### Fixed
+- Pemusatan posisi dialog modal dan pencegahan animasi ter-terjemahkan ganda pada perangkat mobile.
+
+---
+
 ## [1.0.0] - 2026-09-05
 
 Rilis penuh (**Full Release**) sistem JARVIS OPS. Menyelesaikan seluruh cakupan Fase 10 (Kualitas, Deployment, Audit Keamanan, dan Persiapan Demo Capstone).

@@ -2,10 +2,26 @@
 
 **IT Service Management System** — platform terpusat untuk mengelola permintaan dan permasalahan IT, aset perusahaan, knowledge base, serta monitoring performa layanan IT.
 
-Laravel 13 · Next.js 16 · MySQL 8 · FrankenPHP · Docker
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue.svg)](https://github.com/Febrian1202/JarvisOps/releases)
+[![Backend Tests](https://img.shields.io/badge/Backend%20Tests-727%20Passing-brightgreen.svg)]()
+[![Frontend Tests](https://img.shields.io/badge/Frontend%20Tests-352%20Passing-brightgreen.svg)]()
+[![Accessibility](https://img.shields.io/badge/WCAG-2.2%20AA-success.svg)]()
+[![Stack](https://img.shields.io/badge/Stack-Laravel%2013%20%7C%20Next.js%2016%20%7C%20MySQL%208%20%7C%20FrankenPHP-orange.svg)]()
 
-> **Status: Fase 11 Selesai — Rilis `v1.1.0` (Tag `v1.1.0`).**
-> Seluruh dokumen desain (PRD, ERD, DFD, API contract, matriks transisi status, matriks permission, roadmap) sudah lengkap. Backend telah memiliki 18 model, 24 migration, autentikasi + otorisasi berbasis policy, modul tiket lengkap (CRUD, query/search/filter, workflow status machine, komentar, history timeline, golden path test — Fase 3 Selesai), background SLA breach scheduler (Fase 4a Selesai), API notifikasi in-app (Fase 4b Selesai), API Audit Log dengan pembatasan peran & timezone conversion (Fase 4c Selesai — Tag `v0.4.0`), seluruh modul pendukung Fase 5 (Asset, Knowledge Base, File Attachment, Administrasi Master Data & User), Dashboard API untuk 4 Role (Fase 6 Selesai — Tag `v0.6.0`), pondasi frontend Next.js 16, App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik (Fase 7 Selesai — Tag `v0.7.0`), seluruh fitur frontend lengkap (Tiket, Aset, Knowledge Base, Administrasi, Profil — Fase 8 Selesai, Tag `v0.8.0`), Dashboard UI & Visual Analytics per role dengan visualisasi Recharts, E2E testing Playwright komprehensif, dan audit aksesibilitas WCAG 2.2 AA (Fase 9 Selesai — Tag `v0.9.0`), Docker stack produksi multi-stage (`compose.prod.yaml`), CI otomatis GitHub Actions, evaluasi Octane, demo seeder terkalibrasi, streamed CSV export, dan verifikasi akhir DoD & Technical Success (Fase 10 Selesai — Tag `v1.0.0`), serta Mobile Responsive Layout & Touch Ergonomics lengkap dengan responsive card view adapter, bottom sheet filter, sticky mobile action bar di detail tiket, touch-safe forms/dialogs, dan automated mobile E2E suite Pixel 7 & iPhone 14 (Fase 11 Selesai — Tag `v1.1.0`). Lihat [Status Implementasi](#status-implementasi) untuk rincian yang sudah ada.
+> **Production-Ready IT Service Management Monorepo (Tag `v1.1.0`)**  
+> JARVIS OPS telah melewati seluruh siklus rekayasa perangkat lunak secara komprehensif: 18 model database terindeks, 727 backend test (3300+ assertions), otorisasi berbasis role policy ketat, background SLA scheduler dengan deteksi breach otomatis, notifikasi in-app, 4 dashboard analytics per role (Employee, Technician, Manager, Admin), arsitektur BFF Next.js 16 + React 19 + Tailwind v4, audit aksesibilitas WCAG 2.2 AA (0 violation), Docker stack produksi multi-stage, serta antarmuka responsif mobile & touch ergonomics.
+
+---
+
+## Navigasi Dokumen Penting
+
+Untuk reviewer capstone dan tim pengembang:
+
+- 🚀 **[Panduan Deployment Produksi](docs/ops/DEPLOYMENT.md)** — Konfigurasi `compose.prod.yaml`, SSL/TLS Caddy, optimasi OPcache/standalone.
+- 🎯 **[Demo Runbook & Skenario Evaluasi](docs/ops/DEMO-RUNBOOK.md)** — Panduan langkah demi langkah demonstrasi sistem untuk reviewer.
+- 🧪 **[Panduan Testing & Kepatuhan DoD](docs/ops/TESTING.md)** — Pemetaan business rules, hasil pengujian unit/feature/E2E, dan verifikasi kriteria sukses teknis.
+- 🗺️ **[Roadmap & Riwayat Sprint](docs/product/ROADMAP.md)** — Arsip detail eksekusi Fase 0 s.d. Fase 11.
+- 🔒 **[Audit Keamanan & Kepatuhan](docs/ops/SECURITY-AUDIT.md)** — Inventaris 65 route, pembatasan otorisasi, proteksi injection, dan rate limiting.
 
 ---
 
@@ -78,12 +94,12 @@ Skema menetapkan satu role per user lewat `users.role_id`. `spatie/laravel-permi
 File tidak bisa diakses hanya karena seseorang tahu URL-nya. Setiap permintaan unduh melewati Policy ticket induknya.
 
 **Runtime: FrankenPHP classic mode.**
-Satu container untuk web server dan PHP, dengan HTTPS otomatis lewat Caddy. Classic mode dipilih karena perilakunya identik dengan PHP-FPM, sehingga tidak ada risiko state bocor antar-request. Worker mode (Octane) ditunda sebagai opsional dan hanya dipertimbangkan setelah test suite lengkap.
+Satu container untuk web server dan PHP, dengan HTTPS otomatis lewat Caddy. Classic mode dipilih karena perilakunya identik dengan PHP-FPM, sehingga tidak ada risiko state bocor antar-request. Worker mode (Octane) telah dievaluasi di Fase 10 dan tetap tersedia sebagai opsi lewat `compose.prod.octane.yaml` — hasil benchmark dan auditnya ada di [`docs/ops/OCTANE-AUDIT.md`](docs/ops/OCTANE-AUDIT.md).
 
 **Notification: database + polling 30 detik.**
 WebSocket tidak sepadan untuk MVP internal. Polling menerima keterlambatan sampai 30 detik sebagai ganti kesederhanaan operasional yang besar.
 
-Uraian lengkap ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md) bagian 2.
+Uraian lengkap ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md) bagian 2 dan [`docs/adr/DECISIONS.md`](docs/adr/DECISIONS.md).
 
 ---
 
@@ -94,14 +110,19 @@ JarvisOps/
 ├── apps/
 │   ├── api/                  Laravel 13 + Sanctum 4  (PHP 8.3+)
 │   └── web/                  Next.js 16 + React 19 + Tailwind v4
+├── docker/                   environment dev
+├── compose.yaml              stack dev (api, scheduler, mysql, web)
+├── compose.prod.yaml         stack produksi multi-stage
+├── compose.prod.octane.yaml  override opsional Octane worker mode
+├── Makefile                  perintah dev (make up, make test, ...)
 ├── docs/
 │   ├── product/
 │   │   ├── PRD.md                    Product requirements + addendum v1.1
-│   │   ├── ROADMAP.md                10 fase, 8 minggu, checklist eksekusi
+│   │   ├── ROADMAP.md                Riwayat eksekusi fase + checklist
 │   │   ├── STATUS-TRANSITION.md      Matriks transisi status ticket × role
 │   │   └── PERMISSION-MATRIX.md      Ability, Policy, aturan 403 vs 404
 │   ├── api/
-│   │   └── API-CONTRACT.md           Envelope, 51 endpoint, query param
+│   │   └── API-CONTRACT.md           Envelope, endpoint, query param
 │   ├── architecture/
 │   │   ├── ERD.md                    Penjelasan 18 tabel dan relasinya
 │   │   ├── DFD.md                    Data flow level 1 & 2
@@ -109,6 +130,14 @@ JarvisOps/
 │   │   ├── BACKEND-ARCHITECTURE.md    Pola service layer, DTO & request pipeline
 │   │   ├── FRONTEND-ARCHITECTURE.md   Pola BFF, komponen & state frontend
 │   │   └── CONTEXT-DIAGRAM.drawio
+│   ├── adr/
+│   │   └── DECISIONS.md              Keputusan teknis D-01..D-24
+│   ├── ops/
+│   │   ├── DEPLOYMENT.md             Panduan deployment produksi
+│   │   ├── TESTING.md                Pemetaan test ↔ business rule
+│   │   ├── DEMO-RUNBOOK.md           Skenario demo untuk reviewer
+│   │   ├── SECURITY-AUDIT.md         Audit keamanan & hardening
+│   │   └── ...
 │   └── schema.sql                    ERD v1.2 dalam DDL MySQL
 └── README.md
 ```
@@ -131,65 +160,46 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 | [`docs/api/API-CONTRACT.md`](docs/api/API-CONTRACT.md) | Bentuk request/response seluruh endpoint | Sebelum menulis controller atau memanggil API |
 | [`docs/product/STATUS-TRANSITION.md`](docs/product/STATUS-TRANSITION.md) | Transisi status yang legal beserta efek sampingnya | Sebelum menyentuh workflow ticket |
 | [`docs/product/PERMISSION-MATRIX.md`](docs/product/PERMISSION-MATRIX.md) | Ability per role, pemetaan endpoint | Sebelum menulis Policy |
-| [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md) | Rencana eksekusi 10 fase beserta exit criteria | Setiap hari selama pengerjaan |
+| [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md) | Riwayat eksekusi 11 fase beserta exit criteria | Menelusuri keputusan & urutan pengerjaan |
 | [`docs/adr/DECISIONS.md`](docs/adr/DECISIONS.md) | Catatan keputusan teknis yang menutup gap pada dokumen desain | Saat menulis migration, policy, dan API controller |
 
 ---
 
-## Status Implementasi
+## Status Rilis
 
-### Sudah ada
+**Rilis terkini: `v1.1.0`** — seluruh fase roadmap selesai dan diverifikasi menyeluruh. Repositori berada dalam kondisi siap produksi dan siap dievaluasi.
 
-- Seluruh dokumen desain di `docs/` — lengkap dan sudah saling diverifikasi konsisten
-- **Fase 0 (Repo, Docker, Toolchain) — SELESAI**: `compose.yaml`, `docker/`, `Makefile`, Pest 5 terpasang, smoke test hijau
-- **Fase 2 (Backend Fondasi & Walking Skeleton) — SELESAI**: auth (login/logout/profile) via Sanctum, middleware, `/api/health`, halaman login + dashboard terproteksi di `apps/web`, BFF proxy dengan httpOnly cookie
-- **Fase 3 (Ticket Core & Workflow) — SELESAI (Tag: `v0.3.0`)**:
-  - **3a (Ticket Foundation)**: enums, matriks transisi status, TicketPolicy/AssetPolicy/TicketCommentPolicy/NotificationPolicy, SlaService (snapshot + defensif), AuditLogger, NotificationService, state TicketFactory, `ApiResponse::paginated()` resource-aware, migration index
-  - **3b (Ticket CRUD)**: DTO + FormRequest + rule kepemilikan asset, `TicketService::create/update/delete/find`, `TicketResource`/`TicketListResource`, `TicketController`, `GET /api/assets/assignable`
-  - **3c (Ticket Query & References)**: list dengan scoping role, 11 filter, search LIKE, sort whitelist, dan 4 endpoint referensi read-only (`/ticket-categories`, `/ticket-priorities`, `/ticket-statuses`, `/technicians`)
-  - **3d (Ticket Workflow & Concurrency)**: `TicketStatusService` (assign/unassign/self-assign/status/priority), optimistic locking `expected_status_id` (409 Conflict), `available_actions`, `editable_fields`
-  - **3e (Comments, History, & Golden Path)**: komentar CRUD (jendela 15 menit), history timeline berurutan menaik dengan label manusia, notifikasi `TICKET_COMMENTED`, dan `GoldenPathTest` end-to-end via HTTP
-- **Fase 4 (SLA, Notification, Audit Log) — SELESAI (Tag: `v0.4.0`)**:
-  - **4a (SLA Scheduler & Breach Detection)**: background command `tickets:check-sla`, persistensi breach status & timestamp, audit trail sistem `sla_breach` (`user_id = null`), notifikasi `TICKET_SLA_BREACHED` ke teknisi & manager
-  - **4b (Notification API & Event Delivery)**: endpoint `GET /api/notifications` (filter, pagination, ISO 8601 UTC), `GET /api/notifications/unread-count` (1 query COUNT), `POST /api/notifications/{id}/read` & `POST /api/notifications/read-all`, isolasi kepemilikan ketat (404 untuk akses notifikasi user lain tanpa bypass admin), verifikasi pengiriman 11 tipe notifikasi
-  - **4c (Audit Log API)**: endpoint `GET /api/audit-logs` (ringkas) dan `GET /api/audit-logs/{id}` (lengkap dengan old/new data & user_agent), pembatasan query server Manager (hanya modul ticket, asset, article), pencegahan kebocoran data (200 list kosong & 404 detail), konversi presisi filter tanggal Asia/Jakarta ke UTC, dan verifikasi cakupan seluruh event sistem
-- **Fase 5 (Modul Pendukung & Administrasi) — SELESAI**:
-  - **5a (Foundation, Spec, Policy, Enum, Index, Disk) — SELESAI**: amandemen D-08/D-11, `ArticlePolicy`, `AttachmentPolicy`, `AssetPolicy` lengkap, enum `ArticleStatus` & `AssetHistoryAction`, penambahan 3 index skema, disk `private` (`serve => false`), factory states.
-  - **5b (Asset Management) — SELESAI**: CRUD asset (T/M/A, tanpa delete utk T), assign & release dengan row locking `lockForUpdate()` (D-09) & validasi status/konflik, search 3-field + filter + sort whitelist + meta pagination tanpa N+1, detail asset dengan relasi pemegang aktif, timeline riwayat gabungan `GET /api/assets/{id}/history`, dan endpoint kepemilikan `GET /api/my-assets`.
-  - **5c (Knowledge Base) — SELESAI**: CRUD artikel, category, publish/unpublish workflow, slug uniqueness, view counter.
-  - **5d (File Attachment) — SELESAI**: Private disk storage, upload validation (MIME & extension), secure download controller under TicketPolicy.
-  - **5e (User & Master Data Administration) — SELESAI**: CRUD user, role, department, ticket categories, ticket priorities & SLA configs.
-- **Fase 6 (Dashboard & Analytics API) — SELESAI (Tag: `v0.6.0`)**:
-  - **6a (Foundation & Query Kernel) — SELESAI**: `DashboardDateRange`, `DashboardCountsQuery`, `SlaMetricsCalculator`, `TicketTrendQuery`, `TechnicianPerformanceQuery`.
-  - **6b (Employee & Technician Dashboards) — SELESAI**: `GET /api/dashboard/employee` & `GET /api/dashboard/technician` dengan scoping ketat.
-  - **6c (Manager Dashboard) — SELESAI**: `GET /api/dashboard/manager` dengan SLA metrics (D-03), daily trend WIB, distribusi priority & category, serta performa teknisi.
-  - **6d (Admin Dashboard & Finalisasi) — SELESAI**: `GET /api/dashboard/admin` memperluas metrik manager dengan sistem totals (user, technician, department, asset), status asset breakdown, recent system audit logs, serta verifikasi N+1/performa (<500ms).
-- **Fase 7 (Frontend Foundation, App Shell, & Shared Components) — SELESAI (Tag: `v0.7.0`)**:
-  - App Shell responsif, Plus Jakarta Sans, warm-neutral theme, 16 baseline UI + 9 shared components, TanStack Query polling notifikasi 30 detik.
-- **Fase 8 (Fitur Frontend Lengkap) — SELESAI (Tag: `v0.8.0`)**:
-  - Seluruh halaman modul operasional: tiket, aset, knowledge base, administrasi master data/user, profil, audit logs, serta unit testing frontend komprehensif.
-- **Fase 9 (Dashboard UI & Visual Analytics) — SELESAI (Tag: `v0.9.0`)**:
-  - **9a (Amandemen Backend & Komponen Bersama)**: Amandemen API B1 (`sla_compliance_percentage` technician), B2 (`unassigned_tickets` manager), B3 (`ticket` referensi pada recent activity), dan B4 (`ArticleListResource` recent articles employee); komponen `MetricCard`, `DashboardPanel`, `LazyChart`, `DateRangePicker`.
-  - **9b (Dashboard Employee & Technician)**: Metrik ringkasan, tiket aktif/assigned, highlight pelanggaran SLA, kartu aset & artikel terbaru, serta tautan cepat.
-  - **9c (Dashboard Manager)**: Kartu operasional & tiket unassigned, SLA compliance gauge/ring, tren tiket harian responsif Recharts (Area/Bar) dengan date range picker, pie/donut charts breakdown, serta tabel performa teknisi yang dapat diurutkan.
-  - **9d (Dashboard Admin)**: Gabungan metrik analitik manager + total sistem pengguna/teknisi/departemen/aset, status aset breakdown chart, audit log aktivitas sistem real-time, dan router dashboard otomatis sesuai role di `/`.
-  - **9e (E2E Testing & Accessibility)**: Playwright automated test suite mencakup keempat tampilan dashboard role, interaksi filter date range, pengurutan tabel, verifikasi empty state akun baru, dan audit kepatuhan aksesibilitas WCAG 2.2 AA (axe-core 0 violation).
-- **Fase 10 (Quality, Deployment, Demo — Berjalan)**:
-  - **10a (Security Audit & Hardening)**: Verifikasi 65 route rows, rate limiting login/upload/search/api, proteksi mass assignment audit, exception handling tanpa stack trace di production.
-  - **10b (Docker Produksi)**: Multi-stage Dockerfile untuk API (FrankenPHP classic) dan Web (Next.js standalone), isolated scheduler container, persistent volume data MySQL & shared attachment, stack `compose.prod.yaml` terverifikasi.
-  - **10c (CI & Dokumentasi)**: GitHub Actions CI pipeline (`.github/workflows/ci.yml`), panduan deployment produksi final (`docs/ops/DEPLOYMENT.md`), panduan testing & pemetaan business rules (`docs/ops/TESTING.md`), sinkronisasi skema ERD (`docs/schema.sql`), catatan arsitektur presentasi (`docs/ops/ARCHITECTURE-NOTES.md`).
-  - **10d (Octane Worker Mode)**: Evaluasi performa Octane, audit state leak, benchmark FrankenPHP worker mode vs classic mode (`docs/ops/OCTANE-AUDIT.md`).
-  - **10e (Demo Data & Golden Path)**: Kalibrasi `DemoDataSeeder` (SLA compliance ~87,5%, multi-holder asset history), 21 E2E Playwright tests passing, demo runbook & reviewer answers (`docs/ops/DEMO-RUNBOOK.md`, `docs/ops/REVIEWER-ANSWERS.md`).
-  - **10f (Buffer & CSV Export)**: Streamed CSV Export (tickets, assets, audit-logs) dengan UTF-8 BOM, chunking memory-safe, export rate limiter, dan tombol UI terintegrasi.
-  - **10g (Final Check & Tag v1.0.0)**: Verifikasi 11 poin Definition of Technical Success (`DefinitionOfTechnicalSuccessTest.php`), verifikasi 10 poin Definition of Done (§37 PRD), full suite test hijau di semua lapis, rilis final `v1.0.0`.
-- `apps/api` — Laravel 13.29 + Sanctum 4, 24 migration, 18 model, 40 routes (56 operations), 727 test passing (3300+ assertions, 0 failures), Pint bersih
-- `apps/web` — Next.js 16.3 + React 19 + Tailwind v4, 33 app routes, 352 passing unit/component tests, Playwright E2E test suite
+### Metrik kualitas
 
-### Rilis Penuh (Tag `v1.0.0`)
+| Aspek | Hasil |
+| --- | --- |
+| Backend | Laravel 13.29 + Sanctum 4, 24 migration, 18 model, 40 routes (56 operations) |
+| Test backend | 727 passing (3300+ assertions), Pest 5, Pint bersih |
+| Frontend | Next.js 16.3 + React 19 + Tailwind v4, 33 app routes |
+| Test frontend | 352 unit/component passing (Vitest) |
+| Test E2E | 21 skenario Playwright desktop + suite mobile Pixel 7 & iPhone 14 |
+| Aksesibilitas | WCAG 2.2 AA — 0 violation (axe-core) |
+| Kriteria sukses | 11 poin Definition of Technical Success + 10 poin Definition of Done terverifikasi |
+| CI | GitHub Actions otomatis (`.github/workflows/ci.yml`) |
+| Keamanan | Rate limiting, validasi ganda MIME + extension, audit mass assignment (`docs/ops/SECURITY-AUDIT.md`) |
 
-Seluruh 10 fase telah selesai dikerjakan dan diverifikasi secara menyeluruh. Repositori berada dalam kondisi siap produksi dan siap dievaluasi.
+### Riwayat fase
 
-Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md).
+| Fase | Cakupan | Tag |
+| --- | --- | --- |
+| 0 | Repo, Docker, toolchain, Pest 5 | — |
+| 2 | Backend fondasi & walking skeleton (auth, BFF proxy) | — |
+| 3 | Ticket core & workflow (CRUD, query, transisi, komentar, history) | `v0.3.0` |
+| 4 | SLA scheduler & breach detection, notifikasi, audit log API | `v0.4.0` |
+| 5 | Asset, knowledge base, file attachment, administrasi master data | — |
+| 6 | Dashboard & analytics API untuk 4 role | `v0.6.0` |
+| 7 | Frontend foundation, app shell, shared components | `v0.7.0` |
+| 8 | Fitur frontend lengkap seluruh modul | `v0.8.0` |
+| 9 | Dashboard UI & visual analytics, E2E & aksesibilitas | `v0.9.0` |
+| 10 | Quality, deployment produksi, demo, CSV export | `v1.0.0` |
+| 11 | Mobile responsive layout & touch ergonomics | `v1.1.0` |
+
+Rincian teknis per fase beserta checklist eksekusinya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md).
 
 ---
 
@@ -205,7 +215,7 @@ Urutan pengerjaan beserta checklistnya ada di [`docs/product/ROADMAP.md`](docs/p
 | Node.js | 22 LTS | |
 | MySQL | 8.x | Hanya untuk pengembangan tanpa Docker |
 
-### Dengan Docker
+### Mode Pengembangan (Docker)
 
 ```bash
 git clone <repo-url> JarvisOps
@@ -213,9 +223,6 @@ cd JarvisOps
 
 cp apps/api/.env.example apps/api/.env
 cp apps/web/.env.example apps/web/.env
-
-# generate application key jika belum ada di apps/api/.env
-# cd apps/api && php artisan key:generate
 
 make up          # menyalakan api, scheduler, mysql, web
 make migrate     # menjalankan migration
@@ -226,9 +233,20 @@ make seed        # data referensi + akun demo
 | --- | --- |
 | Frontend | http://localhost:3000 |
 | API | http://localhost:8000/api |
-| Health check | http://localhost:8000/up |
+| Health check | http://localhost:8000/api/health |
 
 Container `scheduler` berjalan terpisah dari container web. Ini bukan pilihan gaya: FrankenPHP hanya melayani HTTP, jadi tanpa container tersebut pemeriksaan SLA tiap 5 menit tidak akan pernah jalan.
+
+### Mode Produksi (Docker Compose)
+
+Stack produksi multi-stage (`compose.prod.yaml`) memakai image API FrankenPHP classic + scheduler terisolasi dan Web Next.js standalone:
+
+```bash
+docker compose -f compose.prod.yaml up --build -d
+docker compose -f compose.prod.yaml exec api php artisan db:seed --force
+```
+
+Panduan lengkap — environment produksi, optimasi cache, backup/restore MySQL, opsi Octane worker mode (`compose.prod.octane.yaml`) — ada di [`docs/ops/DEPLOYMENT.md`](docs/ops/DEPLOYMENT.md).
 
 ### Tanpa Docker
 
@@ -258,7 +276,11 @@ make up / make down          # nyalakan / matikan seluruh service
 make sh                      # shell ke container api
 make migrate                 # jalankan migration
 make fresh                   # migrate:fresh --seed
-make test                    # jalankan test suite (Pest)
+make test                    # jalankan test suite backend (Pest)
+make test-web                # jalankan test frontend (Vitest)
+make lint-web                # eslint frontend
+make typecheck-web           # tsc --noEmit frontend
+make check                   # test-api + pint + lint + typecheck + test-web
 make pint                    # format kode PHP
 make logs                    # ikuti log seluruh service
 ```
@@ -282,7 +304,11 @@ Tidak ada registrasi publik. Akun hanya dibuat oleh Administrator atau seeder �
 
 ## Testing
 
-Backend memakai **Pest 5**. Cakupan yang dituju adalah business-critical logic: matriks otorisasi seluruh role, workflow dan transisi status ticket, perhitungan dan pelanggaran SLA, validasi kepemilikan aset, serta validasi file attachment.
+Cakupan pengujian menyentuh seluruh lapis: business-critical logic di backend, komponen UI di frontend, dan skenario end-to-end pengguna.
+
+### Backend (Pest 5)
+
+Fokus pada matriks otorisasi seluruh role, workflow dan transisi status ticket, perhitungan dan pelanggaran SLA, validasi kepemilikan aset, serta validasi file attachment.
 
 ```bash
 cd apps/api
@@ -294,6 +320,18 @@ php artisan test --parallel                   # paralel via paratest
 Test memakai SQLite in-memory supaya cepat. Karena migration adalah satu-satunya sumber kebenaran skema, `RefreshDatabase` selalu menghasilkan struktur yang sama dengan MySQL produksi.
 
 Catatan versi: Pest 5 mensyaratkan `phpunit/phpunit ^13.3`, lebih tinggi dari default skeleton Laravel. Bump ini sudah diverifikasi kompatibel dengan Laravel 13 dan Collision 8.9.
+
+### Frontend (Vitest) & E2E (Playwright)
+
+```bash
+cd apps/web
+npm run test        # 352 unit/component test
+npm run lint        # eslint
+npm run typecheck   # tsc --noEmit
+npx playwright test # 21 skenario E2E desktop + mobile (Pixel 7, iPhone 14)
+```
+
+Pemetaan antara test dan business rule yang dijaganya ada di [`docs/ops/TESTING.md`](docs/ops/TESTING.md).
 
 ---
 
