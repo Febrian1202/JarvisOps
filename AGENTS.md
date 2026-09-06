@@ -49,6 +49,7 @@ For code: migrations are the schema source of truth. `docs/schema.sql` is a repo
 - Frontend stack is pre-chosen (ROADMAP §2): shadcn/ui, TanStack Query, Recharts, react-hook-form, zod. Don't introduce alternatives.
 - Docs and user-facing prose are **Indonesian**. Match it when editing `docs/`, `README.md`, or `PRODUCT.md`.
 - Branch strategy (ROADMAP Phase 0): work on `feat/<phase>-<topic>`, merge to `main` via PR even when solo.
+- **Git Tags & Changelog:** Setiap kali membuat atau merilis Git tag baru (misal `vX.Y.Z`), **wajib** memperbarui `CHANGELOG.md` terlebih dahulu dengan rincian perubahan (`Added`, `Changed`, `Fixed`, dsb.) sebelum menyematkan tag dan melakukan push.
 
 ## Backend commands (`apps/api`)
 
