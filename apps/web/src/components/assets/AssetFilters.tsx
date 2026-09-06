@@ -13,9 +13,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { SearchInput } from '@/components/shared/search-input';
+import { MobileFilterSheet } from '@/components/shared/mobile-filter-sheet';
 import { apiFetch } from '@/lib/client/api';
 import { assetKeys, userKeys } from '@/lib/query-keys';
 import { useAuth } from '@/components/providers/auth-provider';
+import type { FilterField } from '@/components/shared/filter-bar';
 import type { AssignableUser } from '@/types/auth';
 
 const ASSET_STATUSES = ['available', 'assigned', 'maintenance', 'retired', 'lost'] as const;
@@ -72,18 +74,87 @@ export function AssetFilters() {
 
   const hasActiveFilters = Boolean(search || status || category || assignedUserId);
 
-  return (
-    <div className="flex w-full flex-row items-center justify-between gap-3 overflow-x-auto pb-1">
-      {/* Search Input stays on the left */}
-      <SearchInput
-        value={search}
-        onChange={(val) => updateFilters({ search: val })}
-        placeholder="Cari kode aset, nomor seri, atau nama…"
-        className="w-64 max-w-none shrink-0"
-      />
+  const statusOptionsMap: Record<string, string> = {
+    available: 'Tersedia',
+    assigned: 'Ditugaskan',
+    maintenance: 'Perbaikan',
+    retired: 'Pensiun',
+    lost: 'Hilang',
+  };
 
-      {/* Filter Dropdowns & Reset — always horizontal, right-aligned */}
-      <div className="flex shrink-0 flex-row items-center justify-end gap-2">
+  const mobileFilters: FilterField[] = [
+    {
+      id: 'status',
+      label: 'Status',
+      value: status || 'ALL',
+      options: ASSET_STATUSES.map((s) => ({
+        label: statusOptionsMap[s] ?? s,
+        value: s,
+      })),
+    },
+    {
+      id: 'category',
+      label: 'Kategori',
+      value: category || 'ALL',
+      options: categories.map((c) => ({
+        label: c,
+        value: c,
+      })),
+    },
+    ...(canLookupUsers
+      ? [
+          {
+            id: 'assigned_user_id',
+            label: 'Pemegang',
+            value: assignedUserId || 'ALL',
+            options: [
+              { label: 'Belum Dipegang', value: 'unassigned' },
+              ...assignableUsers.map((u) => ({
+                label: u.full_name,
+                value: String(u.id),
+              })),
+            ],
+          },
+        ]
+      : []),
+  ];
+
+  return (
+    <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      {/* Search Input and Mobile Filter Button row */}
+      <div className="flex w-full items-center gap-2 sm:w-auto">
+        <SearchInput
+          value={search}
+          onChange={(val) => updateFilters({ search: val })}
+          placeholder="Cari kode aset, nomor seri, atau nama…"
+          className="flex-1 min-w-0 sm:w-64 sm:flex-initial max-w-none"
+        />
+
+        <div className="sm:hidden shrink-0">
+          <MobileFilterSheet
+            filters={mobileFilters}
+            onFilterChange={(id, val) => updateFilters({ [id]: val })}
+            onResetFilters={resetAll}
+            hasActiveFilters={hasActiveFilters}
+          />
+        </div>
+
+        {hasActiveFilters && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={resetAll}
+            aria-label="Reset semua filter"
+            title="Reset semua filter"
+            className="sm:hidden size-11 min-h-[44px] min-w-[44px] shrink-0 rounded-lg text-muted-foreground hover:text-foreground"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+
+      {/* Filter Dropdowns & Reset for Desktop/Tablet */}
+      <div className="hidden sm:flex shrink-0 flex-row items-center justify-end gap-2">
         {/* Status Filter */}
         <Select value={status || 'ALL'} onValueChange={(val) => updateFilters({ status: val })}>
           <SelectTrigger className="h-8 min-w-32.5 rounded-lg text-xs bg-card border-border">
@@ -93,7 +164,7 @@ export function AssetFilters() {
             <SelectItem value="ALL" className="text-xs">Semua Status</SelectItem>
             {ASSET_STATUSES.map((s) => (
               <SelectItem key={s} value={s} className="text-xs">
-                {s === 'available' ? 'Tersedia' : s === 'assigned' ? 'Ditugaskan' : s === 'maintenance' ? 'Perbaikan' : s === 'retired' ? 'Pensiun' : 'Hilang'}
+                {statusOptionsMap[s] ?? s}
               </SelectItem>
             ))}
           </SelectContent>

@@ -30,12 +30,12 @@ export function ArticleCard({ article, showStatus = true, canEdit = false }: Art
               asChild
               variant="ghost"
               size="icon-xs"
-              className="relative z-10 text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0"
+              className="relative z-10 text-muted-foreground hover:text-foreground -my-2 -mr-2 shrink-0 min-h-[44px] min-w-[44px] sm:m-0 sm:min-h-0 sm:min-w-0"
             >
               <Link
                 href={`/knowledge/${article.slug}/edit`}
                 aria-label={`Ubah artikel: ${article.title}`}
-                className="flex items-center justify-center h-full w-full"
+                className="flex items-center justify-center"
               >
                 <Pencil className="h-4 w-4" aria-hidden="true" />
               </Link>

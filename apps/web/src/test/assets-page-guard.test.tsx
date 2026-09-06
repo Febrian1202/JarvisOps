@@ -12,7 +12,11 @@ vi.mock('next/navigation', () => ({
 }));
 
 vi.mock('@/components/providers/auth-provider', () => ({
-  useAuth: () => ({ can: vi.fn(() => false) }),
+  useAuth: () => ({
+    user: { id: 1, full_name: 'Test Employee' },
+    isLoading: false,
+    can: vi.fn(() => false),
+  }),
 }));
 
 vi.mock('@/hooks/use-assets', async (importOriginal) => {

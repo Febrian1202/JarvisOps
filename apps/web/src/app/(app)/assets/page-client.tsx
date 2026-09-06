@@ -16,7 +16,7 @@ export function AssetsPageClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { can } = useAuth();
+  const { user, can, isLoading: isAuthLoading } = useAuth();
 
   const page = Number(searchParams.get('page')) || 1;
   const perPage = Number(searchParams.get('per_page')) || 10;
@@ -45,10 +45,10 @@ export function AssetsPageClient() {
   // Guard: only Technician/Manager/Admin can view assets
   const canViewAssets = can('asset.viewAny');
   useEffect(() => {
-    if (!canViewAssets) {
+    if (!isAuthLoading && user && !canViewAssets) {
       router.replace('/403');
     }
-  }, [canViewAssets, router]);
+  }, [canViewAssets, isAuthLoading, user, router]);
 
   if (!canViewAssets) {
     return null;

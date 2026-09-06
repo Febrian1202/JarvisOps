@@ -14,6 +14,8 @@ vi.mock('next/navigation', () => ({
 
 vi.mock('@/components/providers/auth-provider', () => ({
   useAuth: () => ({
+    user: { id: 1, full_name: 'Test User' },
+    isLoading: false,
     can: (a: string) => mockCan(a),
     hasRole: (r: string) => r === 'employee',
   }),

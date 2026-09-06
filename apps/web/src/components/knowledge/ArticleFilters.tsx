@@ -96,7 +96,7 @@ export function ArticleFilters() {
           value={search}
           onChange={(val) => updateFilters({ search: val })}
           placeholder="Cari judul atau isi artikel…"
-          className="w-full sm:w-64 max-w-none shrink-0"
+          className="flex-1 min-w-0 sm:w-64 sm:flex-initial max-w-none"
         />
 
         <div className="sm:hidden shrink-0">

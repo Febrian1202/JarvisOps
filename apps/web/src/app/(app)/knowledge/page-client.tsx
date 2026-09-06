@@ -15,7 +15,7 @@ export function KnowledgePageClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { can, hasRole } = useAuth();
+  const { user, can, hasRole, isLoading: isAuthLoading } = useAuth();
 
   const page = Number(searchParams.get('page')) || 1;
   const perPage = Number(searchParams.get('per_page')) || 10;
@@ -49,8 +49,10 @@ export function KnowledgePageClient() {
   const meta = response?.meta;
 
   useEffect(() => {
-    if (!canView) router.replace('/403');
-  }, [canView, router]);
+    if (!isAuthLoading && user && !canView) {
+      router.replace('/403');
+    }
+  }, [canView, isAuthLoading, user, router]);
   if (!canView) return null;
 
   const updateQueryParams = (updates: Record<string, string | number | null>) => {

@@ -71,4 +71,16 @@ describe('ArticleCardGrid', () => {
       '/knowledge/cara-reset-password'
     );
   });
+
+  it('applies negative margin and shrink-0 on mobile edit button to preserve touch target without overflowing card', () => {
+    render(<ArticleCardGrid articles={articles} isLoading={false} showStatus canEdit />);
+    const editLink = screen.getByRole('link', { name: /ubah artikel/i });
+    const button = editLink.closest('button') || editLink;
+    expect(button).toHaveClass('-my-2');
+    expect(button).toHaveClass('-mr-2');
+    expect(button).toHaveClass('shrink-0');
+    expect(button).toHaveClass('min-h-[44px]');
+    expect(button).toHaveClass('min-w-[44px]');
+    expect(button).toHaveClass('sm:m-0');
+  });
 });

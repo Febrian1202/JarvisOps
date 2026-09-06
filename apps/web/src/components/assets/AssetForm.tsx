@@ -6,11 +6,20 @@ import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
-import { AlertCircle, Boxes } from 'lucide-react';
+import { format, parseISO } from 'date-fns';
+import { id } from 'date-fns/locale';
+import { AlertCircle, Boxes, Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 import {
   Select,
   SelectContent,
@@ -238,13 +247,55 @@ export function AssetForm({ asset }: AssetFormProps) {
               <Label htmlFor="purchase_date">
                 Tanggal Pembelian <span className="text-destructive">*</span>
               </Label>
-              <Input
-                id="purchase_date"
-                type="date"
-                max={new Date().toISOString().slice(0, 10)}
-                className="h-11 sm:h-9 text-base sm:text-sm"
-                {...register('purchase_date')}
-                aria-invalid={!!errors.purchase_date}
+              <Controller
+                control={control}
+                name="purchase_date"
+                render={({ field }) => {
+                  const selectedDate = field.value ? parseISO(field.value) : undefined;
+                  return (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          id="purchase_date"
+                          type="button"
+                          variant="outline"
+                          aria-label={field.value ? `Tanggal pembelian: ${format(selectedDate!, 'd MMM yyyy', { locale: id })}` : 'Pilih tanggal pembelian'}
+                          aria-invalid={!!errors.purchase_date}
+                          className={cn(
+                            'w-full justify-start text-left font-normal h-11 sm:h-9 text-base sm:text-sm px-3 rounded-lg border-input bg-transparent shadow-xs',
+                            !field.value && 'text-muted-foreground',
+                            errors.purchase_date && 'border-destructive ring-destructive/20'
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4 shrink-0 opacity-70" />
+                          <span>
+                            {field.value && selectedDate
+                              ? format(selectedDate, 'd MMM yyyy', { locale: id })
+                              : 'Pilih tanggal pembelian…'}
+                          </span>
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={selectedDate}
+                          onSelect={(date) => {
+                            if (date) {
+                              field.onChange(format(date, 'yyyy-MM-dd'));
+                            } else {
+                              field.onChange('');
+                            }
+                          }}
+                          disabled={(date) => date > new Date()}
+                          defaultMonth={selectedDate ?? new Date()}
+                          captionLayout="dropdown"
+                          startMonth={new Date(2000, 0)}
+                          endMonth={new Date()}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  );
+                }}
               />
               {errors.purchase_date && <p className="text-xs text-destructive">{errors.purchase_date.message}</p>}
             </div>
