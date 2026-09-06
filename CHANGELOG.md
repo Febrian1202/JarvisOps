@@ -6,6 +6,19 @@ Format berkas ini mengacu pada [Keep a Changelog](https://keepachangelog.com/id-
 
 ---
 
+## [1.1.2] - 2026-09-06
+
+Rilis patch perbaikan runtime dan kesiapan Laravel Octane (FrankenPHP Worker Mode) pada kontainer Docker produksi.
+
+### Fixed
+- **Ekstensi PHP `pcntl` pada Image Docker API**: Menambahkan ekstensi PHP `pcntl` ke `apps/api/Dockerfile` dan `docker/api/Dockerfile.dev` untuk mendukung penanganan sinyal proses sistem (`SIGINT`, `SIGTERM`, `SIGHUP`) yang diwajibkan oleh Laravel Octane.
+- **Migrasi & Cache Otomatis Entrypoint**: Memperbarui skrip `apps/api/docker-entrypoint.sh` agar otomatis mendeteksi dan mengeksekusi migrasi database produksi serta pemanasan cache framework (`config:cache`, `route:cache`, `view:cache`) saat container API dijalankan menggunakan mode worker Octane (`php artisan octane:start`).
+
+### Changed
+- **Alokasi Worker Octane Produksi**: Mengoptimalkan alokasi worker pada `compose.prod.octane.yaml` menjadi 4 worker processes untuk memanfaatkan multi-core CPU secara maksimal.
+
+---
+
 ## [1.1.1] - 2026-09-06
 
 Rilis perbaikan pasca-Fase 11: perbaikan overflow mobile pada halaman Knowledge Base dan Assets, serta penggantian input tanggal pembelian aset dengan kalender shadcn.
