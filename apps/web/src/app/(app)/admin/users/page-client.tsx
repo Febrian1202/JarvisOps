@@ -21,15 +21,15 @@ export function UsersPageClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { can, isLoading: isAuthLoading } = useAuth();
+  const { user, can, isLoading: isAuthLoading } = useAuth();
 
   const canView = can('user.viewAny');
 
   useEffect(() => {
-    if (!isAuthLoading && !canView) {
+    if (!isAuthLoading && user && !canView) {
       router.replace('/403');
     }
-  }, [canView, isAuthLoading, router]);
+  }, [canView, isAuthLoading, user, router]);
 
   const page = Number(searchParams.get('page')) || 1;
   const perPage = Number(searchParams.get('per_page')) || 10;
@@ -110,6 +110,16 @@ export function UsersPageClient() {
   };
 
   const isToggleActive = toggleUser?.status === 'active';
+
+  if (isAuthLoading || !user) {
+    return (
+      <div className="space-y-4">
+        <div className="h-8 w-48 bg-muted animate-pulse rounded" />
+        <div className="h-12 w-full bg-muted animate-pulse rounded" />
+        <div className="h-64 w-full bg-muted animate-pulse rounded" />
+      </div>
+    );
+  }
 
   if (!canView) return null;
 

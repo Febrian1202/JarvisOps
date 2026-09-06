@@ -158,7 +158,7 @@ export function AssignDialog({ open, onOpenChange, asset, isSubmitting, onSubmit
                 </div>
 
                 {isDropdownOpen && (
-                  <div className="absolute left-0 right-0 top-full z-20 mt-1.5 overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95">
+                  <div className="absolute left-0 right-0 top-full z-20 mt-1.5 origin-top overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-md animate-popover-in motion-reduce:animate-none">
                     <ScrollArea className="max-h-52">
                       <div className="p-1 space-y-0.5">
                         {users.map((u) => (
