@@ -20,7 +20,7 @@ if [ -n "$DB_HOST" ]; then
 fi
 
 # Jalankan migrasi dan pemanasan cache hanya untuk container web API utama
-if [ "$1" = "frankenphp" ]; then
+if [ "$1" = "frankenphp" ] || [ "$1" = "php" -a "$2" = "artisan" -a "$3" = "octane:start" ]; then
     echo "Running production database migrations..."
     php artisan migrate --force
 

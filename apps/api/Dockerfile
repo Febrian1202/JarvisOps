@@ -18,6 +18,7 @@ RUN install-php-extensions \
     zip \
     intl \
     bcmath \
+    pcntl \
     opcache
 
 WORKDIR /app
