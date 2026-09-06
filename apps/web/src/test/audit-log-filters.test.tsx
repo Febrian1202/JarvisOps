@@ -45,16 +45,16 @@ describe('AuditLogFilters Component', () => {
     mockAbilities = ['audit-log.viewAny', 'user.viewAny'];
   });
 
-  it('renders module, action, user filters and date range picker in a single horizontal row', () => {
+  it('renders module, action, user filters and date range picker in a single horizontal row on desktop', () => {
     renderWithProviders(<AuditLogFilters />);
 
     expect(screen.getByRole('combobox', { name: 'Modul' })).toBeInTheDocument();
     expect(screen.getByRole('combobox', { name: 'Aksi' })).toBeInTheDocument();
     expect(screen.getByRole('combobox', { name: 'Pengguna' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /pilih tanggal/i })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: /pilih tanggal/i }).length).toBeGreaterThanOrEqual(1);
 
     const container = screen.getByTestId('audit-log-filters');
-    // One horizontal row: no wrapping, horizontal scroll when space is tight
+    // One horizontal row on desktop: no wrapping, horizontal scroll when space is tight
     expect(container.className).toMatch(/(^|\s)flex-row(\s|$)/);
     expect(container.className).toContain('items-center');
     expect(container.className).toContain('overflow-x-auto');
@@ -62,6 +62,15 @@ describe('AuditLogFilters Component', () => {
     expect(container).toContainElement(screen.getByRole('combobox', { name: 'Modul' }));
     expect(container).toContainElement(screen.getByRole('combobox', { name: 'Aksi' }));
     expect(container).toContainElement(screen.getByRole('combobox', { name: 'Pengguna' }));
+  });
+
+  it('renders mobile filter sheet trigger on mobile viewports', () => {
+    renderWithProviders(<AuditLogFilters />);
+
+    const mobileContainer = screen.getByTestId('audit-log-filters-mobile');
+    expect(mobileContainer).toBeInTheDocument();
+    const filterButtons = screen.getAllByRole('button', { name: /filter/i });
+    expect(filterButtons.length).toBeGreaterThanOrEqual(1);
   });
 
   it('reflects active module and action filters from the URL', () => {
@@ -78,7 +87,7 @@ describe('AuditLogFilters Component', () => {
     expect(screen.getByRole('combobox', { name: 'Modul' })).toHaveTextContent('Semua Modul');
     expect(screen.getByRole('combobox', { name: 'Aksi' })).toHaveTextContent('Semua Aksi');
     expect(screen.getByRole('combobox', { name: 'Pengguna' })).toHaveTextContent('Semua Pengguna');
-    expect(screen.getByRole('button', { name: /pilih tanggal/i })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: /pilih tanggal/i }).length).toBeGreaterThanOrEqual(1);
   });
 
   it('updates URL when a module filter is selected and resets page', () => {
@@ -100,15 +109,15 @@ describe('AuditLogFilters Component', () => {
     renderWithProviders(<AuditLogFilters />);
 
     expect(
-      screen.getByRole('button', { name: /1 Mar 2026 - 15 Mar 2026/i })
-    ).toBeInTheDocument();
+      screen.getAllByRole('button', { name: /1 Mar 2026 - 15 Mar 2026/i }).length
+    ).toBeGreaterThanOrEqual(1);
   });
 
   it('renders a single formatted date when only date_from is present', () => {
     mockSearchParams = new URLSearchParams('date_from=2026-03-01');
     renderWithProviders(<AuditLogFilters />);
 
-    expect(screen.getByRole('button', { name: /1 Mar 2026/i })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: /1 Mar 2026/i }).length).toBeGreaterThanOrEqual(1);
   });
 
   it('does not use native date inputs', () => {
@@ -152,17 +161,19 @@ describe('AuditLogFilters Component', () => {
     );
     renderWithProviders(<AuditLogFilters />);
 
-    fireEvent.click(screen.getByRole('button', { name: /reset semua filter/i }));
+    const resetButtons = screen.getAllByRole('button', { name: /reset semua filter/i });
+    expect(resetButtons.length).toBeGreaterThanOrEqual(1);
+    fireEvent.click(resetButtons[0]);
     expect(mockReplace).toHaveBeenCalledWith('/admin/audit-logs');
   });
 
   it('verifies touch target size on filter triggers', () => {
     renderWithProviders(<AuditLogFilters />);
 
-    const moduleTrigger = screen.getByRole('combobox', { name: 'Modul' });
-    expect(moduleTrigger.className).toMatch(/h-11|min-h-\[44px\]/);
+    const mobileFilterTrigger = screen.getByTestId('audit-log-filters-mobile').querySelector('button');
+    expect(mobileFilterTrigger?.className).toMatch(/h-11|min-h-\[44px\]/);
 
-    const dateBtn = screen.getByRole('button', { name: /pilih tanggal/i });
-    expect(dateBtn.className).toMatch(/h-11|min-h-\[44px\]/);
+    const dateButtons = screen.getAllByRole('button', { name: /pilih tanggal/i });
+    expect(dateButtons[0].className).toMatch(/h-11|min-h-\[44px\]/);
   });
 });

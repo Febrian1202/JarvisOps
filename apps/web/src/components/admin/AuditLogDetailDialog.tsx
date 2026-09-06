@@ -155,8 +155,8 @@ export function AuditLogDetailDialog({
                   Tidak ada rekaman perubahan data (peristiwa aksi atau event tanpa payload).
                 </div>
               ) : (
-                <div className="rounded-lg border border-border overflow-hidden">
-                  <table className="w-full text-left text-xs border-collapse">
+                <div className="rounded-lg border border-border overflow-hidden overflow-x-auto">
+                  <table className="w-full min-w-[340px] text-left text-xs border-collapse">
                     <thead>
                       <tr className="border-b border-border text-left text-xs font-semibold text-muted-foreground">
                         <th scope="col" className="p-2.5 w-1/4">Field</th>

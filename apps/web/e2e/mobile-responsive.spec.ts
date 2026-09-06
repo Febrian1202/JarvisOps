@@ -182,6 +182,7 @@ test.describe.serial('Mobile Responsive & Touch Ergonomics (Phase 11)', () => {
       '/knowledge',
       '/profile',
       '/admin/users',
+      '/admin/audit-logs',
     ];
 
     for (const route of routesToTest) {
@@ -224,5 +225,43 @@ test.describe.serial('Mobile Responsive & Touch Ergonomics (Phase 11)', () => {
     await expect(filterSheet).toBeHidden();
     await page.waitForURL(/[?&]role_id=/, { timeout: 10000 });
     expect(page.url()).toMatch(/[?&]role_id=/);
+  });
+
+  test('Test 7: Mobile /admin/audit-logs renders card view and filter bottom sheet updates URL', async ({
+    page,
+    context,
+  }) => {
+    await context.clearCookies();
+    await loginAs(page, 'admin@jarvisops.test');
+
+    await page.goto('/admin/audit-logs');
+    await page.waitForLoadState('networkidle');
+
+    // 1. Tabel desktop harus tersembunyi di mobile
+    await expect(page.locator('table')).toBeHidden();
+
+    // 2. Audit log card harus terlihat di mobile
+    const auditCards = page.locator('[data-testid="audit-log-card-item"]');
+    await expect(auditCards.first()).toBeVisible({ timeout: 10000 });
+
+    // 3. Tombol filter mobile membuka sheet dan memperbarui URL
+    const mobileFilterContainer = page.locator('[data-testid="audit-log-filters-mobile"]');
+    await expect(mobileFilterContainer).toBeVisible();
+    const filterBtn = mobileFilterContainer.getByRole('button', { name: /filter/i });
+    await expect(filterBtn).toBeVisible();
+    await filterBtn.click();
+
+    const filterSheet = page.locator('[role="dialog"]');
+    await expect(filterSheet).toBeVisible();
+
+    const moduleSelect = filterSheet.locator('button[role="combobox"]').first();
+    await moduleSelect.click();
+    await page.locator('[role="option"]').nth(1).click();
+
+    const closeBtn = filterSheet.getByRole('button', { name: 'Tutup', exact: true }).first();
+    await closeBtn.click();
+    await expect(filterSheet).toBeHidden();
+    await page.waitForURL(/[?&]module=/, { timeout: 10000 });
+    expect(page.url()).toMatch(/[?&]module=/);
   });
 });
