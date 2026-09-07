@@ -13,6 +13,15 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'JARVIS OPS — IT Service Management',
   description: 'Platform manajemen tiket, aset, dan layanan IT perusahaan.',
+  icons: {
+    icon: [
+      { url: '/brand/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/brand/logo.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/brand/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
 };
 
 export default function RootLayout({

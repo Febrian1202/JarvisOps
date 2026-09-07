@@ -6,6 +6,26 @@ Format berkas ini mengacu pada [Keep a Changelog](https://keepachangelog.com/id-
 
 ---
 
+## [1.1.3] - 2026-09-07
+
+Rilis patch pembaruan identitas visual (brand logo & icons), penyelarasan tipografi Plus Jakarta Sans, pengamanan paket submission capstone, dan sinkronisasi versi monorepo.
+
+### Added
+- **Identitas Visual Resmi JARVIS OPS**:
+  - Aset logo maskot robot terintegrasi pada `apps/web/public/brand/logo.png`, `apps/web/src/app/icon.png`, dan `apps/web/src/app/apple-icon.png` (otomatis disajikan sebagai favicon dan icon browser).
+  - Komponen modular `BrandLogo` (`apps/web/src/components/shared/brand-logo.tsx`) dengan lockup tipografi modern (`JARVIS` charcoal/white + `OPS` bronze `#B89C72`) dan subteks `IT SERVICE MANAGEMENT`.
+- **Target Make Package / Submission Aman**: Menambahkan perintah `make package` dan `make clean-package` pada root `Makefile` yang mem-paketkan zip secara aman dengan mengecualikan secara ketat seluruh file kredensial `.env*`, `.git`, `node_modules`, `vendor`, dan cache.
+
+### Changed
+- **Pembaruan Branding Shell & Auth**: Menggantikan placeholder teks `"JO"` dengan logo resmi pada `AppSidebar` (desktop), `MobileNav` (drawer mobile), dan `AuthSplitShell` (layar autentikasi).
+- **Penyelarasan Dokumentasi Desain**: Menstandarisasikan font primer pada `DESIGN.md` dan `docs/architecture/FRONTEND-ARCHITECTURE.md` menjadi **Plus Jakarta Sans** sesuai implementasi aktual web Next.js.
+- **Pengayaan Jawaban Evaluasi Capstone**: Menambahkan poin teknis pembuktian arsitektur BFF dengan httpOnly cookie, ergonomi sentuh mobile card view, dan kesiapan runtime Octane pada `docs/ops/REVIEWER-ANSWERS.md`.
+
+### Fixed
+- **Sinkronisasi Versi Monorepo**: Menyeragamkan seluruh nomor versi ke `v1.1.3` pada `README.md`, `ROADMAP.md`, `AGENTS.md`, template `.env.example`, `.env.production.example`, serta fallback versi komponen navigasi.
+
+---
+
 ## [1.1.2] - 2026-09-06
 
 Rilis patch perbaikan runtime dan kesiapan Laravel Octane (FrankenPHP Worker Mode) pada kontainer Docker produksi.

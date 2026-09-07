@@ -2,13 +2,13 @@
 
 **IT Service Management System** — platform terpusat untuk mengelola permintaan dan permasalahan IT, aset perusahaan, knowledge base, serta monitoring performa layanan IT.
 
-[![Release](https://img.shields.io/badge/Release-v1.1.0-blue.svg)](https://github.com/Febrian1202/JarvisOps/releases)
+[![Release](https://img.shields.io/badge/Release-v1.1.3-blue.svg)](https://github.com/Febrian1202/JarvisOps/releases)
 [![Backend Tests](https://img.shields.io/badge/Backend%20Tests-727%20Passing-brightgreen.svg)]()
-[![Frontend Tests](https://img.shields.io/badge/Frontend%20Tests-352%20Passing-brightgreen.svg)]()
+[![Frontend Tests](https://img.shields.io/badge/Frontend%20Tests-401%20Passing-brightgreen.svg)]()
 [![Accessibility](https://img.shields.io/badge/WCAG-2.2%20AA-success.svg)]()
 [![Stack](https://img.shields.io/badge/Stack-Laravel%2013%20%7C%20Next.js%2016%20%7C%20MySQL%208%20%7C%20FrankenPHP-orange.svg)]()
 
-> **Production-Ready IT Service Management Monorepo (Tag `v1.1.0`)**  
+> **Production-Ready IT Service Management Monorepo (Tag `v1.1.3`)**  
 > JARVIS OPS telah melewati seluruh siklus rekayasa perangkat lunak secara komprehensif: 18 model database terindeks, 727 backend test (3300+ assertions), otorisasi berbasis role policy ketat, background SLA scheduler dengan deteksi breach otomatis, notifikasi in-app, 4 dashboard analytics per role (Employee, Technician, Manager, Admin), arsitektur BFF Next.js 16 + React 19 + Tailwind v4, audit aksesibilitas WCAG 2.2 AA (0 violation), Docker stack produksi multi-stage, serta antarmuka responsif mobile & touch ergonomics.
 
 ---
@@ -167,7 +167,7 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 
 ## Status Rilis
 
-**Rilis terkini: `v1.1.0`** — seluruh fase roadmap selesai dan diverifikasi menyeluruh. Repositori berada dalam kondisi siap produksi dan siap dievaluasi.
+**Rilis terkini: `v1.1.3`** — seluruh fase roadmap dan patch penyelarasan produksi selesai dan diverifikasi menyeluruh. Repositori berada dalam kondisi siap produksi dan siap dievaluasi.
 
 ### Metrik kualitas
 
@@ -176,7 +176,7 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 | Backend | Laravel 13.29 + Sanctum 4, 24 migration, 18 model, 40 routes (56 operations) |
 | Test backend | 727 passing (3300+ assertions), Pest 5, Pint bersih |
 | Frontend | Next.js 16.3 + React 19 + Tailwind v4, 33 app routes |
-| Test frontend | 352 unit/component passing (Vitest) |
+| Test frontend | 401 unit/component passing (Vitest) |
 | Test E2E | 21 skenario Playwright desktop + suite mobile Pixel 7 & iPhone 14 |
 | Aksesibilitas | WCAG 2.2 AA — 0 violation (axe-core) |
 | Kriteria sukses | 11 poin Definition of Technical Success + 10 poin Definition of Done terverifikasi |
@@ -198,6 +198,9 @@ Baca dengan urutan ini kalau baru pertama kali masuk ke proyek:
 | 9 | Dashboard UI & visual analytics, E2E & aksesibilitas | `v0.9.0` |
 | 10 | Quality, deployment produksi, demo, CSV export | `v1.0.0` |
 | 11 | Mobile responsive layout & touch ergonomics | `v1.1.0` |
+| Patch | Mobile UX & kalender tanggal shadcn | `v1.1.1` |
+| Patch | Runtime pcntl & kesiapan kontainer produksi Octane | `v1.1.2` |
+| Patch | Brand logo, font sync, package submission & audit polish | `v1.1.3` |
 
 Rincian teknis per fase beserta checklist eksekusinya ada di [`docs/product/ROADMAP.md`](docs/product/ROADMAP.md).
 

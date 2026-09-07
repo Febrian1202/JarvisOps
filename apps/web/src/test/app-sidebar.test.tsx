@@ -34,20 +34,20 @@ describe('AppSidebar Version Display', () => {
   });
 
   it('renders configured NEXT_PUBLIC_APP_VERSION when set', () => {
-    process.env.NEXT_PUBLIC_APP_VERSION = 'v1.0.0';
+    process.env.NEXT_PUBLIC_APP_VERSION = 'v1.1.3';
     render(<AppSidebar />);
-    expect(screen.getByText(/JARVIS OPS v1\.0\.0/i)).toBeInTheDocument();
+    expect(screen.getByText(/JARVIS OPS v1\.1\.3/i)).toBeInTheDocument();
   });
 
   it('formats version prefix properly if "v" is omitted in env', () => {
-    process.env.NEXT_PUBLIC_APP_VERSION = '1.0.0';
+    process.env.NEXT_PUBLIC_APP_VERSION = '1.1.3';
     render(<AppSidebar />);
-    expect(screen.getByText(/JARVIS OPS v1\.0\.0/i)).toBeInTheDocument();
+    expect(screen.getByText(/JARVIS OPS v1\.1\.3/i)).toBeInTheDocument();
   });
 
-  it('falls back to v1.0.0 when NEXT_PUBLIC_APP_VERSION is not defined', () => {
+  it('falls back to v1.1.3 when NEXT_PUBLIC_APP_VERSION is not defined', () => {
     delete process.env.NEXT_PUBLIC_APP_VERSION;
     render(<AppSidebar />);
-    expect(screen.getByText(/JARVIS OPS v1\.0\.0/i)).toBeInTheDocument();
+    expect(screen.getByText(/JARVIS OPS v1\.1\.3/i)).toBeInTheDocument();
   });
 });

@@ -2,7 +2,7 @@ export UID := $(shell id -u)
 export GID := $(shell id -g)
 
 .PHONY: setup up down sh sh-web migrate fresh seed test pint logs install \
-        test-api test-web lint-web typecheck-web build-web test-all check
+        test-api test-web lint-web typecheck-web build-web test-all check package clean-package
 
 setup:
 	@if [ ! -f apps/api/.env ]; then cp apps/api/.env.example apps/api/.env; fi
@@ -61,4 +61,29 @@ pint:
 
 logs:
 	docker compose logs -f
+
+package:
+	@echo "Creating clean submission zip (excluding credentials, node_modules, vendor, git)..."
+	@TIMESTAMP=$$(date +%Y%m%d_%H%M%S); \
+	ZIP_NAME="jarvisops_submission_$${TIMESTAMP}.zip"; \
+	zip -r "$${ZIP_NAME}" . \
+		-x '*.git*' \
+		-x '.env.prod' \
+		-x 'apps/api/.env' \
+		-x 'apps/api/.env.production' \
+		-x 'apps/web/.env' \
+		-x 'apps/web/.env.production' \
+		-x '*/node_modules/*' \
+		-x '*/vendor/*' \
+		-x '*/.next/*' \
+		-x '*/storage/logs/*' \
+		-x '*/storage/framework/cache/*' \
+		-x '*/storage/framework/sessions/*' \
+		-x '*/storage/framework/views/*' \
+		-x '*.zip'; \
+	echo "Clean submission package created: $${ZIP_NAME}"
+
+clean-package:
+	@rm -f jarvisops_submission_*.zip
+	@echo "Cleaned submission zip files."
 

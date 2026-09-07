@@ -4,13 +4,13 @@
 
 Lovable's website radiates warmth through restraint. The entire page sits on a creamy, parchment-toned background (`#f7f4ed`) that immediately separates it from the cold-white conventions of most developer tool sites. This isn't minimalism for minimalism's sake — it's a deliberate choice to feel approachable, almost analog, like a well-crafted notebook. The near-black text (`#1c1c1c`) against this warm cream creates a contrast ratio that's easy on the eyes while maintaining sharp readability.
 
-The custom Camera Plain Variable typeface is the system's secret weapon. Unlike geometric sans-serifs that signal "tech company," Camera Plain has a humanist warmth — slightly rounded terminals, organic curves, and a comfortable reading rhythm. At display sizes (48px–60px), weight 600 with aggressive negative letter-spacing (-0.9px to -1.5px) compresses headlines into confident, editorial statements. The font uses `ui-sans-serif, system-ui` as fallbacks, acknowledging that the custom typeface carries the brand personality.
+The primary typeface is Plus Jakarta Sans (adapted from the original prototype reference). Unlike geometric sans-serifs that signal a cold "tech company", Plus Jakarta Sans brings a modern humanist warmth — slightly rounded terminals, organic curves, and a comfortable reading rhythm. At display sizes (48px–60px), weight 600 with subtle negative letter-spacing (-0.9px to -1.5px) compresses headlines into confident, editorial statements. The font uses `ui-sans-serif, system-ui` as fallbacks.
 
 What makes Lovable's visual system distinctive is its opacity-driven depth model. Rather than using a traditional gray scale, the system modulates `#1c1c1c` at varying opacities (0.03, 0.04, 0.4, 0.82–0.83) to create a unified tonal range. Every shade of gray on the page is technically the same hue — just more or less transparent. This creates a visual coherence that's nearly impossible to achieve with arbitrary hex values. The border system follows suit: `1px solid #eceae4` for light divisions and `1px solid rgba(28, 28, 28, 0.4)` for stronger interactive boundaries.
 
 **Key Characteristics:**
 - Warm parchment background (`#f7f4ed`) — not white, not beige, a deliberate cream that feels hand-selected
-- Camera Plain Variable typeface with humanist warmth and editorial letter-spacing at display sizes
+- Plus Jakarta Sans variable typeface with humanist warmth and editorial letter-spacing at display sizes
 - Opacity-driven color system: all grays derived from `#1c1c1c` at varying transparency levels
 - Inset shadow technique on buttons: `rgba(255,255,255,0.2) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset`
 - Warm neutral border palette: `#eceae4` for subtle, `rgba(28,28,28,0.4)` for interactive elements
@@ -48,32 +48,31 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 ## 3. Typography Rules
 
 ### Font Family
-- **Primary**: `Camera Plain Variable`, with fallbacks: `ui-sans-serif, system-ui`
-- **Weight range**: 400 (body/reading), 480 (special display), 600 (headings/emphasis)
-- **Feature**: Variable font with continuous weight axis — allows fine-tuned intermediary weights like 480.
+- **Primary**: `Plus Jakarta Sans` (served via `next/font/google`), with fallbacks: `ui-sans-serif, system-ui`
+- **Weight range**: 400 (reading/body), 500 (medium labels/buttons), 600 (headings/emphasis)
+- **Feature**: Modern variable humanist sans-serif with contemporary proportions, subtle rounded terminals, and excellent multi-resolution screen legibility.
 
 ### Hierarchy
 
 | Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
 |------|------|------|--------|-------------|----------------|-------|
-| Display Hero | Camera Plain Variable | 60px (3.75rem) | 600 | 1.00–1.10 (tight) | -1.5px | Maximum impact, editorial |
-| Display Alt | Camera Plain Variable | 60px (3.75rem) | 480 | 1.00 (tight) | normal | Lighter hero variant |
-| Section Heading | Camera Plain Variable | 48px (3.00rem) | 600 | 1.00 (tight) | -1.2px | Feature section titles |
-| Sub-heading | Camera Plain Variable | 36px (2.25rem) | 600 | 1.10 (tight) | -0.9px | Sub-sections |
-| Card Title | Camera Plain Variable | 20px (1.25rem) | 400 | 1.25 (tight) | normal | Card headings |
-| Body Large | Camera Plain Variable | 18px (1.13rem) | 400 | 1.38 | normal | Introductions |
-| Body | Camera Plain Variable | 16px (1.00rem) | 400 | 1.50 | normal | Standard reading text |
-| Button | Camera Plain Variable | 16px (1.00rem) | 400 | 1.50 | normal | Button labels |
-| Button Small | Camera Plain Variable | 14px (0.88rem) | 400 | 1.50 | normal | Compact buttons |
-| Link | Camera Plain Variable | 16px (1.00rem) | 400 | 1.50 | normal | Underline decoration |
-| Link Small | Camera Plain Variable | 14px (0.88rem) | 400 | 1.50 | normal | Footer links |
-| Caption | Camera Plain Variable | 14px (0.88rem) | 400 | 1.50 | normal | Metadata, small text |
+| Display Hero | Plus Jakarta Sans | 60px (3.75rem) | 600 | 1.00–1.10 (tight) | -1.5px | Maximum impact, editorial |
+| Display Alt | Plus Jakarta Sans | 60px (3.75rem) | 500 | 1.00 (tight) | normal | Lighter hero variant |
+| Section Heading | Plus Jakarta Sans | 48px (3.00rem) | 600 | 1.00 (tight) | -1.2px | Feature section titles |
+| Sub-heading | Plus Jakarta Sans | 36px (2.25rem) | 600 | 1.10 (tight) | -0.9px | Sub-sections |
+| Card Title | Plus Jakarta Sans | 20px (1.25rem) | 500 | 1.25 (tight) | normal | Card headings |
+| Body Large | Plus Jakarta Sans | 18px (1.13rem) | 400 | 1.38 | normal | Introductions |
+| Body | Plus Jakarta Sans | 16px (1.00rem) | 400 | 1.50 | normal | Standard reading text |
+| Button | Plus Jakarta Sans | 16px (1.00rem) | 500 | 1.50 | normal | Button labels |
+| Button Small | Plus Jakarta Sans | 14px (0.88rem) | 500 | 1.50 | normal | Compact buttons |
+| Link | Plus Jakarta Sans | 16px (1.00rem) | 400 | 1.50 | normal | Underline decoration |
+| Link Small | Plus Jakarta Sans | 14px (0.88rem) | 400 | 1.50 | normal | Footer links |
+| Caption | Plus Jakarta Sans | 14px (0.88rem) | 400 | 1.50 | normal | Metadata, small text |
 
 ### Principles
-- **Warm humanist voice**: Camera Plain Variable gives Lovable its approachable personality. The slightly rounded terminals and organic curves contrast with the sharp geometric sans-serifs used by most developer tools.
-- **Variable weight as design tool**: The font supports continuous weight values (e.g., 480), enabling nuanced hierarchy beyond standard weight stops. Weight 480 at 60px creates a display style that feels lighter than semibold but stronger than regular.
+- **Warm humanist voice**: Plus Jakarta Sans gives JARVIS OPS its approachable personality. The slightly rounded terminals and organic curves contrast with the sharp geometric sans-serifs used by most developer tools.
+- **Clear weights**: 400 (body/UI/reading), 500 (interactive elements/buttons), and 600 (headings/emphasis).
 - **Compression at scale**: Headlines use negative letter-spacing (-0.9px to -1.5px) for editorial impact. Body text stays at normal tracking for comfortable reading.
-- **Two weights, clear roles**: 400 (body/UI/links/buttons) and 600 (headings/emphasis). The narrow weight range creates hierarchy through size and spacing, not weight variation.
 
 ## 4. Component Stylings
 
@@ -218,7 +217,7 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 
 ### Do
 - Use the warm cream background (`#f7f4ed`) as the page foundation — it's the brand's signature warmth
-- Use Camera Plain Variable at display sizes with negative letter-spacing (-0.9px to -1.5px)
+- Use Plus Jakarta Sans at display sizes with negative letter-spacing (-0.9px to -1.5px)
 - Derive all grays from `#1c1c1c` at varying opacity levels for tonal unity
 - Use the inset shadow technique on dark buttons for tactile depth
 - Use `#eceae4` borders instead of shadows for card containment
@@ -234,7 +233,7 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Don't apply 9999px radius on rectangular buttons — pills are for icon/action toggles
 - Don't use sharp focus outlines — the system uses soft shadow-based focus indicators
 - Don't mix border styles — `#eceae4` for passive, `rgba(28,28,28,0.4)` for interactive
-- Don't increase letter-spacing on headings — Camera Plain is designed to run tight at scale
+- Don't increase letter-spacing on headings — Plus Jakarta Sans is designed to run tight at scale
 
 ## 8. Responsive Behavior
 
@@ -282,17 +281,16 @@ What makes Lovable's visual system distinctive is its opacity-driven depth model
 - Button text on dark: `#fcfbf8`
 
 ### Example Component Prompts
-- "Create a hero section on cream background (#f7f4ed). Headline at 60px Camera Plain Variable weight 600, line-height 1.10, letter-spacing -1.5px, color #1c1c1c. Subtitle at 18px weight 400, line-height 1.38, color #5f5f5d. Dark CTA button (#1c1c1c bg, #fcfbf8 text, 6px radius, 8px 16px padding, inset shadow) and ghost button (transparent bg, 1px solid rgba(28,28,28,0.4) border, 6px radius)."
-- "Design a card on cream (#f7f4ed) background. Border: 1px solid #eceae4. Radius 12px. No box-shadow. Title at 20px Camera Plain Variable weight 400, line-height 1.25, color #1c1c1c. Body at 14px weight 400, color #5f5f5d."
+- "Create a hero section on cream background (#f7f4ed). Headline at 60px Plus Jakarta Sans weight 600, line-height 1.10, letter-spacing -1.5px, color #1c1c1c. Subtitle at 18px weight 400, line-height 1.38, color #5f5f5d. Dark CTA button (#1c1c1c bg, #fcfbf8 text, 6px radius, 8px 16px padding, inset shadow) and ghost button (transparent bg, 1px solid rgba(28,28,28,0.4) border, 6px radius)."
+- "Design a card on cream (#f7f4ed) background. Border: 1px solid #eceae4. Radius 12px. No box-shadow. Title at 20px Plus Jakarta Sans weight 500, line-height 1.25, color #1c1c1c. Body at 14px weight 400, color #5f5f5d."
 - "Build a template gallery: grid of cards with 12px radius, 1px solid #eceae4 border, cream backgrounds. Each card: image with 12px top radius, title below. Hover: subtle border darkening."
-- "Create navigation: sticky on cream (#f7f4ed). Camera Plain 16px weight 400 for links, #1c1c1c text. Dark CTA button right-aligned with inset shadow. Mobile: hamburger menu with 6px radius."
-- "Design a stats section: large numbers at 48px Camera Plain weight 600, letter-spacing -1.2px, #1c1c1c. Labels below at 16px weight 400, #5f5f5d. Horizontal layout with 32px gap."
+- "Create navigation: sticky on cream (#f7f4ed). Plus Jakarta Sans 16px weight 400 for links, #1c1c1c text. Dark CTA button right-aligned with inset shadow. Mobile: hamburger menu with 6px radius."
+- "Design a stats section: large numbers at 48px Plus Jakarta Sans weight 600, letter-spacing -1.2px, #1c1c1c. Labels below at 16px weight 400, #5f5f5d. Horizontal layout with 32px gap."
 
 ### Iteration Guide
 1. Always use cream (`#f7f4ed`) as the base — never pure white
 2. Derive grays from `#1c1c1c` at opacity levels rather than using distinct hex values
 3. Use `#eceae4` borders for containment, not shadows
 4. Letter-spacing scales with size: -1.5px at 60px, -1.2px at 48px, -0.9px at 36px, normal at 16px
-5. Two weights: 400 (everything except headings) and 600 (headings)
+5. Weights: 400 (body/reading), 500 (buttons/interactive), and 600 (headings)
 6. The inset shadow on dark buttons is the signature detail — don't skip it
-7. Camera Plain Variable at weight 480 is for special display moments only

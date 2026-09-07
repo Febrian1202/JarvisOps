@@ -1,9 +1,16 @@
 # JARVIS OPS — DEVELOPMENT ROADMAP
 
-**Document Revision:** 2.0 (Phase 10 Complete — Full Release Tag `v1.0.0`)
+**Document Revision:** 3.0 (Fase 11, Patches & Final Polish Complete — Current Release Tag `v1.1.3`)
 **Basis:** PRD v1.0 + Addendum v1.1, `docs/adr/DECISIONS.md`, ERD v1.2 (`docs/schema.sql`), `docs/architecture/ERD.md`, `docs/architecture/DFD.md`, `docs/architecture/CONTEXT-DIAGRAM.md`
 **Durasi:** 7 minggu kerja + 1 minggu buffer (full-time)
-**Status:** Fase 10 Selesai — Rilis Penuh v1.0.0 (v1.0.0)
+**Status:** Fase 11 Selesai — Rilis Terkini v1.1.3 (`v1.1.3`)
+
+> **Ringkasan Riwayat Rilis:**
+> - `v1.0.0`: Full Release (Fase 0–10: Core ITSM, RBAC, SLA, Notifikasi, Audit Log, Asset, KB, 4 Dashboard Analytics, Docker Multi-stage, Streamed CSV, DoD verifikasi).
+> - `v1.1.0`: Mobile Responsive Layout & Touch Ergonomics (Fase 11: Card View adapter, Mobile Filter Bottom Sheet, sticky action bar, Playwright Mobile projects Pixel 7 & iPhone 14).
+> - `v1.1.1`: Mobile UX & Date Picker Patch (Perbaikan overflow mobile KB/Asset, shadcn Calendar date picker).
+> - `v1.1.2`: Production Runtime & Octane Readiness Patch (Ekstensi `pcntl`, auto-migration & cache warming pada docker entrypoint).
+> - `v1.1.3`: Brand Logo, Typography Sync & Submission Security Patch (Official brand logo lockup & web icons, Plus Jakarta Sans sync, make package submission script).
 
 ---
 

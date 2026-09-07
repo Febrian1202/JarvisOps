@@ -57,7 +57,7 @@ Tailwind v4 memakai `@theme` di CSS (bukan `tailwind.config.js`). Token DESIGN.m
 @import "tailwindcss";
 
 @theme {
-    --font-sans: 'Camera Plain Variable', ui-sans-serif, system-ui;
+    --font-sans: var(--font-jakarta), ui-sans-serif, system-ui;
 
     /* warna dasar */
     --color-cream: #f7f4ed;            /* latar halaman & kartu */
@@ -109,8 +109,8 @@ shadcn/ui memakai CSS variables di `:root`. Override agar komponen mengikuti DES
 
 ### 3.4 Typography
 
-- **Font:** `Camera Plain Variable`, fallback `ui-sans-serif, system-ui` — diatur via `--font-sans` di `@theme`.
-- **Two weights:** 400 (body/UI/buttons) dan 600 (headings). Weight 480 khusus display moment.
+- **Font:** `Plus Jakarta Sans` (via `next/font/google`), fallback `ui-sans-serif, system-ui` — diatur via `--font-sans` di `@theme`.
+- **Weights:** 400 (body/UI/reading), 500 (buttons/labels), dan 600 (headings).
 - **Letter-spacing negatif** pada headline, mengikuti skala DESIGN.md: -1.5px @ 60px, -1.2px @ 48px, -0.9px @ 36px, normal @ 16px.
 
 Utility yang disarankan:

@@ -83,7 +83,7 @@ Menghemat CPU, RAM, dan waktu karena tidak memerlukan build dari source code di 
 2. **Tarik Image dan Nyalakan Kontainer**:
    ```bash
    # Gunakan versi spesifik tag atau latest
-   export APP_VERSION=v1.0.0
+   export APP_VERSION=v1.1.3
    docker compose -f compose.prod.yaml pull
    docker compose -f compose.prod.yaml up -d
    ```

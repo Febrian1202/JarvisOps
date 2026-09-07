@@ -137,6 +137,9 @@ storage/framework/cache/*
 *.sqlite-journal
 JarvisOps
 .worktrees
+*.zip
+*.kra
+*.kra~
 
 # Playwright mcp results
 .playwright-mcp/

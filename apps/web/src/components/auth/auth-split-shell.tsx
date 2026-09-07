@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrandLogo } from '@/components/shared';
 import { cn } from '@/lib/utils';
 
 export interface AuthSplitShellProps {
@@ -28,16 +29,8 @@ export function AuthSplitShell({
         className="flex w-full flex-col justify-between border-b border-border bg-secondary/40 p-6 sm:p-8 lg:w-[560px] lg:shrink-0 lg:border-r lg:border-b-0 lg:p-14"
       >
         {/* Atas: Lockup */}
-        <div className="inline-flex items-center gap-3">
-          <span
-            aria-hidden="true"
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-xs font-semibold text-primary-foreground shadow-xs select-none"
-          >
-            JO
-          </span>
-          <span className="text-[15px] font-semibold tracking-wider text-foreground">
-            JARVIS OPS
-          </span>
+        <div className="inline-flex items-center">
+          <BrandLogo size="md" />
         </div>
 
         {/* Tengah: Statement */}

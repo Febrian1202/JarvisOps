@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/providers/auth-provider';
 import { filterNavItems } from '@/lib/navigation';
+import { BrandLogo } from '@/components/shared';
 import { cn } from '@/lib/utils';
 
 export function AppSidebar() {
@@ -21,13 +22,10 @@ export function AppSidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-border border-r bg-card transition-transform md:flex">
       {/* Brand Header */}
-      <div className="flex h-14 items-center gap-3 border-border border-b px-6">
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-xs shadow-sm">
-          JO
-        </span>
-        <span className="font-semibold text-foreground text-sm tracking-tight">
-          JARVIS OPS
-        </span>
+      <div className="flex h-14 items-center border-border border-b px-5">
+        <Link href="/" className="transition-opacity hover:opacity-90 focus-visible:outline-hidden">
+          <BrandLogo size="sm" />
+        </Link>
       </div>
 
       {/* Navigation List */}
@@ -99,7 +97,7 @@ export function AppSidebar() {
         <div className="rounded-lg bg-muted/50 p-2 text-center">
           <p className="text-[11px] text-muted-foreground">
             JARVIS OPS {(() => {
-              const rawVersion = process.env.NEXT_PUBLIC_APP_VERSION || 'v1.0.0';
+              const rawVersion = process.env.NEXT_PUBLIC_APP_VERSION || 'v1.1.3';
               return rawVersion.startsWith('v') ? rawVersion : `v${rawVersion}`;
             })()}
           </p>

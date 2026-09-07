@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { useAuth } from '@/components/providers/auth-provider';
 import { filterNavItems } from '@/lib/navigation';
+import { BrandLogo } from '@/components/shared';
 import { cn } from '@/lib/utils';
 
 interface MobileNavProps {
@@ -33,13 +34,8 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="fixed top-0 bottom-0 left-0 right-auto z-50 flex h-full w-72 max-w-none flex-col gap-0 translate-x-0 translate-y-0 rounded-none border-r border-border bg-card p-0 shadow-xl data-[state=open]:animate-sheet-in-left data-[state=closed]:animate-sheet-out-left">
         <DialogHeader className="flex h-14 shrink-0 flex-row items-center space-y-0 border-b border-border px-4 text-left">
-          <DialogTitle className="flex items-center gap-2 pr-8">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-xs shadow-sm">
-              JO
-            </span>
-            <span className="font-semibold text-foreground text-sm tracking-tight">
-              JARVIS OPS
-            </span>
+          <DialogTitle className="flex items-center pr-8">
+            <BrandLogo size="sm" />
           </DialogTitle>
         </DialogHeader>
 
@@ -112,7 +108,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
           <div className="rounded-lg bg-muted/50 p-2 text-center">
             <p className="text-[11px] text-muted-foreground">
               JARVIS OPS {(() => {
-                const rawVersion = process.env.NEXT_PUBLIC_APP_VERSION || 'v1.0.0';
+                const rawVersion = process.env.NEXT_PUBLIC_APP_VERSION || 'v1.1.3';
                 return rawVersion.startsWith('v') ? rawVersion : `v${rawVersion}`;
               })()}
             </p>

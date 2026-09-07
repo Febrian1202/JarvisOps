@@ -59,11 +59,12 @@ Jalankan **DEMO-RUNBOOK.md** bagian golden path — 13 langkah PRD §38 terbukti
 Arsitektur dipilih berdasarkan tiga prinsip: **keamanan token secara default** (BFF + httpOnly cookie), **pemisahan tanggung jawab yang ketat** (API murni JSON, UI murni render), dan **kesederhanaan operasional** (satu monorepo, satu Docker Compose, tanpa layanan eksternal seperti WebSocket atau SMTP). Next.js menangani tampilan, Laravel menangani seluruh aturan bisnis, dan keduanya berkomunikasi melalui proxy internal — bukan langsung dari browser.
 
 ### Poin Teknis Kunci
-1. **BFF proxy + httpOnly cookie** — token Sanctum tidak pernah bisa dibaca JavaScript browser (kebal XSS); Next.js Route Handler menyuntikkan header `Authorization` dari sisi server.
+1. **BFF proxy + httpOnly cookie** — token Sanctum tidak pernah bisa dibaca JavaScript browser (kebal XSS); Next.js Route Handler menyuntikkan header `Authorization` dari sisi server. *Framing presentasi:* "Kami memakai Sanctum API token, tetapi token tidak langsung diekspos ke client. Next.js bertindak sebagai BFF dan menyimpan token dalam httpOnly cookie, kemudian proxy server-side meneruskan request ke Laravel."
 2. **Frontend tidak pernah memanggil Laravel langsung** — semua request browser menuju `/api/proxy/*` internal; CORS nyaris tidak diekspos.
 3. **Gate/Policy inti Laravel, bukan library pihak ketiga** — 66 ability per role terdaftar dari `AbilityMatrix`, admin bypass via `Gate::before` dengan dua pengecualian tegas (D-16).
 4. **Monorepo dengan kontrak API eksplisit** — `docs/api/API-CONTRACT.md` + envelope respons tunggal `{success, message, data, meta?}` menjaga konsistensi lintas tim.
-5. **FrankenPHP + opsi Octane worker mode** — runtime produksi ramping; Octane worker terverifikasi bebas kebocoran state namun classic mode tetap default aman.
+5. **Mobile Touch Ergonomics & Card View Adapter (Fase 11)** — Desain responsif mobile bukan sekadar mengecilkan font atau membiarkan tabel scroll horizontal; antarmuka mentransformasikan tabel desktop ke format `CardView` adaptif, filter via Bottom Sheet modal, sticky action bar pada detail tiket, dan audit touch target min 44×44px (WCAG 2.2 AA).
+6. **FrankenPHP + opsi Octane worker mode (v1.1.2)** — runtime produksi ramping; kontainer dilengkapi ekstensi `pcntl` untuk signal handling (`SIGTERM`/`SIGINT`), entrypoint docker auto-migration & cache warming (`config:cache`, `route:cache`, `view:cache`), serta streamed CSV export memory-safe.
 
 ### Bukti Konkret
 - httpOnly cookie: `apps/web/src/lib/server/session.ts:6-8` (`httpOnly: true, secure: prod, sameSite: 'lax'`).
@@ -167,5 +168,8 @@ Coba tutup tiket yang belum RESOLVED via UI → tombol "Tutup Tiket" tidak muncu
 | Polling notifikasi 30s | `use-notifications-poll.ts:15` |
 | httpOnly cookie | `session.ts:6-8` |
 | Compliance defensif | `SlaMetricsCalculator.php:36-38` |
+| Mobile Card View Adapter | `data-table.tsx:142`, `ticket-card.tsx`, `asset-card.tsx` |
+| Touch Ergonomics 44px (WCAG 2.2 AA) | Playwright Mobile suite (`Pixel 7`, `iPhone 14`) |
+| Octane Readiness (`pcntl` & auto-cache) | `apps/api/Dockerfile:14`, `docker-entrypoint.sh:10-25` |
 | Data demo deterministik ±87% | `DemoDataSeeder.php`, `DemoDataSeederTest.php` |
 | Golden path otomatis | `golden-path.spec.ts` (21 test E2E hijau) |
